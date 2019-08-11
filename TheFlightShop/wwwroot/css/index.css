@@ -1,0 +1,21 @@
+﻿.flightshop-index-link-image {
+    max-width: 310px;
+}
+
+.flightshop-exclude-link-style {
+    color: #222;
+}
+.flightshop-index-link-section {
+    text-align: center;
+}
+    .flightshop-index-link-section a:hover {
+        text-decoration: none;
+    }
+    .flightshop-index-link-section:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+    .flightshop-index-link-section:hover .flightshop-index-link-text {
+        text-decoration: underline;
+    }
+

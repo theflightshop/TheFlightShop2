@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - TheFlightShop</title>
+
+        <environment include="Development">
+            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+            <link rel="stylesheet" href="~/css/site.css" />
+            <link rel="stylesheet" href="~/css/index.css" />
+            <link rel="stylesheet" href="~/css/maintenance/company-profile.css" />
+            <link rel="stylesheet" href="~/css/maintenance/facility.css" />
+            <link rel="stylesheet" href="~/css/maintenance/services.css" />
+            <link rel="stylesheet" href="~/css/maintenance/parts.css" />
+            <link rel="stylesheet" href="~/css/maintenance/modifications.css" />
+            <link rel="stylesheet" href="~/css/maintenance/cabin-baggage-door-struts.css" />
+            <link rel="stylesheet" href="~/css/maintenance/cabin-door-cables.css" />
+            <link rel="stylesheet" href="~/css/maintenance/window-shades.css" />
+            <link rel="stylesheet" href="~/css/maintenance/instrument-panels.css" />
+            <link rel="stylesheet" href="~/css/click-bond/authorized-distributor.css" />
+            <link rel="stylesheet" href="~/css/click-bond/installation.css" />
+            <link rel="stylesheet" href="~/css/click-bond/strength-data.css" />
+            <link rel="stylesheet" href="~/css/click-bond/ordering-information.css" />
+        </environment>
+        <environment exclude="Development">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                  asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+            <link rel="stylesheet" href="~/css/min/site.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/min/index.min.css" asp-append-version="true" />
+            <link rel="stylesheet" href="~/css/min/maintenance/company-profile.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/facility.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/services.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/parts.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/modifications.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/cabin-baggage-door-struts.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/cabin-door-cables.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/window-shades.min.css" />
+            <link rel="stylesheet" href="~/css/min/maintenance/instrument-panels.min.css" />
+            <link rel="stylesheet" href="~/css/min/click-bond/authorized-distributor.min.css" />
+            <link rel="stylesheet" href="~/css/min/click-bond/installation.min.css" />
+            <link rel="stylesheet" href="~/css/min/click-bond/strength-data.min.css" />
+            <link rel="stylesheet" href="~/css/min/click-bond/ordering-information.min.css" />
+        </environment>
+    </head>
+    <body>
+        <nav id="flightshop-nav-header" class="navbar navbar-expand navbar-inverted navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img id="flightshop-logo" src="~/images/the-flight-shop.png" />
+                    </a>
+                </div>
+               <!--<div class="navbar-collapse collapse">-->
+                    <ul id="flightshop-nav-menu" class="nav navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Maintenance<span class="caret flightshop-nav-caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item flightshop-sub-nav-option" 
+                                    asp-area="" 
+                                    asp-controller="Home" 
+                                    asp-action="CompanyProfile">Company Profile</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Facility">Facility</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Services">Services</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Parts">Parts</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="Modifications">Modifications</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="CabinBaggageDoorStruts">Cabin &amp; Baggage Door Struts</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="CabinDoorCables">Cabin Door Cables</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="WindowShades">Window Shades</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="InstrumentPanels">Instrument Panels</a>
+                                <a class="dropdown-item flightshop-sub-nav-option" href="#">Bulletin Board</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Click Bond<span class="caret flightshop-nav-caret"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
+                                <a class="dropdown-item flightshop-sub-nav-option" href="#">Products</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="ClickBondInstallation">Installation</a>
+                                <a class="dropdown-item flightshop-sub-nav-option" 
+                                    href="~/documents/click-bond-process-specification.pdf"
+                                    target="_blank">Process Specification</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="ClickBondStrengthData">Strength Data</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Home"
+                                   asp-action="OrderingInformation">Ordering Information</a>
+                                <a class="dropdown-item flightshop-sub-nav-option" 
+                                    href="~/documents/the-flight-shop-catalog.pdf"
+                                    target="_blank">Free Catalog</a>
+                            </div>
+                        </li>
+                        <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        <li>
+                            <a class="flightshop-cart-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">
+                                <img src="~/images/icons/cart.svg" alt="cart" />
+                                <span class="flightshop-cart-items-count">&nbsp;3&nbsp;</span>
+                            </a>
+                        </li>
+                    </ul>
+                <!-- </div> -->
+            </div>
+        </nav>
+
+       <!-- <partial name="_CookieConsentPartial" /> -->
+
+        <div class="container body-content">
+            @RenderBody()
+            <footer id="flightshop-footer">
+                <hr />
+                <p>&copy; 2019 - TheFlightShop | <a asp-area="" asp-controller="Home" asp-action="Terms">Terms</a></p>
+            </footer>
+        </div>
+
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>

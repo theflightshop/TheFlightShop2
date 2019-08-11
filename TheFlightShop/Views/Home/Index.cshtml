@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "The Flight Shop";
+}
+
+<div class="flightshop-page-content">
+    <p>
+        The Flight Shop, Inc. established in 1979 as a general aviation maintenance facility with special interest and owner experience with the twin engine Piper Aerostar. In 1997 The Flight Shop was chosen to be a factory authorized Click Bond distributor.
+    </p>
+    <p>
+        Located on the Brigham City Airport (KBMC) in beautiful northern Utah 50 miles north of Salt Lake City, our 22,000 sq. ft. family owned and operated facility is staffed with two IA-A/P certified mechanics and houses nearly 2000 individual aircraft parts and Click Bond fasteners.
+    </p>
+    <p>
+        Whether your need is a simple oil change, annual inspection or a major renovation on single, twin or turbo prop aircraft The Flight Shop crew is here to help.  We offer personalized service with minimal down time, pickup and delivery to and from Salt Lake International or if you’d like to vacation while you wait we can provide a courtesy car.
+    </p>
+    <p>
+        If you’re looking for Click Bond fasteners for your home built, experimental or factory produced aircraft why purchase anywhere other than the factory authorized distributor.  We have no minimum order requirements and can usually ship in stock items the same day.
+    </p>
+    <p>
+        Our web site consists of two main sections, General Aviation (Aerostar) information and Click Bond products, data and online ordering. Please feel free to contact us regarding questions that you may not find the answers to within this website.
+    </p>
+
+    <div class="row">
+        <div class="col-xs-6 flightshop-index-link-section">
+            <a asp-area="" asp-controller="Home" asp-action="CompanyProfile">
+                <h3 class="flightshop-exclude-link-style">General Aviation Maintenance</h3>
+                <p class="flightshop-index-link-subtitle flightshop-exclude-link-style"><em>Aerostar Specialist</em></p>
+                <p class="flightshop-index-link-text">Company Profile</p>
+                <img class="flightshop-index-link-image" src="~/images/index/airplanes-maintenance-link.jpg" alt="maintenance" />
+            </a>
+</div>
+        <div class="col-xs-6 flightshop-index-link-section">
+            <a asp-area="" asp-controller="Home" asp-action="ClickBondAuthorizedDistributor">
+                <h3 class="flightshop-exclude-link-style">Click Bond</h3>
+                <p class="flightshop-index-link-subtitle flightshop-exclude-link-style"><em>Authorized Distributor</em></p>
+                <p class="flightshop-index-link-text">Learn More</p>
+                <img class="flightshop-index-link-image" src="~/images/index/click-bond-link.jpg" alt="click bond" />
+            </a>
+</div>
+    </div>
+</div>

@@ -1,0 +1,154 @@
+﻿/** variables */
+:root {
+    --min-page-width: 768px;
+}
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    min-width: var(--min-page-width);
+}
+
+/* Site: wrapping element */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    color: #222;
+}
+/* View: wrapping element */
+.flightshop-page-content {
+    margin-top: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50em;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/** NAV */
+
+#flightshop-nav-header {
+    background-color: #4787B7;
+    height: 5em;
+    min-width: var(--min-page-width);
+}
+
+#flightshop-nav-menu {
+    float: right;
+}
+#flightshop-nav-menu > li {
+    height: 5em;
+}
+
+@media screen and (max-width: 767px) {
+    .navbar-nav > li, .navbar-nav {
+        float: left !important;
+    }
+
+    #flightshop-nav-menu {
+        float: left !important;
+        display: block;
+    }
+}
+
+.flightshop-main-nav-option {
+    padding-top: 1.25em !important;
+    padding-bottom: 1.6em !important;
+    color: black;
+    font-size: 1.25em;
+}
+
+.flightshop-sub-nav-option {
+    color: #444;
+    font-size: 1.25em;
+    display: block;
+    margin: 0.25em 0.5em;
+    white-space: nowrap;
+}
+
+.flightshop-cart-nav-option {
+    padding-bottom: 1.4em !important;
+}
+.flightshop-cart-nav-option img {
+    width: 2.5em;
+}
+.flightshop-cart-items-count {
+    border-radius: 50%;
+    width: 5em;
+    height: 1em;
+    padding: 0.25em;
+    background: #ddd;
+    border: 2px solid #444;
+    color: #333;
+    text-align: center;
+    font: 1em Arial, sans-serif;
+    z-index: 1000;
+    position: relative;
+    left: -0.5em;
+    top: 1em;
+}
+
+.flightshop-nav-caret {
+    margin-left: 0.5em;
+}
+
+#flightshop-logo {
+    height: 2.5em;
+}
+
+
+
+.navbar-collapse.collapse {
+    display: block !important;
+}
+
+
+
+    .navbar-nav.navbar-right:last-child {
+        margin-right: -15px !important;
+    }
+
+.navbar-right {
+    float: right !important;
+}
+
+.clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-header:before, .modal-header:after, .modal-footer:before, .modal-footer:after {
+    display: none !important;
+    content: " ";
+}
+
+/** END NAV */
+
+/** other site-wide styling */
+
+.flightshop-page-header-subtext {
+    padding-left: 0.5em;
+}
+
+.flightshop-info-page-centered-image {
+    margin-top: 1.5em;
+    text-align: center;
+}
+
+.flightshop-centered-image-with-title {
+    text-align: center;
+    margin-top: 2em;
+}
+
+/** footer */
+
+#flightshop-footer {
+    clear: both;
+    padding-top: 1em;
+}
+#flightshop-footer p {
+    text-align: center;
+}
