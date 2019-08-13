@@ -20,41 +20,61 @@
                     new { categoryId = Model.CategoryId }
                 )
             </li>
-            <li class="breadcrumb-item active" aria-current="page">
+            <li id="flightshop-active-subcategory-breadcrumb" class="breadcrumb-item active" aria-current="page">
                 @Model.SubCategory
+            </li>
+            <li id="flightshop-return-to-subcategory-breadcrumb" class="breadcrumb-item" 
+                style="display: none;">
+                <a class="flightshop-faux-link" onclick="hideRFQ()">@Model.SubCategory</a>
+            </li>
+            <li id="flightshop-product-rfq-breadcrumb" class="breadcrumb-item active"
+                style="display: none;">
             </li>
         </ol>
     </nav>
 
-    <table id="flightshop-subcategory-products-table">
-        <tr>
-            <th class="flightshop-subcategory-table-header-short">Image</th>
-            <th class="flightshop-subcategory-table-header-short">Drawings</th>
-            <th class="flightshop-subcategory-table-header-long">Description</th>
-            <th class="flightshop-subcategory-table-header-short"></th>
-        </tr>
-        @foreach (var product in Model.Products) {
+    <div id="flightshop-subcategory-content">
+        <table id="flightshop-subcategory-products-table">
             <tr>
-                <td class="flightshop-subcategory-table-product-image">
-                    <img src="~/product/@product.Code/image.gif" alt="@product.Code" />
-                </td>
-                <td class="flightshop-subcategory-table-product-code">
-                    <a href="~/product/@product.Code/drawing.pdf" target="_blank">@product.Code</a>
-                </td>
-                <td>
-                    @if (product.IsMostPopular) {
-                        <span class="flightshop-subcategory-table-asterisk">*</span>
-                    }
-                    @product.ShortDescription
-                </td>
-                <td>
-                    @if (product.HasPricing) {
-                        <span>Pricing</span>
-                    }
-                    <span>RFQ</span>
-                </td>
+                <th class="flightshop-subcategory-table-header-short">Image</th>
+                <th class="flightshop-subcategory-table-header-short">Drawings</th>
+                <th class="flightshop-subcategory-table-header-long">Description</th>
+                <th class="flightshop-subcategory-table-header-short"></th>
             </tr>
-        }
-    </table>
-    <div id="flightshop-most-popular-descriptor">* Most Popular</div>
+            @foreach (var product in Model.Products) {
+                <tr>
+                    <td class="flightshop-subcategory-table-product-image">
+                        <img src="~/product/@product.Code/image.gif" alt="@product.Code" />
+                    </td>
+                    <td class="flightshop-subcategory-table-product-code">
+                        <a href="~/product/@product.Code/drawing.pdf" target="_blank">@product.Code</a>
+                    </td>
+                    <td>
+                        @if (product.IsMostPopular) {
+                            <span class="flightshop-subcategory-table-asterisk">*</span>
+                        }
+                        @product.ShortDescription
+                    </td>
+                    <td>
+                        @if (product.HasPricing) {
+                            @Html.ActionLink(
+                                "Pricing",
+                                "ProductDetail",
+                                "Products",
+                                new { id = product.Id }
+                            )
+                            <span>&nbsp;|&nbsp;</span>
+                        }
+                        <a class="flightshop-faux-link" onclick="displayRFQ('@product.Code')">RFQ</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div id="flightshop-most-popular-descriptor">* Most Popular</div>
+    </div>
+
+    <div id="flightshop-product-rfq-content" class="flightshop-page-content"
+         style="display: none;">
+        <h4>it works!!</h4>
+    </div>
 </div>

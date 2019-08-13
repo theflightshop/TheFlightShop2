@@ -23,6 +23,7 @@
     <Folder Include="DAL\" />
     <Folder Include="Views\Products\" />
     <Folder Include="wwwroot\css\products\" />
+    <Folder Include="wwwroot\js\products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\min\site.min.css" />

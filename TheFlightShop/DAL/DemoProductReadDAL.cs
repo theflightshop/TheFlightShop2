@@ -199,7 +199,13 @@ namespace TheFlightShop.DAL
             {
                 return new ProductView
                 {
-                    Description = "CN609 nutplate has a removable clip for nut replacement and can be ordered in sizes ranging from 8/32\" to 5/16-18\" with a nut and baseplate material of A-286 CRES. This CN609 nutplate can be ordered in metric sizes.",
+                    CategoryId = GEN_AVIATION_CATEGORY_ID,
+                    Category = "General Aviation / Industrial / Commercial",
+                    SubCategoryId = NUTPLATES_ID,
+                    SubCategory = "Nutplates",
+                    ProductCode = "CN609",
+                    ShortDescription = "Two Lug, Clip Retained",
+                    LongDescription = "CN609 nutplate has a removable clip for nut replacement and can be ordered in sizes ranging from 8/32\" to 5/16-18\" with a nut and baseplate material of A-286 CRES. This CN609 nutplate can be ordered in metric sizes.",
                     Parts = new List<Part>
                     {
                         new Part

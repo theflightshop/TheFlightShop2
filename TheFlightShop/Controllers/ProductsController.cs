@@ -46,5 +46,14 @@ namespace TheFlightShop.Controllers
                 return View(subCategoryView);
             });
         }
+
+        public async Task<IActionResult> ProductDetail(Guid id)
+        {
+            return await Task.Run(() =>
+            {
+                var productView = _productReadDAL.GetProductView(id);
+                return View(productView);
+            });
+        }
     }
 }

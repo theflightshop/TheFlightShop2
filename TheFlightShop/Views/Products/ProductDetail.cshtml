@@ -1,0 +1,40 @@
+﻿@model TheFlightShop.Models.ProductView
+@{
+    ViewData["Title"] = "Product Detail - " + Model.ProductCode;
+}
+
+<div class="flightshop-page-content">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-controller="Products" asp-action="Index">ClickBond</a>
+            </li>
+            <li class="breadcrumb-item">
+                @Html.ActionLink(
+                     Model.Category,
+                     "Index",
+                     "Products",
+                     new { categoryId = Model.CategoryId }
+                 )
+            </li>
+            <li class="breadcrumb-item">
+                @Html.ActionLink(
+                     Model.SubCategory,
+                     "SubCategory",
+                     "Products",
+                     new { id = Model.SubCategoryId }
+                 )
+            </li>
+            <li class="breadcrumb-item  active" aria-current="page">
+                @Model.ProductCode
+            </li>
+        </ol>
+    </nav>
+
+    <table>
+
+    </table>
+</div>
