@@ -19,8 +19,15 @@
     <Folder Include="wwwroot\css\min\maintenance\" />
     <Folder Include="wwwroot\css\click-bond\" />
     <Folder Include="wwwroot\css\min\click-bond\" />
+    <Folder Include="product-static-files\" />
+    <Folder Include="DAL\" />
+    <Folder Include="Views\Products\" />
+    <Folder Include="wwwroot\css\products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\min\site.min.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="**/*" />
   </ItemGroup>
 </Project>

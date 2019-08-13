@@ -22,6 +22,8 @@
             <link rel="stylesheet" href="~/css/click-bond/installation.css" />
             <link rel="stylesheet" href="~/css/click-bond/strength-data.css" />
             <link rel="stylesheet" href="~/css/click-bond/ordering-information.css" />
+            <link rel="stylesheet" href="~/css/products/index.css" />
+            <link rel="stylesheet" href="~/css/products/sub-category.css" />
         </environment>
         <environment exclude="Development">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -42,6 +44,8 @@
             <link rel="stylesheet" href="~/css/min/click-bond/installation.min.css" />
             <link rel="stylesheet" href="~/css/min/click-bond/strength-data.min.css" />
             <link rel="stylesheet" href="~/css/min/click-bond/ordering-information.min.css" />
+            <link rel="stylesheet" href="~/css/min/products/index.min.css" />
+            <link rel="stylesheet" href="~/css/min/products/sub-category.min.css" />
         </environment>
     </head>
     <body>
@@ -113,7 +117,10 @@
                                    asp-area=""
                                    asp-controller="Home"
                                    asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
-                                <a class="dropdown-item flightshop-sub-nav-option" href="#">Products</a>
+                                <a class="dropdown-item flightshop-sub-nav-option"
+                                   asp-area=""
+                                   asp-controller="Products"
+                                   asp-action="Index">Products</a>
                                 <a class="dropdown-item flightshop-sub-nav-option"
                                    asp-area=""
                                    asp-controller="Home"

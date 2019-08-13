@@ -1,0 +1,32 @@
+﻿.flightshop-product-category-table-section {
+    margin-bottom: 1em;
+}
+
+.flightshop-product-category-table-title {
+    padding: 0.5em 0;
+    display: inline-block;
+    margin: 0;
+    background-color: #efefef;
+    border: 1px solid #ddd;
+    width: 400px;
+    text-align: center;
+}
+
+.flightshop-product-category-table {
+    width: 400px;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.flightshop-product-category-count-header {
+    width: 15%;
+}
+
+.flightshop-product-table-padded-cell {
+    padding: 0.25em 0.5em;
+}
+
+.flightshop-product-table-subcategory-count {
+    text-align: center;
+}
