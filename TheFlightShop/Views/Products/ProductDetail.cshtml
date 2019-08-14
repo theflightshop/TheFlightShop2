@@ -34,7 +34,22 @@
         </ol>
     </nav>
 
+    <h4>@Model.ShortDescription</h4>
     <table>
-
+        <tr>
+            <th>Part Number</th>
+            <th>Description</th>
+            <th>Price per Part</th>
+            <th>Quantity</th>
+        </tr>
+        <!-- alternateColor = faslse; alternateColor = !alternateColor -->
+        @foreach (var part in Model.Parts) {
+            <tr>
+                <td>@part.PartNumber</td>
+                <td>@part.Description</td>
+                <td>@part.Price</td>
+                <td></td>
+            </tr>
+        }
     </table>
 </div>
