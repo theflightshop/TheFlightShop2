@@ -1,0 +1,167 @@
+﻿[
+  {
+    "Id": "dec3422d-46d0-4a6b-af31-e6ab985f69f7",
+    "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
+    "Name":  "Bushings"
+  },
+  {
+    "Id": "1f4ac57a-a7db-444e-9c5d-3364a2f6b04a",
+    "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
+      "Name": "Nutplates"
+  },
+  {
+    "Id": "5fc231a9-fa43-4f2d-8361-a71df6848d67",
+    "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
+      "Name": "Standoffs"
+  },
+  {
+    "Id": "09f7e54d-f5c8-44c5-8216-206cb3d2ef15",
+    "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
+      "Name": "Studs"
+  },
+  {
+    "Id": "93eab259-bd5d-435b-9b32-51542b126f6d",
+    "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
+      "Name": "Grommets"
+  },
+  {
+    "Id": "7a94ce11-43e4-4659-90d1-b933a68d2915",
+    "CategoryId": "dfa88274-35ed-4070-a547-c28e4c458d7e",
+    "Name": "Adhesive Cartridges/Kits"
+  },
+  {
+    "Id": "c4fc7aa7-a397-41d7-a2f0-fd26b80410ee",
+    "CategoryId": "dfa88274-35ed-4070-a547-c28e4c458d7e",
+    "Name": "Adhesive Dispensers"
+  },
+  {
+    "Id": "9b204db8-3a2c-4dd3-b575-afec392ce41f",
+    "CategoryId": "dfa88274-35ed-4070-a547-c28e4c458d7e",
+    "Name": "Adhesive Mixing Tips"
+  },
+  {
+    "Id": "8c801d41-8ee2-4437-847c-87507b8973c6",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Replaceable Element Nutplates"
+  },
+  {
+    "Id": "b0930aec-7213-45e9-90b5-a79d4f1362ca",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Composite Base Nutplates"
+  },
+  {
+    "Id": "e72f9a55-ba2c-4f5d-aa89-f1365b5137e9",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Miniature Nutplates"
+  },
+  {
+    "Id": "a06fc98a-c5e3-4d74-94b6-f665b2c10093",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Sealed Nutplates"
+  },
+  {
+    "Id": "de9768ad-0569-45be-bf3f-1411cba6ca64",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Sleeved Nutplates"
+  },
+  {
+    "Id": "6972c27f-e46a-46da-bd89-28defb73de84",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Flex™ (Fatigue Life Extension) Cold-Work Nutplates"
+  },
+  {
+    "Id": "1efcc670-1c20-423a-a2bf-1f3cc09aff96",
+    "CategoryId": "21b66f76-1df3-4340-aaef-2e1220cc297e",
+    "Name": "Quarter Turn Receptacle"
+  },
+  {
+    "Id": "6ea4af6f-94a3-4871-bb6d-04743a881cfd",
+    "CategoryId": "9d204cdb-ad35-4a84-bdee-e623b1b5f8b6",
+    "Name": "Metallic Base Studs"
+  },
+  {
+    "Id": "001036fb-7c8d-43f0-806c-7b1c2758b700",
+    "CategoryId": "9d204cdb-ad35-4a84-bdee-e623b1b5f8b6",
+    "Name": "Composite Base Studs"
+  },
+  {
+    "Id": "ea76f9ba-f6a2-434e-b436-451d3e4a5c7d",
+    "CategoryId": "9d204cdb-ad35-4a84-bdee-e623b1b5f8b6",
+    "Name": "Accessories"
+  },
+  {
+    "Id": "9cd4ceb0-231b-4894-aace-b0b044cf5b45",
+    "CategoryId": "934c2b96-e960-4fc2-b381-a075b427dd86",
+    "Name": "Metallic Base Standoffs"
+  },
+  {
+    "Id": "6896e78a-133e-491c-9d3a-b489be92d9d9",
+    "CategoryId": "934c2b96-e960-4fc2-b381-a075b427dd86",
+    "Name": "Composite Base Standoffs"
+  },
+  {
+    "Id": "cef6b260-2cea-4751-9c1d-07fe9e62758c",
+    "CategoryId": "934c2b96-e960-4fc2-b381-a075b427dd86",
+    "Name": "Accessories"
+  },
+  {
+    "Id": "5373cab2-2bf0-4181-a4ff-174f3ff4ca10",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Pinch Mounts™ Threaded Mounts"
+  },
+  {
+    "Id": "9b191494-4f0a-47ea-b74a-5607530380b5",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Threaded Mounts"
+  },
+  {
+    "Id": "d9fdfab8-eaad-4b3f-88de-1e8691320e67",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Cable Tie Mounts"
+  },
+  {
+    "Id": "7a2b18c5-4d5c-457a-a0bf-3c3b15a32f1f",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Cable Ties"
+  },
+  {
+    "Id": "72496ce4-0e26-4995-a3ef-2ad9ded5bd9c",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Insulation Blanket Mounts"
+  },
+  {
+    "Id": "55f186c9-6122-4573-83e0-1096bb5d84d8",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Other Mounts"
+  },
+  {
+    "Id": "5cb6671a-95ca-4be7-bf07-31b64770b637",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Pin Insulation Mount"
+  },
+  {
+    "Id": "85a7f5c1-36bf-46b2-baed-7dc6c742d84c",
+    "CategoryId": "82bfafae-281f-4145-9a9e-4a92289eeef7",
+    "Name": "Accessories"
+  },
+  {
+    "Id": "92982a0a-62b9-443e-8fed-43e09d02464a",
+    "CategoryId": "09c6f658-4220-407a-9b2a-e7f82931c255",
+    "Name": "Bushings"
+  },
+  {
+    "Id": "967817ab-2858-464a-8762-ef5871145c8d",
+    "CategoryId": "09c6f658-4220-407a-9b2a-e7f82931c255",
+    "Name": "Inserts"
+  },
+  {
+    "Id": "15263344-034e-4830-aa73-d2b6c0a83ef6",
+    "CategoryId": "e9cd20de-2686-4c46-86e3-cadbfd55bdaa",
+    "Name": "Click Patch™"
+  },
+  {
+    "Id": "c585f27f-b118-4536-afa9-0205bfb39a1a",
+    "CategoryId": "12c58d9e-f7c2-4176-914e-a7ed1bab1c88",
+    "Name": "Tools and Accessories"
+  }
+]

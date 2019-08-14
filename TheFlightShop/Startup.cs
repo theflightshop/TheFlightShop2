@@ -38,6 +38,12 @@ namespace TheFlightShop
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // dependency injection
+            /**
+             * ^ ^ ^ < < > > ^ ^ ^ 
+             * NOTE NOTE NOTE NOTE NOTE!!!
+             * change this to be AddScoped for database DAL
+             * --- *** +++ *** ---
+             */
             services.AddSingleton<IProductReadDAL, DemoProductReadDAL>();
         }
 

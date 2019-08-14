@@ -1,0 +1,282 @@
+﻿[
+  {
+    "Id": "bd8cd91e-d6e1-4a12-888a-127fa34c3d66",
+    "ProductId": "b8bdc583-a7ad-43df-a44d-793a928096c5",
+    "PartNumber": "CN609CR08P",
+    "Description": "8/32\" stainless steel/primed",
+    "Price": 4
+  },
+    {
+        "Id": "4ce1bba8-7a26-4325-b59d-8c7464d39860",
+        "ProductId": "b8bdc583-a7ad-43df-a44d-793a928096c5",
+        "PartNumber": "CN609CR3P",
+        "Description": "10/32\" stainless steel primed",
+        "Price": 4
+    },
+    {
+        "Id": "832a9541-3754-41b8-a6d9-c08dce46576d",
+        "ProductId": "b8bdc583-a7ad-43df-a44d-793a928096c5",
+        "PartNumber": "CN609CR4P",
+        "Description": "1/4-28\" stainless steel/primed",
+        "Price": 4.93
+    },
+    {
+        "Id": "755fa2ef-91a4-4237-8ee0-b63cdc1635f2",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR04P",
+        "Description": "4/40 stainless steel/primed",
+        "Price": 3.2
+    },
+    {
+        "Id": "eda39360-9808-4fd8-9a80-167a74964c8d",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR06P",
+        "Description": "6/32 stainless steel/primed",
+        "Price": 3.1
+    },
+    {
+        "Id": "4572672f-bb96-4a32-bd5d-2e493043d9c7",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR08P",
+        "Description": "8/32 stainless steel/primed",
+        "Price": 3.1
+    },
+    {
+        "Id": "a8c872c9-45b5-4394-afcb-ca13ade66ddf",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR3P",
+        "Description": "10/32 stainless steel/primed",
+        "Price": 3.1
+    },
+    {
+        "Id": "c9f7c9fb-0903-49aa-815e-97aeef5e6535",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR4P",
+        "Description": "1/4-28 stainless steel/primed",
+        "Price": 4.25
+    },
+    {
+        "Id": "e067b641-b9b8-4e98-a1cf-52ff4df4f796",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "CN614CR5P",
+        "Description": "5/16-24 stainless steel/primed",
+        "Price": 7.65
+    },
+    {
+        "Id": "6d8f84b9-627d-4699-b24e-8a3e4ae6402b",
+        "ProductId": "e3877ce4-9a12-4124-8227-cf7dcc139154",
+        "PartNumber": "KA100E2CN614CR06P",
+        "Description": "Wing Tip Kit",
+        "Price": 395
+    },
+    {
+        "Id": "280b07db-9b50-466c-9b69-b3f29b1fd645",
+        "ProductId": "539f96da-353f-463c-a760-b80e426c2ce2",
+        "PartNumber": "CN610ACR08P",
+        "Description": "8/32\" stainless steel & aluminum",
+        "Price": 7
+    },
+    {
+        "Id": "310e54fa-5fd3-4b8d-88fb-47e8fc6b73e8",
+        "ProductId": "539f96da-353f-463c-a760-b80e426c2ce2",
+        "PartNumber": "CN610ACR3",
+        "Description": "10/32\" stainless steel & aluminum",
+        "Price": 6.5
+    },
+    {
+        "Id": "cc8a4ab8-7724-4459-8f9d-121f17b47013",
+        "ProductId": "539f96da-353f-463c-a760-b80e426c2ce2",
+        "PartNumber": "CN610CR3P",
+        "Description": "10/32\" stainless steel w/primer",
+        "Price": 8
+    },
+    {
+        "Id": "6bfd3a67-a09f-450d-b965-de7252513636",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-440-5CR",
+        "Description": "4/40-5/16\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "4c0b76da-943e-46fa-87f9-4cbaef4d0809",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-440-6CR",
+        "Description": "4/40-3/8\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "269fa05e-873d-4846-b378-ce4adcd8d255",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-440-8CR",
+        "Description": "4/40-1/2\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "1ddadfcd-a13c-4286-8c61-aaa24378fe52",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-440-10CR",
+        "Description": "4/40-5/8\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "93adbfa6-7c98-4759-a5da-d0122cd2ca7b",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-440-12CR",
+        "Description": "4/40-3/4\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "415d500c-ceba-4a20-9aca-7461034d5eb6",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-632-8CR",
+        "Description": "6/32-1/2\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "03dcb11d-e990-4915-a47a-f4c048a34817",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-632-10CR",
+        "Description": "6/32-5/8\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "8f8fe9f2-6aac-479c-a883-5b558bdb74f9",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-632-12CR",
+        "Description": "6/32-3/4\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "44b37abd-d27e-4792-a9ae-d95f80176144",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-832-8CR",
+        "Description": "8/32-1/2\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "d3237a2d-5dc7-4cb0-a385-e499d34dc218",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-832-10CR",
+        "Description": "8/32-5/8\" stainless steel",
+        "Price": 3
+    },
+    {
+        "Id": "56b507f7-44a5-4073-bff8-0f9954e62630",
+        "ProductId": "c1f69d99-4530-40ab-befd-c8d6a27448d5",
+        "PartNumber": "CN62-1032-8CR",
+        "Description": "10/32-1/2\" stainless steel",
+        "Price": 3.68
+    },
+    {
+        "Id": "a8a0cbf7-b1e4-450d-a924-fce53716a1b6",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-632-8CR",
+        "Description": "6/32-1/2\" long/stainless steel",
+        "Price": 3.75
+    },
+    {
+        "Id": "85cedfc4-c491-4d61-aadc-3a5a33de5423",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-632-12CR",
+        "Description": "6/32-3/4\" long/stainless steel",
+        "Price": 3.75
+    },
+    {
+        "Id": "29ad29e3-8e5d-48c9-8556-15097da133a9",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-632-16CR",
+        "Description": "6/32-1\" long/stainless steel",
+        "Price": 3.75
+    },
+    {
+        "Id": "18e4a96d-c17d-4bf5-b09f-8b325f37790a",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-832-5CR",
+        "Description": "8/32-5/16\" long/stainless steel",
+        "Price": 3.75
+    },
+    {
+        "Id": "06f6d7ad-5e1a-4f7a-b3e9-3ff3e2853be8",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-832-8CR",
+        "Description": "8/32-1/2\" long/stainless steel",
+        "Price": 3.75
+    },
+    {
+        "Id": "256bd18b-9f15-486d-b35a-46fa334bf9d8",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-832-12CR",
+        "Description": "8/32-3/4\" long/stainless steel",
+        "Price": 4.98
+    },
+    {
+        "Id": "dd62fe76-c96a-4252-9eb1-4da4251638f2",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-832-16CR",
+        "Description": "8/32-1\" long/stainless steel",
+        "Price": 4.98
+    },
+    {
+        "Id": "9d759067-8d87-40ed-80e0-f7bd3b011a0b",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-8CR",
+        "Description": "10/32-1/2\" long/stainless steel",
+        "Price": 4.43
+    },
+    {
+        "Id": "6c191348-6678-4d94-a178-ee623f7402c3",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-12CR",
+        "Description": "10/32-3/4\" long/stainless steel",
+        "Price": 4.43
+    },
+    {
+        "Id": "3735fc83-346a-4e74-bffc-7d57e809c4f6",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-16CR",
+        "Description": "10/32-1\" long/stainless steel",
+        "Price": 4.43
+    },
+    {
+        "Id": "b22aa66c-0959-410e-be0a-3f0a5aa41103",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-832-8GCR",
+        "Description": "8/32-1/2\" long/composite base",
+        "Price": 5.9
+    },
+    {
+        "Id": "8984ec7f-f242-4214-a007-e001f9077c5c",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-8GCR",
+        "Description": "10/32-1/2\" long/composite base",
+        "Price": 4.68
+    },
+    {
+        "Id": "80f648b8-8fdf-4e22-8c29-fce3870cc653",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-12GCR",
+        "Description": "10/32-3/4\" long/composite base",
+        "Price": 4.68
+    },
+    {
+        "Id": "aa54f316-841d-4450-9f4b-7e7ceddb0b7e",
+        "ProductId": "5e550a98-8855-4a16-83e2-d5a3ad1090b8",
+        "PartNumber": "CN125-1032-16GCR",
+        "Description": "10/32-1\" long/composite base",
+        "Price": 6
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    }
+]
