@@ -378,95 +378,242 @@
         "Price": 3.18
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "773e11a2-95ff-476d-9c52-7ea465c37f81",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-4CR",
+        "Description": "6/32-1/4\" long/stainless steel",
+        "Price": 3
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "b5458716-f8f8-47c5-9ff8-47fe7d813dcc",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-8CR",
+        "Description": "6/32-1/2\" long/stainless steel",
+        "Price": 3.18
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "6cde49ba-6892-4e4c-ad80-ef0c8ca44ff6",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-12CR",
+        "Description": "6/32-3/4\" long/stainless steel",
+        "Price": 3
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "9fbdd3e8-7107-493a-80dd-252b621553e7",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-16CR",
+        "Description": "6/32-1\" long/stainless steel",
+        "Price": 3.19
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "be23b33f-9d2e-4c40-9e3c-8788e75a6409",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-8CR",
+        "Description": "8/32-1/2\" long/stainless steel",
+        "Price": 3
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "b99437b6-60a3-4b8b-a608-e857f78f8bdb",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-12CR",
+        "Description": "8/32-3/4\" long/stainless steel",
+        "Price": 3
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "566ef574-db3e-44ca-8961-67f75f241fc1",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-16CR",
+        "Description": "8/32-1\" long/stainless steel",
+        "Price": 3.19
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "e8fdf0f5-893c-48f4-865f-67f5687f5bdc",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-6CR",
+        "Description": "10/32-3/8\" long/stainless steel",
+        "Price": 3.68
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "70ed3cd4-4d5f-4dc2-84f6-d474002cb798",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-8CR",
+        "Description": "10/32-1/2\" long/stainless steel",
+        "Price": 3.68
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "96be6480-a135-449e-9340-9195a8c2abb7",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-10CR",
+        "Description": "10/32-5/8\" long/stainless steel",
+        "Price": 3.68
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "c1c0f399-3810-48bc-ae5d-6ae209c97af2",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-12CR",
+        "Description": "10/32-3/4\" long/stainless steel",
+        "Price": 3.68
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "56260259-5386-4970-a99e-e0e501dd5817",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-14CR",
+        "Description": "10/32-7/8\" long/stainless steel",
+        "Price": 3.68
     },
     {
-        "Id": "",
-        "ProductId": "",
-        "PartNumber": "",
-        "Description": "",
-        "Price": 0
+        "Id": "39d085d0-a43f-4745-a9a0-21b857418bf7",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-16CR",
+        "Description": "10/32-1\" long/stainless steel",
+        "Price": 3.68
+    },
+    {
+        "Id": "7026253e-afac-4018-9ebb-b96a66193cc8",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-24CR",
+        "Description": "10/32-1.5\" long/stainless steel",
+        "Price": 4.08
+    },
+    {
+        "Id": "0e67766d-15f7-43a7-bfce-81f6455cbb9e",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1420-8CR",
+        "Description": "1/4-20-1/2\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "f0712f0c-e4df-475c-afce-6463d52c1a38",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1420-10CR",
+        "Description": "1/4-20-5/8\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "60351748-5242-47d7-abd2-26d986e6ebd2",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1420-12CR",
+        "Description": "1/4-20-3/4\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "14844ecc-f5d0-45c0-aa12-83ebe21cbf0a",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1420-16CR",
+        "Description": "1/4-20-1\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "4dcfa537-251a-4560-aa05-09f171f33dfd",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1420-24CR",
+        "Description": "1/4-20-1.5\" long/stainless steel",
+        "Price": 4.22
+    },
+    {
+        "Id": "d03b0eab-de94-467d-986c-a6eb320fb3a7",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1428-8CR",
+        "Description": "1/4-28-1/2\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "46a04415-36f6-44b2-8fa1-13cae47a1c7f",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1428-12CR",
+        "Description": "1/4-28-3/4\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "94209bc9-2576-40f1-9fbb-a8a20b23387e",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1428-16CR",
+        "Description": "1/4-28-1\" long/stainless steel",
+        "Price": 3.88
+    },
+    {
+        "Id": "ff199fec-a26b-4df1-a8a0-eba96f7c2fc3",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-12GCR",
+        "Description": "6/32-3/4\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "0dbabd95-c4f1-4e8c-bdf6-084e31ca9dea",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-632-24GCR",
+        "Description": "6/32-1.5\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "27011396-aeda-4fa5-ab32-d4106361dd6c",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-8GCR",
+        "Description": "8/32-1/2\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "17d22ca0-e1da-4bb2-bc8e-85fa9dabff12",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-12GCR",
+        "Description": "8/32-3/4\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "de50ab63-8f4f-49e4-98e6-ab665f7f78c1",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-832-14GCR",
+        "Description": "8/32-7/8\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "25e887e9-84df-40b6-a920-67db3b8eaf8f",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-5GCR",
+        "Description": "10/32-5/16\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "9ad2a902-2ea7-4b68-8d0a-7cda2aa77db2",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-8GCR",
+        "Description": "10/32-1/2\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "6e30bf99-9ffc-49bf-8130-1f27a5fe6828",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-12GCR",
+        "Description": "10/32-3/4\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "3607d5ff-9ed6-4329-8bb9-8bde50e3bb39",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-14GCR",
+        "Description": "10/32-7/8\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "da3c8ec3-ba3e-4b39-8abd-2649cd9e455e",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-16GCR",
+        "Description": "10/32-1\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "971a3b49-83e3-47e2-8a7e-f1397c8a5765",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1032-24GCR",
+        "Description": "10/32-1.5\" long/composite base",
+        "Price": 6.85
+    },
+    {
+        "Id": "76179941-8ed7-44e2-b67a-d5d6771af383",
+        "ProductId": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
+        "PartNumber": "CS125-1428-16GCR",
+        "Description": "1/4-28-1\" long/composite base",
+        "Price": 6.85
     },
     {
         "Id": "",
