@@ -135,34 +135,34 @@
         "Id": "b8e72581-2913-44d9-ac17-365f5f35e458",
         "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
         "SubCategoryId": "09f7e54d-f5c8-44c5-8216-206cb3d2ef15",
-        "Code": "",
-        "ShortDescription": "",
-        "LongDescription": null,
+        "Code": "CS62",
+        "ShortDescription": "Small (5/8\" Dia.) Base ",
+        "LongDescription": "Small base studs are especially helpful when mounting very small components. Lengths vary from .25\" to 1.5\" with a base diameter of .62\". This CS62 can be ordered in metric sizes.",
         "MostPopular": false,
-        "NumberOfInstallationExamples": 0,
-        "InstallationExamplesPerRow": null
+        "NumberOfInstallationExamples": 3,
+        "InstallationExamplesPerRow": 3
     },
     {
         "Id": "5d89865c-27f6-4210-aeae-e7d8fcaf426f",
         "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
         "SubCategoryId": "09f7e54d-f5c8-44c5-8216-206cb3d2ef15",
-        "Code": "",
-        "ShortDescription": "",
+        "Code": "CS125",
+        "ShortDescription": "Large (1 1/4\" Dia.) Base",
         "LongDescription": null,
         "MostPopular": false,
-        "NumberOfInstallationExamples": 0,
-        "InstallationExamplesPerRow": null
+        "NumberOfInstallationExamples": 3,
+        "InstallationExamplesPerRow": 2
     },
     {
         "Id": "45545ae9-f054-43fa-8cc2-7bc4b285ea96",
         "CategoryId": "3e228f70-4d2c-4e46-bea5-92512ff0b3e7",
         "SubCategoryId": "09f7e54d-f5c8-44c5-8216-206cb3d2ef15",
-        "Code": "",
-        "ShortDescription": "",
+        "Code": "CS200",
+        "ShortDescription": "Extra Large (2\" Dia.) Base",
         "LongDescription": null,
         "MostPopular": false,
-        "NumberOfInstallationExamples": 0,
-        "InstallationExamplesPerRow": null
+        "NumberOfInstallationExamples": 2,
+        "InstallationExamplesPerRow": 1
     },
     {
         "Id": "9aa601dc-9f2e-4ff3-b409-eb5efa1f2fde",

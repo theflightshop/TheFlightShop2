@@ -266,6 +266,216 @@
         "Price": 6
     },
     {
+        "Id": "21356d96-52de-46da-b3a7-3b2ea25eacde",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-440-4CR",
+        "Description": "4/40-1/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "32e8204a-459b-4b8d-b967-a0b5bb51c7c8",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-440-8CR",
+        "Description": "4/40-1/2\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "6bc3b086-c466-4869-aa7a-e939bc5aaab3",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-440-12CR",
+        "Description": "4/40-3/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "be48ce4f-3faa-4ce2-989f-71c27af7df3a",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-632-4CR",
+        "Description": "6/32-1/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "537f136d-d7f7-4e6f-910e-ea05f5480f7a",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-632-6CR",
+        "Description": "6/32-3/8\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "d473a36a-b135-4a42-951b-a3eee15eb756",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-632-8CR",
+        "Description": "6/32-1/2\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "3604f81f-08c1-45b4-a6fb-0985ba77bc04",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-632-12CR",
+        "Description": "6/32-3/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "83d63b52-8e7c-48fc-a29f-a40b4dab7264",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-632-16CR",
+        "Description": "6/32-1\" long/stainless steel",
+        "Price": 2.69
+    },
+    {
+        "Id": "ada9575b-7da1-4d5d-b854-8c422d25cde9",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-832-4CR",
+        "Description": "8/32-1/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "4a966272-1a73-4dc1-8ec4-eabdc72fd676",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-832-6CR",
+        "Description": "8/32-3/8\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "1a8e9c4b-03fc-45bb-a61e-7fe5213994ec",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-832-8CR",
+        "Description": "8/32-1/2\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "b5784f59-27e1-4717-9764-46191475be8c",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-832-12CR",
+        "Description": "8/32-3/4\" long/stainless steel",
+        "Price": 2.5
+    },
+    {
+        "Id": "340adb68-85f9-4c06-a0b9-f14051ac037b",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-1032-5CR",
+        "Description": "10/32-5/16\" long/stainless steel",
+        "Price": 3.18
+    },
+    {
+        "Id": "2abc61b9-b071-48b7-a757-45d7c458f64a",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-1032-8CR",
+        "Description": "10/32-1/2\" long/stainless steel",
+        "Price": 3.18
+    },
+    {
+        "Id": "2cbb3bdb-a67b-4632-970a-69b9ae6da6c8",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-1032-12CR",
+        "Description": "10/32-3/4\" long/stainless steel",
+        "Price": 3.18
+    },
+    {
+        "Id": "bd5b996d-77a5-4b57-8380-f7df16dc1143",
+        "ProductId": "b8e72581-2913-44d9-ac17-365f5f35e458",
+        "PartNumber": "CS62-1032-16CR",
+        "Description": "10/32-1\" long/stainless steel",
+        "Price": 3.18
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
+        "Id": "",
+        "ProductId": "",
+        "PartNumber": "",
+        "Description": "",
+        "Price": 0
+    },
+    {
         "Id": "",
         "ProductId": "",
         "PartNumber": "",
