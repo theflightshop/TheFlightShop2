@@ -147,6 +147,10 @@ body {
     cursor: pointer;
 }
 
+.flightshop-info-table {
+    border: 1px solid #ddd;
+}
+
 /** footer */
 #flightshop-footer {
     clear: both;
