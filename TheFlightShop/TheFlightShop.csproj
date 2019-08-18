@@ -24,12 +24,12 @@
     <Folder Include="Views\Products\" />
     <Folder Include="wwwroot\css\products\" />
     <Folder Include="wwwroot\js\products\" />
-    <Folder Include="product-static-data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="wwwroot\css\min\site.min.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="**/*" />
+    <None Include="..\..\EmptyJSONFile.json" />
   </ItemGroup>
 </Project>

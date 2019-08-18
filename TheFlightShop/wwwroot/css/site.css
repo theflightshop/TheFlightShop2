@@ -35,14 +35,22 @@ body {
 
 /** NAV */
 
-#flightshop-nav-header {
-    background-color: #4787B7;
+#flightshop-nav-wrapper {
+    background-color: #0D63A5;
     height: 5em;
     min-width: var(--min-page-width);
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#flightshop-nav {
+    width: 900px;
+    margin: 0 auto;
 }
 
 #flightshop-nav-menu {
     float: right;
+    margin-top: -59px;
 }
 #flightshop-nav-menu > li {
     height: 5em;
@@ -54,7 +62,7 @@ body {
     }
 
     #flightshop-nav-menu {
-        float: left !important;
+        float: right !important;
         display: block;
     }
 }
@@ -62,7 +70,7 @@ body {
 .flightshop-main-nav-option {
     padding-top: 1.25em !important;
     padding-bottom: 1.6em !important;
-    color: black;
+    color: #eee;
     font-size: 1.25em;
 }
 
@@ -104,14 +112,6 @@ body {
     height: 2.5em;
 }
 
-
-
-.navbar-collapse.collapse {
-    display: block !important;
-}
-
-
-
     .navbar-nav.navbar-right:last-child {
         margin-right: -15px !important;
     }
@@ -123,6 +123,49 @@ body {
 .clearfix:before, .clearfix:after, .dl-horizontal dd:before, .dl-horizontal dd:after, .container:before, .container:after, .container-fluid:before, .container-fluid:after, .row:before, .row:after, .form-horizontal .form-group:before, .form-horizontal .form-group:after, .btn-toolbar:before, .btn-toolbar:after, .btn-group-vertical > .btn-group:before, .btn-group-vertical > .btn-group:after, .nav:before, .nav:after, .navbar:before, .navbar:after, .navbar-header:before, .navbar-header:after, .navbar-collapse:before, .navbar-collapse:after, .pager:before, .pager:after, .panel-body:before, .panel-body:after, .modal-header:before, .modal-header:after, .modal-footer:before, .modal-footer:after {
     display: none !important;
     content: " ";
+}
+
+#flightshop-search-container {
+    width: 400px;
+    padding-left: 2em;
+    margin-top: 5px;
+}
+    #flightshop-search-container input {
+        width: 80%;
+    }
+    #flightshop-search-container button {
+        border-radius: 0 5px 5px 0;
+    }
+
+#flightshop-search-button-image {
+    width: 15px;
+}
+
+#flightshop-home-link {
+    margin-top: -5px;
+}
+
+#flightshop-center-sub-menu {
+    margin: 0 auto;
+    width: 400px;
+    text-align: center;
+    padding-right: 2em;
+}
+
+.flightshop-center-sub-menu-option {
+    color: #ddd;
+}
+    .flightshop-center-sub-menu-option:hover {
+        color: #ddd;
+    }
+
+.flightshop-center-sub-menu-option-divider {
+    color: #aaa;
+}
+
+.flightshop-dropdown-menu {
+    right: 0;
+    left: initial !important;
 }
 
 /** END NAV */
