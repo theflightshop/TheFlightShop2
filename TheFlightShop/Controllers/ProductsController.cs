@@ -20,30 +20,21 @@ namespace TheFlightShop.Controllers
         }
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index(Guid? categoryId = null)
+        public async Task<IActionResult> Index()
         {
             return await Task.Run(() =>
             {
-                var productCounts = (IEnumerable<ProductCategoryCount>)null;
-                if (categoryId.HasValue)
-                {
-                    var productCount = _productReadDAL.GetProductCategoryCount(categoryId.Value);
-                    productCounts = new List<ProductCategoryCount> { productCount };
-                }
-                else
-                {
-                    productCounts = _productReadDAL.GetProductCategoryCounts();
-                }
-                return View(productCounts);
+                var viewModel = _productReadDAL.GetProductCategories();
+                return View(viewModel);
             });
         }
 
-        public async Task<IActionResult> SubCategory(Guid id)
+        public async Task<IActionResult> Category(Guid id)
         {
             return await Task.Run(() =>
             {
-                var subCategoryView = _productReadDAL.GetSubCategoryView(id);
-                return View(subCategoryView);
+                var viewModel = _productReadDAL.GetProducts(id);
+                return View(viewModel);
             });
         }
 

@@ -7,185 +7,131 @@ namespace TheFlightShop.DAL
     public class DemoProductReadDAL : IProductReadDAL
     {
         // general aviation
-        private readonly Guid GEN_AVIATION_CATEGORY_ID = Guid.Parse("959dbb29-f979-4f5e-a9b7-2a3949c57fe6");
-        private readonly Guid NUTPLATES_ID = Guid.Parse("3a6f5cf5-e364-4bb6-8be6-fa4aa477d051");
-        private readonly Guid CN609_ID = Guid.Parse("3f2a40d0-33f0-486b-98dd-d9cfaf4faee2");
+        private readonly Guid NUTPLATES_CATEGORY_ID = Guid.Parse("959dbb29-f979-4f5e-a9b7-2a3949c57fe6");
+        private readonly Guid CB2009_ID = Guid.Parse("3f2a40d0-33f0-486b-98dd-d9cfaf4faee2");
 
-        public IEnumerable<ProductCategoryCount> GetProductCategoryCounts()
+        public ProductsViewModel GetProductCategories()
         {
-            return new List<ProductCategoryCount>
+            return new ProductsViewModel
             {
-                new ProductCategoryCount
+                Categories = new List<ProductCategory>
                 {
-                    CategoryId = GEN_AVIATION_CATEGORY_ID,
-                    CategoryName = "General Aviation / Industrial / Commercial",
-                    Counts = new List<ProductSubCategoryCount>
+                    new ProductCategory
                     {
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Bushings",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = NUTPLATES_ID,
-                            SubCategoryName = "Nutplates",
-                            Count = 6
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Standoffs",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Studs",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Grommets",
-                            Count = 1
-                        }
-                    }
-                },
-                new ProductCategoryCount
-                {
-                    CategoryId = Guid.NewGuid(),
-                    CategoryName = "Studs",
-                    Counts = new List<ProductSubCategoryCount>
+                        Id = NUTPLATES_CATEGORY_ID,
+                        Name = "Nutplates"
+                    },
+                    new ProductCategory
                     {
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Metallic Base Studs",
-                            Count = 7
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Composite Base Studs",
-                            Count = 7
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Accessories",
-                            Count = 2
-                        }
+                        Id = Guid.NewGuid(),
+                        Name = "Studs & Standoffs"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Mounts"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Acres® Sleeves"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Bushings"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Click Path®"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Lomas® Screws"
+                    },
+                    new ProductCategory
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Adhesives"
                     }
                 }
             };
         }
 
-        public ProductCategoryCount GetProductCategoryCount(Guid categoryId)
+        public ProductCategoryViewModel GetProducts(Guid categoryId)
         {
-            if (categoryId == GEN_AVIATION_CATEGORY_ID)
+            if (categoryId == NUTPLATES_CATEGORY_ID)
             {
-                return new ProductCategoryCount
+                return new ProductCategoryViewModel
                 {
-                    CategoryId = GEN_AVIATION_CATEGORY_ID,
-                    CategoryName = "General Aviation / Industrial / Commercial",
-                    Counts = new List<ProductSubCategoryCount>
-                    {
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Bushings",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = NUTPLATES_ID,
-                            SubCategoryName = "Nutplates",
-                            Count = 6
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Standoffs",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Studs",
-                            Count = 3
-                        },
-                        new ProductSubCategoryCount
-                        {
-                            SubCategoryId = Guid.NewGuid(),
-                            SubCategoryName = "Grommets",
-                            Count = 1
-                        }
-                    }
-                };
-            }
-            throw new NotImplementedException("This is just demo data!");
-        }
-
-        public SubCategoryView GetSubCategoryView(Guid subCategoryId)
-        {
-            if (subCategoryId == NUTPLATES_ID)
-            {
-                return new SubCategoryView
-                {
-                    CategoryId = GEN_AVIATION_CATEGORY_ID,
-                    Category = "General Aviation / Industrial / Commercial",
-                    SubCategory = "Nutplates",
+                    CategoryName = "Nutplates",
                     Products = new List<Product>
                 {
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        Code = "CN611",
-                        ShortDescription = "One Lug, Clip Retained",
-                        IsMostPopular = false,
-                        HasPricing = false
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     },
                     new Product
                     {
-                        Id = CN609_ID,
-                        Code = "CN609",
-                        ShortDescription = "Two Lug, Clip Retained",
-                        IsMostPopular = true,
-                        HasPricing = true
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        Code = "CN111",
-                        ShortDescription = "Nutplate, Bracket Retained",
-                        IsMostPopular = false,
-                        HasPricing = false
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        Code = "CN109",
-                        ShortDescription = "Two Lug, Bracket Retained",
-                        IsMostPopular = true,
-                        HasPricing = true
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        Code = "CN614",
-                        ShortDescription = "Two Lug, Miniature",
-                        IsMostPopular = true,
-                        HasPricing = true
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     },
                     new Product
                     {
-                        Id = Guid.NewGuid(),
-                        Code = "CN610",
-                        ShortDescription = "Two Lug, Sealed Dome, floating",
-                        IsMostPopular = true,
-                        HasPricing = true
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
+                    },
+                    new Product
+                    {
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
+                    },
+                    new Product
+                    {
+                        Id = CB2009_ID,
+                        Code = "CB2009",
+                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                        HasPricing = false,
+                        IsMostPopular = false
                     }
                 }
                 };
@@ -195,15 +141,15 @@ namespace TheFlightShop.DAL
 
         public ProductView GetProductView(Guid productId)
         {
-            if (productId == CN609_ID)
+            if (productId == CB2009_ID)
             {
                 return new ProductView
                 {
-                    CategoryId = GEN_AVIATION_CATEGORY_ID,
-                    Category = "General Aviation / Industrial / Commercial",
-                    SubCategoryId = NUTPLATES_ID,
-                    SubCategory = "Nutplates",
-                    ProductCode = "CN609",
+                    CategoryId = NUTPLATES_CATEGORY_ID,
+                    Category = "Nutplates",
+                    SubCategoryId = Guid.NewGuid(),
+                    SubCategory = "Standard",
+                    ProductCode = "CB2009",
                     ShortDescription = "Two Lug, Clip Retained",
                     LongDescription = "CN609 nutplate has a removable clip for nut replacement and can be ordered in sizes ranging from 8/32\" to 5/16-18\" with a nut and baseplate material of A-286 CRES. This CN609 nutplate can be ordered in metric sizes.",
                     Parts = new List<Part>

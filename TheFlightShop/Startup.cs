@@ -69,7 +69,7 @@ namespace TheFlightShop
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(Directory.GetCurrentDirectory(), "product-static-files")
                 ),
-                RequestPath = "/product"
+                RequestPath = "/products"
             });
 
             app.UseMvc(routes =>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TheFlightShop.Models.ProductCategoryCount>
+﻿@model TheFlightShop.Models.ProductsViewModel
 @{
     ViewData["Title"] = "Click Bond - Products";
 }
@@ -9,46 +9,27 @@
             <li class="breadcrumb-item">
                 <a asp-controller="Home" asp-action="Index">Home</a>
             </li>
-            @if (Model.Count() > 1) {
-                <li class="breadcrumb-item active" aria-current="page">
-                    ClickBond
-                </li>
-            }
-            else {
-                <li class="breadcrumb-item">
-                    <a asp-controller="Products" asp-action="Index">ClickBond</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    @(Model.FirstOrDefault()?.CategoryName ?? "None")
-                </li> 
-            }
+            <li class="breadcrumb-item active" aria-current="page">
+                ClickBond
+            </li>
         </ol>
     </nav>
 
-    @foreach (var productCount in Model) {
-        <div class="flightshop-product-category-table-section">
-            <h4 class="flightshop-product-category-table-title">@productCount.CategoryName</h4>
-            <table class="flightshop-product-category-table">
-                <tr>
-                    <th class="flightshop-product-table-padded-cell">Category</th>
-                    <th class="flightshop-product-table-padded-cell flightshop-product-category-count-header">Products</th>
-                </tr>
-                @foreach (var subCategory in productCount.Counts) {
-                    <tr>
-                        <td class="flightshop-product-table-padded-cell">
-                            @Html.ActionLink(
-                                subCategory.SubCategoryName,
-                                "SubCategory",
-                                "Products",
-                                new { id = subCategory.SubCategoryId }
-                            )
-                        </td>
-                        <td class="flightshop-product-table-subcategory-count">
-                            @subCategory.Count
-                        </td>
-                    </tr>
-                }
-            </table>
-        </div>
-    }
+    <div class="row">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-xs-3">
+                <a class="flightshop-product-category-link" 
+                    asp-controller="Products"
+                    asp-action="Category"
+                    asp-route-id="@category.Id">
+
+                    <img class="flightshop-category-image" 
+                        src="~/products/category-images/nutplates.png"
+                        alt="@category.Name" />
+                    <h5>@category.Name</h5>
+                </a>
+            </div>
+        }
+    </div>
 </div>

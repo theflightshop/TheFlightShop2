@@ -6,9 +6,8 @@ namespace TheFlightShop.DAL
 {
     public interface IProductReadDAL
     {
-        IEnumerable<ProductCategoryCount> GetProductCategoryCounts();
-        ProductCategoryCount GetProductCategoryCount(Guid categoryId);
-        SubCategoryView GetSubCategoryView(Guid subCategoryId);
+        ProductsViewModel GetProductCategories();
+        ProductCategoryViewModel GetProducts(Guid categoryId);
         ProductView GetProductView(Guid productId);
     }
 }

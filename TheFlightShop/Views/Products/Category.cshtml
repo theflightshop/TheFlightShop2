@@ -1,0 +1,38 @@
+﻿@model TheFlightShop.Models.ProductCategoryViewModel
+@{
+    ViewData["Title"] = "Click Bond - Products";
+}
+
+<div class="flightshop-page-content">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a asp-controller="Products" asp-action="Index">ClickBond</a>
+            </li>
+            <li id="flightshop-active-subcategory-breadcrumb" class="breadcrumb-item active" aria-current="page">
+                @Model.CategoryName
+            </li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        @foreach (var product in Model.Products) {
+            <div class="col-xs-3">
+                <a class="flightshop-product-link"
+                   asp-controller="Products"
+                   asp-action="Category"
+                   asp-route-id="@product.Id">
+
+                    <img class="flightshop-product-image"
+                         src="~/products/category-images/nutplates.png"
+                         alt="@product.Code" />
+                    <h5>@product.Code</h5>
+                    <span>@product.ShortDescription</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>
