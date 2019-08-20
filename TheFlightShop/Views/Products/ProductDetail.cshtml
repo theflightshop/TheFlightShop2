@@ -13,20 +13,9 @@
                 <a asp-controller="Products" asp-action="Index">ClickBond</a>
             </li>
             <li class="breadcrumb-item">
-                @Html.ActionLink(
-                     Model.Category,
-                     "Index",
-                     "Products",
-                     new { categoryId = Model.CategoryId }
-                 )
-            </li>
-            <li class="breadcrumb-item">
-                @Html.ActionLink(
-                     Model.SubCategory,
-                     "SubCategory",
-                     "Products",
-                     new { id = Model.SubCategoryId }
-                 )
+                <a asp-controller="Products" asp-action="Category" asp-route-id="@Model.CategoryId">
+                    @Model.Category
+                </a>
             </li>
             <li class="breadcrumb-item  active" aria-current="page">
                 @Model.ProductCode
@@ -34,25 +23,29 @@
         </ol>
     </nav>
 
-    <h4>@Model.ShortDescription</h4>
-    <table class="flightshop-info-table">
-        <tr>
-            <th class="flightshop-product-detail-table-cell">Part Number</th>
-            <th class="flightshop-product-detail-table-cell">Description</th>
-            <th class="flightshop-product-detail-table-cell">Price per Part</th>
-            <th class="flightshop-product-detail-table-cell">Quantity</th>
-        </tr>
-        @{ var isAlternating = true; }
-        @foreach (var part in Model.Parts) {
-            var rowClass = isAlternating ? "flightshop-alternating-row" : "";
-            isAlternating = !isAlternating;
-            <tr class="@rowClass">
-                <td class="flightshop-product-detail-table-cell">@part.PartNumber</td>
-                <td class="flightshop-product-detail-table-cell">@part.Description</td>
-                <td class="flightshop-product-detail-table-cell">@string.Format("${0:####.00}", part.Price)</td>
-                <td class="flightshop-product-detail-table-cell"></td>
-            </tr>
-        }
-    </table>
-    <p id="flightshop-product-long-description">@Model.LongDescription</p>
+    <div class="row">
+        <div class="col-xs-5">
+            <img id="flightshop-product-detail-image" src="@Model.ImageSource" alt="@Model.ProductCode" />
+            <div id="flightshop-product-detail-external-links">
+                <div>
+                    <span>Drawing:</span>
+                    <span class="flightshop-product-detail-download-link">
+                        <a href="@Model.DrawingUrl">Download</a>
+                    </span>
+                </div>
+                <hr class="flightshop-product-detail-links-separator" />
+                <div>
+                    <span>Comparison Table:</span>
+                    <span class="flightshop-product-detail-download-link">
+                        <a href="@Model.ComparisonTableUrl">Download</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7">
+            <h3 id="flightshop-product-detail-title">@Model.ProductCode</h3>
+            <p id="flightshop-product-detail-subtitle">@Model.ShortDescription</p>
+            <p id="flightshop-product-detail-description">@Model.LongDescription</p>
+        </div>
+    </div>
 </div>

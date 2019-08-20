@@ -36,16 +36,15 @@
         }
         i++;
         var marginClass = rowNumber > 1 ? "flightshop-product-link-margin-top" : "";
-        var imageFilename = "/products/product-images/" + Model.CategoryName.ToLower() + "/" + product.Code + ".jpg";
 
         <div class="col-xs-3 flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory">
             <a class="flightshop-product-link"
                asp-controller="Products"
-               asp-action="Category"
+               asp-action="ProductDetail"
                asp-route-id="@product.Id">
 
                 <img class="flightshop-product-image"
-                     src="@imageFilename"
+                     src="@product.ImageSource"
                      alt="@product.Code" />
                 <h5>@product.Code</h5>
                 <span class="flightshop-product-link-description">@product.ShortDescription</span>

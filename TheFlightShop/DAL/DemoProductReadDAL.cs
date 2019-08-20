@@ -64,7 +64,7 @@ namespace TheFlightShop.DAL
         {
             if (categoryId == NUTPLATES_CATEGORY_ID)
             {
-                return new ProductCategoryViewModel
+                var viewModel = new ProductCategoryViewModel
                 {
                     CategoryName = "Nutplates",
                     SubCategories = new List<string>
@@ -72,117 +72,122 @@ namespace TheFlightShop.DAL
                         "Standard", "Sealed", "Sleeved"
                     },
                     Products = new List<Product>
-                {
-                    new Product
                     {
-                        Id = CB2009_ID,
-                        Code = "CB2009",
-                        SubCategory = "Standard",
-                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB2011",
-                        SubCategory = "Standard",
-                        ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB3009",
-                        SubCategory = "Standard",
-                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB3011",
-                        SubCategory = "Standard",
-                        ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB4009",
-                        SubCategory = "Standard",
-                        ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB4011",
-                        SubCategory = "Standard",
-                        ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6003",
-                        SubCategory = "Standard",
-                        ShortDescription = "No-Lug Clip-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6009",
-                        SubCategory = "Standard",
-                        ShortDescription = "Two-Lug Clip-Retained Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6008",
-                        SubCategory = "Sealed",
-                        ShortDescription = "One-Lug Sealed Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6010",
-                        SubCategory = "Sealed",
-                        ShortDescription = "Two-Lug Sealed Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6109",
-                        SubCategory = "Sleeved",
-                        ShortDescription = "Two-Lug Flared Sleeved Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
-                    },
-                    new Product
-                    {
-                        Id = CB2009_ID,
-                        Code = "CB6209",
-                        SubCategory = "Sleeved",
-                        ShortDescription = "Two-Lug Straight-Sleeved Nutplate",
-                        HasPricing = false,
-                        IsMostPopular = false
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB2009",
+                            SubCategory = "Standard",
+                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB2011",
+                            SubCategory = "Standard",
+                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB3009",
+                            SubCategory = "Standard",
+                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB3011",
+                            SubCategory = "Standard",
+                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB4009",
+                            SubCategory = "Standard",
+                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB4011",
+                            SubCategory = "Standard",
+                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6003",
+                            SubCategory = "Standard",
+                            ShortDescription = "No-Lug Clip-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6009",
+                            SubCategory = "Standard",
+                            ShortDescription = "Two-Lug Clip-Retained Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6008",
+                            SubCategory = "Sealed",
+                            ShortDescription = "One-Lug Sealed Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6010",
+                            SubCategory = "Sealed",
+                            ShortDescription = "Two-Lug Sealed Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6109",
+                            SubCategory = "Sleeved",
+                            ShortDescription = "Two-Lug Flared Sleeved Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        },
+                        new Product
+                        {
+                            Id = CB2009_ID,
+                            Code = "CB6209",
+                            SubCategory = "Sleeved",
+                            ShortDescription = "Two-Lug Straight-Sleeved Nutplate",
+                            HasPricing = false,
+                            IsMostPopular = false
+                        }
                     }
-                }
                 };
+                foreach (var product in viewModel.Products)
+                {
+                    product.ImageSource = GetImageSource(viewModel.CategoryName, product.Code);
+                }
+                return viewModel;
             }
             throw new NotImplementedException("This is just demo data!");
         }
@@ -191,15 +196,15 @@ namespace TheFlightShop.DAL
         {
             if (productId == CB2009_ID)
             {
-                return new ProductView
+                var viewModel = new ProductView
                 {
                     CategoryId = NUTPLATES_CATEGORY_ID,
                     Category = "Nutplates",
-                    SubCategoryId = Guid.NewGuid(),
-                    SubCategory = "Standard",
                     ProductCode = "CB2009",
-                    ShortDescription = "Two Lug, Clip Retained",
-                    LongDescription = "CN609 nutplate has a removable clip for nut replacement and can be ordered in sizes ranging from 8/32\" to 5/16-18\" with a nut and baseplate material of A-286 CRES. This CN609 nutplate can be ordered in metric sizes.",
+                    ShortDescription = "Two-Lug Bracket-Retained Nutplate",
+                    LongDescription = "Two-lug nutplate with bracket-retained nut element for FOD-critical applications where nut replaceability is desired but nut element retainer clips are not permitted. Supplied with integral elastic installation fixture. Fixture simplifies nutplate installation by providing bondline clamp-up and maintenance of concentricity with the fastener hole, ensuring full availability of nut float and protection of threads from adhesive.",
+                    DrawingUrl = "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636268296532963658.pdf",
+                    ComparisonTableUrl = "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636342787605560043.pdf",
                     Parts = new List<Part>
                     {
                         new Part
@@ -222,8 +227,15 @@ namespace TheFlightShop.DAL
                         }
                     }
                 };
+                viewModel.ImageSource = GetImageSource(viewModel.Category, viewModel.ProductCode);
+                return viewModel;
             }
             throw new NotImplementedException("This is just demo data!");
+        }
+
+        private string GetImageSource(string category, string productCode)
+        {
+            return "/products/product-images/" + category.ToLower() + "/" + productCode + ".jpg";
         }
     }
 }

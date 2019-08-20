@@ -1,11 +1,30 @@
-﻿.flightshop-product-detail-table-cell {
-    padding: 0.5em 1em;
+﻿#flightshop-product-detail-image {
+    width: 100%;
+    height: auto;
 }
 
-.flightshop-alternating-row {
-    background-color: #e8e8e8;
+#flightshop-product-detail-title {
+    margin-top: 0;
 }
 
-#flightshop-product-long-description {
-    margin-top: 1em;
+#flightshop-product-detail-subtitle {
+    font-size: 1.25em;
+    color: #777;
+}
+
+#flightshop-product-detail-description {
+    font-size: 1.1em;
+    color: #333;
+}
+
+#flightshop-product-detail-external-links {
+    margin-top: 0.5em;
+}
+
+.flightshop-product-detail-download-link {
+    float: right;
+}
+
+.flightshop-product-detail-links-separator {
+    margin: 0.5em 0;
 }

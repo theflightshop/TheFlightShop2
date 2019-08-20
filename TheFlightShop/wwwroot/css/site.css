@@ -50,7 +50,7 @@ body {
 
 #flightshop-nav-menu {
     float: right;
-    margin-top: -59px;
+    margin-top: -64px;
 }
 #flightshop-nav-menu > li {
     height: 5em;
@@ -149,7 +149,8 @@ body {
     margin: 0 auto;
     width: 400px;
     text-align: center;
-    padding-right: 2em;
+    padding-right: 5em;
+    padding-top: 5px;
 }
 
 .flightshop-center-sub-menu-option {
