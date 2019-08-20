@@ -1,8 +1,20 @@
 ﻿.flightshop-product-link {
     text-align: center;
 }
+    .flightshop-product-link:hover .flightshop-product-link-description {
+        text-decoration: none !important;
+    }
 
 .flightshop-product-image {
     width: 150px;
     height: auto;
+}
+
+.flightshop-product-link-description {
+    color: #333;
+    font-size: 0.9em;
+}
+
+.flightshop-product-link-margin-top {
+    margin-top: 2.5em;
 }

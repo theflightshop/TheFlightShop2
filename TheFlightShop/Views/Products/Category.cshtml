@@ -17,22 +17,39 @@
             </li>
         </ol>
     </nav>
-
-    <div class="row">
-        @foreach (var product in Model.Products) {
-            <div class="col-xs-3">
-                <a class="flightshop-product-link"
-                   asp-controller="Products"
-                   asp-action="Category"
-                   asp-route-id="@product.Id">
-
-                    <img class="flightshop-product-image"
-                         src="~/products/category-images/nutplates.png"
-                         alt="@product.Code" />
-                    <h5>@product.Code</h5>
-                    <span>@product.ShortDescription</span>
-                </a>
-            </div>
-        }
+    <div class="form-group">
+        <label for="flightshop-sub-category-select">Sub-category:</label>
+        <select id="flightshop-sub-category-select" class="form-control" onchange="selectedCategoryChange(this.value)">
+            <option value="all">All</option>
+            @foreach (var subCategory in Model.SubCategories) {
+                <option value="@subCategory">@subCategory</option>
+            }
+        </select>
     </div>
+    @{ 
+        int i = 0;
+        int rowNumber = 1;
+    }
+    @foreach (var product in Model.Products) {
+        if (i > 0 && i % 4 == 0) {
+            rowNumber++;
+        }
+        i++;
+        var marginClass = rowNumber > 1 ? "flightshop-product-link-margin-top" : "";
+        var imageFilename = "/products/product-images/" + Model.CategoryName.ToLower() + "/" + product.Code + ".jpg";
+
+        <div class="col-xs-3 flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory">
+            <a class="flightshop-product-link"
+               asp-controller="Products"
+               asp-action="Category"
+               asp-route-id="@product.Id">
+
+                <img class="flightshop-product-image"
+                     src="@imageFilename"
+                     alt="@product.Code" />
+                <h5>@product.Code</h5>
+                <span class="flightshop-product-link-description">@product.ShortDescription</span>
+            </a>
+        </div>
+    }
 </div>

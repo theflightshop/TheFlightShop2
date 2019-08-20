@@ -31,5 +31,12 @@
   <ItemGroup>
     <None Include="**/*" />
     <None Include="..\..\EmptyJSONFile.json" />
+    <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="**/*" />
+    <None Include="**/*" />
   </ItemGroup>
 </Project>

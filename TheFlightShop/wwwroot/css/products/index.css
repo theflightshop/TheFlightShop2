@@ -4,5 +4,9 @@
 
 .flightshop-category-image {
     width: 150px;
-    height: auto;
+    height: 100px;
+}
+
+.flightshop-product-category-margin {
+    margin-top: 2em;
 }
