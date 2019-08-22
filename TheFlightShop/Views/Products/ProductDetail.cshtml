@@ -27,21 +27,37 @@
         <div class="col-xs-5">
             <img id="flightshop-product-detail-image" src="@Model.ImageSource" alt="@Model.ProductCode" />
             <div id="flightshop-product-detail-external-links">
-                <div id="flightshop-product-detail-OG-download-section">
+                @*<div id="flightshop-product-detail-OG-download-section">
                     <span>Drawing:</span>
                     <a download href="@Model.DrawingUrl">Download</a>
                 </div>
+                <div>
+
+                </div>*@
                 @*
                     NOTE: this is for when blown-up (scalable) images are used
-                    old Flight Shop images (original site) don't scale well, so different styling was used
+                    old Flight Shop images (original site) don't scale well, so different styling was used*@
+                <hr class="flightshop-product-detail-links-separator" />
                 <div>
                     <span>Drawing:</span>
                     <span class="flightshop-product-detail-download-link">
                         <a download href="@Model.DrawingUrl">Download</a>
                     </span>
-                </div>*@
-                @*<hr class="flightshop-product-detail-links-separator" />
-        <div>
+                </div>
+                <hr class="flightshop-product-detail-links-separator" />
+                @if(Model.NumberOfInstallationExamples > 0) {
+                    <div>
+                        <span>Installation Examples:</span>
+                        <span class="flightshop-product-detail-download-link">
+                            <a style="cursor: pointer;"
+                               href="javascript:void(0)"
+                               onclick="openInstallationExamples()">
+                                View
+                            </a>
+                        </span>
+                    </div>
+                }
+        @*<div>
             <span>Comparison Table:</span>
             <span class="flightshop-product-detail-download-link">
                 <a href="@Model.ComparisonTableUrl">Download</a>
@@ -71,5 +87,34 @@
                 <img class="flightshop-installation-example-image" src="@imageSource" alt="installation example" />
             }
         </div>
+    </div>
+    <div id="flightshop-product-detail-parts-section" class="row">
+        <table id="flightshop-parts-table">
+            <tr>
+                <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Part Number</th>
+                <th class="flightshop-parts-table-column-long flightshop-parts-table-cell">Description</th>
+                <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Price</th>
+                <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Add to Cart</th>
+            </tr>
+
+            @foreach (var part in Model.Parts) {
+                <tr>
+                    <td class="flightshop-parts-table-cell">@part.PartNumber</td>
+                    <td class="flightshop-parts-table-cell">@part.Description</td>
+                    <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
+                    <td class="flightshop-parts-table-cell">
+                        <input class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                        <button type="button">Add</button>
+                    </td>
+                </tr>
+            }
+        </table>
+        <button id="flightshop-button-add-special-part" 
+            type="button" 
+            class="btn btn-default"
+            onclick="addSpecialPart()"
+            >
+            + Add special part
+        </button>
     </div>
 </div>

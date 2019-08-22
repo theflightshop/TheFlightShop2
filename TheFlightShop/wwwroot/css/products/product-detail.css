@@ -44,6 +44,7 @@
 #flightshop-installation-examples {
     position: relative;
     top: 1em;
+    margin-bottom: 1em;
 }
 
 #flightshop-installation-examples-header {
@@ -80,4 +81,36 @@
 .flightshop-installation-example-image {
     max-height: 200px;
     margin-right: 0.75em;
+}
+
+#flightshop-product-detail-parts-section {
+    clear: both;
+    position: relative;
+    top: 1.5em;
+}
+
+.flightshop-parts-table-column-short {
+    width: 20%;
+}
+
+.flightshop-parts-table-column-long {
+    width: 40%;
+}
+
+.flightshop-parts-table-cell {
+    border: 2px solid #ddd;
+    padding: 0.25em;
+}
+
+.flightshop-part-add-to-cart-input {
+    width: 50%;
+}
+
+#flightshop-button-add-special-part {
+    margin-top: 0.5em;
+    color: #555 !important;
+}
+
+#flightshop-parts-table {
+    width: 100%;
 }
