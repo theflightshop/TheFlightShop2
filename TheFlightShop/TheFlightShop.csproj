@@ -181,6 +181,31 @@
     <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Services.g.cshtml.cs" />
     <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\WindowShades.g.cshtml.cs" />
     <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\CabinDoorCables.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\ClickBondAuthorizedDistributor.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\CabinBaggageDoorStruts.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\CompanyProfile.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\ClickBondInstallation.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\ClickBondStrengthData.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Facility.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\InstrumentPanels.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\OrderingInformation.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Modifications.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Parts.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Services.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\Terms.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Products\Category.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Products\ProductDetail.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Shared\_ValidationScriptsPartial.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Products\Index.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\WindowShades.g.cshtml.cs" />
+    <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="**/*" />

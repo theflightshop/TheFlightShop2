@@ -26,6 +26,7 @@
             }
         </select>
     </div>
+    <div id="flightshop-products-most-popular-legend">* Most Popular</div>
     @{ 
         int i = 0;
         int rowNumber = 1;
@@ -46,7 +47,12 @@
                 <img class="flightshop-product-image"
                      src="@product.ImageSource"
                      alt="@product.Code" />
-                <h5>@product.Code</h5>
+                <h5>
+                    @if(product.IsMostPopular) {
+                        <span>*</span>
+                    }
+                    @product.Code
+                </h5>
                 <span class="flightshop-product-link-description">@product.ShortDescription</span>
             </a>
         </div>

@@ -1,11 +1,17 @@
 ﻿.flightshop-contact-line {
-
+    display: block;
 }
 
 .flightshop-phone-line {
-
+    padding-left: 15px;
+    font-size: 1.6em;
 }
 
-.flightshop-contact-label {
+#flightshop-bottom-phone-line {
+    margin-bottom: 1em;
+}
 
+.flightshop-contact-line-row {
+    padding-left: 15px;
+    padding-bottom: 1em;
 }

@@ -23,3 +23,8 @@
 .flightshop-product-link-margin-top {
     margin-top: 2.5em;
 }
+
+#flightshop-products-most-popular-legend {
+    font-size: 1.1em;
+    margin-bottom: 1em;
+}
