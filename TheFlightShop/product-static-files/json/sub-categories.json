@@ -1,0 +1,22 @@
+﻿[
+    {
+        "Id": "1132f7a0-4c5f-4921-8f7f-f92a1c03e5a2",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "Name":  "Replaceable Element Nutplates"
+    },
+    {
+        "Id": "fd716fcc-9091-4188-ad0c-e3afaf6b539e",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "Name": "Composite Base Nutplates"
+    },
+    {
+        "Id": "53e7831a-338e-4101-b7d9-56b8f8a32c1e",
+        "CategoryId": "acdf5ee9-e99c-4dc2-8b5a-44b351d0c663",
+        "Name": "Metallic Base Studs"
+    },
+    {
+        "Id": "688a1d0b-e82b-4bf7-87a2-ce5a29deef00",
+        "CategoryId": "acdf5ee9-e99c-4dc2-8b5a-44b351d0c663",
+        "Name": "Composite Base Studs"
+    }
+]

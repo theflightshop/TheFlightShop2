@@ -6,13 +6,18 @@
     }
 
 .flightshop-product-image {
-    width: 150px;
-    height: auto;
+    max-width: 150px;
+    height: 100px;
+    width: auto;
+    margin: 0 auto;
+    display: block;
 }
 
 .flightshop-product-link-description {
     color: #333;
     font-size: 0.9em;
+    text-align: center;
+    display: block;
 }
 
 .flightshop-product-link-margin-top {

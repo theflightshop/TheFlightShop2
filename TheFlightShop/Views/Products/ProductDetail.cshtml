@@ -1,4 +1,4 @@
-﻿@model TheFlightShop.Models.ProductView
+﻿@model TheFlightShop.Models.ProductDetailViewModel
 @{
     ViewData["Title"] = "Product Detail - " + Model.ProductCode;
 }
@@ -27,25 +27,49 @@
         <div class="col-xs-5">
             <img id="flightshop-product-detail-image" src="@Model.ImageSource" alt="@Model.ProductCode" />
             <div id="flightshop-product-detail-external-links">
+                <div id="flightshop-product-detail-OG-download-section">
+                    <span>Drawing:</span>
+                    <a download href="@Model.DrawingUrl">Download</a>
+                </div>
+                @*
+                    NOTE: this is for when blown-up (scalable) images are used
+                    old Flight Shop images (original site) don't scale well, so different styling was used
                 <div>
                     <span>Drawing:</span>
                     <span class="flightshop-product-detail-download-link">
-                        <a href="@Model.DrawingUrl">Download</a>
+                        <a download href="@Model.DrawingUrl">Download</a>
                     </span>
-                </div>
-                <hr class="flightshop-product-detail-links-separator" />
-                <div>
-                    <span>Comparison Table:</span>
-                    <span class="flightshop-product-detail-download-link">
-                        <a href="@Model.ComparisonTableUrl">Download</a>
-                    </span>
-                </div>
+                </div>*@
+                @*<hr class="flightshop-product-detail-links-separator" />
+        <div>
+            <span>Comparison Table:</span>
+            <span class="flightshop-product-detail-download-link">
+                <a href="@Model.ComparisonTableUrl">Download</a>
+            </span>
+        </div>*@
             </div>
         </div>
         <div class="col-xs-7">
             <h3 id="flightshop-product-detail-title">@Model.ProductCode</h3>
             <p id="flightshop-product-detail-subtitle">@Model.ShortDescription</p>
             <p id="flightshop-product-detail-description">@Model.LongDescription</p>
+        </div>
+    </div>
+    <div id="flightshop-installation-examples" class="row" style="display: none;">
+        <div id="flightshop-installation-examples-header">
+            <span id="flightshop-installation-examples-title">Installation Examples</span>
+            <button id="flightshop-installation-examples-header-close-button" 
+                type="button"
+                onclick="closeInstallationExamples()"
+                >
+                <span>&times;</span>
+            </button>
+        </div>
+        <div id="flightshop-installation-examples-image-container">
+            @for (int i = 1; i <= Model.NumberOfInstallationExamples; i++) {
+                var imageSource = Model.InstallationExamplesPath + "example-" + i + ".jpg";
+                <img class="flightshop-installation-example-image" src="@imageSource" alt="installation example" />
+            }
         </div>
     </div>
 </div>

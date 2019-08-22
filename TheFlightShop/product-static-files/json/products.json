@@ -1,0 +1,79 @@
+﻿[
+    {
+        "Id": "251a7817-5b6e-42bc-9bb9-790905b96225",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "SubCategoryId": "1132f7a0-4c5f-4921-8f7f-f92a1c03e5a2",
+        "Code": "CB6007",
+        "ShortDescription": "Corner, Clip Retained",
+        "LongDescription": null,
+        "MostPopular": false,
+        "NumberOfInstallationExamples": 0,
+        "DrawingUrl":  null
+    },
+    {
+        "Id": "86b0f4ff-a8dc-4e9c-bf43-8f03f705db0e",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "SubCategoryId": "1132f7a0-4c5f-4921-8f7f-f92a1c03e5a2",
+        "Code": "CB6009",
+        "ShortDescription": "Two Lug, Clip Retained",
+        "LongDescription": "CB6009 has a removable clip for easy nut replacement and is also available in metric sizes. Sizes range from 8/32 to 1/2-20 with various thread relief, baseplate and nut material options.",
+        "MostPopular": true,
+        "NumberOfInstallationExamples": 2,
+        "DrawingUrl": null
+    },
+    {
+        "Id": "0ff26849-f180-4149-9279-2f435812868a",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "SubCategoryId": "1132f7a0-4c5f-4921-8f7f-f92a1c03e5a2",
+        "Code": "CB6011",
+        "ShortDescription": "One Lug, Clip Retained",
+        "LongDescription": null,
+        "MostPopular": false,
+        "NumberOfInstallationExamples": 0,
+        "DrawingUrl": "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636250107087275511.pdf"
+    },
+    {
+        "Id": "21bf0a2e-79f4-453f-9bdf-aab7bafd3c17",
+        "CategoryId": "a9780273-9f84-431b-a3fc-85cb53a4485d",
+        "SubCategoryId": "fd716fcc-9091-4188-ad0c-e3afaf6b539e",
+        "Code": "CB4023",
+        "ShortDescription": "Standoff Mount",
+        "LongDescription": "This nutplate is a great way to add a nutplate in a raised position to secure components on uneven surfaces or to clear existing structures. See the detailed specifications for metric sizes.",
+        "MostPopular": true,
+        "NumberOfInstallationExamples": 3,
+        "DrawingUrl": null
+    },
+    {
+        "Id": "dac5774f-0d4e-4021-8ca6-a6d54c372c73",
+        "CategoryId": "acdf5ee9-e99c-4dc2-8b5a-44b351d0c663",
+        "SubCategoryId": "53e7831a-338e-4101-b7d9-56b8f8a32c1e",
+        "Code": "CB5000",
+        "ShortDescription": "Small Base (5/8\" Dia.)",
+        "LongDescription": null,
+        "MostPopular": false,
+        "NumberOfInstallationExamples": 0,
+        "DrawingUrl": "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636274404499471237.pdf"
+    },
+    {
+        "Id": "a50fb8ff-73cf-4fd3-86eb-580db7496998",
+        "CategoryId": "acdf5ee9-e99c-4dc2-8b5a-44b351d0c663",
+        "SubCategoryId": "53e7831a-338e-4101-b7d9-56b8f8a32c1e",
+        "Code": "CB3000",
+        "ShortDescription": "Large Base (1 1/4\" Dia.)",
+        "LongDescription": "CB3000 aerospace grade stud can be ordered with thread sizes ranging from 6/32 to 5/16-24 and lengths from .250\" to 2.00\". This stud has a 1.25\" diameter base with an option to special order a trimmed base to a size of .75\".",
+        "MostPopular": false,
+        "NumberOfInstallationExamples": 0,
+        "DrawingUrl": "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636939441162721592.pdf"
+    },
+    {
+        "Id": "a0cb02d1-8584-43ba-be6d-f5d6d859c4b3",
+        "CategoryId": "acdf5ee9-e99c-4dc2-8b5a-44b351d0c663",
+        "SubCategoryId": "688a1d0b-e82b-4bf7-87a2-ce5a29deef00",
+        "Code": "CB4200",
+        "ShortDescription": "Extra Large Base (2\" Dia.)",
+        "LongDescription": null,
+        "MostPopular": false,
+        "NumberOfInstallationExamples": 0,
+        "DrawingUrl": "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636274402225599296.pdf"
+    }
+]

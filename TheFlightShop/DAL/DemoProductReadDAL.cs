@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using TheFlightShop.Models;
+using Newtonsoft.Json;
+using System.IO;
+using TheFlightShop.DAL.Schemas;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TheFlightShop.DAL
 {
@@ -10,232 +15,154 @@ namespace TheFlightShop.DAL
         private readonly Guid NUTPLATES_CATEGORY_ID = Guid.Parse("959dbb29-f979-4f5e-a9b7-2a3949c57fe6");
         private readonly Guid CB2009_ID = Guid.Parse("3f2a40d0-33f0-486b-98dd-d9cfaf4faee2");
 
+        private IEnumerable<ProductCategory> _categories;
+        private IEnumerable<ProductSubCategory> _subCategories;
+        private IEnumerable<Product> _products;
+        private IEnumerable<Part> _parts;
+
+        public DemoProductReadDAL()
+        {
+            var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "product-static-files", "json");
+
+            var categoriesPath = Path.Combine(jsonPath, "categories.json");
+            var categoriesText = File.ReadAllText(categoriesPath);
+            _categories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(categoriesText);
+
+            var subCategoriesPath = Path.Combine(jsonPath, "sub-categories.json");
+            var subCategoriesText = File.ReadAllText(subCategoriesPath);
+            _subCategories = JsonConvert.DeserializeObject<IEnumerable<ProductSubCategory>>(subCategoriesText);
+
+            var productsPath = Path.Combine(jsonPath, "products.json");
+            var productsText = File.ReadAllText(productsPath);
+            _products = JsonConvert.DeserializeObject<IEnumerable<Product>>(productsText);
+
+            var partsPath = Path.Combine(jsonPath, "parts.json");
+            var partsText = File.ReadAllText(partsPath);
+            _parts = JsonConvert.DeserializeObject<IEnumerable<Part>>(partsText);
+        }
+
         public ProductsViewModel GetProductCategories()
         {
             return new ProductsViewModel
             {
-                Categories = new List<ProductCategory>
-                {
-                    new ProductCategory
-                    {
-                        Id = NUTPLATES_CATEGORY_ID,
-                        Name = "Nutplates"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Studs & Standoffs"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Mounts"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Acres® Sleeves"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Bushings"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Click Path®"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Lomas® Screws"
-                    },
-                    new ProductCategory
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = "Adhesives"
-                    }
-                }
+                Categories = _categories
             };
         }
 
         public ProductCategoryViewModel GetProducts(Guid categoryId)
         {
-            if (categoryId == NUTPLATES_CATEGORY_ID)
+            var viewModel = (ProductCategoryViewModel)null;
+            var category = _categories.FirstOrDefault(ctgry => ctgry.Id == categoryId);
+
+            if (category != null)
             {
-                var viewModel = new ProductCategoryViewModel
+                var subCategoryNamesById = new Dictionary<Guid, string>();
+                var subCategoryNames = new List<string>();
+                foreach (var subCategory in _subCategories)
                 {
-                    CategoryName = "Nutplates",
-                    SubCategories = new List<string>
+                    if (subCategory.CategoryId == categoryId)
                     {
-                        "Standard", "Sealed", "Sleeved"
-                    },
-                    Products = new List<Product>
-                    {
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB2009",
-                            SubCategory = "Standard",
-                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB2011",
-                            SubCategory = "Standard",
-                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB3009",
-                            SubCategory = "Standard",
-                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB3011",
-                            SubCategory = "Standard",
-                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB4009",
-                            SubCategory = "Standard",
-                            ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB4011",
-                            SubCategory = "Standard",
-                            ShortDescription = "One-Lug Bracket-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6003",
-                            SubCategory = "Standard",
-                            ShortDescription = "No-Lug Clip-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6009",
-                            SubCategory = "Standard",
-                            ShortDescription = "Two-Lug Clip-Retained Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6008",
-                            SubCategory = "Sealed",
-                            ShortDescription = "One-Lug Sealed Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6010",
-                            SubCategory = "Sealed",
-                            ShortDescription = "Two-Lug Sealed Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6109",
-                            SubCategory = "Sleeved",
-                            ShortDescription = "Two-Lug Flared Sleeved Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        },
-                        new Product
-                        {
-                            Id = CB2009_ID,
-                            Code = "CB6209",
-                            SubCategory = "Sleeved",
-                            ShortDescription = "Two-Lug Straight-Sleeved Nutplate",
-                            HasPricing = false,
-                            IsMostPopular = false
-                        }
+                        subCategoryNamesById.Add(subCategory.Id, subCategory.Name);
+                        subCategoryNames.Add(subCategory.Name);
                     }
-                };
-                foreach (var product in viewModel.Products)
-                {
-                    product.ImageSource = GetImageSource(viewModel.CategoryName, product.Code);
                 }
-                return viewModel;
+
+                var productViewModels = new List<ProductViewModel>();
+                var products = _products.Where(product => product.CategoryId == categoryId);
+                foreach (var product in products)
+                {
+                    var subCategoryName = subCategoryNamesById[product.SubCategoryId];
+                    var categoryName = GetSantizedCategoryName(category.Name);
+                    var imageSource = GetImageSource(categoryName, product.Code);
+                    var hasPricing = _parts.Any(part => part.ProductId == product.Id);
+
+                    var productViewModel = new ProductViewModel
+                    {
+                        Id = product.Id,
+                        Code = product.Code,
+                        SubCategory = subCategoryName,
+                        ShortDescription = product.ShortDescription,
+                        ImageSource = imageSource,
+                        HasPricing = hasPricing,
+                        IsMostPopular = product.MostPopular
+                    };
+                    productViewModels.Add(productViewModel);
+                }
+
+                viewModel = new ProductCategoryViewModel
+                {
+                    CategoryName = category.Name,
+                    SubCategories = subCategoryNames,
+                    Products = productViewModels
+                };
             }
-            throw new NotImplementedException("This is just demo data!");
+
+            return viewModel;
         }
 
-        public ProductView GetProductView(Guid productId)
+        public ProductDetailViewModel GetProductView(Guid productId)
         {
-            if (productId == CB2009_ID)
+            var viewModel = (ProductDetailViewModel)null;
+            var product = _products.FirstOrDefault(prdct => prdct.Id == productId);
+
+            if (product != null)
             {
-                var viewModel = new ProductView
+                var parts = _parts.Where(part => part.ProductId == productId);
+                var partViewModels = new List<PartViewModel>();
+                foreach (var part in parts)
                 {
-                    CategoryId = NUTPLATES_CATEGORY_ID,
-                    Category = "Nutplates",
-                    ProductCode = "CB2009",
-                    ShortDescription = "Two-Lug Bracket-Retained Nutplate",
-                    LongDescription = "Two-lug nutplate with bracket-retained nut element for FOD-critical applications where nut replaceability is desired but nut element retainer clips are not permitted. Supplied with integral elastic installation fixture. Fixture simplifies nutplate installation by providing bondline clamp-up and maintenance of concentricity with the fastener hole, ensuring full availability of nut float and protection of threads from adhesive.",
-                    DrawingUrl = "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636268296532963658.pdf",
-                    ComparisonTableUrl = "https://www.clickbond.com/downloadfile.ashx?path=Uploads/ProductPDF/636342787605560043.pdf",
-                    Parts = new List<Part>
+                    var partViewModel = new PartViewModel
                     {
-                        new Part
-                        {
-                            PartNumber = "CN609CR08P",
-                            Description = "8/32\" stainless steel/primed",
-                            Price = 4
-                        },
-                        new Part
-                        {
-                            PartNumber = "CN609CR3P",
-                            Description = "10/32\" stainless steel primed",
-                            Price = 4
-                        },
-                        new Part
-                        {
-                            PartNumber = "CN609CR4P",
-                            Description = "1/4-28\" stainless steel/primed",
-                            Price = 4.93m
-                        }
-                    }
+                        PartNumber = part.PartNumber,
+                        Description = part.Description,
+                        Price = part.Price
+                    };
+                    partViewModels.Add(partViewModel);
+                }
+
+                var category = _categories.First(ctgry => ctgry.Id == product.CategoryId);
+                var drawingUrl = product.DrawingUrl ?? GetLocalDrawingUrl(category.Name, product.Code);
+                var categoryName = GetSantizedCategoryName(category.Name);
+                var imageSource = GetImageSource(categoryName, product.Code);
+                var installExamplesPth = GetInstallationExamplesPath(categoryName, product.Code);
+                viewModel = new ProductDetailViewModel
+                {
+                    CategoryId = category.Id,
+                    Category = category.Name,
+                    ProductCode = product.Code,
+                    ShortDescription = product.ShortDescription,
+                    LongDescription = product.LongDescription,
+                    DrawingUrl = drawingUrl,
+                    ImageSource = imageSource,
+                    NumberOfInstallationExamples = product.NumberOfInstallationExamples,
+                    InstallationExamplesPath = installExamplesPth,
+                    Parts = partViewModels
                 };
-                viewModel.ImageSource = GetImageSource(viewModel.Category, viewModel.ProductCode);
-                return viewModel;
+                
             }
-            throw new NotImplementedException("This is just demo data!");
+
+            return viewModel;
+        }
+
+        private string GetInstallationExamplesPath(string category, string productCode)
+        {
+            return "/products/installation-examples/" + category + "/" + productCode + "/";
         }
 
         private string GetImageSource(string category, string productCode)
         {
-            return "/products/product-images/" + category.ToLower() + "/" + productCode + ".jpg";
+            return "/products/product-images/" + category + "/" + productCode + ".gif";
+        }
+
+        private string GetLocalDrawingUrl(string category, string productCode)
+        {
+            return "/products/drawings/" + category + "/" + productCode + ".pdf";
+        }
+
+        private string GetSantizedCategoryName(string category)
+        {
+            string categoryWithoughSpaces = category.ToLower().Replace(" ", "-");
+            return Regex.Replace(categoryWithoughSpaces, @"\W", "");
         }
     }
 }

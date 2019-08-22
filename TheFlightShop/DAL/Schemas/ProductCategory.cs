@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace TheFlightShop.Models
+namespace TheFlightShop.DAL.Schemas
 {
     public class ProductCategory
     {

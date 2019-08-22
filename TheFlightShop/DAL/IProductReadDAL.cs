@@ -8,6 +8,6 @@ namespace TheFlightShop.DAL
     {
         ProductsViewModel GetProductCategories();
         ProductCategoryViewModel GetProducts(Guid categoryId);
-        ProductView GetProductView(Guid productId);
+        ProductDetailViewModel GetProductView(Guid productId);
     }
 }

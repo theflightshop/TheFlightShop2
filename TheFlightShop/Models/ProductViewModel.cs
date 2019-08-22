@@ -1,7 +1,7 @@
 ﻿using System;
 namespace TheFlightShop.Models
 {
-    public class Product
+    public class ProductViewModel
     {
         public Guid Id { get; set; }
         public string SubCategory { get; set; }

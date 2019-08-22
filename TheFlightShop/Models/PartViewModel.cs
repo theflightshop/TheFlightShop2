@@ -1,7 +1,7 @@
 ﻿using System;
 namespace TheFlightShop.Models
 {
-    public class Part
+    public class PartViewModel
     {
         public string PartNumber { get; set; }
         public string Description { get; set; }

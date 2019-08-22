@@ -1,0 +1,44 @@
+﻿[
+    {
+        "Id": "6c9b8d72-b8dc-4b38-abc5-5a9c026b2e93",
+        "ProductId": "86b0f4ff-a8dc-4e9c-bf43-8f03f705db0e",
+        "PartNumber": "CB6009CR08-1P",
+        "Description": "8/32\" stainless steel/primed",
+        "Price": 4
+    },
+    {
+        "Id": "c6397571-2af7-418f-b2d6-b2236c1823c4",
+        "ProductId": "86b0f4ff-a8dc-4e9c-bf43-8f03f705db0e",
+        "PartNumber": "CB6009CR3-1P",
+        "Description": "10/32\" stainless steel/primed",
+        "Price": 4
+    },
+    {
+        "Id": "a153c0ff-d796-4f61-ae49-9d2bbfa1bea7",
+        "ProductId": "86b0f4ff-a8dc-4e9c-bf43-8f03f705db0e",
+        "PartNumber": "CB6009CR4-1P",
+        "Description": "1/4-28\" stainless steel/primed",
+        "Price": 4.93
+    },
+    {
+        "Id": "ae139670-793b-43bb-9c0b-bc2e0b517f7c",
+        "ProductId": "21bf0a2e-79f4-453f-9bdf-aab7bafd3c17",
+        "PartNumber": "CB4023V08CR8",
+        "Description": "8/32-1/2\" tall",
+        "Price": 9
+    },
+    {
+        "Id": "a57b049d-aff1-4219-9088-dd19a93f06fe",
+        "ProductId": "21bf0a2e-79f4-453f-9bdf-aab7bafd3c17",
+        "PartNumber": "CB4023V3CR-12",
+        "Description": "10/32-3/4\" tall",
+        "Price": 9.1
+    },
+    {
+        "Id": "81ad74c8-f554-4e99-933e-6720473cf6da",
+        "ProductId": "a50fb8ff-73cf-4fd3-86eb-580db7496998",
+        "PartNumber": "CB3000AA3-20",
+        "Description": "10/32 - 1.25\" Tall Aluminum/Anodized",
+        "Price": 5.9
+    }
+]

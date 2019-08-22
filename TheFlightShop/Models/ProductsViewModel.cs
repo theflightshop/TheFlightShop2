@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TheFlightShop.DAL.Schemas;
 
 namespace TheFlightShop.Models
 {
