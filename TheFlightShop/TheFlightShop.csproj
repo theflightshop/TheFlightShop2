@@ -16,9 +16,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\min\" />
     <Folder Include="wwwroot\css\maintenance\" />
-    <Folder Include="wwwroot\css\min\maintenance\" />
     <Folder Include="wwwroot\css\click-bond\" />
-    <Folder Include="wwwroot\css\min\click-bond\" />
     <Folder Include="product-static-files\" />
     <Folder Include="DAL\" />
     <Folder Include="Views\Products\" />
