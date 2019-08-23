@@ -64,13 +64,14 @@ namespace TheFlightShop
             app.UseCookiePolicy();
 
             app.UseStaticFiles(); // wwwroot
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(
-                    Path.Combine(Directory.GetCurrentDirectory(), "product-static-files")
-                ),
-                RequestPath = "/products"
-            });
+            // don't be a hero. this worked in dev but not heroku.
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(Directory.GetCurrentDirectory(), "product-static-files")
+            //    ),
+            //    RequestPath = "/products"
+            //});
 
             app.UseMvc(routes =>
             {
