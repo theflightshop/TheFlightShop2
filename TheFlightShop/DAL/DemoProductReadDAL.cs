@@ -121,8 +121,8 @@ namespace TheFlightShop.DAL
                 }
 
                 var category = _categories.First(ctgry => ctgry.Id == product.CategoryId);
-                var drawingUrl = product.DrawingUrl ?? GetLocalDrawingUrl(category.Name, product.Code);
                 var categoryName = GetSantizedCategoryName(category.Name);
+                var drawingUrl = product.DrawingUrl ?? GetLocalDrawingUrl(categoryName, product.Code);
                 var imageSource = GetImageSource(categoryName, product.Code);
                 var installExamplesPth = GetInstallationExamplesPath(categoryName, product.Code);
                 viewModel = new ProductDetailViewModel
