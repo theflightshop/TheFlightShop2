@@ -40,6 +40,18 @@ body {
     #flightshop-homepage-subtitle {
         font-size: 1.5em !important;
     }
+
+    #flightshop-temperature-info {
+        font-size: 2em !important;
+    }
+
+    .flightshop-weather-info-item {
+        font-size: 1.25em !important;
+    }
+
+    #flightshop-weather-location {
+        font-size: 1.3em !important;
+    }
 }
 
 /** NAV */
@@ -236,4 +248,29 @@ body {
     float: right;
     padding-right: 1em;
     color: #ddd;
+}
+
+#flightshop-weather-info {
+    position: absolute;
+    top: 100px;
+    right: 10px;
+    background-color: rgba(50, 50, 50, 0.65);
+    padding: 1em;
+}
+
+.flightshop-weather-item {
+    text-align: center;
+    color: #eee;
+}
+
+#flightshop-temperature-info {
+    font-size: 2.5vw;
+}
+
+.flightshop-weather-info-item {
+    font-size: 1.5vw;
+}
+
+#flightshop-weather-location {
+    font-size: .75vw;
 }

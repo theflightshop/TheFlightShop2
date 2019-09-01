@@ -58,6 +58,13 @@
         <div id="homepage-landing-area" style="display: none;">
             <img id="flightshop-homepage-background" src="~/images/index/homepage.png" alt="flight shop inc." />
             <div id="flightshop-homepage-title">The Flight Shop Inc.</div>
+            <div id="flightshop-weather-info">
+                <div id="flightshop-weather-location" class="flightshop-weather-item">Brigham City Airport (KBMC)</div>
+                <div id="flightshop-temperature-info" class="flightshop-weather-item"></div>
+                <div id="flightshop-altimeter-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
+                <div id="flightshop-wind-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
+                <div id="flightshop-visibility-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
+            </div>
             <div id="flightshop-homepage-subtitle">40 years of experience with qualified technicians.</div>
         </div>
 
@@ -207,7 +214,9 @@
         </div>
 
         @*<environment include="Development">*@
-            <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
             <script src="~/js/products/category.js" asp-append-version="true"></script>
@@ -232,5 +241,68 @@
         </environment>*@
 
         @RenderSection("Scripts", required: false)
+        <script>
+    var WIND_DIRECTIONS = [
+        {
+            range: [345, 15],
+            hexCode: '&#8595;' // N
+        },
+        {
+            range: [15, 75],
+            hexCode: '&#8601;' // NE
+        },
+        {
+            range: [75, 105],
+            hexCode: '&#8592;' // E
+        },
+        {
+            range: [105, 165],
+            hexCode: '&#8598;' // SE
+        },
+        {
+            range: [165, 195],
+            hexCode: '&#8593;' // S
+        },
+        {
+            range: [195, 255],
+            hexCode: '&#8599;' // SW
+        },
+        {
+            range: [255, 285],
+            hexCode: '&#8594;' // W
+        },
+        {
+            range: [285, 345],
+            hexCode: '&#8600;' // NW
+        }
+    ];
+
+    function getCurrentWeatherInfo() {
+        $.get('https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache', function (data) {
+        console.log('hell yeah ', data)
+            var altimeterValue = data.altimeter.value;
+            var temperature = data.temperature.value;
+            var temperatureUnits = data.units.temperature;
+            var windSpeed = data.wind_speed.value;
+            var windSpeedUnits = data.units.wind_speed;
+            var windDirection = data.wind_direction.value;
+            var visibility = data.visibility.value;
+            var visiblityUnits = data.units.visibility;
+
+            var directionCode = null;
+            for (var i = 0; i < WIND_DIRECTIONS.length && directionCode === null; i++) {
+                var directionRange = WIND_DIRECTIONS[i].range;
+                if (windDirection >= directionRange[0] && windDirection <= directionRange[1]) {
+                    directionCode = WIND_DIRECTIONS[i].hexCode;
+                }
+            }
+
+            document.getElementById('flightshop-temperature-info').innerHTML = temperature + ' ' + temperatureUnits;
+            document.getElementById('flightshop-altimeter-info').innerHTML = 'altimeter: ' + altimeterValue;
+            document.getElementById('flightshop-wind-info').innerHTML = 'wind: ' + windSpeed + ' ' + windSpeedUnits + ', ' + windDirection + '&deg; ' + directionCode;
+            document.getElementById('flightshop-visibility-info').innerHTML =  'visibility: ' + visibility + ' ' + visiblityUnits;
+        });
+    }
+        </script>
     </body>
 </html>
