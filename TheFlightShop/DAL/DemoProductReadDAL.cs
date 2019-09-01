@@ -151,12 +151,12 @@ namespace TheFlightShop.DAL
 
         private string GetImageSource(string category, string productCode)
         {
-            return "/products/product-images/" + category + "/" + productCode + ".gif";
+            return "/products/product-images/" + category + "/" + productCode.ToLower() + ".gif";
         }
 
         private string GetLocalDrawingUrl(string category, string productCode)
         {
-            return "/products/drawings/" + category + "/" + productCode + ".pdf";
+            return "/products/drawings/" + category + "/" + productCode.ToLower() + ".pdf";
         }
 
         private string GetSantizedCategoryName(string category)
