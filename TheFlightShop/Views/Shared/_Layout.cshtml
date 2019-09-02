@@ -245,35 +245,35 @@
         <script>
     var WIND_DIRECTIONS = [
         {
-            range: [345, 15],
+            range: [337.5, 22.5],
             hexCode: '&#8595;' // N
         },
         {
-            range: [15, 75],
+            range: [22.5, 67.5],
             hexCode: '&#8601;' // NE
         },
         {
-            range: [75, 105],
+            range: [67.5, 112.5],
             hexCode: '&#8592;' // E
         },
         {
-            range: [105, 165],
+            range: [112.5, 157.5],
             hexCode: '&#8598;' // SE
         },
         {
-            range: [165, 195],
+            range: [157.5, 202.5],
             hexCode: '&#8593;' // S
         },
         {
-            range: [195, 255],
+            range: [202.5, 247.5],
             hexCode: '&#8599;' // SW
         },
         {
-            range: [255, 285],
+            range: [247.5, 292.5],
             hexCode: '&#8594;' // W
         },
         {
-            range: [285, 345],
+            range: [292.5, 337.5],
             hexCode: '&#8600;' // NW
         }
     ];
@@ -334,7 +334,7 @@
             var directionCode = null;
             for (var i = 0; i < WIND_DIRECTIONS.length && directionCode === null; i++) {
                 var directionRange = WIND_DIRECTIONS[i].range;
-                if (windDirection >= 345 && windDirection <= 360 || windDirection >= 0 && windDirection < 15) {
+                if (windDirection >= 337.5 && windDirection <= 360 || windDirection >= 0 && windDirection < 22.5) {
                     directionCode = WIND_DIRECTIONS[0].hexCode; // N
                 }
                 else if (windDirection >= directionRange[0] && windDirection <= directionRange[1]) {
