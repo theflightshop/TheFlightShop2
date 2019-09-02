@@ -340,7 +340,10 @@
             var directionCode = null;
             for (var i = 0; i < WIND_DIRECTIONS.length && directionCode === null; i++) {
                 var directionRange = WIND_DIRECTIONS[i].range;
-                if (windDirection >= directionRange[0] && windDirection <= directionRange[1]) {
+                if (windDirection >= 345 && windDirection <= 360 || windDirection >= 0 && windDirection < 15) {
+                    directionCode = WIND_DIRECTIONS[0].hexCode; // N
+                }
+                else if (windDirection >= directionRange[0] && windDirection <= directionRange[1]) {
                     directionCode = WIND_DIRECTIONS[i].hexCode;
                 }
             }

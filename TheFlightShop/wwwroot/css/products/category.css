@@ -28,3 +28,13 @@
     font-size: 1.1em;
     margin-bottom: 1em;
 }
+
+.flightshop-product-link h5 {
+    font-size: 1.25vw;
+}
+
+@media screen and (max-width: 1150px) {
+    .flightshop-product-link h5 {
+        font-size: 1em;
+    }
+}
