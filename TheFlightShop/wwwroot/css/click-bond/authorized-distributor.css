@@ -6,3 +6,8 @@
 #flightshop-click-bond-disclaimer {
     text-align: center;
 }
+
+.auth-distrib-col {
+    max-width: 1024px;
+    margin-top: 1em;
+}

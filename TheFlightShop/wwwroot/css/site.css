@@ -11,6 +11,10 @@ body {
     min-width: var(--min-page-width);
 }
 
+#page-body-content {
+    width: 80%;
+    margin: 0 auto;
+}
 /* Site: wrapping element */
 .body-content {
     padding-left: 15px;
@@ -22,7 +26,7 @@ body {
     margin-top: 2em;
     margin-left: auto;
     margin-right: auto;
-    max-width: 50em;
+    max-width: 1024px;
 }
 
 /* Hide/rearrange for smaller screens */

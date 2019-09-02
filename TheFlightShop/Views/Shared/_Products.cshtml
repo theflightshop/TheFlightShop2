@@ -1,0 +1,41 @@
+﻿<div>
+    <h2>Products</h2>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                ClickBond
+            </li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        @{ var itemNumber = 1; }
+        @foreach (var category in Model.Categories)
+        {
+            var itemClass = itemNumber > 4 ? "flightshop-product-category-margin" : "";
+            itemNumber++;
+
+            var imageCategoryFilename = category.Name
+                .ToLower()
+                .Replace(" ", "-")
+                .Replace("&", "and")
+                .Replace("®", "") + ".png";
+
+            <div class="col-xs-3 @itemClass">
+                <a class="flightshop-product-category-link"
+                   asp-controller="Products"
+                   asp-action="Category"
+                   asp-route-id="@category.Id">
+
+                    <img class="flightshop-category-image"
+                         src="~/products/category-images/@imageCategoryFilename"
+                         alt="@category.Name" />
+                    <h5>@category.Name</h5>
+                </a>
+            </div>
+        }
+    </div>
+</div>

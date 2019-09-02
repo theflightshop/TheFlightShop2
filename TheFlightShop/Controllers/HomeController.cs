@@ -4,12 +4,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TheFlightShop.DAL;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.Controllers
 {
     public class HomeController : Controller
     {
+        private IProductReadDAL _productReadDAL;
+
+        public HomeController(IProductReadDAL productReadDAL)
+        {
+            _productReadDAL = productReadDAL;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -78,9 +86,13 @@ namespace TheFlightShop.Controllers
 
         #region Click Bond
 
-        public IActionResult ClickBondAuthorizedDistributor()
+        public async Task<IActionResult> ClickBondAuthorizedDistributor()
         {
-            return View();
+            return await Task.Run(() =>
+            {
+                var viewModel = _productReadDAL.GetProductCategories();
+                return View(viewModel);
+            });
         }
 
         public IActionResult ClickBondInstallation()

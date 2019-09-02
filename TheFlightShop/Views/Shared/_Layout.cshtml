@@ -205,7 +205,7 @@
 
        <!-- <partial name="_CookieConsentPartial" /> -->
 
-        <div class="container body-content">
+        <div id="page-body-content" class="body-content">
             @RenderBody()
             <footer id="flightshop-footer">
                 <hr />
@@ -277,9 +277,57 @@
         }
     ];
 
+    Date.prototype.addMinutes = function(m) {    
+        this.setTime(this.getTime() + (m*60*1000)); 
+        return this;   
+    }
+
+    // call web server
+    function fetchWeatherInfo(callback) {
+        $.get('https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache', function (weatherInfo) {
+            var fiveMinutesFromNow = new Date().addMinutes(5);
+            weatherInfo = {
+                expires: fiveMinutesFromNow,
+                altimeter: weatherInfo.altimeter,
+                temperature: weatherInfo.temperature,
+                wind_speed: weatherInfo.wind_speed,
+                wind_direction: weatherInfo.wind_direction,
+                visibility: weatherInfo.visibility,
+                units: weatherInfo.units
+            };
+            window.localStorage.setItem('currentWeatherInfo', JSON.stringify(weatherInfo));
+            callback(weatherInfo);
+        });
+    }
+
+    // try to get localStorage else fetch
+    function retrieveWeatherInfo(callback) {
+        var weatherInfo = window.localStorage.getItem('currentWeatherInfo');
+        if (weatherInfo) {
+            weatherInfo = JSON.parse(weatherInfo);
+            if (new Date(weatherInfo.expires) > new Date()) {
+                callback({
+                    altimeter: weatherInfo.altimeter,
+                    temperature: weatherInfo.temperature,
+                    wind_speed: weatherInfo.wind_speed,
+                    wind_direction: weatherInfo.wind_direction,
+                    visibility: weatherInfo.visibility,
+                    units: weatherInfo.units
+                });
+            }
+            else {
+                fetchWeatherInfo(callback);
+            }
+
+        }
+        else {
+            fetchWeatherInfo(callback);
+        }
+    }
+
+    // update UI w/ current weather info
     function getCurrentWeatherInfo() {
-        $.get('https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache', function (data) {
-        console.log('hell yeah ', data)
+        retrieveWeatherInfo(function (data) {
             var altimeterValue = data.altimeter.value;
             var temperature = data.temperature.value;
             var temperatureUnits = data.units.temperature;
@@ -297,7 +345,7 @@
                 }
             }
 
-            document.getElementById('flightshop-temperature-info').innerHTML = temperature + ' ' + temperatureUnits;
+            document.getElementById('flightshop-temperature-info').innerHTML = temperature + '&deg; ' + temperatureUnits;
             document.getElementById('flightshop-altimeter-info').innerHTML = 'altimeter: ' + altimeterValue;
             document.getElementById('flightshop-wind-info').innerHTML = 'wind: ' + windSpeed + ' ' + windSpeedUnits + ', ' + windDirection + '&deg; ' + directionCode;
             document.getElementById('flightshop-visibility-info').innerHTML =  'visibility: ' + visibility + ' ' + visiblityUnits;
