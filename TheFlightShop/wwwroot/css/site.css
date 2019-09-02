@@ -278,3 +278,13 @@ body {
 #flightshop-weather-location {
     font-size: .75vw;
 }
+
+.flightshop-dynamic-text-size {
+    font-size: 1.25vw;
+}
+
+@media screen and (max-width: 1350px) {
+    .flightshop-dynamic-text-size {
+        font-size: 1.25em !important;
+    }
+}
