@@ -276,15 +276,26 @@ body {
 }
 
 #flightshop-weather-location {
-    font-size: .75vw;
+    font-size: 1vw;
 }
 
 .flightshop-dynamic-text-size {
     font-size: 1.25vw;
 }
 
+#flightshop-weather-last-updated {
+    font-size: 0.9vw;
+    color: #ddd;
+    text-align: center;
+}
+
 @media screen and (max-width: 1350px) {
     .flightshop-dynamic-text-size {
         font-size: 1.25em !important;
     }
+
+    #flightshop-weather-last-updated {
+        font-size: 1em !important;
+    }
 }
+

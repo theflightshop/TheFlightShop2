@@ -60,6 +60,7 @@
             <div id="flightshop-homepage-title">The Flight Shop Inc.</div>
             <div id="flightshop-weather-info">
                 <div id="flightshop-weather-location" class="flightshop-weather-item">Brigham City Airport (KBMC)</div>
+                <div id="flightshop-weather-last-updated"></div>
                 <div id="flightshop-temperature-info" class="flightshop-weather-item"></div>
                 <div id="flightshop-altimeter-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
                 <div id="flightshop-wind-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
@@ -306,14 +307,7 @@
         if (weatherInfo) {
             weatherInfo = JSON.parse(weatherInfo);
             if (new Date(weatherInfo.expires) > new Date()) {
-                callback({
-                    altimeter: weatherInfo.altimeter,
-                    temperature: weatherInfo.temperature,
-                    wind_speed: weatherInfo.wind_speed,
-                    wind_direction: weatherInfo.wind_direction,
-                    visibility: weatherInfo.visibility,
-                    units: weatherInfo.units
-                });
+                callback(weatherInfo);
             }
             else {
                 fetchWeatherInfo(callback);
@@ -347,6 +341,23 @@
                     directionCode = WIND_DIRECTIONS[i].hexCode;
                 }
             }
+
+            var lastUpdated = new Date(data.expires);
+            lastUpdated.addMinutes(-5);
+            var ampm = "AM";
+            var hours = lastUpdated.getHours();
+            if (hours >= 12) {
+                ampm = "PM";
+                if (hours > 12) {
+                    hours -= 12;
+                }
+            }
+            var minutes = lastUpdated.getMinutes();
+            if (minutes.toString().length === 1) {
+                minutes = '0' + minutes;
+            }
+
+            document.getElementById('flightshop-weather-last-updated').innerHTML = 'Last updated ' + hours + ':' + minutes + ' ' + ampm
 
             document.getElementById('flightshop-temperature-info').innerHTML = temperature + '&deg; ' + temperatureUnits;
             document.getElementById('flightshop-altimeter-info').innerHTML = 'altimeter: ' + altimeterValue;
