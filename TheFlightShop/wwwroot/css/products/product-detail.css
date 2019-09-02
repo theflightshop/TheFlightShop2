@@ -9,6 +9,7 @@
 
 #flightshop-product-detail-title {
     margin-top: 0;
+    font-size: 1.25em;
 }
 
 #flightshop-product-detail-subtitle {
@@ -17,7 +18,6 @@
 }
 
 #flightshop-product-detail-description {
-    font-size: 1.1em;
     color: #333;
 }
 
@@ -113,4 +113,11 @@
 
 #flightshop-parts-table {
     width: 100%;
+    font-size: 1em;
+}
+
+@media screen and (min-width: 1700px) {
+    #flightshop-parts-table {
+        font-size: 1vw !important;
+    }
 }
