@@ -38,3 +38,8 @@
         font-size: 1em;
     }
 }
+
+#flightshop-sub-category-select {
+    font-size: 1em;
+    height: initial;
+}
