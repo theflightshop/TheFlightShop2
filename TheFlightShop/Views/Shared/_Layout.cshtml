@@ -71,11 +71,41 @@
 
         <nav id="flightshop-nav-wrapper">
             <div id="flightshop-nav">
-                <div>
+                <div id="flightshop-logo-container">
                     <a id="flightshop-home-link" asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
                         <img id="flightshop-logo" src="~/images/the-flight-shop.png" />
                     </a>
                 </div>
+
+                <div id="flightshop-left-sub-menu" style="display: none;">
+                    <a class="flightshop-left-sub-menu-option"
+                        asp-controller="Home"
+                        asp-action="Contact">
+                        Contact
+                    </a>
+                    <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
+                    @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
+                    @if(false) { 
+                        <a class="flightshop-left-sub-menu-option"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Nick
+                        </a>
+                    } else {
+                        <a class="flightshop-left-sub-menu-option"
+                           asp-controller="Home"
+                           asp-action="Index">
+                            Sign In
+                        </a>
+                    }
+                    <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
+                    <a class="flightshop-left-sub-menu-option"
+                       asp-controller="Home"
+                       asp-action="Index">
+                        Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
+                    </a>
+                </div>
+
                 <div id="flightshop-search-container" class="input-group">
                     <input type="text" class="form-control" placeholder="Search" />
                     <div class="input-group-append">

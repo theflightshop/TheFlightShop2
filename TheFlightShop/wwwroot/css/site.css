@@ -299,3 +299,59 @@ body {
     }
 }
 
+.flightshop-left-sub-menu-option {
+    color: #eee;
+    text-decoration: none;
+}
+
+#flightshop-left-sub-menu {
+    float: left;
+    font-size: 1.25vw;
+    width: 25%;
+    margin-top: 0.5vw;
+}
+
+@media screen and (min-width: 1700px) {
+    #flightshop-left-sub-menu {
+        display: block !important;
+    }
+
+    #flightshop-center-sub-menu {
+        display: none !important;
+    }
+
+    #flightshop-search-container {
+        width: 40% !important;
+    }
+
+    #flightshop-search-container input {
+        font-size: 1vw;
+        height: 2vw;
+    }
+
+    #flightshop-search-container button {
+        height: 2vw;
+    }
+
+    #flightshop-search-button-image {
+        width: 1vw;
+    }
+
+    #flightshop-nav-menu {
+        margin-top: -2.6vw;
+        font-size: 0.85vw;
+    }
+
+    .flightshop-dropdown-menu {
+        margin-top: -0.65em !important;
+    }
+
+    #flightshop-nav {
+        width: 90%;
+    }
+
+    #flightshop-logo-container {
+        float: left;
+        margin-right: 1vw;
+    }
+}
