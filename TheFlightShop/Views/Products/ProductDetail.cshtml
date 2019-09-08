@@ -109,12 +109,15 @@
                 </tr>
             }
         </table>
+        <div id="flightshop-invalid-unlisted-part-alert" class="alert alert-danger" style="display: none;">
+            Please provide part number or description.
+        </div>
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
-            onclick="addSpecialPart()"
+            onclick="addUnlistedPart()"
             >
-            + Add special part
+            + Add unlisted part
         </button>
     </div>
 </div>

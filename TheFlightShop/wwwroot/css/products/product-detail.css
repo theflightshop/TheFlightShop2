@@ -107,8 +107,9 @@
 }
 
 #flightshop-button-add-special-part {
-    margin-top: 0.5em;
+    margin: 0.5em 0;
     color: #555 !important;
+    font-size: 1em;
 }
 
 #flightshop-parts-table {
@@ -120,4 +121,12 @@
     #flightshop-parts-table {
         font-size: 1vw !important;
     }
+
+    #flightshop-button-add-special-part {
+        font-size: 1vw !important;
+    }
+}
+
+#flightshop-invalid-unlisted-part-alert {
+    margin-top: 0.25em;
 }
