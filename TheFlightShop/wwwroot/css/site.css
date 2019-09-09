@@ -355,3 +355,57 @@ body {
         margin-right: 1vw;
     }
 }
+
+#flightshop-added-to-cart-overlay {
+    position: fixed;
+    top: 100px;
+    border: 2px solid #ddd;
+    border-radius: 1px;
+    padding: 1em;
+    background-color: #fff;
+    min-width: 20em;
+}
+
+#flightshop-added-to-cart-close {
+    float: right;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#flightshop-product-added-header {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.flightshop-product-added-item-container {
+    border-bottom: 1px solid #dedede;
+    padding-bottom: 0.25em;
+}
+
+.flightshop-product-added-item {
+
+}
+
+.flightshop-product-added-price {
+    float: right;
+}
+
+.flightshop-product-added-arrow {
+    border-left: 21px solid transparent;
+    border-bottom: 20px solid rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 80px;
+    left: 30%;
+}
+
+@media screen and (max-width: 1699px) {
+    #flightshop-added-to-cart-overlay {
+        left: 30% !important;
+    }
+
+    .flightshop-product-added-arrow {
+        left: 50% !important;
+    }
+}

@@ -103,14 +103,17 @@
                     <td class="flightshop-parts-table-cell">@part.Description</td>
                     <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
                     <td class="flightshop-parts-table-cell">
-                        <input class="flightshop-part-add-to-cart-input" value="1" type="number" />
-                        <button type="button">Add</button>
+                        <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                        <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
                     </td>
                 </tr>
             }
         </table>
         <div id="flightshop-invalid-unlisted-part-alert" class="alert alert-danger" style="display: none;">
             Please provide part number or description.
+        </div>
+        <div id="flightshop-invalid-part-quantity" class="alert alert-danger" style="display: none;">
+            Please provide quantity greater than zero.
         </div>
         <button id="flightshop-button-add-special-part" 
             type="button" 
