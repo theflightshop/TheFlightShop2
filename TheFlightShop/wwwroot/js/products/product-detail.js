@@ -115,6 +115,7 @@ function getQuantity(id) {
 
 function requestAddToCart(codeOrDescription, quantity, price) {
     addItemToProductAddedDisplay(codeOrDescription, quantity, price);
+    showProductAddedDisplay(true);
 }
 
 function addItemToProductAddedDisplay(codeOrDescription, quantity, price) {
@@ -141,8 +142,64 @@ function addItemToProductAddedDisplay(codeOrDescription, quantity, price) {
     document.getElementById('flightshop-product-added-items').appendChild(itemAdded);
 }
 
-function closeProductsAddedOverlay() {
-    document.getElementById('flightshop-added-to-cart-overlay').style.display = 'none';
+var currentAddedDisplayInterval = null;
+var timeit = null;
+function showProductAddedDisplay(fadeOut) {
+    if (currentAddedDisplayInterval) {
+        clearInterval(currentAddedDisplayInterval);
+    }
+    if (timeit) {
+        clearTimeout(timeit);
+    }
+
+    var overlay = document.getElementById('flightshop-added-to-cart-overlay');
+    var arrow = document.getElementById('flightshop-product-added-arrow');
+    overlay.style.opacity = '1';
+    overlay.style.display = 'block';
+    arrow.style.opacity = '1';
+    arrow.style.display = 'block';
+
+    if (fadeOut) {
+        timeit = setTimeout(function () {
+            fadeProductAddedDisplay();
+        }, 3000);
+    }
+}
+
+function fadeProductAddedDisplay() {
+    var overlay = document.getElementById('flightshop-added-to-cart-overlay');
+    var arrow = document.getElementById('flightshop-product-added-arrow');
+    currentAddedDisplayInterval = setInterval(function () {
+        var opacity = overlay.style.opacity;
+        if (opacity === '0') {
+            hideProductAddedDisplay(overlay, arrow);
+        }
+        else {
+            var opacityValue = (parseFloat(opacity) || '1') - 1/50;
+            if (opacityValue <= 0) {
+                opacityValue = 0;
+                hideProductAddedDisplay(overlay, arrow);
+            }
+            overlay.style.opacity = opacityValue;
+            arrow.style.opacity = opacityValue;
+        }
+
+    }, 1000 / 50);
+}
+
+function hideProductAddedDisplay(overlay, arrow) {
+    if (currentAddedDisplayInterval) {
+        clearInterval(currentAddedDisplayInterval);
+        currentAddedDisplayInterval = null;
+    }
+    overlay.style.display = 'none';
+    arrow.style.display = 'none';
     document.getElementById('flightshop-product-added-items').innerHTML = '';
+}
+
+function closeProductsAddedOverlay() {
+    var overlay = document.getElementById('flightshop-product-added-arrow');
+    var arrow = document.getElementById('flightshop-added-to-cart-overlay');
+    hideProductAddedDisplay(overlay, arrow);
 }
 

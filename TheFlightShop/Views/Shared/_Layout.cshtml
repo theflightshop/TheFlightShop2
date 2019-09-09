@@ -242,15 +242,15 @@
                 <hr />
                 <p>&copy; 2019 - TheFlightShop | <a asp-area="" asp-controller="Home" asp-action="Terms">Terms</a></p>
             </footer>
-            <div class="flightshop-product-added-arrow"></div>
-            <div id="flightshop-added-to-cart-overlay" style="display: block;">
+            <div id="flightshop-product-added-arrow" class="flightshop-product-added-arrow" style="display: none;"></div>
+            <div id="flightshop-added-to-cart-overlay" 
+                style="display: none;" 
+                onmouseover="showProductAddedDisplay()"
+                 onmouseout="fadeProductAddedDisplay()"
+                >
                 <p id="flightshop-added-to-cart-close" onclick="closeProductsAddedOverlay()">&times;</p>
                 <p id="flightshop-product-added-header">Product(s) added to cart:</p>
                 <div id="flightshop-product-added-items">
-                    <p class="flightshop-product-added-item-container">
-                        <em class="flightshop-product-added-item">2&times;&nbsp;CB2009RP-1</em>&nbsp;
-                        <span class="flightshop-product-added-price">$9.10</span>
-                    </p>
                 </div>
                 <p>
                     <a href="#">View Cart</a>
