@@ -5,6 +5,6 @@ namespace TheFlightShop.Models
 {
     public class ProductsViewModel
     {
-        public IEnumerable<ProductCategory> Categories { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
     }
 }

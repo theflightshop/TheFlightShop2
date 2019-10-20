@@ -15,8 +15,7 @@ namespace TheFlightShop.DAL
         private readonly Guid NUTPLATES_CATEGORY_ID = Guid.Parse("959dbb29-f979-4f5e-a9b7-2a3949c57fe6");
         private readonly Guid CB2009_ID = Guid.Parse("3f2a40d0-33f0-486b-98dd-d9cfaf4faee2");
 
-        private IEnumerable<ProductCategory> _categories;
-        private IEnumerable<ProductSubCategory> _subCategories;
+        private IEnumerable<Category> _categories;
         private IEnumerable<Product> _products;
         private IEnumerable<Part> _parts;
 
@@ -26,12 +25,11 @@ namespace TheFlightShop.DAL
 
             var categoriesPath = Path.Combine(jsonPath, "categories.json");
             var categoriesText = File.ReadAllText(categoriesPath);
-            _categories = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(categoriesText);
+            _categories = JsonConvert.DeserializeObject<IEnumerable<Category>>(categoriesText);
 
             var subCategoriesPath = Path.Combine(jsonPath, "sub-categories.json");
             var subCategoriesText = File.ReadAllText(subCategoriesPath);
-            _subCategories = JsonConvert.DeserializeObject<IEnumerable<ProductSubCategory>>(subCategoriesText);
-
+            
             var productsPath = Path.Combine(jsonPath, "products.json");
             var productsText = File.ReadAllText(productsPath);
             _products = JsonConvert.DeserializeObject<IEnumerable<Product>>(productsText);
@@ -58,7 +56,7 @@ namespace TheFlightShop.DAL
             {
                 var subCategoryNamesById = new Dictionary<Guid, string>();
                 var subCategoryNames = new List<string>();
-                foreach (var subCategory in _subCategories)
+                foreach (var subCategory in new List<Category>())//_subCategories)
                 {
                     if (subCategory.CategoryId == categoryId)
                     {
@@ -163,6 +161,11 @@ namespace TheFlightShop.DAL
         {
             string categoryWithoughSpaces = category.ToLower().Replace(" ", "-");
             return Regex.Replace(categoryWithoughSpaces, @"\W", "");
+        }
+
+        public void InitializeFrom()
+        {
+            throw new NotImplementedException();
         }
     }
 }

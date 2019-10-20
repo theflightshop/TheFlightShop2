@@ -18,6 +18,12 @@ namespace TheFlightShop.Controllers
             _productReadDAL = productReadDAL;
         }
 
+        public IActionResult SetItUp()
+        {
+            _productReadDAL.InitializeFrom();
+            return new JsonResult(true);
+        }
+
         public IActionResult Index()
         {
             return View();

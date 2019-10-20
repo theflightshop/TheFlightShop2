@@ -124,7 +124,11 @@ function addItemToProductAddedDisplay(codeOrDescription, quantity, price) {
 
     var itemDescription = document.createElement('em');
     itemDescription.classList.add('flightshop-product-added-item');
-    itemDescription.innerHTML = quantity + '&times;&nbsp;' + codeOrDescription.slice(0, 14) + '&nbsp;'
+    var descriptionValue = codeOrDescription.slice(0, 15);
+    if (codeOrDescription.length > 15) {
+        descriptionValue += '...';
+    }
+    itemDescription.innerHTML = quantity + '&times;&nbsp;' + descriptionValue + '&nbsp;'
     itemAdded.appendChild(itemDescription);
 
     var itemPrice = document.createElement('span');

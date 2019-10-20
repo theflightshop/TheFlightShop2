@@ -1,0 +1,3602 @@
+[
+  {
+    "ProductId": 5,
+    "CategoryId": 50,
+    "CategoryName": "Adhesive Dispensers",
+    "Code": "CB100-81",
+    "ShortDescription": "Manual dispenser (fits CB200-40 cartridge)",
+    "Price": "49.5"
+  },
+  {
+    "ProductId": 6,
+    "CategoryId": 50,
+    "CategoryName": "Adhesive Dispensers",
+    "Code": "CB100-21",
+    "ShortDescription": "Manual Dispenser (fits CB359-50 cartridge)",
+    "Price": "48.50"
+  },
+  {
+    "ProductId": 2,
+    "CategoryId": 51,
+    "CategoryName": "Adhesive Kits",
+    "Code": "CB92",
+    "ShortDescription": "Adhesive mix kit (estimate one kit per five fasteners) Includes: 1 pk. CB200, 1 mixing plate, 1 mixing stick, 1 alhocol wipe, 1 abrasive pad",
+    "Price": "2.25"
+  },
+  {
+    "ProductId": 1,
+    "CategoryId": 49,
+    "CategoryName": "Adhesive Packets and Cartridges",
+    "Code": "CB200",
+    "ShortDescription": "3.5 gram Adhesive packet",
+    "Price": "1.36"
+  },
+  {
+    "ProductId": 3,
+    "CategoryId": 49,
+    "CategoryName": "Adhesive Packets and Cartridges",
+    "Code": "CB200-40",
+    "ShortDescription": "Acrylic Adhesive 40ml. Dual *cartridge",
+    "Price": "13.40"
+  },
+  {
+    "ProductId": 4,
+    "CategoryId": 49,
+    "CategoryName": "Adhesive Packets and Cartridges",
+    "Code": "CB359-50",
+    "ShortDescription": "Epoxy Adhesive 50ml. Dual *cartridge",
+    "Price": "24.75"
+  },
+  {
+    "ProductId": 1,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB200",
+    "ShortDescription": "3.5 gram Adhesive packet",
+    "Price": "1.36"
+  },
+  {
+    "ProductId": 1,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB200",
+    "ShortDescription": "3.5 gram Adhesive packet",
+    "Price": "1.36"
+  },
+  {
+    "ProductId": 3,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB200-40",
+    "ShortDescription": "Acrylic Adhesive 40ml. Dual *cartridge",
+    "Price": "13.40"
+  },
+  {
+    "ProductId": 4,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB359-50",
+    "ShortDescription": "Epoxy Adhesive 50ml. Dual *cartridge",
+    "Price": "24.75"
+  },
+  {
+    "ProductId": 5,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB100-81",
+    "ShortDescription": "Manual dispenser (fits CB200-40 cartridge)",
+    "Price": "49.5"
+  },
+  {
+    "ProductId": 6,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB100-21",
+    "ShortDescription": "Manual Dispenser (fits CB359-50 cartridge)",
+    "Price": "48.50"
+  },
+  {
+    "ProductId": 7,
+    "CategoryId": 48,
+    "CategoryName": "Adhesives and Adhesives Kits",
+    "Code": "CB106",
+    "ShortDescription": "Mixing Tips",
+    "Price": "0.95"
+  },
+  {
+    "ProductId": 7,
+    "CategoryId": 52,
+    "CategoryName": "Adhesives Mixing Tips",
+    "Code": "CB106",
+    "ShortDescription": "Mixing Tips",
+    "Price": "0.95"
+  },
+  {
+    "ProductId": 185,
+    "CategoryId": 93,
+    "CategoryName": "CB100",
+    "Code": "CB100",
+    "ShortDescription": "Manual Dispenser",
+    "Price": "38.5"
+  },
+  {
+    "ProductId": 195,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB-11",
+    "ShortDescription": "Manual powered Dispenser and Individual Slides",
+    "Price": "10.0"
+  },
+  {
+    "ProductId": 196,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB-21",
+    "ShortDescription": "Manual powered Dispenser and Individual Slides",
+    "Price": "10.00"
+  },
+  {
+    "ProductId": 197,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB-32",
+    "ShortDescription": "Manual powered Dispenser and Individual Slides",
+    "Price": "10"
+  },
+  {
+    "ProductId": 198,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB-41",
+    "ShortDescription": "Manual powered Dispenser and Individual Slides",
+    "Price": "10.00"
+  },
+  {
+    "ProductId": 199,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB-81",
+    "ShortDescription": "Manual powered Dispenser and Individual Slides",
+    "Price": "11"
+  },
+  {
+    "ProductId": 185,
+    "CategoryId": 638,
+    "CategoryName": "CB100",
+    "Code": "CB100",
+    "ShortDescription": "Manual Dispenser",
+    "Price": "38.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 432,
+    "CategoryName": "CB100 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 6,
+    "CategoryId": 301,
+    "CategoryName": "CB100-21",
+    "Code": "CB100-21",
+    "ShortDescription": "Manual Dispenser (fits CB359-50 cartridge)",
+    "Price": "48.50"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 614,
+    "CategoryName": "CB100-21 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 5,
+    "CategoryId": 300,
+    "CategoryName": "CB100-81",
+    "Code": "CB100-81",
+    "ShortDescription": "Manual dispenser (fits CB200-40 cartridge)",
+    "Price": "49.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 613,
+    "CategoryName": "CB100-81 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 7,
+    "CategoryId": 101,
+    "CategoryName": "CB106",
+    "Code": "CB106",
+    "ShortDescription": "Mixing Tips",
+    "Price": "0.95"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 440,
+    "CategoryName": "CB106 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 414,
+    "CategoryName": "CB124 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 446,
+    "CategoryName": "CB1509 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 444,
+    "CategoryName": "CB1901 - RGQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 441,
+    "CategoryName": "CB1906 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 445,
+    "CategoryName": "CB1907 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 447,
+    "CategoryName": "CB1916 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 1,
+    "CategoryId": 299,
+    "CategoryName": "CB200",
+    "Code": "CB200",
+    "ShortDescription": "3.5 gram Adhesive packet",
+    "Price": "1.36"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 612,
+    "CategoryName": "CB200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 556,
+    "CategoryName": "CB2000 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 541,
+    "CategoryName": "CB2001 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 3,
+    "CategoryId": 88,
+    "CategoryName": "CB200-40",
+    "Code": "CB200-40",
+    "ShortDescription": "Acrylic Adhesive 40ml. Dual *cartridge",
+    "Price": "13.40"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 427,
+    "CategoryName": "CB200-40 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 585,
+    "CategoryName": "CB2009 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 587,
+    "CategoryName": "CB2011 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 122,
+    "CategoryId": 275,
+    "CategoryName": "CB2031",
+    "Code": "CB2031CR08CRP",
+    "ShortDescription": "8/32\" stainless steel/primed",
+    "Price": "8"
+  },
+  {
+    "ProductId": 123,
+    "CategoryId": 275,
+    "CategoryName": "CB2031",
+    "Code": "CB2031CR3CRP",
+    "ShortDescription": "10/32\" stainless steel/primed",
+    "Price": "8.75"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 589,
+    "CategoryName": "CB2031 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 183,
+    "CategoryId": 89,
+    "CategoryName": "CB250-50",
+    "Code": "CB250-50",
+    "ShortDescription": "Acrylic Adhesive 50ml. Dual *cartridge",
+    "Price": "10"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 428,
+    "CategoryName": "CB250-50 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 182,
+    "CategoryId": 243,
+    "CategoryName": "CB3000",
+    "Code": "CB3000AA3-20",
+    "ShortDescription": "10/32 - 1.25\" Tall Aluminum/Anodized",
+    "Price": "5.9"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 557,
+    "CategoryName": "CB3000 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 542,
+    "CategoryName": "CB3001 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 561,
+    "CategoryName": "CB3003 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 543,
+    "CategoryName": "CB3004 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 105,
+    "CategoryId": 141,
+    "CategoryName": "CB3005",
+    "Code": "CB3005CR08-10",
+    "ShortDescription": "8/32--5/8\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 106,
+    "CategoryId": 141,
+    "CategoryName": "CB3005",
+    "Code": "CB3005CR08-16",
+    "ShortDescription": "10/32-1.00\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 141,
+    "CategoryName": "CB3005",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 105,
+    "CategoryId": 152,
+    "CategoryName": "CB3005",
+    "Code": "CB3005CR08-10",
+    "ShortDescription": "8/32--5/8\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 106,
+    "CategoryId": 152,
+    "CategoryName": "CB3005",
+    "Code": "CB3005CR08-16",
+    "ShortDescription": "10/32-1.00\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 105,
+    "CategoryId": 481,
+    "CategoryName": "CB3005 - RFQ",
+    "Code": "CB3005CR08-10",
+    "ShortDescription": "8/32--5/8\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 106,
+    "CategoryId": 481,
+    "CategoryName": "CB3005 - RFQ",
+    "Code": "CB3005CR08-16",
+    "ShortDescription": "10/32-1.00\" grip length",
+    "Price": "8.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 488,
+    "CategoryName": "CB3005 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 586,
+    "CategoryName": "CB3009 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 588,
+    "CategoryName": "CB3011 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 193,
+    "CategoryId": 184,
+    "CategoryName": "CB3019",
+    "Code": "CB3019AA3N",
+    "ShortDescription": "Aluminum/Anodized-360° Swivel Mount",
+    "Price": "2.25"
+  },
+  {
+    "ProductId": 70,
+    "CategoryId": 184,
+    "CategoryName": "CB3019",
+    "Code": "CB3019AA5N",
+    "ShortDescription": "Aluminum/Anodized-360° Swivel Mount",
+    "Price": "2.25"
+  },
+  {
+    "ProductId": 69,
+    "CategoryId": 184,
+    "CategoryName": "CB3019",
+    "Code": "CB3019A5N",
+    "ShortDescription": "Aluminum/Anodized-360° Swivel Mount",
+    "Price": "2.25"
+  },
+  {
+    "ProductId": 204,
+    "CategoryId": 184,
+    "CategoryName": "CB3019",
+    "Code": "CB3019A3N",
+    "ShortDescription": "",
+    "Price": "2.05"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 499,
+    "CategoryName": "CB3019 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 559,
+    "CategoryName": "CB3021 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 545,
+    "CategoryName": "CB3033 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 184,
+    "CategoryId": 90,
+    "CategoryName": "CB309-50",
+    "Code": "CB309-50",
+    "ShortDescription": "Epoxy Adhesive 50ml. Dual *cartridge",
+    "Price": "25.25"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 429,
+    "CategoryName": "CB309-50 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 558,
+    "CategoryName": "CB3200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 544,
+    "CategoryName": "CB3201 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 4,
+    "CategoryId": 91,
+    "CategoryName": "CB359-50",
+    "Code": "CB359-50",
+    "ShortDescription": "Epoxy Adhesive 50ml. Dual *cartridge",
+    "Price": "24.75"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 430,
+    "CategoryName": "CB359-50 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 431,
+    "CategoryName": "CB394-43 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 548,
+    "CategoryName": "CB4000 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 534,
+    "CategoryName": "CB4001 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 532,
+    "CategoryName": "CB4002 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 606,
+    "CategoryName": "CB4002 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 553,
+    "CategoryName": "CB4003 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 535,
+    "CategoryName": "CB4004 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 554,
+    "CategoryName": "CB4005 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 600,
+    "CategoryName": "CB4009 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 601,
+    "CategoryName": "CB4011 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 504,
+    "CategoryName": "CB4013 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 498,
+    "CategoryName": "CB4014 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 533,
+    "CategoryName": "CB4014 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 549,
+    "CategoryName": "CB4017 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 536,
+    "CategoryName": "CB4018 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 71,
+    "CategoryId": 188,
+    "CategoryName": "CB4019",
+    "Code": "CB4019G3N",
+    "ShortDescription": "Glass/Epoxy, 360° F Swivel Mount",
+    "Price": "4.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 500,
+    "CategoryName": "CB4019 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 74,
+    "CategoryId": 189,
+    "CategoryName": "CB4020",
+    "Code": "CB4020V3N6",
+    "ShortDescription": "Glass/Polyetherimide-3/8\" length",
+    "Price": "3.5"
+  },
+  {
+    "ProductId": 75,
+    "CategoryId": 189,
+    "CategoryName": "CB4020",
+    "Code": "CB4020V3N8",
+    "ShortDescription": "Glass/Polyetherimide-1/2\" length",
+    "Price": "3.6"
+  },
+  {
+    "ProductId": 76,
+    "CategoryId": 189,
+    "CategoryName": "CB4020",
+    "Code": "CB4020V3N16",
+    "ShortDescription": "Glass/Polyetherimide-1\" length",
+    "Price": "3.8"
+  },
+  {
+    "ProductId": 77,
+    "CategoryId": 189,
+    "CategoryName": "CB4020",
+    "Code": "CB4020V3N24",
+    "ShortDescription": "Glass/Polyetherimide-1 1/2\" length",
+    "Price": "3.9"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 501,
+    "CategoryName": "CB4020 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 82,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021V3N8",
+    "ShortDescription": "1/2\" tall - Glass/PEI",
+    "Price": "6"
+  },
+  {
+    "ProductId": 83,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021V3N12",
+    "ShortDescription": "3/4\" tall - Glass/PEI",
+    "Price": "6.1"
+  },
+  {
+    "ProductId": 173,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021G3N16",
+    "ShortDescription": "1\" tall - Glass/Epoxy",
+    "Price": "12"
+  },
+  {
+    "ProductId": 84,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021V3N16",
+    "ShortDescription": "1\" tall - Glass/PEI",
+    "Price": "6.3"
+  },
+  {
+    "ProductId": 85,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021V3N24",
+    "ShortDescription": "1 1/2\" tall - Glass/PEI",
+    "Price": "6.3"
+  },
+  {
+    "ProductId": 86,
+    "CategoryId": 190,
+    "CategoryName": "CB4021",
+    "Code": "CB4021V3N32",
+    "ShortDescription": "2\" tall - Glass/PEI",
+    "Price": "6.4"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 502,
+    "CategoryName": "CB4021 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 78,
+    "CategoryId": 181,
+    "CategoryName": "CB4022",
+    "Code": "CB4022V08CR8",
+    "ShortDescription": "8/32-1/2\" length",
+    "Price": "7.6"
+  },
+  {
+    "ProductId": 79,
+    "CategoryId": 181,
+    "CategoryName": "CB4022",
+    "Code": "CB4022V08CR16",
+    "ShortDescription": "8/32-1\" length",
+    "Price": "7.8"
+  },
+  {
+    "ProductId": 80,
+    "CategoryId": 181,
+    "CategoryName": "CB4022",
+    "Code": "CB4022V3CR8",
+    "ShortDescription": "10/32-1/2\" length",
+    "Price": "7.6"
+  },
+  {
+    "ProductId": 172,
+    "CategoryId": 181,
+    "CategoryName": "CB4022",
+    "Code": "CB4022V3CR12",
+    "ShortDescription": "10/32-3/4\" length",
+    "Price": "7.8"
+  },
+  {
+    "ProductId": 81,
+    "CategoryId": 181,
+    "CategoryName": "CB4022",
+    "Code": "CB4022V3CR16",
+    "ShortDescription": "10/32-1\" length",
+    "Price": "7.8"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 496,
+    "CategoryName": "CB4022 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 174,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V08CR8",
+    "ShortDescription": "8/32-1/2\" tall",
+    "Price": "9"
+  },
+  {
+    "ProductId": 87,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V3CR-8",
+    "ShortDescription": "10/32-1/2\" tall",
+    "Price": "9"
+  },
+  {
+    "ProductId": 88,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V3CR-12",
+    "ShortDescription": "10/32-3/4\" tall",
+    "Price": "9.1"
+  },
+  {
+    "ProductId": 89,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V3CR-16",
+    "ShortDescription": "10/32-1\" tall",
+    "Price": "9.2"
+  },
+  {
+    "ProductId": 90,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V3CR-24",
+    "ShortDescription": "10/32-1 1/2\" tall",
+    "Price": "9.3"
+  },
+  {
+    "ProductId": 91,
+    "CategoryId": 182,
+    "CategoryName": "CB4023",
+    "Code": "CB4023V3CR-32",
+    "ShortDescription": "10/32-2\" tall",
+    "Price": "9.4"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 497,
+    "CategoryName": "CB4023 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 505,
+    "CategoryName": "CB4024 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 538,
+    "CategoryName": "CB4033 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 521,
+    "CategoryName": "CB4034 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 522,
+    "CategoryName": "CB4035 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 616,
+    "CategoryName": "CB4062 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 617,
+    "CategoryName": "CB4063 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 618,
+    "CategoryName": "CB4064 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 552,
+    "CategoryName": "CB4101 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 495,
+    "CategoryName": "CB4132 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 607,
+    "CategoryName": "CB4132 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 550,
+    "CategoryName": "CB4200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 537,
+    "CategoryName": "CB4201 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 494,
+    "CategoryName": "CB4233 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 609,
+    "CategoryName": "CB4233 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 555,
+    "CategoryName": "CB5000 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 539,
+    "CategoryName": "CB5001 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 560,
+    "CategoryName": "CB5003 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 540,
+    "CategoryName": "CB5004 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 479,
+    "CategoryName": "CB5005 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 480,
+    "CategoryName": "CB5006 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 477,
+    "CategoryName": "CB5007 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 101,
+    "CategoryId": 113,
+    "CategoryName": "CB5906",
+    "Code": "CB5906C06B300",
+    "ShortDescription": "#10--.300\" stainless steel",
+    "Price": "4.62"
+  },
+  {
+    "ProductId": 102,
+    "CategoryId": 113,
+    "CategoryName": "CB5906",
+    "Code": "CB5906C08B300",
+    "ShortDescription": "#1/4-.300\" stainless steel",
+    "Price": "4.62"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 452,
+    "CategoryName": "CB5906 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 450,
+    "CategoryName": "CB5907 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 454,
+    "CategoryName": "CB5908 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 453,
+    "CategoryName": "CB5946 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 451,
+    "CategoryName": "CB5947 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 455,
+    "CategoryName": "CB5948 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 574,
+    "CategoryName": "CB6007 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 591,
+    "CategoryName": "CB6008 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 17,
+    "CategoryId": 261,
+    "CategoryName": "CB6009",
+    "Code": "CB6009CR08-1P",
+    "ShortDescription": "8/32\" stainless steel/primed",
+    "Price": "4"
+  },
+  {
+    "ProductId": 18,
+    "CategoryId": 261,
+    "CategoryName": "CB6009",
+    "Code": "CB6009CR3-1P",
+    "ShortDescription": "10/32\" stainless steel/primed",
+    "Price": "4"
+  },
+  {
+    "ProductId": 114,
+    "CategoryId": 261,
+    "CategoryName": "CB6009",
+    "Code": "CB6009CR4-1P",
+    "ShortDescription": "1/4-28\" stainless steel/primed",
+    "Price": "4.93"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 575,
+    "CategoryName": "CB6009 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 593,
+    "CategoryName": "CB6010 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 577,
+    "CategoryName": "CB6011 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 579,
+    "CategoryName": "CB6012 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 580,
+    "CategoryName": "CB6013 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 201,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR06-1P",
+    "ShortDescription": "6/32 stainless steel/primed",
+    "Price": "3.50"
+  },
+  {
+    "ProductId": 115,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR04-1P",
+    "ShortDescription": "4/40 stainless steel/primed",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 116,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR08-1P",
+    "ShortDescription": "8/32 stainless steel/primed",
+    "Price": "3.50"
+  },
+  {
+    "ProductId": 117,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR3-1P",
+    "ShortDescription": "10/32 stainless steel/primed",
+    "Price": "3.50"
+  },
+  {
+    "ProductId": 118,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR4-1P",
+    "ShortDescription": "1/4-28  stainless steel/primed",
+    "Price": "4.5"
+  },
+  {
+    "ProductId": 119,
+    "CategoryId": 283,
+    "CategoryName": "CB6014",
+    "Code": "CB6014CR5-1P",
+    "ShortDescription": "5/16-24 stainless steel/primed",
+    "Price": "9.53"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 597,
+    "CategoryName": "CB6014 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 415,
+    "CategoryName": "CB602 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 416,
+    "CategoryName": "CB603 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 417,
+    "CategoryName": "CB607 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 615,
+    "CategoryName": "CB6080 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 418,
+    "CategoryName": "CB609 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 571,
+    "CategoryName": "CB6109 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 572,
+    "CategoryName": "CB6209 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 419,
+    "CategoryName": "CB625 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 420,
+    "CategoryName": "CB629 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 563,
+    "CategoryName": "CB6307 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 566,
+    "CategoryName": "CB6309 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 570,
+    "CategoryName": "CB6310 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 565,
+    "CategoryName": "CB6311 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 564,
+    "CategoryName": "CB6347 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 567,
+    "CategoryName": "CB6349 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 421,
+    "CategoryName": "CB750 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 422,
+    "CategoryName": "CB751 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 423,
+    "CategoryName": "CB752 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 424,
+    "CategoryName": "CB753 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 592,
+    "CategoryName": "CB8008 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 576,
+    "CategoryName": "CB8009 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 594,
+    "CategoryName": "CB8010 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 578,
+    "CategoryName": "CB8011 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 107,
+    "CategoryId": 146,
+    "CategoryName": "CB9029",
+    "Code": "CB9029AA3-500",
+    "ShortDescription": "10/32\" Anodized-Aluminum .500 long",
+    "Price": "6.75"
+  },
+  {
+    "ProductId": 176,
+    "CategoryId": 146,
+    "CategoryName": "CB9029",
+    "Code": "CB9029AA3-813",
+    "ShortDescription": "10/32\" Anodized-Aluminum .813 long",
+    "Price": "6.75"
+  },
+  {
+    "ProductId": 177,
+    "CategoryId": 146,
+    "CategoryName": "CB9029",
+    "Code": "CB9029A3-375",
+    "ShortDescription": "10/32\" Aluminum .375 long",
+    "Price": "6.75"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 485,
+    "CategoryName": "CB9029 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 425,
+    "CategoryName": "CB9032 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 492,
+    "CategoryName": "CB9060 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 487,
+    "CategoryName": "CB9061 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 486,
+    "CategoryName": "CB9077 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 448,
+    "CategoryName": "CB9080 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 449,
+    "CategoryName": "CB9081 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 482,
+    "CategoryName": "CB9084 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 483,
+    "CategoryName": "CB9085 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 581,
+    "CategoryName": "CB9099 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 433,
+    "CategoryName": "CB91 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 493,
+    "CategoryName": "CB9101 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 583,
+    "CategoryName": "CB9102 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 438,
+    "CategoryName": "CB911 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 484,
+    "CategoryName": "CB9112 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 67,
+    "CategoryId": 193,
+    "CategoryName": "CB9120",
+    "Code": "CB9120V5",
+    "ShortDescription": "Glass/Thermoplastic",
+    "Price": "2.58"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 506,
+    "CategoryName": "CB9120 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 590,
+    "CategoryName": "CB9121 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 599,
+    "CategoryName": "CB9121 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 478,
+    "CategoryName": "CB9122 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 68,
+    "CategoryId": 194,
+    "CategoryName": "CB9151",
+    "Code": "CB9151V5",
+    "ShortDescription": "Glass/Thermoplastic",
+    "Price": "2.35"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 507,
+    "CategoryName": "CB9151 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 551,
+    "CategoryName": "CB9159 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 514,
+    "CategoryName": "CB9170 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 108,
+    "CategoryId": 201,
+    "CategoryName": "CB9173",
+    "Code": "CB9173V3-12S",
+    "ShortDescription": "UItem Thermoplastic 3/4\" tall",
+    "Price": "1.1"
+  },
+  {
+    "ProductId": 109,
+    "CategoryId": 201,
+    "CategoryName": "CB9173",
+    "Code": "CB9173V3-24S",
+    "ShortDescription": "UItem Thermoplastic 1 1/2\" tall",
+    "Price": "1.25"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 515,
+    "CategoryName": "CB9173 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 110,
+    "CategoryId": 204,
+    "CategoryName": "CB9174",
+    "Code": "CB9174V3-6",
+    "ShortDescription": "UItem Thermoplastic 3/8\" tall",
+    "Price": "0.6"
+  },
+  {
+    "ProductId": 111,
+    "CategoryId": 204,
+    "CategoryName": "CB9174",
+    "Code": "CB9174V3-8",
+    "ShortDescription": "UItem Thermoplastic 1/2\" tall",
+    "Price": "0.6"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 518,
+    "CategoryName": "CB9174 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 21,
+    "CategoryId": 157,
+    "CategoryName": "CB9176",
+    "Code": "CB9176CR08CRP",
+    "ShortDescription": "8/32\" stainless steel",
+    "Price": "7.8"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 490,
+    "CategoryName": "CB9176 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 584,
+    "CategoryName": "CB9186 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 546,
+    "CategoryName": "CB9188 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 598,
+    "CategoryName": "CB9197 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 2,
+    "CategoryId": 95,
+    "CategoryName": "CB92",
+    "Code": "CB92",
+    "ShortDescription": "Adhesive mix kit (estimate one kit per five fasteners) Includes: 1 pk. CB200, 1 mixing plate, 1 mixing stick, 1 alhocol wipe, 1 abrasive pad",
+    "Price": "2.25"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 434,
+    "CategoryName": "CB92 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 523,
+    "CategoryName": "CB9201 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 525,
+    "CategoryName": "CB9205 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 516,
+    "CategoryName": "CB9206 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 519,
+    "CategoryName": "CB9208 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 517,
+    "CategoryName": "CB9210 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 547,
+    "CategoryName": "CB9212 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 66,
+    "CategoryId": 196,
+    "CategoryName": "CB9257",
+    "Code": "CB9257V",
+    "ShortDescription": "Glass/Thermoplastic, 350° F",
+    "Price": "3.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 509,
+    "CategoryName": "CB9257 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 426,
+    "CategoryName": "CB9268 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 471,
+    "CategoryName": "CB9296 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 526,
+    "CategoryName": "CB9297 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 435,
+    "CategoryName": "CB93 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 65,
+    "CategoryId": 195,
+    "CategoryName": "CB9302",
+    "Code": "CB9302V3",
+    "ShortDescription": "Glass/Thermoplastic",
+    "Price": "2.73"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 508,
+    "CategoryName": "CB9302 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 442,
+    "CategoryName": "CB9308 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 491,
+    "CategoryName": "CB9312 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 520,
+    "CategoryName": "CB9322 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 595,
+    "CategoryName": "CB9356 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 443,
+    "CategoryName": "CB9366 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 568,
+    "CategoryName": "CB9382 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 569,
+    "CategoryName": "CB9392 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 103,
+    "CategoryId": 313,
+    "CategoryName": "CB9393",
+    "Code": "CB9393V5",
+    "ShortDescription": "Polyetherimide/Glass, 350°   F",
+    "Price": "3.8"
+  },
+  {
+    "ProductId": 203,
+    "CategoryId": 313,
+    "CategoryName": "CB9393",
+    "Code": "CB9393V7",
+    "ShortDescription": "Quarter Receptacle 4002",
+    "Price": "4.3"
+  },
+  {
+    "ProductId": 178,
+    "CategoryId": 313,
+    "CategoryName": "CB9393",
+    "Code": "CB9393V5C",
+    "ShortDescription": "Polyetherimide/Glass, 350°   F w/Cap",
+    "Price": "7.3"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 620,
+    "CategoryName": "CB9393 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 436,
+    "CategoryName": "CB94 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 527,
+    "CategoryName": "CB9421 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 530,
+    "CategoryName": "CB9421 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 528,
+    "CategoryName": "CB9422 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 531,
+    "CategoryName": "CB9422 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 72,
+    "CategoryId": 198,
+    "CategoryName": "CB9459",
+    "Code": "CB9459P3",
+    "ShortDescription": "PEEK",
+    "Price": "1.25"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 512,
+    "CategoryName": "CB9459 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 73,
+    "CategoryId": 199,
+    "CategoryName": "CB9513P5",
+    "Code": "CB9513P5-10",
+    "ShortDescription": "10\" Long/PEEK",
+    "Price": "5.75"
+  },
+  {
+    "ProductId": 170,
+    "CategoryId": 199,
+    "CategoryName": "CB9513P5",
+    "Code": "CB9513P5-15",
+    "ShortDescription": "15\" Long/PEEK",
+    "Price": "8.25"
+  },
+  {
+    "ProductId": 171,
+    "CategoryId": 199,
+    "CategoryName": "CB9513P5",
+    "Code": "CB9513P5-18",
+    "ShortDescription": "18\" Long/PEEK",
+    "Price": "9.75"
+  },
+  {
+    "ProductId": 180,
+    "CategoryId": 199,
+    "CategoryName": "CB9513P5",
+    "Code": "CB9513P5-8",
+    "ShortDescription": "8\" Long/PEEK",
+    "Price": "4.75"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 513,
+    "CategoryName": "CB9513P5 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 524,
+    "CategoryName": "CB9514 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 511,
+    "CategoryName": "CB9519 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 573,
+    "CategoryName": "CB9530 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 596,
+    "CategoryName": "CB9530 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 529,
+    "CategoryName": "CB9532 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 582,
+    "CategoryName": "CB9595 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 437,
+    "CategoryName": "CB96 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 96,
+    "CategoryId": 298,
+    "CategoryName": "CG596C",
+    "Code": "CG596C55",
+    "ShortDescription": "Stainless Steel/ for #8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 97,
+    "CategoryId": 298,
+    "CategoryName": "CG596C",
+    "Code": "CG596C06",
+    "ShortDescription": "Stainless Steel/ for #10 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 98,
+    "CategoryId": 298,
+    "CategoryName": "CG596C",
+    "Code": "CG596C08",
+    "ShortDescription": "Stainless Steel/ for #1/4 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 99,
+    "CategoryId": 298,
+    "CategoryName": "CG596C",
+    "Code": "CG596C10",
+    "ShortDescription": "Stainless Steel/ for #5/16 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 100,
+    "CategoryId": 298,
+    "CategoryName": "CG596C",
+    "Code": "CG596C12",
+    "ShortDescription": "Stainless Steel/ for #3/8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 611,
+    "CategoryName": "CG596C - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 96,
+    "CategoryId": 393,
+    "CategoryName": "CG596C06",
+    "Code": "CG596C55",
+    "ShortDescription": "Stainless Steel/ for #8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 97,
+    "CategoryId": 393,
+    "CategoryName": "CG596C06",
+    "Code": "CG596C06",
+    "ShortDescription": "Stainless Steel/ for #10 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 98,
+    "CategoryId": 393,
+    "CategoryName": "CG596C06",
+    "Code": "CG596C08",
+    "ShortDescription": "Stainless Steel/ for #1/4 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 99,
+    "CategoryId": 393,
+    "CategoryName": "CG596C06",
+    "Code": "CG596C10",
+    "ShortDescription": "Stainless Steel/ for #5/16 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 100,
+    "CategoryId": 393,
+    "CategoryName": "CG596C06",
+    "Code": "CG596C12",
+    "ShortDescription": "Stainless Steel/ for #3/8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 621,
+    "CategoryName": "CG596C06 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 96,
+    "CategoryId": 395,
+    "CategoryName": "CG596C10",
+    "Code": "CG596C55",
+    "ShortDescription": "Stainless Steel/ for #8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 97,
+    "CategoryId": 395,
+    "CategoryName": "CG596C10",
+    "Code": "CG596C06",
+    "ShortDescription": "Stainless Steel/ for #10 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 98,
+    "CategoryId": 395,
+    "CategoryName": "CG596C10",
+    "Code": "CG596C08",
+    "ShortDescription": "Stainless Steel/ for #1/4 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 99,
+    "CategoryId": 395,
+    "CategoryName": "CG596C10",
+    "Code": "CG596C10",
+    "ShortDescription": "Stainless Steel/ for #5/16 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 100,
+    "CategoryId": 395,
+    "CategoryName": "CG596C10",
+    "Code": "CG596C12",
+    "ShortDescription": "Stainless Steel/ for #3/8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 623,
+    "CategoryName": "CG596C10 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 96,
+    "CategoryId": 394,
+    "CategoryName": "CG59C08",
+    "Code": "CG596C55",
+    "ShortDescription": "Stainless Steel/ for #8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 97,
+    "CategoryId": 394,
+    "CategoryName": "CG59C08",
+    "Code": "CG596C06",
+    "ShortDescription": "Stainless Steel/ for #10 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 98,
+    "CategoryId": 394,
+    "CategoryName": "CG59C08",
+    "Code": "CG596C08",
+    "ShortDescription": "Stainless Steel/ for #1/4 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 99,
+    "CategoryId": 394,
+    "CategoryName": "CG59C08",
+    "Code": "CG596C10",
+    "ShortDescription": "Stainless Steel/ for #5/16 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 100,
+    "CategoryId": 394,
+    "CategoryName": "CG59C08",
+    "Code": "CG596C12",
+    "ShortDescription": "Stainless Steel/ for #3/8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 622,
+    "CategoryName": "CG59C08 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 100,
+    "CategoryId": 396,
+    "CategoryName": "CG59C12",
+    "Code": "CG596C12",
+    "ShortDescription": "Stainless Steel/ for #3/8 screw",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 624,
+    "CategoryName": "CG59C12 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 189,
+    "CategoryId": 60,
+    "CategoryName": "CN109",
+    "Code": "CN109",
+    "ShortDescription": "Two Lug, Bracket Retained",
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 400,
+    "CategoryName": "CN109 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 187,
+    "CategoryId": 61,
+    "CategoryName": "CN111",
+    "Code": "CN111",
+    "ShortDescription": "Nutplate, Bracket Retained, one lug",
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 401,
+    "CategoryName": "CN111 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 56,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-632-8CR",
+    "ShortDescription": "6/32-1/2\" long/stainless steel",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 169,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-16GCR",
+    "ShortDescription": "10/32-1\" long/composite base",
+    "Price": "6.00"
+  },
+  {
+    "ProductId": 62,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-8CR",
+    "ShortDescription": "10/32-1/2\" long/stainless steel",
+    "Price": "4.43"
+  },
+  {
+    "ProductId": 63,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-12CR",
+    "ShortDescription": "10/32-3/4\" long/stainless steel",
+    "Price": "4.43"
+  },
+  {
+    "ProductId": 64,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-16CR",
+    "ShortDescription": "10/32-1\" long/stainless steel",
+    "Price": "4.43"
+  },
+  {
+    "ProductId": 166,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-832-8GCR",
+    "ShortDescription": "8/32-1/2\" long/composite base",
+    "Price": "5.90"
+  },
+  {
+    "ProductId": 167,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-8GCR",
+    "ShortDescription": "10/32-1/2\" long/composite base",
+    "Price": "4.68"
+  },
+  {
+    "ProductId": 168,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-1032-12GCR",
+    "ShortDescription": "10/32-3/4\" long/composite base",
+    "Price": "4.68"
+  },
+  {
+    "ProductId": 57,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-632-12CR",
+    "ShortDescription": "6/32-3/4\" long/stainless steel",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 58,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-632-16CR",
+    "ShortDescription": "6/32-1\" long/stainless steel",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 165,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-832-5CR",
+    "ShortDescription": "8/32-5/16\" long/stainless steel",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 59,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-832-8CR",
+    "ShortDescription": "8/32-1/2\" long/stainless steel",
+    "Price": "3.75"
+  },
+  {
+    "ProductId": 60,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-832-12CR",
+    "ShortDescription": "8/32-3/4\" long/stainless steel",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 61,
+    "CategoryId": 70,
+    "CategoryName": "CN125",
+    "Code": "CN125-832-16CR",
+    "ShortDescription": "8/32-1\" long/stainless steel",
+    "Price": "4.98"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 410,
+    "CategoryName": "CN125 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 188,
+    "CategoryId": 71,
+    "CategoryName": "CN200",
+    "Code": "CN200",
+    "ShortDescription": "Standoff (2.00\" dia), Very Large Base, Locking Thread",
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 411,
+    "CategoryName": "CN200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 408,
+    "CategoryName": "CN305 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 406,
+    "CategoryName": "CN505 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 407,
+    "CategoryName": "CN555 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 14,
+    "CategoryId": 62,
+    "CategoryName": "CN609",
+    "Code": "CN609CR08P",
+    "ShortDescription": "8/32\" stainless steel/primed",
+    "Price": "4.00"
+  },
+  {
+    "ProductId": 15,
+    "CategoryId": 62,
+    "CategoryName": "CN609",
+    "Code": "CN609CR3P",
+    "ShortDescription": "10/32\" stainless steel primed",
+    "Price": "4.0"
+  },
+  {
+    "ProductId": 16,
+    "CategoryId": 62,
+    "CategoryName": "CN609",
+    "Code": "CN609CR4P",
+    "ShortDescription": "1/4-28\" stainless steel/primed",
+    "Price": "4.93"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 402,
+    "CategoryName": "CN609 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 19,
+    "CategoryId": 63,
+    "CategoryName": "CN610",
+    "Code": "CN610ACR08P",
+    "ShortDescription": "8/32\" stainless steel & aluninum",
+    "Price": "7.0"
+  },
+  {
+    "ProductId": 120,
+    "CategoryId": 63,
+    "CategoryName": "CN610",
+    "Code": "CN610CR08P",
+    "ShortDescription": "8/32 stainless steel w/primer",
+    "Price": "4.89"
+  },
+  {
+    "ProductId": 20,
+    "CategoryId": 63,
+    "CategoryName": "CN610",
+    "Code": "CN610ACR3",
+    "ShortDescription": "10/32\" stainless steel & aluminum",
+    "Price": "6.50"
+  },
+  {
+    "ProductId": 121,
+    "CategoryId": 63,
+    "CategoryName": "CN610",
+    "Code": "CN610CR3P",
+    "ShortDescription": "10/32\" stainless steel w/primer",
+    "Price": "8.0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 403,
+    "CategoryName": "CN610 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 186,
+    "CategoryId": 64,
+    "CategoryName": "CN611",
+    "Code": "CN611",
+    "ShortDescription": "One Lug, Clip Retained",
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 404,
+    "CategoryName": "CN611 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 8,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR04P",
+    "ShortDescription": "4/40\" stainless steel/primed",
+    "Price": "3.2"
+  },
+  {
+    "ProductId": 9,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR06P",
+    "ShortDescription": "6/32\" stainless steel/primed",
+    "Price": "3.1"
+  },
+  {
+    "ProductId": 194,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "KA100E2CN614CR06P",
+    "ShortDescription": "Kit, Expoxy Adhesive, Special\r\n6/32\" stainless steel/primed",
+    "Price": "395"
+  },
+  {
+    "ProductId": 10,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR08P",
+    "ShortDescription": "8/32\" stainless steel/primed",
+    "Price": "3.10"
+  },
+  {
+    "ProductId": 11,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR3P",
+    "ShortDescription": "10/32\" stainless steel/primed",
+    "Price": "3.1"
+  },
+  {
+    "ProductId": 12,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR4P",
+    "ShortDescription": "1/4-28\" stainless steel/primed",
+    "Price": "4.25"
+  },
+  {
+    "ProductId": 13,
+    "CategoryId": 65,
+    "CategoryName": "CN614",
+    "Code": "CN614CR5P",
+    "ShortDescription": "5/16-24\" stainless steel/primed",
+    "Price": "7.65"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 405,
+    "CategoryName": "CN614 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 157,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-440-5CR",
+    "ShortDescription": "4/40-5/16\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 158,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-440-6CR",
+    "ShortDescription": "4/40-3/8\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 159,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-440-8CR",
+    "ShortDescription": "4/40-1/2\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 160,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-440-10CR",
+    "ShortDescription": "4/40-5/8\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 55,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-1032-8CR",
+    "ShortDescription": "10/32-1/2\" stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 161,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-440-12CR",
+    "ShortDescription": "4/40-3/4\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 53,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-632-8CR",
+    "ShortDescription": "6/32-1/2\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 162,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-632-10CR",
+    "ShortDescription": "6/32-5/8\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 163,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-632-12CR",
+    "ShortDescription": "6/32-3/4\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 54,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-832-8CR",
+    "ShortDescription": "8/32-1/2\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 164,
+    "CategoryId": 69,
+    "CategoryName": "CN62",
+    "Code": "CN62-832-10CR",
+    "ShortDescription": "8/32-5/8\" stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 409,
+    "CategoryName": "CN62 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 92,
+    "CategoryId": 133,
+    "CategoryName": "CP125",
+    "Code": "CP125-000-005-A1A1",
+    "ShortDescription": "Aluminum/Anodized Flat Patch",
+    "Price": "6"
+  },
+  {
+    "ProductId": 175,
+    "CategoryId": 133,
+    "CategoryName": "CP125",
+    "Code": "CP125-000-005-KA1A1",
+    "ShortDescription": "Click Patch Kit (Includes CB92 Adhesive Kit)",
+    "Price": "8.25"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 473,
+    "CategoryName": "CP125 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 93,
+    "CategoryId": 135,
+    "CategoryName": "CP125-375",
+    "Code": "CP125-375-005-A2A1",
+    "ShortDescription": "Aluminum/Anodized Medium Hat Patch",
+    "Price": "7.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 475,
+    "CategoryName": "CP125-375 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 94,
+    "CategoryId": 136,
+    "CategoryName": "CP125-625",
+    "Code": "CP125-625-005-A2A1",
+    "ShortDescription": "Aluminum/Anodized Large Hat Patch",
+    "Price": "8"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 476,
+    "CategoryName": "CP125-625 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 95,
+    "CategoryId": 134,
+    "CategoryName": "CP200",
+    "Code": "CP200AA032",
+    "ShortDescription": "Aluminum/Anodized Flat Patch",
+    "Price": "7.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 474,
+    "CategoryName": "CP200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 200,
+    "CategoryId": 639,
+    "CategoryName": "CP62",
+    "Code": "CP62-000-005-A1A1",
+    "ShortDescription": "",
+    "Price": "4"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 472,
+    "CategoryName": "CP62 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 104,
+    "CategoryId": 296,
+    "CategoryName": "CS120",
+    "Code": "CS120-105-24CR",
+    "ShortDescription": "1 1/2\" long/Stainless Steel",
+    "Price": "1.5"
+  },
+  {
+    "ProductId": 179,
+    "CategoryId": 296,
+    "CategoryName": "CS120",
+    "Code": "CS120-105-40CR",
+    "ShortDescription": "2 1/2\" long/Stainless Steel",
+    "Price": "1.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 610,
+    "CategoryName": "CS120 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 127,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-4CR",
+    "ShortDescription": "6/32-1/4\" long/stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 34,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-8CR",
+    "ShortDescription": "6/32-1/2\" long/stainless steel",
+    "Price": "3.18"
+  },
+  {
+    "ProductId": 35,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-12CR",
+    "ShortDescription": "6/32-3/4\" long/stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 128,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-12GCR",
+    "ShortDescription": "6/32-3/4\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 36,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-16CR",
+    "ShortDescription": "6/32-1\" long/stainless steel",
+    "Price": "3.19"
+  },
+  {
+    "ProductId": 146,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1420-24CR",
+    "ShortDescription": "1/4-20-1.5\" long/stainless steel",
+    "Price": "4.22"
+  },
+  {
+    "ProductId": 147,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1428-8CR",
+    "ShortDescription": "1/4-28-1/2\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 148,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1428-12CR",
+    "ShortDescription": "1/4-28-3/4\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 149,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1428-16CR",
+    "ShortDescription": "1/4-28-1\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 150,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1428-16GCR",
+    "ShortDescription": "1/4-28-1\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 141,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-24GCR",
+    "ShortDescription": "10/32-1.5\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 142,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1420-8CR",
+    "ShortDescription": "1/4-20-1/2\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 143,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1420-10CR",
+    "ShortDescription": "1/4-20-5/8\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 202,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-5GCR",
+    "ShortDescription": "10/32-5/16\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 144,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1420-12CR",
+    "ShortDescription": "1/4-20-3/4\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 145,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1420-16CR",
+    "ShortDescription": "1/4-20-1\" long/stainless steel",
+    "Price": "3.88"
+  },
+  {
+    "ProductId": 136,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-12GCR",
+    "ShortDescription": "10/32-3/4\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 137,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-14CR",
+    "ShortDescription": "10/32-7/8\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 138,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-14GCR",
+    "ShortDescription": "10/32-7/8\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 42,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-16CR",
+    "ShortDescription": "10/32-1\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 139,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-16GCR",
+    "ShortDescription": "10/32-1\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 140,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-24CR",
+    "ShortDescription": "10/32-1.5\" long/stainless steel",
+    "Price": "4.08"
+  },
+  {
+    "ProductId": 39,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-16CR",
+    "ShortDescription": "8/32-1\" long/stainless steel",
+    "Price": "3.19"
+  },
+  {
+    "ProductId": 133,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-6CR",
+    "ShortDescription": "10/32-3/8\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 40,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-8CR",
+    "ShortDescription": "10/32-1/2\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 134,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-8GCR",
+    "ShortDescription": "10/32-1/2\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 135,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-10CR",
+    "ShortDescription": "10/32-5/8\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 41,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-1032-12CR",
+    "ShortDescription": "10/32-3/4\" long/stainless steel",
+    "Price": "3.68"
+  },
+  {
+    "ProductId": 129,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-632-24GCR",
+    "ShortDescription": "6/32-1.5\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 37,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-8CR",
+    "ShortDescription": "8/32-1/2\" long/stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 130,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-8GCR",
+    "ShortDescription": "8/32-1/2\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 38,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-12CR",
+    "ShortDescription": "8/32-3/4\" long/stainless steel",
+    "Price": "3"
+  },
+  {
+    "ProductId": 131,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-12GCR",
+    "ShortDescription": "8/32-3/4\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 132,
+    "CategoryId": 73,
+    "CategoryName": "CS125",
+    "Code": "CS125-832-14GCR",
+    "ShortDescription": "8/32-7/8\" long/composite base",
+    "Price": "6.85"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 413,
+    "CategoryName": "CS125 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 43,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1032-8CR",
+    "ShortDescription": "10/32-1/2\" long",
+    "Price": "7.43"
+  },
+  {
+    "ProductId": 44,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1032-12CR",
+    "ShortDescription": "10/32-3/4\" long",
+    "Price": "7.43"
+  },
+  {
+    "ProductId": 45,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1032-16CR",
+    "ShortDescription": "10/32-1\" long",
+    "Price": "7.43"
+  },
+  {
+    "ProductId": 151,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-8CR",
+    "ShortDescription": "1/4-20-1/2\" long",
+    "Price": "7.63"
+  },
+  {
+    "ProductId": 152,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-10CR",
+    "ShortDescription": "1/4-20-1/2\" long",
+    "Price": "7.63"
+  },
+  {
+    "ProductId": 48,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1428-16CR",
+    "ShortDescription": "1/4-28-1\" long",
+    "Price": "7.63"
+  },
+  {
+    "ProductId": 49,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-3816-16CR",
+    "ShortDescription": "3/8-16-1\" long",
+    "Price": "8.57"
+  },
+  {
+    "ProductId": 50,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-3816-24CR",
+    "ShortDescription": "3/8-16-1.5\" long",
+    "Price": "8.57"
+  },
+  {
+    "ProductId": 51,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-51618-16CR",
+    "ShortDescription": "5/16-18-1\" long",
+    "Price": "8.31"
+  },
+  {
+    "ProductId": 52,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-51618-24CR",
+    "ShortDescription": "5/16-18-1.5\" long",
+    "Price": "8.96"
+  },
+  {
+    "ProductId": 153,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-12CR",
+    "ShortDescription": "1/4-20-3/4\" long",
+    "Price": "7.63"
+  },
+  {
+    "ProductId": 154,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-24CR",
+    "ShortDescription": "1/4-20-2\" long",
+    "Price": "7.97"
+  },
+  {
+    "ProductId": 155,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-32CR",
+    "ShortDescription": "1/4-20-2\" long",
+    "Price": "8.29"
+  },
+  {
+    "ProductId": 156,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1420-40CR",
+    "ShortDescription": "1/4-20-2.5\" long",
+    "Price": "8.97"
+  },
+  {
+    "ProductId": 46,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1428-8CR",
+    "ShortDescription": "1/4-28-1/2\" long",
+    "Price": "5.5"
+  },
+  {
+    "ProductId": 47,
+    "CategoryId": 74,
+    "CategoryName": "CS200",
+    "Code": "CS200-1428-12CR",
+    "ShortDescription": "1/4-28-3/4\" long",
+    "Price": "5.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 629,
+    "CategoryName": "CS200 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 31,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-1032-5CR",
+    "ShortDescription": "10/32-5/16\" long/stainless steel",
+    "Price": "3.18"
+  },
+  {
+    "ProductId": 32,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-1032-8CR",
+    "ShortDescription": "10/32-1/2\" long/stainless steel",
+    "Price": "3.18"
+  },
+  {
+    "ProductId": 33,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-1032-12CR",
+    "ShortDescription": "10/32-3/4\" long/stainless steel",
+    "Price": "3.18"
+  },
+  {
+    "ProductId": 126,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-1032-16CR",
+    "ShortDescription": "10/32-1\" long/stainless steel",
+    "Price": "3.18"
+  },
+  {
+    "ProductId": 27,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-632-12CR",
+    "ShortDescription": "6/32-3/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 113,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-632-16CR",
+    "ShortDescription": "6/32-1\" long/stainless steel",
+    "Price": "2.69"
+  },
+  {
+    "ProductId": 28,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-832-4CR ",
+    "ShortDescription": "8/32-1/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 125,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-832-6CR",
+    "ShortDescription": "8/32-3/8\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 29,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-832-8CR",
+    "ShortDescription": "8/32-1/2\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 30,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-832-12CR",
+    "ShortDescription": "8/32-3/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 22,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-440-4CR",
+    "ShortDescription": "4/40-1/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 23,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-440-8CR",
+    "ShortDescription": "4/40-1/2\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 24,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-440-12CR",
+    "ShortDescription": "4/40-3/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 25,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-632-4CR",
+    "ShortDescription": "6/32-1/4\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 124,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-632-6CR",
+    "ShortDescription": "6/32-3/8\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 26,
+    "CategoryId": 72,
+    "CategoryName": "CS62",
+    "Code": "CS62-632-8CR",
+    "ShortDescription": "6/32-1/2\" long/stainless steel",
+    "Price": "2.5"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 412,
+    "CategoryName": "CS62 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 456,
+    "CategoryName": "JK5501 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 462,
+    "CategoryName": "JK5502 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 467,
+    "CategoryName": "JK5506 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 460,
+    "CategoryName": "JK5507 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 458,
+    "CategoryName": "JK5541 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 463,
+    "CategoryName": "JK5542 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 465,
+    "CategoryName": "JK5542 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 469,
+    "CategoryName": "JK5546 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 461,
+    "CategoryName": "JK5547 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 457,
+    "CategoryName": "JK5701 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 464,
+    "CategoryName": "JK5702 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 468,
+    "CategoryName": "JK5706 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 459,
+    "CategoryName": "JK5721 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 466,
+    "CategoryName": "JK5722 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 470,
+    "CategoryName": "JK5726 - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  },
+  {
+    "ProductId": 112,
+    "CategoryId": 439,
+    "CategoryName": "KA KIT - RFQ",
+    "Code": "Special",
+    "ShortDescription": null,
+    "Price": "0"
+  }
+]
