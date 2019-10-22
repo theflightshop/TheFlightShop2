@@ -1,4 +1,6 @@
-﻿<div>
+﻿@using System.Text.RegularExpressions;
+
+<div>
     <h2>Products</h2>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -10,32 +12,38 @@
             </li>
         </ol>
     </nav>
-
-    <div class="row">
-        @{ var itemNumber = 1; }
+<table>
+    <tr class="">
+        @{ var itemNumber = 1; var columnNumber = 1; }
         @foreach (var category in Model.Categories)
         {
             var itemClass = itemNumber > 4 ? "flightshop-product-category-margin" : "";
             itemNumber++;
 
-            var imageCategoryFilename = category.Name
+            if (columnNumber > 4) {
+                columnNumber = 1;
+                @Html.Raw("</tr><tr>")
+            }
+            columnNumber++;
+
+            var imageCategoryFilename = Regex.Replace(category.Name
                 .ToLower()
-                .Replace(" ", "-")
                 .Replace("&", "and")
-                .Replace("®", "") + ".png";
+                .Replace(" ", "-"), @"[^\w\s\d\-]", "") + ".png";
 
-            <div class="col-xs-3 @itemClass">
-                <a class="flightshop-product-category-link"
-                   asp-controller="Products"
-                   asp-action="Category"
-                   asp-route-id="@category.Id">
+        <td class="flightshop-product-cell">
+            <a class="flightshop-product-category-link"
+               asp-controller="Products"
+               asp-action="Category"
+               asp-route-id="@category.Id">
 
-                    <img class="flightshop-category-image"
-                         src="~/products/category-images/@imageCategoryFilename"
-                         alt="@category.Name" />
-                    <h5>@category.Name</h5>
-                </a>
-            </div>
-        }
-    </div>
+                <img class="flightshop-category-image"
+                     src="~/products/category-images/@imageCategoryFilename"
+                     alt="@category.Name" />
+                <h5 class="flightshop-category-title">@category.Name</h5>
+            </a>
+        </td>
+}
+    </tr>
+    </table>
 </div>

@@ -3,10 +3,40 @@
 }
 
 .flightshop-category-image {
-    width: 150px;
-    height: 100px;
+    width: 6vw;
+    height: auto;
 }
 
 .flightshop-product-category-margin {
     margin-top: 2em;
+}
+
+.flightshop-product-row {
+    min-width: 700px;
+}
+
+.flightshop-product-cell {
+    padding: 0.5em 0.25em;
+    text-align: center;
+}
+
+.flightshop-category-image {
+    height: auto;
+}
+
+@media screen and (min-width: 1800px) {
+    .flightshop-category-title {
+        font-size: 0.8vw;
+    }
+    .flightshop-category-image {
+        width: 6vw;
+    }
+}
+@media screen and (max-width: 1799px) {
+    .flightshop-category-title {
+        font-size: 1em;
+    }
+    .flightshop-category-image {
+        width: 8em;
+    }
 }

@@ -43,7 +43,7 @@ namespace TheFlightShop.Controllers
             return await Task.Run(() =>
             {
                 var productView = _productReadDAL.GetProductView(id);
-                return View(productView);
+                return productView == null ? (IActionResult)new StatusCodeResult(404) : View(productView);
             });
         }
     }
