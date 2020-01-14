@@ -286,7 +286,7 @@
         </environment>*@
 
         @RenderSection("Scripts", required: false)
-        <script>
+            <script>
     var WIND_DIRECTIONS = [
         {
             range: [337.5, 22.5],
@@ -322,27 +322,37 @@
         }
     ];
 
-    Date.prototype.addMinutes = function(m) {    
-        this.setTime(this.getTime() + (m*60*1000)); 
-        return this;   
+    Date.prototype.addMinutes = function(m) {
+        this.setTime(this.getTime() + (m*60*1000));
+        return this;
     }
 
     // call web server
     function fetchWeatherInfo(callback) {
-        $.get('https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache', function (weatherInfo) {
-            var fiveMinutesFromNow = new Date().addMinutes(5);
-            weatherInfo = {
-                expires: fiveMinutesFromNow,
-                altimeter: weatherInfo.altimeter,
-                temperature: weatherInfo.temperature,
-                wind_speed: weatherInfo.wind_speed,
-                wind_direction: weatherInfo.wind_direction,
-                visibility: weatherInfo.visibility,
-                units: weatherInfo.units
-            };
-            window.localStorage.setItem('currentWeatherInfo', JSON.stringify(weatherInfo));
-            callback(weatherInfo);
-        });
+        $.ajax({
+            url: 'https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache',
+            type: 'GET',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'bearer vgBeTkyGtNest-eubNHeYFxpMw6Su7ht1dM9r-PvrcY');
+            },
+            success: function(weatherInfo) {
+                var fifteenMinutesFromNow = new Date().addMinutes(15);
+                weatherInfo = {
+                    expires: fifteenMinutesFromNow,
+                    altimeter: weatherInfo.altimeter,
+                    temperature: weatherInfo.temperature,
+                    wind_speed: weatherInfo.wind_speed,
+                    wind_direction: weatherInfo.wind_direction,
+                    visibility: weatherInfo.visibility,
+                    units: weatherInfo.units
+                };
+                window.localStorage.setItem('currentWeatherInfo', JSON.stringify(weatherInfo));
+                callback(weatherInfo);
+            },
+            error: function(err) {
+                console.log('error fetching weather info for KBMC.')
+            }
+        })
     }
 
     // try to get localStorage else fetch
@@ -387,7 +397,7 @@
             }
 
             var lastUpdated = new Date(data.expires);
-            lastUpdated.addMinutes(-5);
+            lastUpdated.addMinutes(-15);
             var ampm = "AM";
             var hours = lastUpdated.getHours();
             if (hours >= 12) {
@@ -409,6 +419,6 @@
             document.getElementById('flightshop-visibility-info').innerHTML =  'visibility: ' + visibility + ' ' + visiblityUnits;
         });
     }
-        </script>
+            </script>
     </body>
 </html>

@@ -43,12 +43,16 @@ namespace TheFlightShop.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_connectionString);
+            optionsBuilder.UseMySql(_connectionString);//.UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>().Ignore(product => product.DrawingUrl);
+            //modelBuilder.Entity<Product>().Property(p => p.IsActive).HasConversion<short>();
+            //modelBuilder.Entity<Product>().Property(p => p.MostPopular).HasConversion<short>();
+            //modelBuilder.Entity<Part>().Property(p => p.IsActive).HasConversion<short>();
+            //modelBuilder.Entity<Category>().Property(p => p.IsActive).HasConversion<short>();
             base.OnModelCreating(modelBuilder);
         }
 
