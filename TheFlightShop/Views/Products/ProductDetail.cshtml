@@ -94,7 +94,8 @@
                 <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Part Number</th>
                 <th class="flightshop-parts-table-column-long flightshop-parts-table-cell">Description</th>
                 <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Price</th>
-                <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Add to Cart</th>
+               @* TODO: implement cart
+               <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Add to Cart</th>*@
             </tr>
 
             @foreach (var part in Model.Parts) {
@@ -102,10 +103,11 @@
                     <td class="flightshop-parts-table-cell">@part.PartNumber</td>
                     <td class="flightshop-parts-table-cell">@part.Description</td>
                     <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
+                    @* TODO: implement cart 
                     <td class="flightshop-parts-table-cell">
                         <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
                         <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
-                    </td>
+                    </td>*@
                 </tr>
             }
         </table>
@@ -115,12 +117,13 @@
         <div id="flightshop-invalid-part-quantity" class="alert alert-danger" style="display: none;">
             Please provide quantity greater than zero.
         </div>
+        @* TODO: implement cart
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
             onclick="addUnlistedPart()"
             >
             + Add unlisted part
-        </button>
+        </button>*@
     </div>
 </div>

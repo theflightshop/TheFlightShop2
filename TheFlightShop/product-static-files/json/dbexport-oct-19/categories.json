@@ -175,7 +175,7 @@
   },
   {
     "uid": 38,
-    "IsActive": 1,
+    "IsActive": 0,
     "ParentID": 2,
     "Name": "Sleeves"
   },
@@ -199,7 +199,7 @@
   },
   {
     "uid": 42,
-    "IsActive": 1,
+    "IsActive": 0,
     "ParentID": 2,
     "Name": "ACP (Advanced Composite Products)"
   },
@@ -529,7 +529,7 @@
   },
   {
     "uid": 97,
-    "IsActive": 1,
+    "IsActive": 0,
     "ParentID": 51,
     "Name": "CB94"
   },

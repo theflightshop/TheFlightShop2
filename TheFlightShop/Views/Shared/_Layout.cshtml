@@ -107,41 +107,44 @@
                 </div>
 
                 <div id="flightshop-search-container" class="input-group">
+                    @* TODO: implement search
                     <input type="text" class="form-control" placeholder="Search" />
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary">
                             <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
                         </button>
-                    </div>
+                    </div>*@
                 </div>
-                <div id="flightshop-center-sub-menu">
+              @*  <div id="flightshop-center-sub-menu">*@
+                    @* TODO: implement cart and search, then show this 
+                        TODO: also, re-enable "margin-top" on #flightshop-nav-menu in CSS
                     <a class="flightshop-center-sub-menu-option"
                         asp-controller="Home"
                         asp-action="Contact">
                         Contact
                     </a>
-                    <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
+                    <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>*@
                     @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
                     @if(false) { 
-                        <a class="flightshop-center-sub-menu-option"
+                        @*<a class="flightshop-center-sub-menu-option"
                            asp-controller="Home"
                            asp-action="Index">
                             Nick
-                        </a>
+                        </a>*@
                     } else {
-                        <a class="flightshop-center-sub-menu-option"
+                        @*<a class="flightshop-center-sub-menu-option"
                            asp-controller="Home"
                            asp-action="Index">
                             Sign In
-                        </a>
+                        </a>*@
                     }
-                    <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
+                    @*<span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
                     <a class="flightshop-center-sub-menu-option"
                        asp-controller="Home"
                        asp-action="Index">
                         Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
-                    </a>
-                </div>
+                    </a>*@
+                @*  </div> *@
                <!--<div class="navbar-collapse collapse">-->
                 <ul id="flightshop-nav-menu" class="nav navbar-nav">
                     <li class="nav-item dropdown">
