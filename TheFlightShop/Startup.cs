@@ -40,7 +40,7 @@ namespace TheFlightShop
             var connectionStringTemplate = Configuration.GetConnectionString("FlightShopData");
             var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
             var urlParts = databaseUrl.Split('@');
-            var credentials = urlParts[0].Split("mysql://");
+            var credentials = urlParts[0].Split("mysql://")[1].Split(':');
             var username = credentials[0];
             var password = credentials[1];
             var urlPath = urlParts[1].Split('/');
