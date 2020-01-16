@@ -36,7 +36,18 @@ namespace TheFlightShop
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(Configuration.GetConnectionString("FlightShopData")));
+
+            var connectionStringTemplate = Configuration.GetConnectionString("FlightShopData");
+            var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
+            var urlParts = databaseUrl.Split('@');
+            var credentials = urlParts[0].Split("mysql://");
+            var username = credentials[0];
+            var password = credentials[1];
+            var urlPath = urlParts[1].Split('/');
+            var host = urlPath[0];
+            var schema = urlPath[1].Split('?')[0];
+            var connectionString = string.Format(connectionStringTemplate, host, schema, username, password);
+            services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
