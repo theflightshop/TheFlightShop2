@@ -57,7 +57,7 @@ namespace TheFlightShop
             }
 
             var connectionString = string.Format(connectionStringTemplate, host, schema, username, password);
-            services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
+            services.AddSingleton<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
