@@ -35,6 +35,8 @@
     <Content Remove="wwwroot\css\min\site.min.css" />
     <Content Remove="product-static-files\json\dbexport-oct-19\productInfo.json" />
     <Content Remove="product-static-files\json\dbexport-oct-19\categories.json" />
+    <Content Remove="product-static-files\json\dbexport-oct-19\categories.json" />
+    <Content Remove="product-static-files\json\dbexport-oct-19\categories.json" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="obj\Debug\netcoreapp2.1\Razor\Views\Home\ClickBondAuthorizedDistributor.g.cshtml.cs" />
@@ -308,5 +310,10 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="product-static-files\json\dbexport-oct-19\categories.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

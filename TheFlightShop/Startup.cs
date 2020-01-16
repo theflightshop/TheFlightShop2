@@ -41,11 +41,11 @@ namespace TheFlightShop
             var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
             var urlParts = databaseUrl.Split('@');
             var credentials = urlParts[0].Split("mysql://")[1].Split(':');
-            var username = credentials[0];
-            var password = credentials[1];
-            var urlPath = urlParts[1].Split('/');
-            var host = urlPath[0];
-            var schema = urlPath[1].Split('?')[0];
+            var username = /**"FlightShopAdmin";*/  credentials[0];
+            var password = /**"fly2mySHOP!";*/ credentials[1];
+              var urlPath = urlParts[1].Split('/');
+            var host = /**"localhost";*/ urlPath[0];
+            var schema = /**"FlightShopData";*/ urlPath[1].Split('?')[0];
             var connectionString = string.Format(connectionStringTemplate, host, schema, username, password);
             services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
         }
