@@ -60,11 +60,11 @@ namespace TheFlightShop.DAL
         {
             if (!(Products.Any() || Parts.Any() || Categories.Any()))
             {
-                var productsPath = Path.Combine(Directory.GetCurrentDirectory(), "product-static-files", "json", "dbexport-oct-19", "productInfo.json");
+                var productsPath = Path.Combine("product-static-files", "json", "dbexport-oct-19", "productInfo.json");
                 var productListJson = File.ReadAllText(productsPath);
                 var productList = JsonConvert.DeserializeObject<IEnumerable<ProductCategoryMapping>>(productListJson);
 
-                var categoriesPath = Path.Combine(Directory.GetCurrentDirectory(), "product-static-files", "json", "dbexport-oct-19", "categories.json");
+                var categoriesPath = Path.Combine("product-static-files", "json", "dbexport-oct-19", "categories.json");
                 var categorieslistJson = File.ReadAllText(categoriesPath);
                 var categoryInfos = JsonConvert.DeserializeObject<IEnumerable<CategoryMapping>>(categorieslistJson);
 
