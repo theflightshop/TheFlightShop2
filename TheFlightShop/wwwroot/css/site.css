@@ -107,6 +107,18 @@ body {
     white-space: nowrap;
 }
 
+#flightshop-temp-contact-link-container {
+    float: left;
+    width: 200px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#flightshop-temp-contact-link {
+    color: #eee;
+    font-size: 1.25em;
+}
+
 .flightshop-cart-nav-option {
     padding-bottom: 1.4em !important;
 }
@@ -338,7 +350,7 @@ body {
     }
 
     #flightshop-nav-menu {
-        margin-top: -2.6vw;
+        /* todo: enable this once center menu is implemented -- margin-top: -2.6vw; */
         font-size: 0.85vw;
     }
 

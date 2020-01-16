@@ -39,13 +39,23 @@ namespace TheFlightShop
 
             var connectionStringTemplate = Configuration.GetConnectionString("FlightShopData");
             var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
-            var urlParts = databaseUrl.Split('@');
-            var credentials = urlParts[0].Split("mysql://")[1].Split(':');
-            var username = /**"FlightShopAdmin";*/  credentials[0];
-            var password = /**"fly2mySHOP!";*/ credentials[1];
-              var urlPath = urlParts[1].Split('/');
-            var host = /**"localhost";*/ urlPath[0];
-            var schema = /**"FlightShopData";*/ urlPath[1].Split('?')[0];
+
+            var username = "FlightShopAdmin"; 
+            var password = "fly2mySHOP!";
+            var host = "localhost";
+            var schema = "FlightShopData";
+
+            if (databaseUrl != null && databaseUrl.Length > 0)
+            {
+                var urlParts = databaseUrl.Split('@');
+                var credentials = urlParts[0].Split("mysql://")[1].Split(':');
+                username = credentials[0];
+                password = credentials[1];
+                var urlPath = urlParts[1].Split('/');
+                host = urlPath[0];
+                schema = urlPath[1].Split('?')[0];
+            }
+
             var connectionString = string.Format(connectionStringTemplate, host, schema, username, password);
             services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
         }
