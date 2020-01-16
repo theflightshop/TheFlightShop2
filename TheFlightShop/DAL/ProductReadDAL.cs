@@ -205,7 +205,7 @@ namespace TheFlightShop.DAL
 
         private string GetLocalDrawingUrl(string productCode)
         {
-            return "/products/drawings/" + productCode.ToLower() + ".pdf";
+            return "/products/drawings/" + productCode.ToUpper() + ".pdf";
         }
 
         private string GetInstallationExamplesPath(string productCode)

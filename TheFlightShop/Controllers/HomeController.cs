@@ -24,6 +24,12 @@ namespace TheFlightShop.Controllers
             return new JsonResult(true);
         }
 
+        public IActionResult TestEnvVar()
+        {
+            var theVar = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
+            return new JsonResult("thevar=" + theVar);
+        }
+
         public IActionResult Index()
         {
             return View();
