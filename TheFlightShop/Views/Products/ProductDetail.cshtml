@@ -45,7 +45,7 @@
                     </span>
                 </div>
                 <hr class="flightshop-product-detail-links-separator" />
-                @if(Model.NumberOfInstallationExamples > 0) {
+                @if (Model.NumberOfInstallationExamples > 0) {
                     <div>
                         <span>Installation Examples:</span>
                         <span class="flightshop-product-detail-download-link">
@@ -108,6 +108,19 @@
                         <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
                         <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
                     </td>*@
+                </tr>
+            }
+            @if (Model.Parts == null || !Model.Parts.Any())
+            {
+                <tr>
+                    <td class="flightshop-parts-table-cell"></td>
+                    <td class="flightshop-parts-table-cell"><em>Special ordered parts to be quoted.</em></td>
+                    <td class="flightshop-parts-table-cell"><em>(quote)</em></td>
+                    @* TODO: implement cart
+                <td class="flightshop-parts-table-cell">
+                    <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                    <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
+                </td>*@
                 </tr>
             }
         </table>

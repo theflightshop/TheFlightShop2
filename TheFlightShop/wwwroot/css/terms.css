@@ -1,6 +1,9 @@
 ﻿.flightshop-terms-section {
     margin-top: 2em;
 }
+.flightshop-terms-section h5 {
+    font-size: 1.2em;
+}
 
 .flightshop-terms-highlighted-text {
     font-weight: bold;
