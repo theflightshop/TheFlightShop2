@@ -51,6 +51,7 @@
     .cart-item-qty-btn {
         height: 30px;
         width: 30px;
+        font-size: 18px;
         position: relative;
         top: 1px;
         float: left;
@@ -64,6 +65,9 @@
         height: 30px;
         width: 50px;
         float: left;
+        position: relative;
+        top: 1px;
+        font-size: 24px;
     }
 
     .cart-item-qty-more {
@@ -104,7 +108,7 @@
         var cartItems = getCart();
         var updated = false;
         for (var i = 0; i < cartItems.length && !updated; i++) {
-            if (cartItems[i].Id === productId) {
+            if (cartItems[i].ProductId === productId) {
                 cartItems[i].Quantity += deltaQuantity;
                 updated = true;
             }
@@ -167,7 +171,7 @@
         deleteBtn.classList.add('cart-item-del-btn');
         deleteBtn.onclick = function () {
             var cartItems = getCart();
-            cartItems = cartItems.filter(function (item) { return item.Id !== part.ProductId });
+            cartItems = cartItems.filter(function (item) { return item.ProductId !== part.ProductId });
             setCart(cartItems);
             document.getElementById('flightshop-cart-list').removeChild(document.getElementById(part.ProductId));
         }
