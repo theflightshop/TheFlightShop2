@@ -129,7 +129,7 @@ body {
     border-radius: 50%;
     width: 5em;
     height: 1em;
-    padding: 0.25em;
+    padding: 0.25em 0;
     background: #ddd;
     border: 2px solid #444;
     color: #333;
@@ -139,6 +139,11 @@ body {
     position: relative;
     left: -0.5em;
     top: 1em;
+    font-weight: bold;
+}
+
+#flightshop-cart-link {
+    padding-top: 10px;
 }
 
 .flightshop-nav-caret {

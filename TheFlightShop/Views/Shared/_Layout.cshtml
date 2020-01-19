@@ -239,12 +239,16 @@
                                 </div>
                             </li>
                             @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                            @*<li>
-                        <a class="flightshop-cart-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">
-                            <img src="~/images/icons/cart.svg" alt="cart" />
-                            <span class="flightshop-cart-items-count">&nbsp;3&nbsp;</span>
-                        </a>
-                    </li>*@
+                            <li>
+                                <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
+                                    <img src="~/images/icons/cart.svg" alt="cart" />
+                                    <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
+                                        &nbsp;
+                                        <span id="flightshop-cart-items-count"></span>
+                                        &nbsp;
+                                    </span>
+                                </a>
+                    </li>
                             @* <li><a href="#">Sign In</a></li>*@
                         </ul>
                         <!-- </div> -->
@@ -435,7 +439,35 @@
             document.getElementById('flightshop-wind-info').innerHTML = 'wind: ' + windSpeed + ' ' + windSpeedUnits + ', ' + windDirection + '&deg; ' + directionCode;
             document.getElementById('flightshop-visibility-info').innerHTML =  'visibility: ' + visibility + ' ' + visiblityUnits;
         });
-    }
+                }
+
+                function renderCartButton() {
+                    var cart = JSON.parse(window.sessionStorage.getItem('cartItems') || []);
+                    var cartLength = 0;
+                    for (var i = 0; i < cart.length; i++) {
+                        var item = cart[i];
+                        cartLength += item.Quantity;
+                    }
+
+                    var cartCountLabel = document.getElementById('flightshop-cart-items-count');
+                    var cartCountPadding = 0.25;
+                    if (cartLength >= 100) {
+                        cartCountPadding = 0.6;
+                        cartLength = '99+';
+                        cartCountLabel.style.fontSize = '0.75em'
+                    }
+                    else if (cartLength >= 10) {
+                        cartCountPadding = 0.5;
+                        cartCountLabel.style.fontSize = '1em';
+                    }
+
+                    document.getElementById('flightshop-cart-count-wrapper').style.padding = cartCountPadding + 'em 0';
+                    cartCountLabel.innerHTML = cartLength;
+                }
+
+                window.addEventListener('load', function () {
+                    renderCartButton();
+                });
             </script>
     </body>
 </html>

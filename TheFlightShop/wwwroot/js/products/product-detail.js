@@ -92,6 +92,8 @@ function addUnlistedToCart(inputId, productId, imgSrc) {
     else {
          validationAlert.style.display = 'block';
     }
+
+    renderCartButton();
 }
 
 function addToCart(productId, partNumber, price, imgSrc) {
@@ -105,6 +107,8 @@ function addToCart(productId, partNumber, price, imgSrc) {
     else {
         quantityAlert.style.display = 'block';
     }
+
+    renderCartButton();
 }
 
 function getQuantity(id) {

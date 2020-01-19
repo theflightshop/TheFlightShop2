@@ -7,7 +7,7 @@
 
 <div id="flightshop-cart-container" style="display: none;">
     <div id="flightshop-cart-header">
-        <span id="flightshop-delete-col-header">Delete</span>
+        <span id="flightshop-delete-col-header">Remove</span>
         <span id="flightshop-qty-col-header">Quantity</span>
     </div>
 
@@ -159,8 +159,23 @@
         }
 
         setCart(cartItems);
-        qtyField = document.getElementById('qty-' + partNumber);
+        var qtyField = document.getElementById('qty-' + partNumber);
         qtyField.value = parseInt(qtyField.value) + deltaQuantity;
+    }
+
+    function setQuantity(partNumber, quantity) {
+        var cartItems = getCart();
+        var updated = false;
+        for (var i = 0; i < cartItems.length && !updated; i++) {
+            if (cartItems[i].PartNumber === partNumber) {
+                cartItems[i].Quantity = quantity;
+                updated = true;
+            }
+        }
+
+        setCart(cartItems);
+        var qtyField = document.getElementById('qty-' + partNumber);
+        qtyField.value = quantity;
     }
 
     function getNewCartItemElement(part) {
@@ -190,6 +205,7 @@
             cartItems = cartItems.filter(function (item) { return item.PartNumber !== part.PartNumber });
             setCart(cartItems);
             renderPage(cartItems);
+            renderCartButton();
         }
         cartItem.appendChild(deleteBtn);
 
@@ -207,6 +223,7 @@
         qtyLess.classList.add('cart-item-qty-less', 'cart-item-qty-btn');
         qtyLess.onclick = function () {
             updateQuantity(part.PartNumber, -1);
+            renderCartButton();
         }
         qtyForm.appendChild(qtyLess);
 
@@ -215,12 +232,18 @@
         quantity.value = part.Quantity;
         quantity.classList.add('cart-item-qty');
         qtyForm.appendChild(quantity);
+        quantity.addEventListener('change', function () {
+            var updatedQty = parseInt(document.getElementById('qty-' + part.PartNumber).value) || 0;
+            setQuantity(part.PartNumber, updatedQty);
+            renderCartButton();
+        });
 
         var qtyMore = document.createElement('button');
         qtyMore.innerHTML = '+';
         qtyMore.classList.add('cart-item-qty-more', 'cart-item-qty-btn');
         qtyMore.onclick = function () {
             updateQuantity(part.PartNumber, 1);
+            renderCartButton();
         }
         qtyForm.appendChild(qtyMore);
 
@@ -241,9 +264,9 @@
         }
     }
 
-    window.onload = function () {
+    window.addEventListener('load', function () {
         var cartItems = getCart();
         renderPage(cartItems);
-    }
+    })
 </script>
 
