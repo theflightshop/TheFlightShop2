@@ -8,7 +8,7 @@ function closeInstallationExamples() {
 }
 
 var unlistedPartCount = 1;
-function addUnlistedPart() {
+function addUnlistedPart(productId) {
     var specialPartRow = document.createElement('tr');
 
     var partNumberCol = document.createElement('td');
@@ -59,7 +59,7 @@ function addUnlistedPart() {
     addToCartButton.innerHTML = 'Add';
     var inputId = unlistedPartCount;
     addToCartButton.addEventListener('click', function () {
-        addUnlistedToCart('' + inputId)
+        addUnlistedToCart('' + inputId, productId)
     });
     addToCartCol.appendChild(addToCartButton);
 
@@ -72,7 +72,7 @@ function addUnlistedPart() {
     unlistedPartCount++;
 }
 
-function addUnlistedToCart(inputId) {
+function addUnlistedToCart(inputId, productId) {
     var partNumber = document.getElementById('part-nr-input-' + inputId).value;
     var description = document.getElementById('description-input-' + inputId).value;
     var quantity = getQuantity('item-quantity-' + inputId);
@@ -84,7 +84,7 @@ function addUnlistedToCart(inputId) {
     if (infoProvided && quantity) {
         validationAlert.style.display = 'none';
         quantityAlert.style.display = 'none';
-        requestAddToCart(infoProvided, quantity, null);
+        requestAddToCart(productId, infoProvided, quantity, null);
     }
     else if (infoProvided) {
         quantityAlert.style.display = 'block';

@@ -130,13 +130,12 @@
         <div id="flightshop-invalid-part-quantity" class="alert alert-danger" style="display: none;">
             Please provide quantity greater than zero.
         </div>
-        @* TODO: implement cart
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
-            onclick="addUnlistedPart()"
+            onclick="addUnlistedPart('@Model.ProductId')"
             >
-            + Add unlisted part
-        </button>*@
+            + Add part
+        </button>
     </div>
 </div>
