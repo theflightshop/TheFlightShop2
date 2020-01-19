@@ -104,24 +104,24 @@
         }
     }
 
-    function updateQuantity(productId, deltaQuantity) {
+    function updateQuantity(partNumber, deltaQuantity) {
         var cartItems = getCart();
         var updated = false;
         for (var i = 0; i < cartItems.length && !updated; i++) {
-            if (cartItems[i].ProductId === productId) {
+            if (cartItems[i].PartNumber === partNumber) {
                 cartItems[i].Quantity += deltaQuantity;
                 updated = true;
             }
         }
 
         setCart(cartItems);
-        qtyField = document.getElementById('qty-' + productId);
+        qtyField = document.getElementById('qty-' + partNumber);
         qtyField.value = parseInt(qtyField.value) + deltaQuantity;
     }
 
     function getNewCartItemElement(part) {
         var cartItem = document.createElement('div');
-        cartItem.id = part.ProductId || part.PartNumber;
+        cartItem.id = part.PartNumber;
         cartItem.classList.add('cart-item');
 
         var thumbnail = document.createElement('img');
@@ -149,12 +149,12 @@
         qtyLess.innerHTML = '-';
         qtyLess.classList.add('cart-item-qty-less', 'cart-item-qty-btn');
         qtyLess.onclick = function () {
-            updateQuantity(part.ProductId, -1);
+            updateQuantity(part.PartNumber, -1);
         }
         qtyForm.appendChild(qtyLess);
 
         var quantity = document.createElement('input');
-        quantity.id = 'qty-' + part.ProductId;
+        quantity.id = 'qty-' + part.PartNumber;
         quantity.value = part.Quantity;
         quantity.classList.add('cart-item-qty');
         qtyForm.appendChild(quantity);
@@ -163,7 +163,7 @@
         qtyMore.innerHTML = '+';
         qtyMore.classList.add('cart-item-qty-more', 'cart-item-qty-btn');
         qtyMore.onclick = function () {
-            updateQuantity(part.ProductId, 1);
+            updateQuantity(part.PartNumber, 1);
         }
         qtyForm.appendChild(qtyMore);
 
@@ -171,9 +171,9 @@
         deleteBtn.classList.add('cart-item-del-btn');
         deleteBtn.onclick = function () {
             var cartItems = getCart();
-            cartItems = cartItems.filter(function (item) { return item.ProductId !== part.ProductId });
+            cartItems = cartItems.filter(function (item) { return item.PartNumber !== part.PartNumber });
             setCart(cartItems);
-            document.getElementById('flightshop-cart-list').removeChild(document.getElementById(part.ProductId));
+            document.getElementById('flightshop-cart-list').removeChild(document.getElementById(part.PartNumber));
         }
         cartItem.appendChild(deleteBtn);
 
