@@ -3,27 +3,30 @@
     ViewData["Title"] = "Cart - The Flight Shop";
 }
 
-<h2>Cart</h2>
+<h2 id="flightshop-cart-title">Cart</h2>
 
-<div id="flightshop-cart-list">
+<div id="flightshop-cart-container" style="display: none;">
+    <div id="flightshop-cart-header">
+        <span id="flightshop-delete-col-header">Delete</span>
+        <span id="flightshop-qty-col-header">Quantity</span>
+    </div>
 
+    <div id="flightshop-cart-list">
+
+    </div>
+    <div id="flightshop-cart-footer">
+        <a id="flightshop-checkout-btn" class="btn btn-success" asp-controller="Cart" asp-action="Checkout">Check Out</a>
+    </div>
 </div>
-
-<div id="cart-item-template" style="display: none;">
-    <img class="" />
-    <div class="cart-item-info">
-        <a href="">code</a>
-        <p>desc</p>
-    </div>
-    <div>
-        <span></span>
-        input
-        span
-    </div>
-    <button><i></i></button>
+<div id="flightshop-empty-cart-msg" style="display: none;">
+    Your cart is empty. <a asp-controller="Products" asp-action="Index">View available products</a>.
 </div>
 
 <style>
+    #flightshop-cart-title {
+        margin-top: 2em;
+    }
+
     .cart-item {
         border-top: 1px solid #ddd;
         padding-top: 1.5em;
@@ -94,6 +97,34 @@
         width: 30px;
         height: 30px;
     }
+
+    #flightshop-checkout-btn {
+        font-size: 1em;
+    }
+
+    #flightshop-cart-footer {
+        border-top: 1px solid #ddd;
+        padding-top: 1em;
+        margin-top: 1.5em;
+    }
+
+    #flightshop-cart-header {
+        padding-bottom: 5px;
+    }
+
+    #flightshop-cart-header span {
+        float: right;
+        color: #555;
+        font-size: 0.9em;
+    }
+
+    #flightshop-qty-col-header {
+        width: 150px;
+    }
+
+    #flightshop-delete-col-header {
+        width: 5em;
+    }
 </style>
 
 <script>
@@ -105,13 +136,12 @@
         window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
     }
 
-    function renderCart() {
+    function renderCart(cartItems) {
         var cartListElement = document.getElementById('flightshop-cart-list');
         while (cartListElement.firstChild) {
             cartListElement.removeChild(cartListElement.firstChild);
         }
 
-        var cartItems = getCart();
         for (var i = 0; i < cartItems.length; i++) {
             var cartItemElement = getNewCartItemElement(cartItems[i]);
             cartListElement.appendChild(cartItemElement);
@@ -143,19 +173,15 @@
         thumbnail.classList.add('cart-item-img');
         cartItem.appendChild(thumbnail);
 
-        //var infoWrapper = document.createElement('div');
-        //infoWrapper.classList.add('cart-item-info');
-        //cartItem.appendChild(infoWrapper);
-
         var title = document.createElement('a');
-        title.innerHTML = part.PartNumber;
+        var titleText = part.PartNumber.slice(0, 20);
+        if (part.PartNumber.length > 20) {
+            titleText = titleText + '...';
+        }
+        title.innerHTML = titleText;
         title.href = '/Products/ProductDetail/' + part.ProductId;
         title.classList.add('cart-item-title');
         cartItem.appendChild(title);
-
-        //var description = document.createElement('p');
-        //description.classList.add('cart-item-desc');
-        //infoWrapper.appendChild(description);
 
         var deleteBtn = document.createElement('button');
         deleteBtn.classList.add('cart-item-del-btn');
@@ -163,7 +189,7 @@
             var cartItems = getCart();
             cartItems = cartItems.filter(function (item) { return item.PartNumber !== part.PartNumber });
             setCart(cartItems);
-            document.getElementById('flightshop-cart-list').removeChild(document.getElementById(part.PartNumber));
+            renderPage(cartItems);
         }
         cartItem.appendChild(deleteBtn);
 
@@ -201,8 +227,23 @@
         return cartItem;
     }
 
-    window.onload = function () { 
-        renderCart();
+    function renderPage(cartItems) {
+        var cart = document.getElementById('flightshop-cart-container');
+        var emptyCartMessage = document.getElementById('flightshop-empty-cart-msg');
+        if (cartItems && cartItems.length) {
+            cart.style.display = 'block';
+            emptyCartMessage.style.display = 'none';
+            renderCart(cartItems);
+        }
+        else {
+            cart.style.display = 'none';
+            emptyCartMessage.style.display = 'block';
+        }
+    }
+
+    window.onload = function () {
+        var cartItems = getCart();
+        renderPage(cartItems);
     }
 </script>
 
