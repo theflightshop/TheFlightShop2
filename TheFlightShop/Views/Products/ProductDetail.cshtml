@@ -119,7 +119,7 @@
                     <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
                     <td class="flightshop-parts-table-cell">
                         <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
-                        <button type="button" onclick="addToCart('@Model.ProductId', '@part.PartNumber', @part.Price)">Add</button>
+                        <button type="button" onclick="addToCart('@Model.ProductId', '@part.PartNumber', @part.Price, '@Model.ImageSource')">Add</button>
                     </td>
                 </tr>
             }
@@ -133,7 +133,7 @@
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
-            onclick="addUnlistedPart('@Model.ProductId')"
+            onclick="addUnlistedPart('@Model.ProductId', '@Model.ImageSource')"
             >
             + Add part
         </button>

@@ -8,7 +8,7 @@ function closeInstallationExamples() {
 }
 
 var unlistedPartCount = 1;
-function addUnlistedPart(productId) {
+function addUnlistedPart(productId, imgSrc) {
     var specialPartRow = document.createElement('tr');
 
     var partNumberCol = document.createElement('td');
@@ -59,7 +59,7 @@ function addUnlistedPart(productId) {
     addToCartButton.innerHTML = 'Add';
     var inputId = unlistedPartCount;
     addToCartButton.addEventListener('click', function () {
-        addUnlistedToCart('' + inputId, productId)
+        addUnlistedToCart('' + inputId, productId, imgSrc)
     });
     addToCartCol.appendChild(addToCartButton);
 
@@ -72,7 +72,7 @@ function addUnlistedPart(productId) {
     unlistedPartCount++;
 }
 
-function addUnlistedToCart(inputId, productId) {
+function addUnlistedToCart(inputId, productId, imgSrc) {
     var partNumber = document.getElementById('part-nr-input-' + inputId).value;
     var description = document.getElementById('description-input-' + inputId).value;
     var quantity = getQuantity('item-quantity-' + inputId);
@@ -84,7 +84,7 @@ function addUnlistedToCart(inputId, productId) {
     if (infoProvided && quantity) {
         validationAlert.style.display = 'none';
         quantityAlert.style.display = 'none';
-        requestAddToCart(productId, infoProvided, quantity, null);
+        requestAddToCart(productId, infoProvided, quantity, null, imgSrc);
     }
     else if (infoProvided) {
         quantityAlert.style.display = 'block';
@@ -94,13 +94,13 @@ function addUnlistedToCart(inputId, productId) {
     }
 }
 
-function addToCart(productId, partNumber, price) {
+function addToCart(productId, partNumber, price, imgSrc) {
     var quantity = getQuantity('addToCartQuantity-' + partNumber);
     var quantityAlert = document.getElementById('flightshop-invalid-part-quantity');
 
     if (quantity) {
         quantityAlert.style.display = 'none';
-        requestAddToCart(productId, partNumber, quantity, price);
+        requestAddToCart(productId, partNumber, quantity, price, imgSrc);
     }
     else {
         quantityAlert.style.display = 'block';
@@ -113,14 +113,15 @@ function getQuantity(id) {
     return parsed > 0 ? parsed : null;
 }
 
-function requestAddToCart(productId, codeOrDescription, quantity, price) {
+function requestAddToCart(productId, codeOrDescription, quantity, price, imgSrc) {
     addItemToProductAddedDisplay(codeOrDescription, quantity, price);
     var cartValue = window.sessionStorage.getItem('cartItems');
     var cart = cartValue ? JSON.parse(cartValue) : [];
     cart.push({
         ProductId: productId,
         PartNumber: codeOrDescription,
-        Quantity: quantity
+        Quantity: quantity,
+        ImageSrc: imgSrc
     });
     window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
     showProductAddedDisplay(true);
