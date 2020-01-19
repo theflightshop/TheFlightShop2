@@ -244,7 +244,7 @@
                                     <img src="~/images/icons/cart.svg" alt="cart" />
                                     <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
                                         &nbsp;
-                                        <span id="flightshop-cart-items-count"></span>
+                                        <span id="flightshop-cart-items-count">0</span>
                                         &nbsp;
                                     </span>
                                 </a>
@@ -442,7 +442,8 @@
                 }
 
                 function renderCartButton() {
-                    var cart = JSON.parse(window.sessionStorage.getItem('cartItems') || []);
+                    var cartSession = window.sessionStorage.getItem('cartItems');
+                    var cart = cartSession && cartSession.length ? JSON.parse(cartSession) : [];
                     var cartLength = 0;
                     for (var i = 0; i < cart.length; i++) {
                         var item = cart[i];

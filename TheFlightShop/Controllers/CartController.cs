@@ -12,5 +12,10 @@ namespace TheFlightShop.Controllers
         {
             return View();
         }
+
+        public IActionResult Checkout()
+        {
+            return View();
+        }
     }
 }

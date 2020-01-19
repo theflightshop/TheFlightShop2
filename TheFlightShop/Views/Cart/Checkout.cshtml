@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 id="flightshop-checkout-title">Checkout</h2>
+
+<form id="flightshop-checkout-form">
+    <div class="flightshop-checkout-section">
+        <h4 class="flightshop-checkout-section-title">Customer Information</h4>
+        <div class="form-group">
+            <label for="flightshop-customer-email">Email</label>
+            <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
+        </div>
+    </div>
+
+    <div class="flightshop-checkout-section" style="height: 210px;">
+        <h4 class="flightshop-checkout-section-title">Shipping Address</h4>
+        <div class="row">
+            <div class="form-group col-md-8">
+                <label for="flightshop-customer-addr-1">Address Line 1</label>
+                <input id="flightshop-customer-addr-1" type="text" class="form-control" placeholder="ex. 123 Maple St" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-addr-2">Address Line 2 (Optional)</label>
+                <input id="flightshop-customer-addr-2" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="flightshop-customer-city">City</label>
+                <input id="flightshop-customer-city" type="text" class="form-control" placeholder="ex. Anywhereville" required />
+            </div>
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-state">State</label>
+                <select id="flightshop-customer-state" required>
+                    <option disabled selected value="">--</option>
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MA">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="GU">Guam</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="MP">Northern Mariana Islands</option>
+                    <option value="VI">U.S. Virgin Islands</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-zipcode">ZIP</label>
+                <input id="flightshop-customer-zipcode" type="number" class="form-control" placeholder="ex. 90210" required />
+            </div>
+        </div>
+    </div>
+
+    <div class="flightshop-checkout-section">
+        <h4 class="flightshop-checkout-section-title">Additional Information</h4>
+        <p id="flightshop-addtl-info-text">
+            <ul>
+                <li>We will be in touch soon to review your order with you and receive your payment information.</li>
+                <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
+            </ul>
+        </p>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
+            <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
+        </div>
+    </div>
+    <div class="flightshop-checkout-section">
+        <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success">Submit Order</button>
+    </div>
+</form>
+
+<style>
+    #flightshop-checkout-title {
+        margin-top: 2em;
+    }
+
+    .flightshop-checkout-section {
+
+    }
+
+    .flightshop-checkout-section-title {
+        border-top: 1px solid #ddd;
+        padding: 0.5em 0;
+        margin-top: 2em;
+    }
+
+    #flightshop-addtl-info-text {
+    }
+
+    #flightshop-checkout-submit-btn {
+        margin-top: 1.5em;
+    }
+</style>
+
+<script>
+    window.addEventListener('load', function () {
+        document.getElementById('flightshop-checkout-form').addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        })
+    })
+</script>
