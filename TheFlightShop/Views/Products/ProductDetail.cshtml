@@ -94,33 +94,33 @@
                 <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Part Number</th>
                 <th class="flightshop-parts-table-column-long flightshop-parts-table-cell">Description</th>
                 <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Price</th>
-               @* TODO: implement cart
-               <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Add to Cart</th>*@
+                <th class="flightshop-parts-table-column-short flightshop-parts-table-cell">Add to Cart</th>
             </tr>
 
-            @foreach (var part in Model.Parts) {
-                <tr>
-                    <td class="flightshop-parts-table-cell">@part.PartNumber</td>
-                    <td class="flightshop-parts-table-cell">@part.Description</td>
-                    <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
-                    @* TODO: implement cart 
-                    <td class="flightshop-parts-table-cell">
-                        <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
-                        <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
-                    </td>*@
-                </tr>
-            }
-            @if (Model.Parts == null || !Model.Parts.Any())
+
+            @*@if (Model.Parts == null || !Model.Parts.Any())
             {
                 <tr>
                     <td class="flightshop-parts-table-cell"></td>
                     <td class="flightshop-parts-table-cell"><em>Special ordered parts to be quoted.</em></td>
                     <td class="flightshop-parts-table-cell"><em>(quote)</em></td>
-                    @* TODO: implement cart
-                <td class="flightshop-parts-table-cell">
-                    <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
-                    <button type="button" onclick="addToCart('@part.PartNumber', @part.Price)">Add</button>
-                </td>*@
+                    <td class="flightshop-parts-table-cell">
+                        <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                        <button type="button" onclick="addToCart(@part.Id, '@part.PartNumber', @part.Price)">Add</button>
+                    </td>
+                </tr>
+            }
+            @else  {*@
+            @foreach (var part in Model.Parts)
+            {
+                <tr>
+                    <td class="flightshop-parts-table-cell">@part.PartNumber</td>
+                    <td class="flightshop-parts-table-cell">@part.Description</td>
+                    <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
+                    <td class="flightshop-parts-table-cell">
+                        <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                        <button type="button" onclick="addToCart('@Model.ProductId', '@part.PartNumber', @part.Price)">Add</button>
+                    </td>
                 </tr>
             }
         </table>

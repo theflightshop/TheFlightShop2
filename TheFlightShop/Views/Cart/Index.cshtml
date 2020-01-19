@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewData["Title"] = "Cart - The Flight Shop";
+}
+
+<h2>Cart</h2>
+
+<div id="flightshop-cart-list">
+
+</div>
+
+<div id="cart-item-template" style="display: none;">
+    <img class="" />
+    <div class="cart-item-info">
+        <a href="">code</a>
+        <p>desc</p>
+    </div>
+    <div>
+        <span></span>
+        input
+        span
+    </div>
+    <button><i></i></button>
+</div>
+
+<style>
+    .cart-item {
+
+    }
+
+    .cart-item-img {
+
+    }
+
+    .cart-item-info {
+
+    }
+
+    .cart-item-title {
+
+    }
+
+    .cart-item-desc {
+
+    }
+
+    .cart-item-qty-form {
+
+    }
+
+    .cart-item-qty-btn {
+        height: 30px;
+        width: 30px;
+        position: relative;
+        top: 1px;
+        float: left;
+    }
+
+    .cart-item-qty-less {
+
+    }
+
+    .cart-item-qty {
+        height: 30px;
+        width: 50px;
+        float: left;
+    }
+
+    .cart-item-qty-more {
+
+    }
+
+    .cart-item-del-btn {
+    }
+
+    .cart-item-del-btn-icon {
+
+    }
+</style>
+
+<script>
+    function getCart() {
+        return JSON.parse(window.sessionStorage.getItem('cartItems'));
+    }
+
+    function setCart(cart) {
+        window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
+    }
+
+    function renderCart() {
+        var cartListElement = document.getElementById('flightshop-cart-list');
+        while (cartListElement.firstChild) {
+            cartListElement.removeChild(cartListElement.firstChild);
+        }
+
+        var cartItems = getCart();
+        for (var i = 0; i < cartItems.length; i++) {
+            var cartItemElement = getNewCartItemElement(cartItems[i]);
+            cartListElement.appendChild(cartItemElement);
+        }
+    }
+
+    function updateQuantity(productId, deltaQuantity) {
+        var cartItems = getCart();
+        var updated = false;
+        for (var i = 0; i < cartItems.length && !updated; i++) {
+            if (cartItems[i].Id === productId) {
+                cartItems[i].Quantity += deltaQuantity;
+                updated = true;
+            }
+        }
+
+        setCart(cartItems);
+        qtyField = document.getElementById('qty-' + productId);
+        qtyField.value = parseInt(qtyField.value) + deltaQuantity;
+    }
+
+    function getNewCartItemElement(part) {
+        var cartItem = document.createElement('div');
+        cartItem.id = part.ProductId || part.PartNumber;
+        cartItem.classList.add('cart-item');
+
+        var thumbnail = document.createElement('img');
+        thumbnail.classList.add('cart-item-img');
+        cartItem.appendChild(thumbnail);
+
+        //var infoWrapper = document.createElement('div');
+        //infoWrapper.classList.add('cart-item-info');
+        //cartItem.appendChild(infoWrapper);
+
+        var title = document.createElement('a');
+        title.innerHTML = part.PartNumber;
+        title.classList.add('cart-item-title');
+        cartItem.appendChild(title);
+
+        //var description = document.createElement('p');
+        //description.classList.add('cart-item-desc');
+        //infoWrapper.appendChild(description);
+
+        var qtyForm = document.createElement('div');
+        qtyForm.classList.add('cart-item-qty-form');
+        cartItem.appendChild(qtyForm);
+
+        var qtyLess = document.createElement('button');
+        qtyLess.innerHTML = '-';
+        qtyLess.classList.add('cart-item-qty-less', 'cart-item-qty-btn');
+        qtyLess.onclick = function () {
+            updateQuantity(part.ProductId, -1);
+        }
+        qtyForm.appendChild(qtyLess);
+
+        var quantity = document.createElement('input');
+        quantity.id = 'qty-' + part.ProductId;
+        quantity.value = part.Quantity;
+        quantity.classList.add('cart-item-qty');
+        qtyForm.appendChild(quantity);
+
+        var qtyMore = document.createElement('button');
+        qtyMore.innerHTML = '+';
+        qtyMore.classList.add('cart-item-qty-more', 'cart-item-qty-btn');
+        qtyMore.onclick = function () {
+            updateQuantity(part.ProductId, 1);
+        }
+        qtyForm.appendChild(qtyMore);
+
+        var deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('cart-item-del-btn');
+        deleteBtn.onclick = function () {
+            var cartItems = getCart();
+            cartItems = cartItems.filter(function (item) { return item.Id !== part.ProductId });
+            setCart(cartItems);
+            document.getElementById('flightshop-cart-list').removeChild(document.getElementById(part.ProductId));
+        }
+        cartItem.appendChild(deleteBtn);
+
+        var delBtnIcon = document.createElement('i');
+        delBtnIcon.classList.add('cart-item-del-btn-icon');
+        deleteBtn.appendChild(delBtnIcon);
+
+        return cartItem;
+    }
+
+    window.onload = function () { 
+        renderCart();
+    }
+</script>
+

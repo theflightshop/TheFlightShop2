@@ -94,13 +94,13 @@ function addUnlistedToCart(inputId) {
     }
 }
 
-function addToCart(partNumber, price) {
+function addToCart(productId, partNumber, price) {
     var quantity = getQuantity('addToCartQuantity-' + partNumber);
     var quantityAlert = document.getElementById('flightshop-invalid-part-quantity');
 
     if (quantity) {
         quantityAlert.style.display = 'none';
-        requestAddToCart(partNumber, quantity, price);
+        requestAddToCart(productId, partNumber, quantity, price);
     }
     else {
         quantityAlert.style.display = 'block';
@@ -113,8 +113,16 @@ function getQuantity(id) {
     return parsed > 0 ? parsed : null;
 }
 
-function requestAddToCart(codeOrDescription, quantity, price) {
+function requestAddToCart(productId, codeOrDescription, quantity, price) {
     addItemToProductAddedDisplay(codeOrDescription, quantity, price);
+    var cartValue = window.sessionStorage.getItem('cartItems');
+    var cart = cartValue ? JSON.parse(cartValue) : [];
+    cart.push({
+        ProductId: productId,
+        PartNumber: codeOrDescription,
+        Quantity: quantity
+    });
+    window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
     showProductAddedDisplay(true);
 }
 
@@ -143,7 +151,8 @@ function addItemToProductAddedDisplay(codeOrDescription, quantity, price) {
     }
     itemAdded.appendChild(itemPrice);
 
-    document.getElementById('flightshop-product-added-items').appendChild(itemAdded);
+    var addedItemsDisplay = document.getElementById('flightshop-product-added-items');
+    addedItemsDisplay.appendChild(itemAdded);
 }
 
 var currentAddedDisplayInterval = null;

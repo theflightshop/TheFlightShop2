@@ -5814,6 +5814,7 @@ namespace TheFlightShop.DAL
                 var parts = Parts.Where(p => p.ProductId == product.Id && p.IsActive);
                 viewModel = new ProductDetailViewModel
                 {
+                    ProductId = productId,
                     Category = category.Name,
                     CategoryId = category.Id,
                     ProductCode = product.Code,
