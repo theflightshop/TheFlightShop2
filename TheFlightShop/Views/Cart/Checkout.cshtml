@@ -185,9 +185,9 @@
         $.ajax({
             type: 'POST',
             url: url,
+            dataType: 'application/json',
             data: clientOrder,
             success: function () {
-                alert('sweet!');
                 clearCart();
                 //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
             },

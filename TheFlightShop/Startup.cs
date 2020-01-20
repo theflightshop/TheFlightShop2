@@ -45,7 +45,8 @@ namespace TheFlightShop
             var username = Environment.GetEnvironmentVariable("EMAIL_FROM_USERNAME");
             var from = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? "The Flight Shop";
             var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
-            services.AddSingleton<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain));
+            var adminAddress = Environment.GetEnvironmentVariable("EMAIL_ADMIN_ADDRESS");
+            services.AddSingleton<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress));
         }
 
         private string GetConnectionString()

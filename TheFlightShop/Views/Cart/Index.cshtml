@@ -129,7 +129,8 @@
 
 <script>
     function getCart() {
-        return JSON.parse(window.sessionStorage.getItem('cartItems'));
+        var cartText = window.sessionStorage.getItem('cartItems');
+        return cartText ? JSON.parse(cartText) : [];
     }
 
     function setCart(cart) {
