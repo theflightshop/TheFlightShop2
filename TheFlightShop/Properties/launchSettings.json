@@ -12,6 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "EMAIL_API_KEY": "key-b4b8bf015f50edc4d2d15df19df68d90",
+        "EMAIL_FROM_USERNAME": "mailgun",
+        "EMAIL_DOMAIN": "sandbox57f57bb9bbe84da588461d609b8c5985.mailgun.org",
+        "EMAIL_FROM_NAME": "The Flight Shop",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

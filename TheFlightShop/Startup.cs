@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using TheFlightShop.DAL;
+using TheFlightShop.Email;
 
 namespace TheFlightShop
 {
@@ -37,10 +38,22 @@ namespace TheFlightShop
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            var connectionString = GetConnectionString();
+            services.AddSingleton<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
+
+            var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");
+            var username = Environment.GetEnvironmentVariable("EMAIL_FROM_USERNAME");
+            var from = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? "The Flight Shop";
+            var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
+            services.AddSingleton<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain));
+        }
+
+        private string GetConnectionString()
+        {
             var connectionStringTemplate = Configuration.GetConnectionString("FlightShopData");
             var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
-            var username = "FlightShopAdmin"; 
+            var username = "FlightShopAdmin";
             var password = "fly2mySHOP!";
             var host = "localhost";
             var schema = "FlightShopData";
@@ -56,8 +69,7 @@ namespace TheFlightShop
                 schema = urlPath[1].Split('?')[0];
             }
 
-            var connectionString = string.Format(connectionStringTemplate, host, schema, username, password);
-            services.AddSingleton<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
+            return string.Format(connectionStringTemplate, host, schema, username, password);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

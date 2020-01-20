@@ -10,6 +10,13 @@ namespace TheFlightShop.Controllers
 {
     public class CartController : Controller
     {
+        private IEmailClient _emailClient;
+
+        public CartController(IEmailClient emailClient)
+        {
+            _emailClient = emailClient;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,8 +29,7 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> SubmitOrder(ClientOrder order)
         {
-            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
-            var succeeded = await new BasicEmail(apiKey).SendMail(order);
+            var succeeded = await _emailClient.SendOrderConfirmation(order);
             return succeeded ? new OkResult() : new StatusCodeResult(400);
         }
     }

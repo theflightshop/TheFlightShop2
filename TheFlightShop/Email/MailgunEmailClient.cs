@@ -10,24 +10,30 @@ using TheFlightShop.Models;
 
 namespace TheFlightShop.Email
 {
-    public class BasicEmail
+    public class MailgunEmailClient : IEmailClient
     {
-        private string _apiKey;
+        private readonly string _apiKey;
+        private readonly string _fromUsername;
+        private readonly string _fromName;
+        private readonly string _domain;
 
-        public BasicEmail(string apiKey)
+        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain)
         {
             _apiKey = apiKey;
+            _fromUsername = fromUsername;
+            _fromName = fromName;
+            _domain = domain;
         }
 
-        public async Task<bool> SendMail(ClientOrder order)
+        public async Task<bool> SendOrderConfirmation(ClientOrder order)
         {
             RestClient client = new RestClient();
             client.BaseUrl = new Uri("https://api.mailgun.net/v3");
             client.Authenticator = new HttpBasicAuthenticator("api", _apiKey);
             RestRequest request = new RestRequest();
-            request.AddParameter("domain", "sandbox57f57bb9bbe84da588461d609b8c5985.mailgun.org", ParameterType.UrlSegment);
-            request.Resource = "sandbox57f57bb9bbe84da588461d609b8c5985.mailgun.org/messages";
-            request.AddParameter("from", "The Flight Shop <mailgun@sandbox57f57bb9bbe84da588461d609b8c5985.mailgun.org>");
+            request.AddParameter("domain", _domain, ParameterType.UrlSegment);
+            request.Resource = $"{_domain}/messages";
+            request.AddParameter("from", $"{_fromName} <{_fromUsername}@{_domain}>");
             request.AddParameter("to", order.Email);
             request.AddParameter("subject", "Order Confirmation");
             request.AddParameter("text", "Testing some Mailgun awesomness! yeah buddy, rollin like a big shot. chevy tuned up like a nascar pitstop.");
