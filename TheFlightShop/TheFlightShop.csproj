@@ -315,6 +315,7 @@
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
+    <None Remove="Models\HomeViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

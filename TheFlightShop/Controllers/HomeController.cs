@@ -24,9 +24,14 @@ namespace TheFlightShop.Controllers
             return new JsonResult(true);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool? orderSubmitted = null)
         {
-            return View();
+            var result = new HomeViewModel
+            {
+                OrderSubmitted = orderSubmitted.HasValue,
+                OrderSubmissionFailed = orderSubmitted.HasValue && !orderSubmitted.Value
+            };
+            return View(result);
         }
 
         public IActionResult Contact()

@@ -158,17 +158,7 @@
     }
 
     function submitOrder() {
-        var orderLines = [];
-        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
-        for (var i = 0; i < cart.length; i++) {
-            var item = cart[i];
-            var orderLine = {
-                PartNumber: item.PartNumber,
-                ProductId: item.ProductId || null,
-                Quantity: parseInt(item.Quantity) || 0
-            };
-            orderLines.push(orderLine);
-        }
+        
 
         var clientOrder = {
             Email: document.getElementById('flightshop-customer-email').value,
@@ -177,24 +167,38 @@
             Address2: document.getElementById('flightshop-customer-addr-2').value,
             City: document.getElementById('flightshop-customer-city').value,
             State: document.getElementById('flightshop-customer-state').value,
-            Zip: document.getElementById('flightshop-customer-zipcode').value,
-            OrderLines: orderLines
+            Zip: document.getElementById('flightshop-customer-zipcode').value
         };
+        var agreed = document.getElementById('flightshop-order-agree-checkbox');
 
-        var url = '@Url.Action("SubmitOrder", "Cart")';
-        $.ajax({
-            type: 'POST',
-            url: url,
-            dataType: 'application/json',
-            data: clientOrder,
-            success: function () {
-                clearCart();
-                //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
-            },
-            error: function () {
-                clearCart();
+        if (clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
+            clientOrder.City && clientOrder.State && clientOrder.Zip && agreed.checked) {
+            var orderLines = [];
+            var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+            for (var i = 0; i < cart.length; i++) {
+                var item = cart[i];
+                var orderLine = {
+                    PartNumber: item.PartNumber,
+                    ProductId: item.ProductId || null,
+                    Quantity: parseInt(item.Quantity) || 0
+                };
+                orderLines.push(orderLine);
             }
-        });
+            clientOrder.OrderLines = orderLines;
+
+            var url = '@Url.Action("SubmitOrder", "Cart")';
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: clientOrder
+            }).done(function () {
+                clearCart();
+                location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "true".ToString() })'; //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
+            }).fail(function () {
+                clearCart();
+                location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
+            });
+        }
     }
 
     window.addEventListener('load', function () {

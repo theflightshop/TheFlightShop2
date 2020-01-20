@@ -56,6 +56,10 @@ body {
     #flightshop-weather-location {
         font-size: 1.3em !important;
     }
+
+    .flightshop-top-alert {
+        top: calc(75px + 6.5em) !important;
+    }
 }
 
 /** NAV */
@@ -425,4 +429,11 @@ body {
     .flightshop-product-added-arrow {
         left: 50% !important;
     }
+}
+
+.flightshop-top-alert {
+    position: absolute;
+    top: calc(75px + 10vw);
+    left: 1em;
+    z-index: 1000;
 }
