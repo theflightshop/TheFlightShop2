@@ -76,13 +76,6 @@
                         <img id="flightshop-logo" src="~/images/the-flight-shop.png" />
                     </a>
                 </div>
-                @* <div id="flightshop-temp-contact-link-container"><a id="flightshop-temp-contact-link" asp-controller="Home" asp-action="Contact">Contact</a></div>*@
-                <ul id="flightshop-nav-menu" class="nav navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle flightshop-main-nav-option" role="button" asp-controller="Home" asp-action="Contact">
-                            Contact
-                        </a>
-                        </li></ul>
 
                         @*<div id="flightshop-left-sub-menu" style="display: none;">
                         *@
@@ -160,97 +153,102 @@
                 </a>*@
                         @*  </div> *@
                         <!--<div class="navbar-collapse collapse">-->
-                        <ul id="flightshop-nav-menu" class="nav navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Maintenance<span class="caret flightshop-nav-caret"></span>
-                                </a>
-                                <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="CompanyProfile">Company Profile</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="Facility">Facility</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="Services">Services</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="Parts">Parts</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="Modifications">Modifications</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="CabinBaggageDoorStruts">Cabin &amp; Baggage Door Struts</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="CabinDoorCables">Cabin Door Cables</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="WindowShades">Window Shades</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="InstrumentPanels">Instrument Panels</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option" href="#">Bulletin Board</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Click Bond<span class="caret flightshop-nav-caret"></span>
-                                </a>
-                                <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Products"
-                                       asp-action="Index">Products</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="ClickBondInstallation">Installation</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       href="~/documents/click-bond-process-specification.pdf"
-                                       target="_blank">Process Specification</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="ClickBondStrengthData">Strength Data</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       asp-area=""
-                                       asp-controller="Home"
-                                       asp-action="OrderingInformation">Ordering Information</a>
-                                    <a class="dropdown-item flightshop-sub-nav-option"
-                                       href="~/documents/the-flight-shop-catalog.pdf"
-                                       target="_blank">Free Catalog</a>
-                                </div>
-                            </li>
-                            @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                            <li>
-                                <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
-                                    <img src="~/images/icons/cart.svg" alt="cart" />
-                                    <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
-                                        &nbsp;
-                                        <span id="flightshop-cart-items-count">0</span>
-                                        &nbsp;
-                                    </span>
-                                </a>
-                    </li>
-                            @* <li><a href="#">Sign In</a></li>*@
-                        </ul>
+            <ul id="flightshop-nav-menu" class="nav navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Maintenance<span class="caret flightshop-nav-caret"></span>
+                    </a>
+                    <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="CompanyProfile">Company Profile</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Facility">Facility</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Services">Services</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Parts">Parts</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Modifications">Modifications</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="CabinBaggageDoorStruts">Cabin &amp; Baggage Door Struts</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="CabinDoorCables">Cabin Door Cables</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="WindowShades">Window Shades</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="InstrumentPanels">Instrument Panels</a>
+                        <a class="dropdown-item flightshop-sub-nav-option" href="#">Bulletin Board</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Click Bond<span class="caret flightshop-nav-caret"></span>
+                    </a>
+                    <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Products"
+                           asp-action="Index">Products</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="ClickBondInstallation">Installation</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           href="~/documents/click-bond-process-specification.pdf"
+                           target="_blank">Process Specification</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="ClickBondStrengthData">Strength Data</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="OrderingInformation">Ordering Information</a>
+                        <a class="dropdown-item flightshop-sub-nav-option"
+                           href="~/documents/the-flight-shop-catalog.pdf"
+                           target="_blank">Free Catalog</a>
+                    </div>
+                </li>
+                @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" role="button" asp-controller="Home" asp-action="Contact">
+                        Contact
+                    </a>
+                </li>
+                <li style="margin-left: 1em;">
+                    <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
+                        <img src="~/images/icons/cart.svg" alt="cart" />
+                        <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
+                            &nbsp;
+                            <span id="flightshop-cart-items-count">0</span>
+                            &nbsp;
+                        </span>
+                    </a>
+                </li>
+                @* <li><a href="#">Sign In</a></li>*@
+            </ul>
                         <!-- </div> -->
             </div>
         </nav>
