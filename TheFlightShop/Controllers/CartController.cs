@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
+using TheFlightShop.Email;
 
 namespace TheFlightShop.Controllers
 {
@@ -21,6 +22,13 @@ namespace TheFlightShop.Controllers
 
         public IActionResult SubmitOrder(ClientOrder order)
         {
+            new BasicEmail().SendMail();
+            return new JsonResult("neato");
+        }
+
+        public IActionResult TestMail()
+        {
+            new BasicEmail().SendMail();
             return new JsonResult("neato");
         }
     }
