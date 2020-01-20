@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TheFlightShop.Controllers
@@ -16,6 +17,11 @@ namespace TheFlightShop.Controllers
         public IActionResult Checkout()
         {
             return View();
+        }
+
+        public IActionResult SubmitOrder(ClientOrder order)
+        {
+            return new JsonResult("neato");
         }
     }
 }

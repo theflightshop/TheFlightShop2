@@ -13,9 +13,13 @@
             <label for="flightshop-customer-email">Email</label>
             <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
         </div>
+        <div class="form-group">
+            <label for="flightshop-customer-phone">Phone</label>
+            <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
+        </div>
     </div>
 
-    <div class="flightshop-checkout-section" style="height: 210px;">
+    <div id="flightshop-addr-section" class="flightshop-checkout-section">
         <h4 class="flightshop-checkout-section-title">Shipping Address</h4>
         <div class="row">
             <div class="form-group col-md-8">
@@ -114,7 +118,7 @@
         </div>
     </div>
     <div class="flightshop-checkout-section">
-        <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success">Submit Order</button>
+        <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success" onclick="submitOrder()">Submit Order</button>
     </div>
 </form>
 
@@ -124,7 +128,7 @@
     }
 
     .flightshop-checkout-section {
-
+        
     }
 
     .flightshop-checkout-section-title {
@@ -139,9 +143,60 @@
     #flightshop-checkout-submit-btn {
         margin-top: 1.5em;
     }
+
+    @@media screen and (min-width: 991px) {
+        #flightshop-addr-section {
+            height: 210px;
+        }
+    }
 </style>
 
 <script>
+    function clearCart() {
+        window.sessionStorage.setItem('cartItems', []);
+        renderCartButton();
+    }
+
+    function submitOrder() {
+        var orderLines = [];
+        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+        for (var i = 0; i < cart.length; i++) {
+            var item = cart[i];
+            var orderLine = {
+                PartNumber: item.PartNumber,
+                ProductId: item.ProductId || null,
+                Quantity: parseInt(item.Quantity) || 0
+            };
+            orderLines.push(orderLine);
+        }
+
+        var clientOrder = {
+            Email: document.getElementById('flightshop-customer-email').value,
+            Phone: document.getElementById('flightshop-customer-phone').value,
+            Address1: document.getElementById('flightshop-customer-addr-1').value,
+            Address2: document.getElementById('flightshop-customer-addr-2').value,
+            City: document.getElementById('flightshop-customer-city').value,
+            State: document.getElementById('flightshop-customer-state').value,
+            Zip: document.getElementById('flightshop-customer-zipcode').value,
+            OrderLines: orderLines
+        };
+
+        var url = '@Url.Action("SubmitOrder", "Cart")';
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: clientOrder,
+            success: function () {
+                alert('sweet!');
+                clearCart();
+                //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
+            },
+            error: function () {
+                clearCart();
+            }
+        });
+    }
+
     window.addEventListener('load', function () {
         document.getElementById('flightshop-checkout-form').addEventListener('submit', function (evt) {
             evt.preventDefault();

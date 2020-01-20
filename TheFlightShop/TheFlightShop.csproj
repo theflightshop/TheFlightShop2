@@ -308,6 +308,10 @@
     <None Include="**/*" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Models\ClientOrder.cs" />
+    <None Remove="Models\ClientOrderLine.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
