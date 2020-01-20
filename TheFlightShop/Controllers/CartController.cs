@@ -20,16 +20,11 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public IActionResult SubmitOrder(ClientOrder order)
+        public async Task<IActionResult> SubmitOrder(ClientOrder order)
         {
-            new BasicEmail().SendMail();
-            return new JsonResult("neato");
-        }
-
-        public IActionResult TestMail()
-        {
-            new BasicEmail().SendMail();
-            return new JsonResult("neato");
+            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+            var succeeded = await new BasicEmail(apiKey).SendMail(order);
+            return succeeded ? new OkResult() : new StatusCodeResult(400);
         }
     }
 }
