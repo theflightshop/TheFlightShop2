@@ -46,5 +46,19 @@ namespace TheFlightShop.Controllers
                 return productView == null ? (IActionResult)new StatusCodeResult(404) : View(productView);
             });
         }
+
+        //public async Task<IActionResult> PoorMansProductJawns()
+        //{
+        // return all products and parts
+        //}
+
+        //public async Task<IActionResult> UpdatePoorMansProductAdminJawns(ProductAdminUpdateRequest adminUpdateRequest)
+        //{
+            //    var apiKey = adminRequest.Authorization;
+            //    if (apiKey == Environment.GetEnvironmentVariable("POOR_MANS_CRUD_API_KEY"))
+            //    {
+            //        // update products and parts
+            //    }
+        //}
     }
 }

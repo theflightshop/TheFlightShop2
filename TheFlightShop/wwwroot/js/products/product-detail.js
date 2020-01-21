@@ -79,14 +79,13 @@ function addUnlistedToCart(inputId, productId, imgSrc) {
 
     var validationAlert = document.getElementById('flightshop-invalid-unlisted-part-alert');
     var quantityAlert = document.getElementById('flightshop-invalid-part-quantity');
-    var infoProvided = partNumber || description;
 
-    if (infoProvided && quantity) {
+    if (partNumber && quantity) {
         validationAlert.style.display = 'none';
         quantityAlert.style.display = 'none';
-        requestAddToCart(productId, infoProvided, quantity, null, imgSrc);
+        requestAddToCart(productId, partNumber, description, quantity, null, imgSrc, true);
     }
-    else if (infoProvided) {
+    else if (partNumber) {
         quantityAlert.style.display = 'block';
     }
     else {
@@ -96,13 +95,13 @@ function addUnlistedToCart(inputId, productId, imgSrc) {
     renderCartButton();
 }
 
-function addToCart(productId, partNumber, price, imgSrc) {
+function addToCart(productId, partNumber, description, price, imgSrc) {
     var quantity = getQuantity('addToCartQuantity-' + partNumber);
     var quantityAlert = document.getElementById('flightshop-invalid-part-quantity');
 
     if (quantity) {
         quantityAlert.style.display = 'none';
-        requestAddToCart(productId, partNumber, quantity, price, imgSrc);
+        requestAddToCart(productId, partNumber, description, quantity, price, imgSrc);
     }
     else {
         quantityAlert.style.display = 'block';
@@ -117,15 +116,17 @@ function getQuantity(id) {
     return parsed > 0 ? parsed : null;
 }
 
-function requestAddToCart(productId, codeOrDescription, quantity, price, imgSrc) {
-    addItemToProductAddedDisplay(codeOrDescription, quantity, price);
+function requestAddToCart(productId, partNumber, description, quantity, price, imgSrc, isUserDefined) {
+    addItemToProductAddedDisplay(partNumber, quantity, price);
     var cartValue = window.sessionStorage.getItem('cartItems');
     var cart = cartValue ? JSON.parse(cartValue) : [];
     cart.push({
         ProductId: productId,
-        PartNumber: codeOrDescription,
+        PartNumber: partNumber,
+        Description: description,
         Quantity: quantity,
-        ImageSrc: imgSrc
+        ImageSrc: imgSrc,
+        IsUserDefined: isUserDefined
     });
     window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
     showProductAddedDisplay(true);

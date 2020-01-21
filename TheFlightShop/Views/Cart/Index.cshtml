@@ -31,16 +31,19 @@
         border-top: 1px solid #ddd;
         padding-top: 1.5em;
         margin-top: 1.5em;
+        margin-bottom: 2em;
         height: 125px;
     }
 
-    .cart-item-img {
+    .cart-item-img-wrapper {
         float: left;
-        margin-right: 2em;
+        width: 7.5em;
+        height: 100%;
     }
 
-    .cart-item-info {
-
+    .cart-item-img {
+        width: 75%;
+        max-height: 100%;
     }
 
     .cart-item-title {
@@ -48,11 +51,15 @@
     }
 
     .cart-item-desc {
-
+        color: #555;
+        margin-top: 0.25em;
+        width: 100%;
     }
 
     .cart-item-qty-form {
         float: right;
+        position: relative;
+        top: -2em;
     }
 
     .cart-item-qty-btn {
@@ -65,7 +72,6 @@
     }
 
     .cart-item-qty-less {
-
     }
 
     .cart-item-qty {
@@ -79,7 +85,6 @@
     }
 
     .cart-item-qty-more {
-
     }
 
     .cart-item-del-btn {
@@ -88,7 +93,7 @@
         background: none;
         border: none;
         position: relative;
-        top: -2px;
+        top: -2em;
         left: 25px;
         width: 5em
     }
@@ -124,6 +129,12 @@
 
     #flightshop-delete-col-header {
         width: 5em;
+    }
+
+    .cart-item-custom-pt-label {
+        width: 200px;
+        display: inline-block;
+        float: left;
     }
 </style>
 
@@ -184,10 +195,14 @@
         cartItem.id = part.PartNumber;
         cartItem.classList.add('cart-item');
 
+        var thumbnailWrapper = document.createElement('div');
+        thumbnailWrapper.classList.add('cart-item-img-wrapper');
+        cartItem.appendChild(thumbnailWrapper);
+
         var thumbnail = document.createElement('img');
         thumbnail.src = part.ImageSrc;
         thumbnail.classList.add('cart-item-img');
-        cartItem.appendChild(thumbnail);
+        thumbnailWrapper.appendChild(thumbnail);
 
         var title = document.createElement('a');
         var titleText = part.PartNumber.slice(0, 20);
@@ -198,6 +213,22 @@
         title.href = '/Products/ProductDetail/' + part.ProductId;
         title.classList.add('cart-item-title');
         cartItem.appendChild(title);
+
+        var desc = document.createElement('p');
+        var descText = part.Description.slice(0, 30);
+        if (part.Description.length > 30) {
+            descText = descText + '...';
+        }
+        desc.innerHTML = descText || '';
+        desc.classList.add('cart-item-desc');
+        cartItem.appendChild(desc);
+
+        if (part.IsUserDefined) {
+            var customPartLabel = document.createElement('p');
+            customPartLabel.innerHTML = '<strong>** Special Part</strong>';
+            customPartLabel.classList.add('cart-item-custom-pt-label');
+            cartItem.appendChild(customPartLabel);
+        }
 
         var deleteBtn = document.createElement('button');
         deleteBtn.classList.add('cart-item-del-btn');
