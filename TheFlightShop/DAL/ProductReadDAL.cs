@@ -5837,8 +5837,13 @@ namespace TheFlightShop.DAL
 
         public IEnumerable<Part> SearchParts(string query)
         {
-            var formattedQuery = query.ToLower().Trim();
-            return Parts.Where(part => part.PartNumber.ToLower().Contains(formattedQuery) || part.Description.ToLower().Contains(formattedQuery));
+            var results = (IEnumerable<Part>)new List<Part>();
+            if (!string.IsNullOrEmpty(query))
+            {
+                var formattedQuery = query.ToLower().Trim();
+                results = Parts.Where(part => part.PartNumber.ToLower().Contains(formattedQuery) || part.Description.ToLower().Contains(formattedQuery));
+            }
+            return results;
         }
 
         private string GetImageSource(string productCode)
