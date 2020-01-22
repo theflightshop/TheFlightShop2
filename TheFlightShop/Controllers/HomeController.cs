@@ -88,11 +88,6 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public IActionResult InstrumentPanels()
-        {
-            return View();
-        }
-
         #endregion
 
         #region Click Bond
