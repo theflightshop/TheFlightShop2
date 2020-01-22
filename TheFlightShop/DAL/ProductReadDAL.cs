@@ -5835,6 +5835,12 @@ namespace TheFlightShop.DAL
             return viewModel;
         }
 
+        public IEnumerable<Part> SearchParts(string query)
+        {
+            var formattedQuery = query.ToLower().Trim();
+            return Parts.Where(part => part.PartNumber.ToLower().Contains(formattedQuery) || part.Description.ToLower().Contains(formattedQuery));
+        }
+
         private string GetImageSource(string productCode)
         {
             return "/products/product-images/" + productCode.ToLower() + ".gif";

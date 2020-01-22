@@ -167,5 +167,10 @@ namespace TheFlightShop.DAL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Part> SearchParts(string query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

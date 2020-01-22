@@ -111,13 +111,12 @@
                         @*</div> *@
 
                         <div id="flightshop-search-container" class="input-group">
-                            @* TODO: implement search
                     <input type="text" class="form-control" placeholder="Search" />
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary">
                             <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
                         </button>
-                    </div>*@
+                    </div>
                         </div>
                         @*  <div id="flightshop-center-sub-menu">*@
                         @* TODO: implement cart and search, then show this
@@ -228,11 +227,6 @@
                     </div>
                 </li>
                 @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" role="button" asp-controller="Home" asp-action="Contact">
-                        Contact
-                    </a>
-                </li>
                 <li style="margin-left: 1em;">
                     <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
                         <img src="~/images/icons/cart.svg" alt="cart" />
@@ -255,7 +249,7 @@
             @RenderBody()
             <footer id="flightshop-footer">
                 <hr />
-                <p>&copy; 2019 - TheFlightShop | <a asp-area="" asp-controller="Home" asp-action="Terms">Terms</a></p>
+                <p>&copy; 2019 - TheFlightShop&nbsp;|&nbsp;<a asp-area="" asp-controller="Home" asp-action="Terms">Terms</a>&nbsp;|&nbsp;<a asp-controller="Home" asp-action="Contact">Contact Us</a></p>
             </footer>
             <div id="flightshop-product-added-arrow" class="flightshop-product-added-arrow" style="display: none;"></div>
             <div id="flightshop-added-to-cart-overlay" 

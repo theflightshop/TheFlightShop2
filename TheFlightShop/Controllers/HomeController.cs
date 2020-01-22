@@ -46,6 +46,12 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
+        public IActionResult Search(string q)
+        {
+            var results = _productReadDAL.SearchParts(q);
+            return new JsonResult(results);
+        }
+
         #region Maintenance
 
         public IActionResult CompanyProfile()
