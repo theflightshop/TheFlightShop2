@@ -111,7 +111,7 @@
                 @*</div> *@
 
                 <div id="flightshop-search-container" class="input-group">
-                    <input id="user-search-val" type="text" class="form-control" placeholder="Search" oninput="userSearchChange()" />
+                    <input id="user-search-val" type="text" class="form-control" placeholder="Search ClickBond products..." oninput="userSearchChange()" />
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary">
                             <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
@@ -488,7 +488,7 @@
 
                             var partNumber = document.createElement('strong');
                             partNumber.classList.add('flightshop-quick-search-pt-nr');
-                            partNumber.innerHTML = searchResult.partNumber;
+                            partNumber.innerHTML = searchResult.name;
 
                             var partDesc = document.createElement('span');
                             partDesc.classList.add('flightshop-quick-search-desc');
@@ -509,7 +509,10 @@
                     }
 
                     resultsList.style.display = 'inline-block';
-                    // todo: setfocus, then onlosefocus set display none
+                    resultsList.focus();
+                    resultsList.onblur = function () {
+                        document.getElementById('flightshop-quick-search-results-list').style.display = 'none';
+                    }
                 }
 
                 function beginListenForQueries() {
@@ -525,9 +528,20 @@
                     }, 250);
                 }
 
+                function hideQuickSearchOnClick() {
+                    document.addEventListener('click', function (e) {
+                        var resultsListId = 'flightshop-quick-search-results-list';
+                        if (e.target.id !== resultsListId) {
+                            document.getElementById(resultsListId).style.display = 'none';
+                            document.getElementById('user-search-val').value = '';
+                        }
+                    })
+                }
+
                 window.addEventListener('load', function () {
                     beginListenForQueries();
                     renderCartButton();
+                    hideQuickSearchOnClick();
                 });
             </script>
     </body>

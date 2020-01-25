@@ -5835,15 +5835,34 @@ namespace TheFlightShop.DAL
             return viewModel;
         }
 
-        public IEnumerable<Part> SearchParts(string query)
+        public IEnumerable<SearchResult> SearchParts(string query)
         {
-            var results = (IEnumerable<Part>)new List<Part>();
+            var results = (IEnumerable<SearchResult>)new List<SearchResult>();
             if (!string.IsNullOrEmpty(query))
             {
                 var formattedQuery = query.ToLower().Trim();
-                results = Parts.Where(part => part.PartNumber.ToLower().Contains(formattedQuery) || part.Description.ToLower().Contains(formattedQuery));
+                var matchingParts = Parts.Where(part => part.IsActive && MatchesQuery(part, formattedQuery));
+                if (matchingParts.Any())
+                {
+                    results = matchingParts.Select(part => new SearchResult(part));
+                }
+                else
+                {
+                    var matchingProducts = Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery));
+                    results = matchingProducts.Select(product => new SearchResult(product));
+                }
             }
             return results;
+        }
+
+        private bool MatchesQuery(Part part, string query)
+        {
+            return (part.PartNumber?.ToLower().Contains(query) ?? false) || (part.Description?.ToLower().Contains(query) ?? false);
+        }
+
+        private bool MatchesQuery(Product product, string query)
+        {
+            return (product.Code?.ToLower().Contains(query) ?? false) || (product.ShortDescription?.ToLower().Contains(query) ?? false);
         }
 
         private string GetImageSource(string productCode)
