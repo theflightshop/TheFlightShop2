@@ -449,3 +449,46 @@ body {
     left: 1em;
     z-index: 1000;
 }
+
+#flightshop-quick-search-results-list {
+    display: inline-block;
+    width: 43%;
+    padding-left: 2em;
+}
+
+.flightshop-quick-search-li {
+    list-style: none;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+}
+
+.flightshop-quick-search-content {
+    height: 100%;
+    margin: 0;
+}
+    .flightshop-quick-search-content:hover {
+        background-color: #efefef;
+    }
+
+.flightshop-quick-search-link {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 1em;
+    text-decoration: none;
+}
+
+.flightshop-quick-search-pt-nr {
+    color: #222;
+}
+
+.flightshop-quick-search-desc {
+    padding-left: 0.5em;
+    color: #666;
+}
+
+.flightshop-quick-search-right-arrow {
+    float: right;
+    padding-right: 1em;
+    color: #666;
+}

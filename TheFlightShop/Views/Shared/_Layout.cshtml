@@ -77,169 +77,172 @@
                     </a>
                 </div>
 
-                        @*<div id="flightshop-left-sub-menu" style="display: none;">
-                        *@
-                        @*<a class="flightshop-left-sub-menu-option"
-                    asp-controller="Home"
-                    asp-action="Contact">
-                    Contact
-                </a>*@
-                        @*<span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>*@
-                        @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
-                        @if (false)
-                        {
-                            @*<a class="flightshop-left-sub-menu-option"
-                       asp-controller="Home"
-                       asp-action="Index">
-                        Nick
-                    </a>*@
-                        }
-                        else
-                        {
-                            @*<a class="flightshop-left-sub-menu-option"
-                       asp-controller="Home"
-                       asp-action="Index">
-                        Sign In
-                    </a>*@
-                        }
-                        @*   <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span> *@
-                        @*<a class="flightshop-left-sub-menu-option"
-                   asp-controller="Home"
-                   asp-action="Index">
-                    Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
-                </a>*@
-                        @*</div> *@
+                @*<div id="flightshop-left-sub-menu" style="display: none;">
+                *@
+                @*<a class="flightshop-left-sub-menu-option"
+            asp-controller="Home"
+            asp-action="Contact">
+            Contact
+        </a>*@
+                @*<span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>*@
+                @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
+                @if (false)
+                {
+                    @*<a class="flightshop-left-sub-menu-option"
+               asp-controller="Home"
+               asp-action="Index">
+                Nick
+            </a>*@
+                }
+                else
+                {
+                    @*<a class="flightshop-left-sub-menu-option"
+               asp-controller="Home"
+               asp-action="Index">
+                Sign In
+            </a>*@
+                }
+                @*   <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span> *@
+                @*<a class="flightshop-left-sub-menu-option"
+           asp-controller="Home"
+           asp-action="Index">
+            Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
+        </a>*@
+                @*</div> *@
 
-                        <div id="flightshop-search-container" class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" />
+                <div id="flightshop-search-container" class="input-group">
+                    <input id="user-search-val" type="text" class="form-control" placeholder="Search" oninput="userSearchChange()" />
                     <div class="input-group-append">
                         <button type="button" class="btn btn-outline-secondary">
                             <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
                         </button>
                     </div>
+                </div>
+                <ul id="flightshop-quick-search-results-list">
+                </ul>
+                <div id="flightshop-quick-search-no-results" style="display: none;"></div>
+                @*  <div id="flightshop-center-sub-menu">*@
+                @* TODO: implement cart and search, then show this
+            TODO: also, re-enable "margin-top" on #flightshop-nav-menu in CSS
+        <a class="flightshop-center-sub-menu-option"
+            asp-controller="Home"
+            asp-action="Contact">
+            Contact
+        </a>
+        <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>*@
+                @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
+                @if (false)
+                {
+                    @*<a class="flightshop-center-sub-menu-option"
+               asp-controller="Home"
+               asp-action="Index">
+                Nick
+            </a>*@
+                }
+                else
+                {
+                    @*<a class="flightshop-center-sub-menu-option"
+               asp-controller="Home"
+               asp-action="Index">
+                Sign In
+            </a>*@
+                }
+                @*<span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
+        <a class="flightshop-center-sub-menu-option"
+           asp-controller="Home"
+           asp-action="Index">
+            Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
+        </a>*@
+                @*  </div> *@
+                <!--<div class="navbar-collapse collapse">-->
+                <ul id="flightshop-nav-menu" class="nav navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Maintenance<span class="caret flightshop-nav-caret"></span>
+                        </a>
+                        <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="CompanyProfile">Company Profile</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Facility">Facility</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Services">Services</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Parts">Parts</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="Modifications">Modifications</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="CabinBaggageDoorStruts">Cabin &amp; Baggage Door Struts</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="CabinDoorCables">Cabin Door Cables</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="WindowShades">Window Shades</a>
+                            <a class="dropdown-item flightshop-sub-nav-option" href="#">Bulletin Board</a>
                         </div>
-                        @*  <div id="flightshop-center-sub-menu">*@
-                        @* TODO: implement cart and search, then show this
-                    TODO: also, re-enable "margin-top" on #flightshop-nav-menu in CSS
-                <a class="flightshop-center-sub-menu-option"
-                    asp-controller="Home"
-                    asp-action="Contact">
-                    Contact
-                </a>
-                <span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>*@
-                        @* todo: implement user auth/accounts, check isLoggedIn in each request (filter?) *@
-                        @if (false)
-                        {
-                            @*<a class="flightshop-center-sub-menu-option"
-                       asp-controller="Home"
-                       asp-action="Index">
-                        Nick
-                    </a>*@
-                        }
-                        else
-                        {
-                            @*<a class="flightshop-center-sub-menu-option"
-                       asp-controller="Home"
-                       asp-action="Index">
-                        Sign In
-                    </a>*@
-                        }
-                        @*<span class="flightshop-center-sub-menu-option-divider">&nbsp;|&nbsp;</span>
-                <a class="flightshop-center-sub-menu-option"
-                   asp-controller="Home"
-                   asp-action="Index">
-                    Cart&nbsp;&nbsp;<span id="flightshop-nav-cart-amount">$0.00</span>
-                </a>*@
-                        @*  </div> *@
-                        <!--<div class="navbar-collapse collapse">-->
-            <ul id="flightshop-nav-menu" class="nav navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Maintenance<span class="caret flightshop-nav-caret"></span>
-                    </a>
-                    <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="CompanyProfile">Company Profile</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="Facility">Facility</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="Services">Services</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="Parts">Parts</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="Modifications">Modifications</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="CabinBaggageDoorStruts">Cabin &amp; Baggage Door Struts</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="CabinDoorCables">Cabin Door Cables</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="WindowShades">Window Shades</a>
-                        <a class="dropdown-item flightshop-sub-nav-option" href="#">Bulletin Board</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Click Bond<span class="caret flightshop-nav-caret"></span>
-                    </a>
-                    <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Products"
-                           asp-action="Index">Products</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="ClickBondInstallation">Installation</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           href="~/documents/click-bond-process-specification.pdf"
-                           target="_blank">Process Specification</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="ClickBondStrengthData">Strength Data</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           asp-area=""
-                           asp-controller="Home"
-                           asp-action="OrderingInformation">Ordering Information</a>
-                        <a class="dropdown-item flightshop-sub-nav-option"
-                           href="~/documents/the-flight-shop-catalog.pdf"
-                           target="_blank">Free Catalog</a>
-                    </div>
-                </li>
-                @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                <li style="margin-left: 1em;">
-                    <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
-                        <img src="~/images/icons/cart.svg" alt="cart" />
-                        <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
-                            &nbsp;
-                            <span id="flightshop-cart-items-count">0</span>
-                            &nbsp;
-                        </span>
-                    </a>
-                </li>
-                @* <li><a href="#">Sign In</a></li>*@
-            </ul>
-                        <!-- </div> -->
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle flightshop-main-nav-option" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Click Bond<span class="caret flightshop-nav-caret"></span>
+                        </a>
+                        <div class="flightshop-dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="ClickBondAuthorizedDistributor">Click Bond Authorized Distributor</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Products"
+                               asp-action="Index">Products</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="ClickBondInstallation">Installation</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               href="~/documents/click-bond-process-specification.pdf"
+                               target="_blank">Process Specification</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="ClickBondStrengthData">Strength Data</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               asp-area=""
+                               asp-controller="Home"
+                               asp-action="OrderingInformation">Ordering Information</a>
+                            <a class="dropdown-item flightshop-sub-nav-option"
+                               href="~/documents/the-flight-shop-catalog.pdf"
+                               target="_blank">Free Catalog</a>
+                        </div>
+                    </li>
+                    @* <li><a class="flightshop-main-nav-option" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li style="margin-left: 1em;">
+                        <a id="flightshop-cart-link" class="flightshop-cart-nav-option" asp-area="" asp-controller="Cart" asp-action="Index">
+                            <img src="~/images/icons/cart.svg" alt="cart" />
+                            <span id="flightshop-cart-count-wrapper" class="flightshop-cart-items-count">
+                                &nbsp;
+                                <span id="flightshop-cart-items-count">0</span>
+                                &nbsp;
+                            </span>
+                        </a>
+                    </li>
+                    @* <li><a href="#">Sign In</a></li>*@
+                </ul>
+                <!-- </div> -->
             </div>
         </nav>
 
@@ -454,7 +457,76 @@
                     cartCountLabel.innerHTML = cartLength;
                 }
 
+                var queuedQuery = null;
+                function userSearchChange() {
+                    var searchValue = document.getElementById('user-search-val').value || null;
+                    queuedQuery = searchValue;
+                }
+
+                var QUICK_SEARCH_RESULTS_COUNT = 5;
+                function renderSearchResults(results) {
+                    var resultsList = document.getElementById('flightshop-quick-search-results-list');
+                    while (resultsList.firstChild) {
+                        resultsList.removeChild(resultsList.firstChild);
+                    }
+
+                    var hasResults = results && results.length;
+                    var noResultsMsg = document.getElementById('flightshop-quick-search-no-results');
+                    noResultsMsg.style.display = hasResults ? 'none' : 'block';
+                    if (hasResults) {
+                        for (var i = 0; i < results.length && i < QUICK_SEARCH_RESULTS_COUNT; i++) {
+                            var searchResult = results[i];
+                            var searchResultElement = document.createElement('li');
+                            searchResultElement.classList.add('flightshop-quick-search-li');
+                            var searchResultContentWrapper = document.createElement('p');
+                            searchResultContentWrapper.classList.add('flightshop-quick-search-content');
+
+                            var searchResultLink = document.createElement('a');
+                            searchResultLink.classList.add('flightshop-quick-search-link');
+                            var routeUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '/Products/ProductDetail/' + searchResult.productId;
+                            searchResultLink.href = routeUrl;
+
+                            var partNumber = document.createElement('strong');
+                            partNumber.classList.add('flightshop-quick-search-pt-nr');
+                            partNumber.innerHTML = searchResult.partNumber;
+
+                            var partDesc = document.createElement('span');
+                            partDesc.classList.add('flightshop-quick-search-desc');
+                            partDesc.innerHTML = searchResult.description;
+
+                            var searchResultNavigateArrow = document.createElement('span');
+                            searchResultNavigateArrow.classList.add('flightshop-quick-search-right-arrow');
+                            searchResultNavigateArrow.innerHTML = '&#8250;';
+
+                            searchResultLink.appendChild(partNumber);
+                            searchResultLink.appendChild(partDesc);
+                            searchResultLink.appendChild(searchResultNavigateArrow);
+                            searchResultContentWrapper.appendChild(searchResultLink);
+                            searchResultElement.appendChild(searchResultContentWrapper);
+
+                            resultsList.appendChild(searchResultElement);
+                        }
+                    }
+
+                    resultsList.style.display = 'inline-block';
+                    // todo: setfocus, then onlosefocus set display none
+                }
+
+                function beginListenForQueries() {
+                    setInterval(function () {
+                        if (queuedQuery) {
+                            var searchUrl = encodeURI('@Url.Action("Search", "Home")' + '?q=' + queuedQuery);
+                            queuedQuery = null;
+                            $.get(searchUrl)
+                                .done(function (results) {
+                                    renderSearchResults(results);
+                                });
+                        }
+                    }, 250);
+                }
+
                 window.addEventListener('load', function () {
+                    beginListenForQueries();
                     renderCartButton();
                 });
             </script>

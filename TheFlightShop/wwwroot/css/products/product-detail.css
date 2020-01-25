@@ -134,3 +134,11 @@
 #flightshop-invalid-part-quantity {
     margin-top: 0.25em;
 }
+
+/* z-index of -1 was added to keep elements from appearing over search results dropdown (in nav) */
+.flightshop-product-detail-overview {
+    z-index: -1;
+}
+.flightshop-product-detail-content {
+    z-index: -1;
+}
