@@ -16,17 +16,11 @@ function addUnlistedPart(productId, imgSrc) {
 
     var partNumberInput = document.createElement('input');
     partNumberInput.id = 'part-nr-input-' + unlistedPartCount;
-    partNumberInput.placeholder = 'Part #';
-    partNumberInput.style.maxWidth = '75%';
+    partNumberInput.placeholder = 'Part # (required)';
+    partNumberInput.style.maxWidth = '90%';
     partNumberInput.style.float = 'left';
     partNumberCol.appendChild(partNumberInput);
     partNumberCol.style.borderRight = 'none';
-
-    var orCol = document.createElement('span');
-    orCol.innerHTML = ' or ';
-    orCol.style.width = '50px';
-    orCol.style.marginLeft = '1em';
-    partNumberCol.appendChild(orCol);
 
     var descriptionCol = document.createElement('td');
     descriptionCol.classList.add('flightshop-parts-table-cell');

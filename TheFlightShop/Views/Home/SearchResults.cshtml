@@ -1,0 +1,31 @@
+﻿@model TheFlightShop.Models.SearchResultView
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search Results - &quot;@Model.Query&quot;</h2>
+
+<li id="flightshop-search-results-view">
+    @foreach (var result in Model.Results)
+    {
+        <li class="flightshop-search-result-view-item">
+            <img src="@result.ImgSrc" alt="@result.Name" />
+            <div>
+                <span>@result.Category&nbsp;&gt;&nbsp;@Html.ActionLink(result.Name, "ProductDetail", "Products", new { id = result.ProductId })</span>
+                <span>@result.Description</span>
+            </div>
+        </li>
+    }
+</li>
+
+<style>
+    .flightshop-search-results-view {
+        list-style: none;
+    }
+
+    .flightshop-search-result-view-item {
+
+    }
+</style>

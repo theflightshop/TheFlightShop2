@@ -113,7 +113,7 @@
                 <div id="flightshop-search-container" class="input-group">
                     <input id="user-search-val" type="text" class="form-control" placeholder="Search ClickBond products..." oninput="userSearchChange()" />
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary">
+                        <button id="flightshop-search-button" type="button" class="btn btn-outline-secondary" onclick="userSearchEnter()">
                             <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
                         </button>
                     </div>
@@ -457,6 +457,15 @@
                     cartCountLabel.innerHTML = cartLength;
                 }
 
+                function userSearchEnter() {
+                    var query = document.getElementById('user-search-val').value;
+                    if (query) {
+                        var searchUrl = encodeURI('@Url.Action("SearchResults", "Home")' + '?q=' + query);
+                        queuedQuery = null;
+                        location.href = searchUrl;   
+                    }
+                }
+
                 var queuedQuery = null;
                 function userSearchChange() {
                     var searchValue = document.getElementById('user-search-val').value || null;
@@ -531,7 +540,8 @@
                 function hideQuickSearchOnClick() {
                     document.addEventListener('click', function (e) {
                         var resultsListId = 'flightshop-quick-search-results-list';
-                        if (e.target.id !== resultsListId) {
+                        var flightshopSearchButton = 'flightshop-search-button';
+                        if (e.target.id !== resultsListId && e.target.id !== flightshopSearchButton) {
                             document.getElementById(resultsListId).style.display = 'none';
                             document.getElementById('user-search-val').value = '';
                         }

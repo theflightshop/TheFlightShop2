@@ -5837,22 +5837,39 @@ namespace TheFlightShop.DAL
 
         public IEnumerable<SearchResult> SearchParts(string query)
         {
-            var results = (IEnumerable<SearchResult>)new List<SearchResult>();
+            var results = new List<SearchResult>();
             if (!string.IsNullOrEmpty(query))
             {
                 var formattedQuery = query.ToLower().Trim();
                 var matchingParts = Parts.Where(part => part.IsActive && MatchesQuery(part, formattedQuery));
                 if (matchingParts.Any())
                 {
-                    results = matchingParts.Select(part => new SearchResult(part));
+                    foreach (var part in matchingParts)
+                    {
+                        var categoryId = GetCategoryByProductId(part.ProductId);
+                        var drawingUrl = GetLocalDrawingUrl(part.ProductId);
+                        var result = new SearchResult(part, categoryId, drawingUrl);
+                        results.Add(result);
+                    }
                 }
                 else
                 {
-                    var matchingProducts = Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery));
-                    results = matchingProducts.Select(product => new SearchResult(product));
+                    //var matchingProducts = Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery));
+                    //results = matchingProducts.Select(product => new SearchResult(product, GetCategoryById(product.SubCategoryId), GetLocalDrawingUrl(product.Id)));
                 }
             }
             return results;
+        }
+
+        private string GetCategoryByProductId(Guid productId)
+        {
+            var categoryId = Products.FirstOrDefault(product => product.Id == productId)?.SubCategoryId ?? null;
+            return categoryId == null ? null : GetCategoryById(categoryId.Value);
+        }
+
+        private string GetCategoryById(Guid categoryId)
+        {
+            return Categories.FirstOrDefault(category => category.Id == categoryId)?.Name ?? null;
         }
 
         private bool MatchesQuery(Part part, string query)
@@ -5868,6 +5885,12 @@ namespace TheFlightShop.DAL
         private string GetImageSource(string productCode)
         {
             return "/products/product-images/" + productCode.ToLower() + ".gif";
+        }
+
+        private string GetLocalDrawingUrl(Guid productId)
+        {
+            var productCode = Products.FirstOrDefault(product => product.Id == productId)?.Code ?? null;
+            return productCode == null ? null : GetLocalDrawingUrl(productCode);
         }
 
         private string GetLocalDrawingUrl(string productCode)
