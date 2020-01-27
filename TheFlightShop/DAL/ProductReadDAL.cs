@@ -43,7 +43,7 @@ namespace TheFlightShop.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySql(_connectionString);//.UseSqlServer(_connectionString);
+            optionsBuilder.UseMySql(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

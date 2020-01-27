@@ -5,29 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Search Results - &quot;@Model.Query&quot;</h2>
+<h2 id="flightshop-search-results-title">Search Results - &quot;@Model.Query&quot;</h2>
 
-<li id="flightshop-search-results-view">
+<ul id="flightshop-search-results-view">
     @foreach (var result in Model.Results)
     {
         <li class="flightshop-search-result-view-item">
             <img src="@result.ImgSrc" alt="@result.Name" />
-            <div>
+            <div class="flightshop-search-result-info">
                 <span>@result.Category&nbsp;&gt;&nbsp;</span>
                 <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>
                 @Html.ActionLink(result.Name, "ProductDetail", "Products", new { id = result.ProductId })
-                <span>@result.Description</span>
+                <br /><span class="flightshop-search-result-desc">@result.Description</span>
             </div>
         </li>
     }
-</li>
+</ul>
 
 <style>
+    #flightshop-search-results-title {
+        margin-top: 1.5em;
+    }
+
     .flightshop-search-results-view {
         list-style: none;
     }
 
     .flightshop-search-result-view-item {
+        list-style: none;
+        height: 175px;
+        border-top: 1px solid #dedede;
+        padding-top: 10px;
+    }
+    .flightshop-search-result-view-item img {
+        width: 6em;
+        max-width: 150px;
+        height: auto;
+        max-height: 150px;
+        margin-right: 1em;
+        padding-bottom: 10px;
+    }
 
+    .flightshop-search-result-info {
+        display: inline-block;
+        width: 80%;
+    }
+
+    .flightshop-search-result-desc {
+        font-family: 'Kanit', sans-serif; /* Google font */ 
+        position: relative;
+        top: 0.5em;
     }
 </style>

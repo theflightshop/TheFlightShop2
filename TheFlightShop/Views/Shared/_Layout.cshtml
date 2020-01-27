@@ -27,6 +27,8 @@
             <link rel="stylesheet" href="~/css/products/index.css" />
             <link rel="stylesheet" href="~/css/products/category.css" />
             <link rel="stylesheet" href="~/css/products/product-detail.css" />
+
+            <link href="https://fonts.googleapis.com/css?family=Kanit:200&display=swap" rel="stylesheet">
         @*</environment>
         <environment exclude="Development">
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -111,12 +113,14 @@
                 @*</div> *@
 
                 <div id="flightshop-search-container" class="input-group">
-                    <input id="user-search-val" type="text" class="form-control" placeholder="Search ClickBond products..." oninput="userSearchChange()" />
-                    <div class="input-group-append">
-                        <button id="flightshop-search-button" type="button" class="btn btn-outline-secondary" onclick="userSearchEnter()">
-                            <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
-                        </button>
-                    </div>
+                    <form onsubmit="userSearchEnter(); return false;">
+                        <input id="user-search-val" type="text" class="form-control" placeholder="Search ClickBond products..." oninput="userSearchChange()" />
+                        <div class="input-group-append">
+                            <button id="flightshop-search-button" type="submit" class="btn btn-outline-secondary">
+                                <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <ul id="flightshop-quick-search-results-list">
                 </ul>
@@ -459,6 +463,7 @@
 
                 function userSearchEnter() {
                     var query = document.getElementById('user-search-val').value;
+                    console.log('query me ', query)
                     if (query) {
                         var searchUrl = encodeURI('@Url.Action("SearchResults", "Home")' + '?q=' + query);
                         queuedQuery = null;
@@ -540,8 +545,9 @@
                 function hideQuickSearchOnClick() {
                     document.addEventListener('click', function (e) {
                         var resultsListId = 'flightshop-quick-search-results-list';
-                        var flightshopSearchButton = 'flightshop-search-button';
-                        if (e.target.id !== resultsListId && e.target.id !== flightshopSearchButton) {
+                        var searchBtn = 'flightshop-search-button';
+                        var searchBtnImg = 'flightshop-search-button-image';
+                        if (![resultsListId, searchBtn, searchBtnImg].includes(e.target.id)) {
                             document.getElementById(resultsListId).style.display = 'none';
                             document.getElementById('user-search-val').value = '';
                         }
