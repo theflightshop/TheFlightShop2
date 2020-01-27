@@ -12,24 +12,17 @@ namespace TheFlightShop.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
+        public string SubCategory { get; set; }
         public string ImgSrc { get; set; }
 
-        public SearchResult(Part part, string category, string drawingUrl)
+        public SearchResult(string name, Guid productId, string description, string category, string subCategory, string imgSrc)
         {
-            ProductId = part.ProductId;
-            Name = part.PartNumber;
-            Description = part.Description;
+            ProductId = productId;
+            Name = name;
+            Description = description;
             Category = category;
-            ImgSrc = drawingUrl;
-        }
-
-        public SearchResult(Product product, string category, string drawingUrl)
-        {
-            ProductId = product.Id;
-            Name = product.Code;
-            Description = product.ShortDescription;
-            Category = category;
-            ImgSrc = drawingUrl;
+            SubCategory = subCategory;
+            ImgSrc = imgSrc;
         }
     }
 }

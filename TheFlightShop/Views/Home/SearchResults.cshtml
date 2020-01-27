@@ -13,7 +13,9 @@
         <li class="flightshop-search-result-view-item">
             <img src="@result.ImgSrc" alt="@result.Name" />
             <div>
-                <span>@result.Category&nbsp;&gt;&nbsp;@Html.ActionLink(result.Name, "ProductDetail", "Products", new { id = result.ProductId })</span>
+                <span>@result.Category&nbsp;&gt;&nbsp;</span>
+                <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>
+                @Html.ActionLink(result.Name, "ProductDetail", "Products", new { id = result.ProductId })
                 <span>@result.Description</span>
             </div>
         </li>

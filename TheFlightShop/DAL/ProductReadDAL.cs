@@ -5846,25 +5846,40 @@ namespace TheFlightShop.DAL
                 {
                     foreach (var part in matchingParts)
                     {
-                        var categoryId = GetCategoryByProductId(part.ProductId);
-                        var drawingUrl = GetLocalDrawingUrl(part.ProductId);
-                        var result = new SearchResult(part, categoryId, drawingUrl);
-                        results.Add(result);
+                        var product = Products.FirstOrDefault(prdct => prdct.Id == part.ProductId);
+                        if (product == null)
+                        {
+                            // todo: log product not found and move on
+                        }
+                        else
+                        {
+                            var result = GetNewSearchResult(product, part);
+                            results.Add(result);
+                        }
                     }
                 }
                 else
                 {
-                    //var matchingProducts = Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery));
-                    //results = matchingProducts.Select(product => new SearchResult(product, GetCategoryById(product.SubCategoryId), GetLocalDrawingUrl(product.Id)));
+                    var matchingProducts = Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery));
+                    foreach (var product in matchingProducts)
+                    {
+                        var result = GetNewSearchResult(product);
+                        results.Add(result);
+                    }
                 }
             }
             return results;
         }
 
-        private string GetCategoryByProductId(Guid productId)
+        private SearchResult GetNewSearchResult(Product product, Part part = null)
         {
-            var categoryId = Products.FirstOrDefault(product => product.Id == productId)?.SubCategoryId ?? null;
-            return categoryId == null ? null : GetCategoryById(categoryId.Value);
+            var category = GetCategoryById(product.CategoryId);
+            var subCategory = GetCategoryById(product.SubCategoryId);
+            var code = product.Code;
+            var imgSrc = GetImageSource(code);
+            var name = part == null ? product.Code : part.PartNumber;
+            var description = part == null ? product.ShortDescription : part.Description;
+            return new SearchResult(name, product.Id, description, category, subCategory, imgSrc);
         }
 
         private string GetCategoryById(Guid categoryId)
