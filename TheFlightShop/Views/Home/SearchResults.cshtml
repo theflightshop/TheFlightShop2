@@ -7,9 +7,16 @@
 
 <h2 id="flightshop-search-results-title">Search Results - &quot;@Model.Query&quot;</h2>
 
-<ul id="flightshop-search-results-view">
-    @foreach (var result in Model.Results)
-    {
+@if (Model.Results == null || !Model.Results.Any())
+{
+    <div style="margin-top: 1em;">There are no results matching that search.</div>
+}
+else
+{
+    <ul id="flightshop-search-results-view">
+
+        @foreach (var result in Model.Results)
+        {
         <li class="flightshop-search-result-view-item">
             <img src="@result.ImgSrc" alt="@result.Name" />
             <div class="flightshop-search-result-info">
@@ -19,42 +26,43 @@
                 <br /><span class="flightshop-search-result-desc">@result.Description</span>
             </div>
         </li>
-    }
-</ul>
+        }
+    </ul>
+}
+    <style>
+        #flightshop-search-results-title {
+            margin-top: 1.5em;
+        }
 
-<style>
-    #flightshop-search-results-title {
-        margin-top: 1.5em;
-    }
+        .flightshop-search-results-view {
+            list-style: none;
+        }
 
-    .flightshop-search-results-view {
-        list-style: none;
-    }
+        .flightshop-search-result-view-item {
+            list-style: none;
+            height: 175px;
+            border-top: 1px solid #dedede;
+            padding-top: 10px;
+        }
 
-    .flightshop-search-result-view-item {
-        list-style: none;
-        height: 175px;
-        border-top: 1px solid #dedede;
-        padding-top: 10px;
-    }
-    .flightshop-search-result-view-item img {
-        width: 6em;
-        max-width: 150px;
-        height: auto;
-        max-height: 150px;
-        margin-right: 1em;
-        padding-bottom: 10px;
-    }
+            .flightshop-search-result-view-item img {
+                width: 6em;
+                max-width: 150px;
+                height: auto;
+                max-height: 150px;
+                margin-right: 1em;
+                padding-bottom: 10px;
+            }
 
-    .flightshop-search-result-info {
-        display: inline-block;
-        width: 80%;
-    }
+        .flightshop-search-result-info {
+            display: inline-block;
+            width: 80%;
+        }
 
-    .flightshop-search-result-desc {
-        font-family: 'Kanit', sans-serif; /* Google font */ 
-        position: relative;
-        top: 0.5em;
-        z-index: -1;
-    }
-</style>
+        .flightshop-search-result-desc {
+            font-family: 'Kanit', sans-serif; /* Google font */
+            position: relative;
+            top: 0.5em;
+            z-index: -1;
+        }
+    </style>

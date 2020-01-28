@@ -124,7 +124,9 @@
                 </div>
                 <ul id="flightshop-quick-search-results-list">
                 </ul>
-                <div id="flightshop-quick-search-no-results" style="display: none;"></div>
+                <div id="flightshop-quick-search-no-results" style="display: none;">
+                    There are no results matching that search.
+                </div>
                 @*  <div id="flightshop-center-sub-menu">*@
                 @* TODO: implement cart and search, then show this
             TODO: also, re-enable "margin-top" on #flightshop-nav-menu in CSS
@@ -525,7 +527,7 @@
                     resultsList.style.display = 'inline-block';
                     resultsList.focus();
                     resultsList.onblur = function () {
-                        document.getElementById('flightshop-quick-search-results-list').style.display = 'none';
+                        document.getElementById('flightshop-quick-search-results-list').style.display = 'none'; 
                     }
                 }
 
@@ -550,6 +552,7 @@
                         if (![resultsListId, searchBtn, searchBtnImg].includes(e.target.id)) {
                             document.getElementById(resultsListId).style.display = 'none';
                             document.getElementById('user-search-val').value = '';
+                            document.getElementById('flightshop-quick-search-no-results').style.display = 'none';
                         }
                     })
                 }

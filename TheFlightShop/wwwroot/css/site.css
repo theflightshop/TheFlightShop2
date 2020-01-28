@@ -186,7 +186,7 @@ body {
     display: inline-block;
     width: 50%;
     padding-left: 2em;
-    margin-top: 5px;
+    margin-top: 10px;
 }
     #flightshop-search-container input {
         width: 80%;
@@ -454,6 +454,12 @@ body {
     display: inline-block;
     width: 43%;
     padding-left: 2em;
+    position: relative;
+}
+@media screen and (min-width: 1750px) {
+    #flightshop-quick-search-results-list {
+        left: 17em !important;
+    }
 }
 
 .flightshop-quick-search-li {
@@ -491,4 +497,22 @@ body {
     float: right;
     padding-right: 1em;
     color: #666;
+}
+
+#flightshop-quick-search-no-results {
+    display: block;
+    position: relative;
+    left: 18em;
+    background-color: white;
+    top: -20px;
+    width: 41%;
+    padding: 1em;
+    border: 1px solid rgb(239, 239, 239);
+    font-weight: bold;
+}
+
+@media screen and (min-width: 1700px) {
+    #flightshop-quick-search-no-results {
+        left: 19em !important;
+    }
 }
