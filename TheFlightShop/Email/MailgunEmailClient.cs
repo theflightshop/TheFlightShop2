@@ -120,6 +120,7 @@ namespace TheFlightShop.Email
             return $@"
 <div style=""font-family: 'sans-serif';"">
 <span style=""font-size: 20px; font-weight: bold;"">Customer Contact Information</span><br/>
+<span><strong>Name:&nbsp;</strong>{order.FirstName}&nbsp;{order.LastName}</span><br/>
 <span><strong>Email:&nbsp;</strong>{order.Email}</span><br/>
 <span><strong>Phone:&nbsp;</strong>{order.Phone}</span>
 {orderInfo}

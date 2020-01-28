@@ -8,6 +8,20 @@
 
 <form id="flightshop-checkout-form">
     <div class="flightshop-checkout-section">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="flightshop-customer-first-name">First Name</label>
+                    <input id="flightshop-customer-first-name" type="text" class="form-control" placeholder="ex. Bessie" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="flightshop-customer-last-name">Last Name</label>
+                    <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
+                </div>
+            </div>
+        </div>
         <h4 class="flightshop-checkout-section-title">Customer Information</h4>
         <div class="form-group">
             <label for="flightshop-customer-email">Email</label>
@@ -161,6 +175,8 @@
         
 
         var clientOrder = {
+            FirstName: document.getElementById('flightshop-customer-first-name').value,
+            LastName: document.getElementById('flightshop-customer-last-name').value,
             Email: document.getElementById('flightshop-customer-email').value,
             Phone: document.getElementById('flightshop-customer-phone').value,
             Address1: document.getElementById('flightshop-customer-addr-1').value,
@@ -171,7 +187,7 @@
         };
         var agreed = document.getElementById('flightshop-order-agree-checkbox');
 
-        if (clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
+        if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
             clientOrder.City && clientOrder.State && clientOrder.Zip && agreed.checked) {
             var orderLines = [];
             var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
