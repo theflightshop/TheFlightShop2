@@ -43,14 +43,26 @@ namespace TheFlightShop.Controllers
 
         public IActionResult Products()
         {
-            var products = _productReadDal.GetAllProducts();
-            return new JsonResult(new { products });
+            var products = _productReadDal.GetProducts();
+            var categories = _productReadDal.GetCategories();
+            var subCategories = _productReadDal.GetSubCategories();
+            return new JsonResult(new { products, categories, subCategories });
         }
 
-        public IActionResult UpdateProduct([FromForm]string code, [FromForm]IFormFile image, [FromForm]IFormFile drawing)
+        // todo: add ImageName to product schema, then onUpload set imgname appropriately so it can be any img type (tisk tisk)
+        public IActionResult CreateOrUpdateProduct([FromForm]string code, [FromForm]string shortDescription,
+             [FromForm]string longDescription,  [FromForm]Guid categoryId, [FromForm]Guid subCategoryId,
+            [FromForm]bool mostPopular, [FromForm]IFormFile image, [FromForm]IFormFile drawing)
         {
             var x = 0;
             return new OkResult();
+        }
+
+        [HttpDelete]
+        [Route("Product")]
+        public IActionResult DeleteProduct(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPost]

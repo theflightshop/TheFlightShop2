@@ -34,6 +34,7 @@
     <Folder Include="product-static-files\installation-examples\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="wwwroot\css\font-awesome.css" />
     <Content Remove="wwwroot\css\min\site.min.css" />
     <Content Remove="product-static-files\json\dbexport-oct-19\productInfo.json" />
     <Content Remove="product-static-files\json\dbexport-oct-19\categories.json" />

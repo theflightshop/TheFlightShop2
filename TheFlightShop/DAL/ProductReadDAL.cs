@@ -5775,7 +5775,17 @@ namespace TheFlightShop.DAL
             }
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Category> GetCategories()
+        {
+            return GetParentCategories();
+        }
+
+        public IEnumerable<Category> GetSubCategories()
+        {
+            return Categories.Where(category => category.IsActive && category.CategoryId.HasValue);
+        }
+
+        public IEnumerable<Product> GetProducts()
         {
             var partsByProductId = Parts.GroupBy(part => part.ProductId).ToDictionary(group => group.Key);
             foreach (var product in Products)
@@ -5791,8 +5801,13 @@ namespace TheFlightShop.DAL
 
         public ProductsViewModel GetProductCategories()
         {
-            var parentCategories = Categories.Where(category => category.IsActive && !category.CategoryId.HasValue);
+            var parentCategories = GetParentCategories();
             return new ProductsViewModel { Categories = parentCategories };
+        }
+
+        private IEnumerable<Category> GetParentCategories()
+        {
+            return Categories.Where(category => category.IsActive && !category.CategoryId.HasValue);;
         }
 
         public ProductCategoryViewModel GetProducts(Guid categoryId)

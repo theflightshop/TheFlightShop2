@@ -27,53 +27,128 @@
         </div>
     </form>
 </div>
-<div id="flightshop-admin-products-view" style="display: none;">
+<div id="flightshop-admin-products-view">
     <h2>Products</h2>
-
-    img <input id="img-test" type="file" /><br />
-    draw <input id="draw-test" type="file" />
-    <button onclick="uploadProduct()">test me gud</button>
+    <ul id="flightshop-admin-products-list"></ul>
 </div>
 
 <script>
-    function uploadProduct() {
-        var formData = new FormData();
-        var imgFiles = document.getElementById('img-test').files;
-        var imgFile = imgFiles ? imgFiles[0] || null : null;
-        var drawingFiles = document.getElementById('draw-test').files;
-        var drawingFile = drawingFiles ? drawingFiles[0] || null : null;
-        formData.append('code', 'testmeplz');
+    function uploadProduct(productId) {
+        var productImg = document.getElementById('product-img-' + productId);
+        if (productImg) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
+            document.getElementById('product-save-' + productId).disabled = true;
+            document.getElementById('product-cancel-btn-' + productId).innerHTML = '&#128465;';
 
-        if (imgFile) {
-            formData.append('image', imgFile);
-        }
-        if (drawingFile) {
-            formData.append('drawing', drawingFile);
-        }
+            var formData = new FormData();
+            var imgFiles = productImg.files;
+            var imgFile = imgFiles ? imgFiles[0] || null : null;
+            var drawingFiles = document.getElementById('product-drawing-' + productId).files;
+            var drawingFile = drawingFiles ? drawingFiles[0] || null : null;
+            var mostPopular = document.getElementById('product-most-popular-' + productId).checked ? true : false;
 
-        var request = new XMLHttpRequest();
-        request.onload = function () {
-            console.log('responsed ', this.response, this.responseText)
-        }
-        request.open("post", '@Url.Action("UpdateProduct", "Admin")');
-        request.send(formData);
+            formData.append('id', productId);
+            formData.append('code', document.getElementById('product-code-' + productId).value);
+            formData.append('shortDescription', document.getElementById('product-short-desc-' + productId).value);
+            formData.append('longDescription', document.getElementById('product-long-desc-' + productId).value);
+            formData.append('categoryId', document.getElementById('product-category-' + productId).value);
+            formData.append('subCategoryId', document.getElementById('product-sub-category-' + productId).value);
+            formData.append('mostPopular', mostPopular);
 
-        @*$.ajax({
-            url: '@Url.Action("UpdateProduct", "Admin")',
-            type: 'POST',
-            data: formData
-        }).done(function () {
-                console.log('did it')
-            })
-            .fail(function () {
-                console.log('bummer')
-            })*@
+            if (imgFile) {
+                formData.append('image', imgFile);
+            }
+            if (drawingFile) {
+                formData.append('drawing', drawingFile);
+            }
+
+            var request = new XMLHttpRequest();
+            request.onload = function () {
+                console.log('responsed ', this.response, this.responseText)
+            }
+            request.open("post", '@Url.Action("CreateOrUpdateProduct", "Admin")');
+            request.send(formData);
+        }
     }
 
     function getToken() {
         return window.sessionStorage.getItem('token') || window.localStorage.getItem('token') || null;
     }
 
+    function checkAuth(err) {
+        if (err.status == 401) {
+            document.getElementById('flightshop-admin-products-view').style.display = 'none';
+            document.getElementById('flightshop-admin-login-view').style.display = 'block';
+        }
+    }
+
+    function cancelOrDeleteProduct(productId) {
+        var productCancelBtn = document.getElementById('product-cancel-btn-' + productId);
+        console.log('me ', productId, productCancelBtn)
+        if (productCancelBtn) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
+            productCancelBtn.disabled = true;
+            var action = productCancelBtn.getAttribute('x-action');
+            if (action === 'delete') {
+                var deletedItem = document.getElementById('product-item-' + productId);
+                document.getElementById('flightshop-admin-products-list').removeChild(deletedItem);
+                delete _products[productId];
+                $.ajax({
+                    type: 'DELETE',
+                    url: '@Url.Action("Product", "Admin")' + '/' + productId,
+                    headers: {
+                        Authorization: 'bearer ' + getToken()
+                    }
+                }).fail(function (err) {
+                    checkAuth(err);
+                })
+            }
+            else if (action === 'cancel') {
+                var originalProduct = _products[productId];
+                document.getElementById('product-save-' + productId).disabled = true;
+
+                document.getElementById('product-code-' + productId).value = originalProduct.code;
+                document.getElementById('product-short-desc-' + productId).value = originalProduct.shortDescription;
+                document.getElementById('product-long-desc-' + productId).value = originalProduct.longDescription;
+                document.getElementById('product-most-popular-' + productId).value = originalProduct.mostPopular;
+
+                var categoryInput = document.getElementById('product-category-' + productId);
+                var originalIndex = -1;
+                for (var i = 0; i < categoryInput.childNodes.length && originalIndex < 0; i++) {
+                    if (categoryInput.childNodes[i].value === originalProduct.categoryId) {
+                        originalIndex = i;
+                    }
+                }
+                categoryInput.selectedIndex = originalIndex;
+
+                var subCategoryInput = document.getElementById('product-sub-category-' + productId);
+                originalIndex = -1;
+                for (var i = 0; i < subCategoryInput.childNodes.length && originalIndex < 0; i++) {
+                    if (subCategoryInput.childNodes[i].value === originalProduct.subCategoryId) {
+                        originalIndex = i;
+                    }
+                }
+                subCategoryInput.selectedIndex = originalIndex;
+
+                productCancelBtn.innerHTML = '&#128465;';
+                productCancelBtn.setAttribute('x-action', 'delete');
+                productCancelBtn.removeAttribute('disabled');
+            }
+            else {
+                console.error('Could not "cancel" or "delete" product "' + productId + '" because action given was "' + action + '", which is not recognized. Please contact developer for support.')
+            }
+        }
+    }
+
+    function productChanged(productId) { 
+        var cancelOrDeleteBtn = document.getElementById('product-cancel-btn-' + productId);
+        if (cancelOrDeleteBtn) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
+            cancelOrDeleteBtn.setAttribute('x-action', 'cancel');
+            cancelOrDeleteBtn.innerHTML = '&#x26D4;';
+            document.getElementById('product-save-' + productId).removeAttribute('disabled');
+        }
+    }
+
+    var _baseUrl = '@Url.Action("Index", "Admin")'.split('/Admin')[0];
+    var _products = {};
     function getProducts(token) {
          $.ajax({
                 url: '@Url.Action("Products", "Admin")',
@@ -82,8 +157,181 @@
                     Authorization: 'bearer ' + token
                 }
             })
-                .done(function (response) {
-                    console.log('day oh ', response)
+             .done(function (response) {
+                 _products = {};
+                 var products = response.products;
+                 var categories = response.categories;
+                 var subCategories = response.subCategories;
+                 var productList = document.getElementById('flightshop-admin-products-list');
+
+                 for (var i = 0; i < products.length; i++) {
+                     var product = products[i];
+                     _products[product.id] = product;
+
+                     var productItem = document.createElement('li');
+                     productItem.id = 'product-item-' + product.id;
+                     var productItemContent = document.createElement('div');
+                     productItem.appendChild(productItemContent);
+
+                     var productImg = document.createElement('img');
+                     productImg.src = _baseUrl + '/products/product-images/' + product.code.toLowerCase() + '.gif';
+                     productImg.alt = product.code;
+                     productItemContent.appendChild(productImg);
+
+                     var productImgUploadLabel = document.createElement('div');
+                     productImgUploadLabel.innerHTML = 'upload image: ';
+                     var productImgUpload = document.createElement('input');
+                     productImgUpload.id = 'product-img-' + product.id;
+                     productImgUpload.type = 'file';
+                     productImgUploadLabel.appendChild(productImgUpload);
+                     productItemContent.appendChild(productImgUploadLabel);
+
+                     var drawingLabel = document.createElement('div');
+                     drawingLabel.id = 'product-draw-label-' + product.id;
+                     drawingLabel.innerHTML = 'drawing: <em>loading...</em>';
+                     productItemContent.appendChild(drawingLabel);
+                     var code = product.code.toUpperCase();
+                     (function (productId, productCode) {
+                         $.get(_baseUrl + '/products/drawings/' + code + '.pdf')
+                             .done(function () {
+                                 document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: ' + productCode + '.pdf';
+                         })
+                         .fail(function () {
+                             document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: (none)';
+                         })
+                     })(product.id, code)
+
+                     var drawingUploadLabel = document.createElement('div');
+                     drawingUploadLabel.innerHTML = 'upload drawing: ';
+                     var drawingUpload = document.createElement('input');
+                     drawingUpload.id = 'product-drawing-' + product.id;
+                     drawingUpload.type = 'file';
+                     drawingUploadLabel.appendChild(drawingUpload);
+                     productItemContent.appendChild(drawingUploadLabel);
+
+                     var codeInput = document.createElement('input');
+                     codeInput.id = 'product-code-' + product.id;
+                     codeInput.setAttribute('x-product-id', product.id);
+                     codeInput.placeholder = 'Code ex. "CB4023"';
+                     codeInput.value = product.code;
+                     codeInput.oninput = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     };
+                     productItemContent.appendChild(codeInput);
+
+                     var shortDesc = document.createElement('input');
+                     shortDesc.id = 'product-short-desc-' + product.id;
+                     shortDesc.setAttribute('x-product-id', product.id);
+                     shortDesc.placeholder = 'Short description';
+                     shortDesc.value = product.shortDescription;
+                     shortDesc.oninput = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     };
+                     productItemContent.appendChild(shortDesc);
+
+                     var longDesc = document.createElement('textarea');
+                     longDesc.id = 'product-long-desc-' + product.id;
+                     longDesc.setAttribute('x-product-id', product.id);
+                     longDesc.placeholder = 'Long description';
+                     longDesc.value = product.longDescription;
+                     longDesc.rows = 1;
+                     longDesc.oninput = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     };
+                     productItemContent.appendChild(longDesc);
+
+                     var categoryDropdown = document.createElement('select');
+                     categoryDropdown.id = 'product-category-' + product.id;
+                     categoryDropdown.setAttribute('x-product-id', product.id);
+                     var selectedIndex = 0;
+                     categories.forEach(function (category, index) {
+                         var categoryOption = document.createElement('option');
+                         categoryOption.value = category.id;
+                         categoryOption.innerHTML = category.name;
+                         categoryDropdown.appendChild(categoryOption);
+                         if (category.id == product.categoryId) {
+                             selectedIndex = index;
+                         }
+                     });
+                     categoryDropdown.selectedIndex = selectedIndex;
+                     categoryDropdown.onchange = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     }
+                     productItemContent.appendChild(categoryDropdown);
+
+                     var subCategoryDropdown = document.createElement('select');
+                     subCategoryDropdown.id = 'product-sub-category-' + product.id;
+                     subCategoryDropdown.setAttribute('x-product-id', product.id);
+                     selectedIndex = 0;
+                     subCategories.forEach(function (subCategory, index) {
+                         var categoryOption = document.createElement('option');
+                         categoryOption.value = subCategory.id;
+                         categoryOption.innerHTML = subCategory.name;
+                         subCategoryDropdown.appendChild(categoryOption);
+                         if (subCategory.id == product.subCategoryId) {
+                             selectedIndex = index;
+                         }
+                     });
+                     subCategoryDropdown.selectedIndex = selectedIndex;
+                     subCategoryDropdown.onchange = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     }
+                     productItemContent.appendChild(subCategoryDropdown);
+
+                     var mostPopular = document.createElement('div');
+                     var mostPopularInput = document.createElement('input');
+                     mostPopularInput.id = 'product-most-popular-' + product.id;
+                     mostPopularInput.setAttribute('x-product-id', product.id);
+                     mostPopularInput.type = 'checkbox';
+                     mostPopularInput.checked = product.mostPopular;
+                     mostPopularInput.onchange = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     }
+                     var mostPopularLabel = document.createElement('span');
+                     mostPopularLabel.innerHTML = 'Most popular';
+                     mostPopular.appendChild(mostPopularInput);
+                     mostPopular.appendChild(mostPopularLabel);
+                     productItemContent.appendChild(mostPopular);
+
+                     var saveButton = document.createElement('button');
+                     saveButton.id = 'product-save-' + product.id;
+                     saveButton.setAttribute('x-product-id', product.id);
+                     saveButton.classList.add('btn', 'btn-success');
+                     saveButton.disabled = true;
+                     saveButton.innerHTML = '&#x2714;';
+                     saveButton.onclick = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         uploadProduct(productId);
+                     };
+                     productItemContent.appendChild(saveButton);
+
+                     var cancelOrDeleteButton = document.createElement('button');
+                     cancelOrDeleteButton.id = 'product-cancel-btn-' + product.id;
+                     cancelOrDeleteButton.setAttribute('x-product-id', product.id);
+                     cancelOrDeleteButton.classList.add('btn', 'btn-danger');
+                     cancelOrDeleteButton.setAttribute('x-action', 'delete');
+                     cancelOrDeleteButton.innerHTML = '&#128465;';
+                     // delete icon
+                     cancelOrDeleteButton.onclick = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         cancelOrDeleteProduct(productId);
+                     };
+                     productItemContent.appendChild(cancelOrDeleteButton);
+
+                     // todo: update x-action from delete to cancel for cancel btn onchanges
+                     // todo: add sub-form/btn for adding and editing parts, using product.Parts -- btn for adding should be at top probs
+                     // todo: add endpts for UpdatePart, DeleteProduct, and DeletePart, and UpdateProduct/part/etc DAL functions
+                     // todo: add-product btn at top of view
+
+                     productList.appendChild(productItem);
+                 }
+
                      document.getElementById('flightshop-admin-login-view').style.display = 'none';
                      document.getElementById('flightshop-admin-products-view').style.display = 'block';
                 })
