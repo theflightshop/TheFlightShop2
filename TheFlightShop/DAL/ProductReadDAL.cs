@@ -5775,6 +5775,20 @@ namespace TheFlightShop.DAL
             }
         }
 
+        public IEnumerable<Product> GetAllProducts()
+        {
+            var partsByProductId = Parts.GroupBy(part => part.ProductId).ToDictionary(group => group.Key);
+            foreach (var product in Products)
+            {
+                if (partsByProductId.ContainsKey(product.Id))
+                {
+                    product.Parts = partsByProductId[product.Id];
+                }
+            }
+
+            return Products;
+        }
+
         public ProductsViewModel GetProductCategories()
         {
             var parentCategories = Categories.Where(category => category.IsActive && !category.CategoryId.HasValue);

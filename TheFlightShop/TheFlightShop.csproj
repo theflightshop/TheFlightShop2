@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="$(AspNetCoreAppRuntimeFrameworkVersion)">
       <IsImplicitlyDefined>true</IsImplicitlyDefined>
       <PrivateAssets>All</PrivateAssets>
@@ -22,12 +24,10 @@
     <Folder Include="wwwroot\css\maintenance\" />
     <Folder Include="wwwroot\css\click-bond\" />
     <Folder Include="product-static-files\" />
-    <Folder Include="DAL\" />
     <Folder Include="Views\Products\" />
     <Folder Include="wwwroot\css\products\" />
     <Folder Include="wwwroot\js\products\" />
     <Folder Include="product-static-files\json\" />
-    <Folder Include="DAL\Schemas\" />
     <Folder Include="product-static-files\category-images\new-clickbond-site\" />
     <Folder Include="product-static-files\drawings\" />
     <Folder Include="product-static-files\drawings\nutplates\" />
@@ -312,10 +312,19 @@
     <Compile Remove="TlsEmail.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Auth\Hash.cs" />
+    <None Remove="Auth\IHash.cs" />
+    <None Remove="Auth\IToken.cs" />
+    <None Remove="Auth\LoginRequest.cs" />
+    <None Remove="Auth\RequestRole.cs" />
+    <None Remove="Auth\Token.cs" />
+    <None Remove="Auth\TokenAuthorize.cs" />
+    <None Remove="Auth\TokenValidationResult.cs" />
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
     <None Remove="Models\HomeViewModel.cs" />
+    <None Remove="Models\ProductFormData.cs" />
     <None Remove="Models\SearchResult.cs" />
     <None Remove="Models\SearchResultView.cs" />
   </ItemGroup>

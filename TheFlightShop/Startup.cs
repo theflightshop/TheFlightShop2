@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
 
@@ -47,6 +48,13 @@ namespace TheFlightShop
             var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
             var adminAddress = Environment.GetEnvironmentVariable("EMAIL_ADMIN_ADDRESS");
             services.AddSingleton<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress));
+
+            services.AddSingleton<IHash>(_ => new Hash());
+
+            var tokenIssuer = Environment.GetEnvironmentVariable("AUTH_ISSUER");
+            var tokenAudience = Environment.GetEnvironmentVariable("AUTH_AUDIENCE");
+            var signingKey = Environment.GetEnvironmentVariable("AUTH_KEY");
+            services.AddSingleton<IToken>(_ => new Token(tokenIssuer, tokenAudience, signingKey));
         }
 
         private string GetConnectionString()

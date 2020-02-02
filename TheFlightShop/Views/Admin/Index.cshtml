@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="flightshop-admin-login-view" style="display: none;">
+    <h2>Log In</h2>
+
+    <form onsubmit="submitAdminLogin(); return false;">
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <input id="flightshop-admin-username" class="form-control" type="text" placeholder="Username" required />
+            </div>
+            <div class="col-sm-5 form-group">
+                <input id="flightshop-admin-password" class="form-control" type="password" placeholder="Password" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 form-group">
+                <input id="keep-admin-logged-in" type="checkbox" class="form-control" />
+                <label for="keep-admin-logged-in">Stay signed in</label>
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-success">Log In</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="flightshop-admin-products-view" style="display: none;">
+    <h2>Products</h2>
+
+    img <input id="img-test" type="file" /><br />
+    draw <input id="draw-test" type="file" />
+    <button onclick="uploadProduct()">test me gud</button>
+</div>
+
+<script>
+    function uploadProduct() {
+        var formData = new FormData();
+        var imgFiles = document.getElementById('img-test').files;
+        var imgFile = imgFiles ? imgFiles[0] || null : null;
+        var drawingFiles = document.getElementById('draw-test').files;
+        var drawingFile = drawingFiles ? drawingFiles[0] || null : null;
+        formData.append('code', 'testmeplz');
+
+        if (imgFile) {
+            formData.append('image', imgFile);
+        }
+        if (drawingFile) {
+            formData.append('drawing', drawingFile);
+        }
+
+        var request = new XMLHttpRequest();
+        request.onload = function () {
+            console.log('responsed ', this.response, this.responseText)
+        }
+        request.open("post", '@Url.Action("UpdateProduct", "Admin")');
+        request.send(formData);
+
+        @*$.ajax({
+            url: '@Url.Action("UpdateProduct", "Admin")',
+            type: 'POST',
+            data: formData
+        }).done(function () {
+                console.log('did it')
+            })
+            .fail(function () {
+                console.log('bummer')
+            })*@
+    }
+
+    function getToken() {
+        return window.sessionStorage.getItem('token') || window.localStorage.getItem('token') || null;
+    }
+
+    function getProducts(token) {
+         $.ajax({
+                url: '@Url.Action("Products", "Admin")',
+                type: 'POST',
+                headers: {
+                    Authorization: 'bearer ' + token
+                }
+            })
+                .done(function (response) {
+                    console.log('day oh ', response)
+                     document.getElementById('flightshop-admin-login-view').style.display = 'none';
+                     document.getElementById('flightshop-admin-products-view').style.display = 'block';
+                })
+                .fail(function (err) {
+                    console.log('bugga ', err)
+                })
+    }
+
+    function submitAdminLogin() {
+        var username = document.getElementById('flightshop-admin-username').value;
+        var password = document.getElementById('flightshop-admin-password').value;
+        if (username && password) {
+            var loginUrl = '@Url.Action("Login", "Admin")';
+            var loginRequest = { Username: username, Password: password };
+            $.ajax({
+                type: 'POST',
+                url: loginUrl,
+                data: loginRequest
+            })
+                .done(function (response) {
+                    var staySignedIn = document.getElementById('keep-admin-logged-in').checked || false;
+                    if (staySignedIn) {
+                        window.sessionStorage.setItem('token', response.token);
+                    } else {
+                        window.localStorage.setItem('token', response.token);
+                    }
+                    getProducts(response.token);
+                })
+                .fail(function () {
+                    alert('hell nah!')
+                    // TODO: alert problem loggin in
+                });
+        }
+
+      
+    }
+
+      window.addEventListener('load', function () {
+            var token = getToken();
+            if (token) {
+                getProducts(token);
+            } else {
+                document.getElementById('flightshop-admin-login-view').style.display = 'block';
+            }
+        });
+</script>

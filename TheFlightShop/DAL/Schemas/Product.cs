@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TheFlightShop.DAL.Schemas
@@ -16,5 +18,12 @@ namespace TheFlightShop.DAL.Schemas
         public bool MostPopular { get; set; }
         public int NumberOfInstallationExamples { get; set; }
         public string DrawingUrl { get; set; }
+
+        public IEnumerable<Part> Parts { get; set; }
+
+        public Product()
+        {
+            Parts = new List<Part>();
+        }
     }
 }

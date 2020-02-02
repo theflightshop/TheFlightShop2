@@ -172,5 +172,10 @@ namespace TheFlightShop.DAL
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
