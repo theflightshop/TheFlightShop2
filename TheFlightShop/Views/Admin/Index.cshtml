@@ -41,9 +41,9 @@
 
             var formData = new FormData();
             var imgFiles = productImg.files;
-            var imgFile = imgFiles ? imgFiles[0] || null : null;
+            var imgFile = imgFiles && imgFiles.length ? imgFiles[0] || null : null;
             var drawingFiles = document.getElementById('product-drawing-' + productId).files;
-            var drawingFile = drawingFiles ? drawingFiles[0] || null : null;
+            var drawingFile = drawingFiles && drawingFiles.length ? drawingFiles[0] || null : null;
             var mostPopular = document.getElementById('product-most-popular-' + productId).checked ? true : false;
 
             formData.append('id', productId);
@@ -83,7 +83,6 @@
 
     function cancelOrDeleteProduct(productId) {
         var productCancelBtn = document.getElementById('product-cancel-btn-' + productId);
-        console.log('me ', productId, productCancelBtn)
         if (productCancelBtn) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
             productCancelBtn.disabled = true;
             var action = productCancelBtn.getAttribute('x-action');
@@ -105,6 +104,8 @@
                 var originalProduct = _products[productId];
                 document.getElementById('product-save-' + productId).disabled = true;
 
+                document.getElementById('product-img-' + productId).value = null;
+                document.getElementById('product-drawing-' + productId).value = null;
                 document.getElementById('product-code-' + productId).value = originalProduct.code;
                 document.getElementById('product-short-desc-' + productId).value = originalProduct.shortDescription;
                 document.getElementById('product-long-desc-' + productId).value = originalProduct.longDescription;
@@ -174,15 +175,21 @@
                      productItem.appendChild(productItemContent);
 
                      var productImg = document.createElement('img');
-                     productImg.src = _baseUrl + '/products/product-images/' + product.code.toLowerCase() + '.gif';
+                     productImg.src = _baseUrl + '/products/product-images/' + product.imageFilename;
                      productImg.alt = product.code;
                      productItemContent.appendChild(productImg);
 
                      var productImgUploadLabel = document.createElement('div');
                      productImgUploadLabel.innerHTML = 'upload image: ';
                      var productImgUpload = document.createElement('input');
+                     productImgUpload.setAttribute('x-product-id', product.id);
+                     productImgUpload.onchange = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     };
                      productImgUpload.id = 'product-img-' + product.id;
                      productImgUpload.type = 'file';
+                     productImgUpload.accept = 'image/*';
                      productImgUploadLabel.appendChild(productImgUpload);
                      productItemContent.appendChild(productImgUploadLabel);
 
@@ -191,21 +198,27 @@
                      drawingLabel.innerHTML = 'drawing: <em>loading...</em>';
                      productItemContent.appendChild(drawingLabel);
                      var code = product.code.toUpperCase();
-                     (function (productId, productCode) {
-                         $.get(_baseUrl + '/products/drawings/' + code + '.pdf')
+                     (function (productId, drawingFilename) {
+                         $.get(_baseUrl + '/products/drawings/' + drawingFilename)
                              .done(function () {
-                                 document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: ' + productCode + '.pdf';
+                                 document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: ' + drawingFilename;
                          })
                          .fail(function () {
                              document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: (none)';
                          })
-                     })(product.id, code)
+                     })(product.id, product.drawingFilename)
 
                      var drawingUploadLabel = document.createElement('div');
                      drawingUploadLabel.innerHTML = 'upload drawing: ';
                      var drawingUpload = document.createElement('input');
+                     drawingUpload.setAttribute('x-product-id', product.id);
+                     drawingUpload.onchange = function (event) {
+                         var productId = event.target.getAttribute('x-product-id');
+                         productChanged(productId);
+                     };
                      drawingUpload.id = 'product-drawing-' + product.id;
                      drawingUpload.type = 'file';
+                     drawingUpload.accept = 'application/pdf';
                      drawingUploadLabel.appendChild(drawingUpload);
                      productItemContent.appendChild(drawingUploadLabel);
 
@@ -324,10 +337,10 @@
                      };
                      productItemContent.appendChild(cancelOrDeleteButton);
 
-                     // todo: update x-action from delete to cancel for cancel btn onchanges
                      // todo: add sub-form/btn for adding and editing parts, using product.Parts -- btn for adding should be at top probs
                      // todo: add endpts for UpdatePart, DeleteProduct, and DeletePart, and UpdateProduct/part/etc DAL functions
                      // todo: add-product btn at top of view
+                     // todo: add ImageFilename property to Product schema
 
                      productList.appendChild(productItem);
                  }

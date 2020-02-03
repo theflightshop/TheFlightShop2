@@ -322,6 +322,8 @@
     <None Remove="Auth\TokenAuthorize.cs" />
     <None Remove="Auth\TokenValidationResult.cs" />
     <None Remove="Email\IEmailClient.cs" />
+    <None Remove="IO\FileManager.cs" />
+    <None Remove="IO\IFileManager.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
     <None Remove="Models\HomeViewModel.cs" />

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -48,7 +47,7 @@ namespace TheFlightShop.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().Ignore(product => product.DrawingUrl);
+           // modelBuilder.Entity<Product>().Ignore(product => product.DrawingUrl);
             //modelBuilder.Entity<Product>().Property(p => p.IsActive).HasConversion<short>();
             //modelBuilder.Entity<Product>().Property(p => p.MostPopular).HasConversion<short>();
             //modelBuilder.Entity<Part>().Property(p => p.IsActive).HasConversion<short>();
@@ -5828,7 +5827,7 @@ namespace TheFlightShop.DAL
                     IsMostPopular = product.MostPopular,
                     HasPricing = Parts.Any(part => part.ProductId == product.Id),
                     SubCategory = subCategories.First(c => c.Id == product.SubCategoryId).Name,
-                    ImageSource = GetImageSource(product.Code)
+                    ImageSource = GetImageSource(product.ImageFilename)
                 })
             };
         }
@@ -5851,8 +5850,8 @@ namespace TheFlightShop.DAL
                     LongDescription = product.LongDescription,
                     NumberOfInstallationExamples = product.NumberOfInstallationExamples,
                     InstallationExamplesPath = GetInstallationExamplesPath(product.Code),
-                    ImageSource = GetImageSource(product.Code),
-                    DrawingUrl = GetLocalDrawingUrl(product.Code),
+                    ImageSource = GetImageSource(product.ImageFilename),
+                    DrawingUrl = GetLocalDrawingUrl(product.DrawingFilename),
                     Parts = parts.Select(p => new PartViewModel
                     {
                         PartNumber = p.PartNumber,
@@ -5900,12 +5899,50 @@ namespace TheFlightShop.DAL
             return results;
         }
 
+        public void CreateOrUpdateProduct(Product product)
+        {
+            var existingProduct = Products.FirstOrDefault(prdct => prdct.Id == product.Id);
+            if (existingProduct == null)
+            {
+                Products.Add(product);
+            }
+            else
+            {
+                existingProduct.Code = product.Code;
+                existingProduct.ShortDescription = product.ShortDescription;
+                existingProduct.LongDescription = product.LongDescription;
+                existingProduct.CategoryId = product.CategoryId;
+                existingProduct.SubCategoryId = product.SubCategoryId;
+                existingProduct.MostPopular = product.MostPopular;
+                if (!string.IsNullOrEmpty(product.ImageFilename))
+                {
+                    existingProduct.ImageFilename = product.ImageFilename;
+                }
+                if (!string.IsNullOrEmpty(product.DrawingFilename))
+                {
+                    existingProduct.DrawingFilename = product.DrawingFilename;
+                }
+            }
+
+            SaveChanges();
+        }
+
+        public void DeleteProduct(Guid productId)
+        {
+            var product = Products.FirstOrDefault(prdct => prdct.Id == productId);
+            if (product != null)
+            {
+                Products.Remove(product);
+                SaveChanges();
+            }
+        }
+
         private SearchResult GetNewSearchResult(Product product, Part part = null)
         {
             var category = GetCategoryById(product.CategoryId);
             var subCategory = GetCategoryById(product.SubCategoryId);
             var code = product.Code;
-            var imgSrc = GetImageSource(code);
+            var imgSrc = GetImageSource(product.ImageFilename);
             var name = part == null ? product.Code : part.PartNumber;
             var description = part == null ? product.ShortDescription : part.Description;
             return new SearchResult(name, product.Id, description, category, subCategory, imgSrc);
@@ -5926,20 +5963,15 @@ namespace TheFlightShop.DAL
             return (product.Code?.ToLower().Contains(query) ?? false) || (product.ShortDescription?.ToLower().Contains(query) ?? false);
         }
 
-        private string GetImageSource(string productCode)
+        private string GetImageSource(string imageFilename)
         {
-            return "/products/product-images/" + productCode.ToLower() + ".gif";
+            var filename = imageFilename ?? "default.gif";
+            return "/products/product-images/" + filename;
         }
 
-        private string GetLocalDrawingUrl(Guid productId)
+        private string GetLocalDrawingUrl(string drawingFilename)
         {
-            var productCode = Products.FirstOrDefault(product => product.Id == productId)?.Code ?? null;
-            return productCode == null ? null : GetLocalDrawingUrl(productCode);
-        }
-
-        private string GetLocalDrawingUrl(string productCode)
-        {
-            return "/products/drawings/" + productCode.ToUpper() + ".pdf";
+            return "/products/drawings/" + drawingFilename;
         }
 
         private string GetInstallationExamplesPath(string productCode)

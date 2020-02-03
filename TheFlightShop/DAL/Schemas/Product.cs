@@ -17,7 +17,8 @@ namespace TheFlightShop.DAL.Schemas
         public string LongDescription { get; set; }
         public bool MostPopular { get; set; }
         public int NumberOfInstallationExamples { get; set; }
-        public string DrawingUrl { get; set; }
+        public string ImageFilename { get; set; }
+        public string DrawingFilename { get; set; }
 
         public IEnumerable<Part> Parts { get; set; }
 

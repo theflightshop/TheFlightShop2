@@ -16,5 +16,8 @@ namespace TheFlightShop.DAL
         ProductCategoryViewModel GetProducts(Guid categoryId);
         ProductDetailViewModel GetProductView(Guid productId);
         IEnumerable<SearchResult> SearchParts(string query);
+
+        void CreateOrUpdateProduct(Product product);
+        void DeleteProduct(Guid productId);
     }
 }

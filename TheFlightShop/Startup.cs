@@ -14,6 +14,7 @@ using Microsoft.Extensions.FileProviders;
 using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
+using TheFlightShop.IO;
 
 namespace TheFlightShop
 {
@@ -55,6 +56,8 @@ namespace TheFlightShop
             var tokenAudience = Environment.GetEnvironmentVariable("AUTH_AUDIENCE");
             var signingKey = Environment.GetEnvironmentVariable("AUTH_KEY");
             services.AddSingleton<IToken>(_ => new Token(tokenIssuer, tokenAudience, signingKey));
+
+            services.AddSingleton<IFileManager>(_ => new FileManager());
         }
 
         private string GetConnectionString()
