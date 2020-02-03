@@ -40,9 +40,9 @@
                 <hr class="flightshop-product-detail-links-separator" />
                 <div>
                     <span>Drawing:</span>
-                    <span class="flightshop-product-detail-download-link">
-                        <a download href="@Model.DrawingUrl">Download</a>
-                    </span>
+                   @* <span class="flightshop-product-detail-download-link">*@
+                        <a class="flightshop-product-detail-download-link" target="_blank" href="@Model.DrawingUrl">View</a>
+                    @*</span>*@
                 </div>
                 <hr class="flightshop-product-detail-links-separator" />
                 @if (Model.NumberOfInstallationExamples > 0) {

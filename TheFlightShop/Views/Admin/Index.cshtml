@@ -27,12 +27,30 @@
         </div>
     </form>
 </div>
-<div id="flightshop-admin-products-view">
+<div id="flightshop-admin-products-view" style="display: none;">
     <h2>Products</h2>
+    <button onclick="addNewProduct();">+ Add Product</button>
     <ul id="flightshop-admin-products-list"></ul>
 </div>
 
 <script>
+    /** found at https://stackoverflow.com/questions/105034. mathematically, risk of collision is rather low, to the point this is very likely to be safe enough for the purpose it serves. */
+    function generateUuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+          });
+    }
+
+    function addNewProduct() {
+        var productInfo = {
+            id: generateUuid()
+        };
+        var productItem = getNewProductItem(productInfo);
+        var productList = document.getElementById('flightshop-admin-products-list');
+        productList.insertBefore(productItem, productList.firstChild);
+    }
+
     function uploadProduct(productId) {
         var productImg = document.getElementById('product-img-' + productId);
         if (productImg) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
@@ -42,16 +60,22 @@
             var formData = new FormData();
             var imgFiles = productImg.files;
             var imgFile = imgFiles && imgFiles.length ? imgFiles[0] || null : null;
-            var drawingFiles = document.getElementById('product-drawing-' + productId).files;
+            var drawingInput = document.getElementById('product-drawing-' + productId);
+            var drawingFiles = drawingInput.files;
             var drawingFile = drawingFiles && drawingFiles.length ? drawingFiles[0] || null : null;
+            var code = document.getElementById('product-code-' + productId).value;
+            var shortDesc = document.getElementById('product-short-desc-' + productId).value; 
+            var longDesc = document.getElementById('product-long-desc-' + productId).value;
+            var categoryId = document.getElementById('product-category-' + productId).value;
+            var subCategoryId = document.getElementById('product-sub-category-' + productId).value;
             var mostPopular = document.getElementById('product-most-popular-' + productId).checked ? true : false;
 
             formData.append('id', productId);
-            formData.append('code', document.getElementById('product-code-' + productId).value);
-            formData.append('shortDescription', document.getElementById('product-short-desc-' + productId).value);
-            formData.append('longDescription', document.getElementById('product-long-desc-' + productId).value);
-            formData.append('categoryId', document.getElementById('product-category-' + productId).value);
-            formData.append('subCategoryId', document.getElementById('product-sub-category-' + productId).value);
+            formData.append('code', code);
+            formData.append('shortDescription', shortDesc);
+            formData.append('longDescription', longDesc);
+            formData.append('categoryId', categoryId);
+            formData.append('subCategoryId', subCategoryId);
             formData.append('mostPopular', mostPopular);
 
             if (imgFile) {
@@ -62,10 +86,21 @@
             }
 
             var request = new XMLHttpRequest();
+            var imageFilename = productImg.value ? productImg.value.replace(/^.*?([^\\\/]*)$/, '$1') :  (_products[productId] ? _products[productId].imageFilename : null);
+            var drawingFilename = drawingInput.value ? drawingInput.value.replace(/^.*?([^\\\/]*)$/, '$1') : (_products[productId] ? _products[productId].drawingFilename : null);
             request.onload = function () {
-                console.log('responsed ', this.response, this.responseText)
+                _products[productId] = {
+                    id: productId,
+                    code: code,
+                    shortDescription: shortDesc,
+                    longDescription: longDesc,
+                    mostPopular: mostPopular,
+                    imageFilename: imageFilename,
+                    drawingFilename: drawingFilename
+                };
             }
             request.open("post", '@Url.Action("CreateOrUpdateProduct", "Admin")');
+            request.setRequestHeader("Authorization", "bearer " + getToken());
             request.send(formData);
         }
     }
@@ -79,6 +114,39 @@
             document.getElementById('flightshop-admin-products-view').style.display = 'none';
             document.getElementById('flightshop-admin-login-view').style.display = 'block';
         }
+    }
+
+    function cancelProductUpdates(productId, originalProduct, productCancelBtn) {
+        document.getElementById('product-save-' + productId).disabled = true;
+
+        document.getElementById('product-img-' + productId).value = null;
+        document.getElementById('product-drawing-' + productId).value = null;
+        document.getElementById('product-code-' + productId).value = originalProduct.code;
+        document.getElementById('product-short-desc-' + productId).value = originalProduct.shortDescription;
+        document.getElementById('product-long-desc-' + productId).value = originalProduct.longDescription;
+        document.getElementById('product-most-popular-' + productId).value = originalProduct.mostPopular;
+
+        var categoryInput = document.getElementById('product-category-' + productId);
+        var originalIndex = -1;
+        for (var i = 0; i < categoryInput.childNodes.length && originalIndex < 0; i++) {
+            if (categoryInput.childNodes[i].value === originalProduct.categoryId) {
+                originalIndex = i;
+            }
+        }
+        categoryInput.selectedIndex = originalIndex;
+
+        var subCategoryInput = document.getElementById('product-sub-category-' + productId);
+        originalIndex = -1;
+        for (var i = 0; i < subCategoryInput.childNodes.length && originalIndex < 0; i++) {
+            if (subCategoryInput.childNodes[i].value === originalProduct.subCategoryId) {
+                originalIndex = i;
+            }
+        }
+        subCategoryInput.selectedIndex = originalIndex;
+
+        productCancelBtn.innerHTML = '&#128465;';
+        productCancelBtn.setAttribute('x-action', 'delete');
+        productCancelBtn.removeAttribute('disabled');
     }
 
     function cancelOrDeleteProduct(productId) {
@@ -102,36 +170,13 @@
             }
             else if (action === 'cancel') {
                 var originalProduct = _products[productId];
-                document.getElementById('product-save-' + productId).disabled = true;
-
-                document.getElementById('product-img-' + productId).value = null;
-                document.getElementById('product-drawing-' + productId).value = null;
-                document.getElementById('product-code-' + productId).value = originalProduct.code;
-                document.getElementById('product-short-desc-' + productId).value = originalProduct.shortDescription;
-                document.getElementById('product-long-desc-' + productId).value = originalProduct.longDescription;
-                document.getElementById('product-most-popular-' + productId).value = originalProduct.mostPopular;
-
-                var categoryInput = document.getElementById('product-category-' + productId);
-                var originalIndex = -1;
-                for (var i = 0; i < categoryInput.childNodes.length && originalIndex < 0; i++) {
-                    if (categoryInput.childNodes[i].value === originalProduct.categoryId) {
-                        originalIndex = i;
-                    }
+                if (originalProduct) {
+                    cancelProductUpdates(productId, originalProduct, productCancelBtn);
                 }
-                categoryInput.selectedIndex = originalIndex;
-
-                var subCategoryInput = document.getElementById('product-sub-category-' + productId);
-                originalIndex = -1;
-                for (var i = 0; i < subCategoryInput.childNodes.length && originalIndex < 0; i++) {
-                    if (subCategoryInput.childNodes[i].value === originalProduct.subCategoryId) {
-                        originalIndex = i;
-                    }
+                else {
+                    var canceledUnsavedItem = document.getElementById('product-item-' + productId);
+                    document.getElementById('flightshop-admin-products-list').removeChild(canceledUnsavedItem);
                 }
-                subCategoryInput.selectedIndex = originalIndex;
-
-                productCancelBtn.innerHTML = '&#128465;';
-                productCancelBtn.setAttribute('x-action', 'delete');
-                productCancelBtn.removeAttribute('disabled');
             }
             else {
                 console.error('Could not "cancel" or "delete" product "' + productId + '" because action given was "' + action + '", which is not recognized. Please contact developer for support.')
@@ -148,8 +193,184 @@
         }
     }
 
+    function getNewProductItem(product) {
+        var productItem = document.createElement('li');
+        productItem.id = 'product-item-' + product.id;
+        var productItemContent = document.createElement('div');
+        productItem.appendChild(productItemContent);
+
+        var productImg = document.createElement('img');
+        productImg.id = 'product-img-display-' + product.id;
+        productImg.src = _baseUrl + '/products/product-images/' + product.imageFilename;
+        productImg.alt = product.code;
+        productItemContent.appendChild(productImg);
+
+        var productImgUploadLabel = document.createElement('div');
+        productImgUploadLabel.innerHTML = 'upload image: ';
+        var productImgUpload = document.createElement('input');
+        productImgUpload.setAttribute('x-product-id', product.id);
+        productImgUpload.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+            var file = document.getElementById('product-img-' + productId).files[0];
+            document.getElementById('product-img-display-' + productId).src = window.URL.createObjectURL(file);
+        };
+        productImgUpload.id = 'product-img-' + product.id;
+        productImgUpload.type = 'file';
+        productImgUpload.accept = 'image/*';
+        productImgUploadLabel.appendChild(productImgUpload);
+        productItemContent.appendChild(productImgUploadLabel);
+
+        var drawingLabel = document.createElement('div');
+        drawingLabel.id = 'product-draw-label-' + product.id;
+        drawingLabel.innerHTML = 'drawing: <em>loading...</em>';
+        productItemContent.appendChild(drawingLabel);
+        (function (productId, drawingFilename) {
+            $.get(_baseUrl + '/products/drawings/' + drawingFilename)
+                .done(function () {
+                    document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: ' + drawingFilename;
+            })
+            .fail(function () {
+                document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: (none)';
+            })
+        })(product.id, product.drawingFilename)
+
+        var drawingUploadLabel = document.createElement('div');
+        drawingUploadLabel.innerHTML = 'upload drawing: ';
+        var drawingUpload = document.createElement('input');
+        drawingUpload.setAttribute('x-product-id', product.id);
+        drawingUpload.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        };
+        drawingUpload.id = 'product-drawing-' + product.id;
+        drawingUpload.type = 'file';
+        drawingUpload.accept = 'application/pdf';
+        drawingUploadLabel.appendChild(drawingUpload);
+        productItemContent.appendChild(drawingUploadLabel);
+
+        var codeInput = document.createElement('input');
+        codeInput.id = 'product-code-' + product.id;
+        codeInput.setAttribute('x-product-id', product.id);
+        codeInput.placeholder = 'Code ex. "CB4023"';
+        codeInput.value = product.code;
+        codeInput.oninput = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        };
+        productItemContent.appendChild(codeInput);
+
+        var shortDesc = document.createElement('input');
+        shortDesc.id = 'product-short-desc-' + product.id;
+        shortDesc.setAttribute('x-product-id', product.id);
+        shortDesc.placeholder = 'Short description';
+        shortDesc.value = product.shortDescription;
+        shortDesc.oninput = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        };
+        productItemContent.appendChild(shortDesc);
+
+        var longDesc = document.createElement('textarea');
+        longDesc.id = 'product-long-desc-' + product.id;
+        longDesc.setAttribute('x-product-id', product.id);
+        longDesc.placeholder = 'Long description';
+        longDesc.value = product.longDescription;
+        longDesc.rows = 1;
+        longDesc.oninput = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        };
+        productItemContent.appendChild(longDesc);
+
+        var categoryDropdown = document.createElement('select');
+        categoryDropdown.id = 'product-category-' + product.id;
+        categoryDropdown.setAttribute('x-product-id', product.id);
+        var selectedIndex = 0;
+        _categories.forEach(function (category, index) {
+            var categoryOption = document.createElement('option');
+            categoryOption.value = category.id;
+            categoryOption.innerHTML = category.name;
+            categoryDropdown.appendChild(categoryOption);
+            if (category.id == product.categoryId) {
+                selectedIndex = index;
+            }
+        });
+        categoryDropdown.selectedIndex = selectedIndex;
+        categoryDropdown.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        }
+        productItemContent.appendChild(categoryDropdown);
+
+        var subCategoryDropdown = document.createElement('select');
+        subCategoryDropdown.id = 'product-sub-category-' + product.id;
+        subCategoryDropdown.setAttribute('x-product-id', product.id);
+        selectedIndex = 0;
+        _subCategories.forEach(function (subCategory, index) {
+            var categoryOption = document.createElement('option');
+            categoryOption.value = subCategory.id;
+            categoryOption.innerHTML = subCategory.name;
+            subCategoryDropdown.appendChild(categoryOption);
+            if (subCategory.id == product.subCategoryId) {
+                selectedIndex = index;
+            }
+        });
+        subCategoryDropdown.selectedIndex = selectedIndex;
+        subCategoryDropdown.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        }
+        productItemContent.appendChild(subCategoryDropdown);
+
+        var mostPopular = document.createElement('div');
+        var mostPopularInput = document.createElement('input');
+        mostPopularInput.id = 'product-most-popular-' + product.id;
+        mostPopularInput.setAttribute('x-product-id', product.id);
+        mostPopularInput.type = 'checkbox';
+        mostPopularInput.checked = product.mostPopular;
+        mostPopularInput.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        }
+        var mostPopularLabel = document.createElement('span');
+        mostPopularLabel.innerHTML = 'Most popular';
+        mostPopular.appendChild(mostPopularInput);
+        mostPopular.appendChild(mostPopularLabel);
+        productItemContent.appendChild(mostPopular);
+
+        var saveButton = document.createElement('button');
+        saveButton.id = 'product-save-' + product.id;
+        saveButton.setAttribute('x-product-id', product.id);
+        saveButton.classList.add('btn', 'btn-success');
+        saveButton.disabled = true;
+        saveButton.innerHTML = '&#x2714;';
+        saveButton.onclick = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            uploadProduct(productId);
+        };
+        productItemContent.appendChild(saveButton);
+
+        var cancelOrDeleteButton = document.createElement('button');
+        cancelOrDeleteButton.id = 'product-cancel-btn-' + product.id;
+        cancelOrDeleteButton.setAttribute('x-product-id', product.id);
+        cancelOrDeleteButton.classList.add('btn', 'btn-danger');
+        cancelOrDeleteButton.setAttribute('x-action', 'delete');
+        cancelOrDeleteButton.innerHTML = '&#128465;';
+        // delete icon
+        cancelOrDeleteButton.onclick = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            cancelOrDeleteProduct(productId);
+        };
+        productItemContent.appendChild(cancelOrDeleteButton);
+
+        return productItem;
+    }
+
     var _baseUrl = '@Url.Action("Index", "Admin")'.split('/Admin')[0];
     var _products = {};
+    var _categories = [];
+    var _subCategories = [];
     function getProducts(token) {
          $.ajax({
                 url: '@Url.Action("Products", "Admin")',
@@ -161,186 +382,18 @@
              .done(function (response) {
                  _products = {};
                  var products = response.products;
-                 var categories = response.categories;
-                 var subCategories = response.subCategories;
+                 _categories = response.categories;
+                 _subCategories = response.subCategories;
                  var productList = document.getElementById('flightshop-admin-products-list');
 
                  for (var i = 0; i < products.length; i++) {
                      var product = products[i];
                      _products[product.id] = product;
-
-                     var productItem = document.createElement('li');
-                     productItem.id = 'product-item-' + product.id;
-                     var productItemContent = document.createElement('div');
-                     productItem.appendChild(productItemContent);
-
-                     var productImg = document.createElement('img');
-                     productImg.src = _baseUrl + '/products/product-images/' + product.imageFilename;
-                     productImg.alt = product.code;
-                     productItemContent.appendChild(productImg);
-
-                     var productImgUploadLabel = document.createElement('div');
-                     productImgUploadLabel.innerHTML = 'upload image: ';
-                     var productImgUpload = document.createElement('input');
-                     productImgUpload.setAttribute('x-product-id', product.id);
-                     productImgUpload.onchange = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     };
-                     productImgUpload.id = 'product-img-' + product.id;
-                     productImgUpload.type = 'file';
-                     productImgUpload.accept = 'image/*';
-                     productImgUploadLabel.appendChild(productImgUpload);
-                     productItemContent.appendChild(productImgUploadLabel);
-
-                     var drawingLabel = document.createElement('div');
-                     drawingLabel.id = 'product-draw-label-' + product.id;
-                     drawingLabel.innerHTML = 'drawing: <em>loading...</em>';
-                     productItemContent.appendChild(drawingLabel);
-                     var code = product.code.toUpperCase();
-                     (function (productId, drawingFilename) {
-                         $.get(_baseUrl + '/products/drawings/' + drawingFilename)
-                             .done(function () {
-                                 document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: ' + drawingFilename;
-                         })
-                         .fail(function () {
-                             document.getElementById('product-draw-label-' + productId).innerHTML = 'drawing: (none)';
-                         })
-                     })(product.id, product.drawingFilename)
-
-                     var drawingUploadLabel = document.createElement('div');
-                     drawingUploadLabel.innerHTML = 'upload drawing: ';
-                     var drawingUpload = document.createElement('input');
-                     drawingUpload.setAttribute('x-product-id', product.id);
-                     drawingUpload.onchange = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     };
-                     drawingUpload.id = 'product-drawing-' + product.id;
-                     drawingUpload.type = 'file';
-                     drawingUpload.accept = 'application/pdf';
-                     drawingUploadLabel.appendChild(drawingUpload);
-                     productItemContent.appendChild(drawingUploadLabel);
-
-                     var codeInput = document.createElement('input');
-                     codeInput.id = 'product-code-' + product.id;
-                     codeInput.setAttribute('x-product-id', product.id);
-                     codeInput.placeholder = 'Code ex. "CB4023"';
-                     codeInput.value = product.code;
-                     codeInput.oninput = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     };
-                     productItemContent.appendChild(codeInput);
-
-                     var shortDesc = document.createElement('input');
-                     shortDesc.id = 'product-short-desc-' + product.id;
-                     shortDesc.setAttribute('x-product-id', product.id);
-                     shortDesc.placeholder = 'Short description';
-                     shortDesc.value = product.shortDescription;
-                     shortDesc.oninput = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     };
-                     productItemContent.appendChild(shortDesc);
-
-                     var longDesc = document.createElement('textarea');
-                     longDesc.id = 'product-long-desc-' + product.id;
-                     longDesc.setAttribute('x-product-id', product.id);
-                     longDesc.placeholder = 'Long description';
-                     longDesc.value = product.longDescription;
-                     longDesc.rows = 1;
-                     longDesc.oninput = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     };
-                     productItemContent.appendChild(longDesc);
-
-                     var categoryDropdown = document.createElement('select');
-                     categoryDropdown.id = 'product-category-' + product.id;
-                     categoryDropdown.setAttribute('x-product-id', product.id);
-                     var selectedIndex = 0;
-                     categories.forEach(function (category, index) {
-                         var categoryOption = document.createElement('option');
-                         categoryOption.value = category.id;
-                         categoryOption.innerHTML = category.name;
-                         categoryDropdown.appendChild(categoryOption);
-                         if (category.id == product.categoryId) {
-                             selectedIndex = index;
-                         }
-                     });
-                     categoryDropdown.selectedIndex = selectedIndex;
-                     categoryDropdown.onchange = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     }
-                     productItemContent.appendChild(categoryDropdown);
-
-                     var subCategoryDropdown = document.createElement('select');
-                     subCategoryDropdown.id = 'product-sub-category-' + product.id;
-                     subCategoryDropdown.setAttribute('x-product-id', product.id);
-                     selectedIndex = 0;
-                     subCategories.forEach(function (subCategory, index) {
-                         var categoryOption = document.createElement('option');
-                         categoryOption.value = subCategory.id;
-                         categoryOption.innerHTML = subCategory.name;
-                         subCategoryDropdown.appendChild(categoryOption);
-                         if (subCategory.id == product.subCategoryId) {
-                             selectedIndex = index;
-                         }
-                     });
-                     subCategoryDropdown.selectedIndex = selectedIndex;
-                     subCategoryDropdown.onchange = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     }
-                     productItemContent.appendChild(subCategoryDropdown);
-
-                     var mostPopular = document.createElement('div');
-                     var mostPopularInput = document.createElement('input');
-                     mostPopularInput.id = 'product-most-popular-' + product.id;
-                     mostPopularInput.setAttribute('x-product-id', product.id);
-                     mostPopularInput.type = 'checkbox';
-                     mostPopularInput.checked = product.mostPopular;
-                     mostPopularInput.onchange = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         productChanged(productId);
-                     }
-                     var mostPopularLabel = document.createElement('span');
-                     mostPopularLabel.innerHTML = 'Most popular';
-                     mostPopular.appendChild(mostPopularInput);
-                     mostPopular.appendChild(mostPopularLabel);
-                     productItemContent.appendChild(mostPopular);
-
-                     var saveButton = document.createElement('button');
-                     saveButton.id = 'product-save-' + product.id;
-                     saveButton.setAttribute('x-product-id', product.id);
-                     saveButton.classList.add('btn', 'btn-success');
-                     saveButton.disabled = true;
-                     saveButton.innerHTML = '&#x2714;';
-                     saveButton.onclick = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         uploadProduct(productId);
-                     };
-                     productItemContent.appendChild(saveButton);
-
-                     var cancelOrDeleteButton = document.createElement('button');
-                     cancelOrDeleteButton.id = 'product-cancel-btn-' + product.id;
-                     cancelOrDeleteButton.setAttribute('x-product-id', product.id);
-                     cancelOrDeleteButton.classList.add('btn', 'btn-danger');
-                     cancelOrDeleteButton.setAttribute('x-action', 'delete');
-                     cancelOrDeleteButton.innerHTML = '&#128465;';
-                     // delete icon
-                     cancelOrDeleteButton.onclick = function (event) {
-                         var productId = event.target.getAttribute('x-product-id');
-                         cancelOrDeleteProduct(productId);
-                     };
-                     productItemContent.appendChild(cancelOrDeleteButton);
+                     var productItem = getNewProductItem(product);                     
 
                      // todo: add sub-form/btn for adding and editing parts, using product.Parts -- btn for adding should be at top probs
                      // todo: add endpts for UpdatePart, DeleteProduct, and DeletePart, and UpdateProduct/part/etc DAL functions
                      // todo: add-product btn at top of view
-                     // todo: add ImageFilename property to Product schema
 
                      productList.appendChild(productItem);
                  }
@@ -357,7 +410,7 @@
         var username = document.getElementById('flightshop-admin-username').value;
         var password = document.getElementById('flightshop-admin-password').value;
         if (username && password) {
-            var loginUrl = '@Url.Action("Login", "Admin")';
+            var loginUrl = '@Url.Action("Login", "Auth")';
             var loginRequest = { Username: username, Password: password };
             $.ajax({
                 type: 'POST',
@@ -383,7 +436,7 @@
     }
 
       window.addEventListener('load', function () {
-            var token = getToken();
+          var token = getToken();
             if (token) {
                 getProducts(token);
             } else {

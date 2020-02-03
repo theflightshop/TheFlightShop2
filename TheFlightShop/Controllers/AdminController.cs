@@ -17,27 +17,19 @@ using TheFlightShop.IO;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.Controllers
-{
-    //[TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+{    
     public class AdminController : Controller
     {
         private readonly IHash _hash;
-        private readonly IToken _token;
+        
         private readonly IProductReadDAL _productReadDal;
         private readonly IFileManager _fileManager;
 
-        public AdminController(IHash hash, IToken token, IProductReadDAL productReadDal, IFileManager fileManager)
+        public AdminController(IHash hash, IProductReadDAL productReadDal, IFileManager fileManager)
         {
             _hash = hash;
-            _token = token;
             _productReadDal = productReadDal;
             _fileManager = fileManager;
-        }
-
-        public IActionResult Encrypt(string value)
-        {
-            var hashAndSalt = _hash.GenerateHashAndSalt(value);
-            return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
         }
 
         public IActionResult Index()
@@ -45,6 +37,14 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        public IActionResult Encrypt(string value)
+        {
+            var hashAndSalt = _hash.GenerateHashAndSalt(value);
+            return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
+        }        
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         public IActionResult Products()
         {
             var products = _productReadDal.GetProducts();
@@ -53,7 +53,7 @@ namespace TheFlightShop.Controllers
             return new JsonResult(new { products, categories, subCategories });
         }
 
-        // todo: add ImageName to product schema, then onUpload set imgname appropriately so it can be any img type (tisk tisk)
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         public async Task<IActionResult> CreateOrUpdateProduct([FromForm]Guid id, [FromForm]string code, [FromForm]string shortDescription,
              [FromForm]string longDescription,  [FromForm]Guid categoryId, [FromForm]Guid subCategoryId,
             [FromForm]bool mostPopular, [FromForm]IFormFile image, [FromForm]IFormFile drawing)
@@ -68,7 +68,8 @@ namespace TheFlightShop.Controllers
                 SubCategoryId = subCategoryId,
                 MostPopular = mostPopular,
                 ImageFilename = image?.FileName,
-                DrawingFilename = drawing?.FileName
+                DrawingFilename = drawing?.FileName,
+                IsActive = true
             };
             _productReadDal.CreateOrUpdateProduct(product);
             var tasks = new List<Task>();
@@ -90,33 +91,13 @@ namespace TheFlightShop.Controllers
             return new OkResult();
         }
 
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         [HttpDelete]
         [Route("~/Admin/Product/{id:Guid}")]
         public IActionResult DeleteProduct(Guid id)
         {
             _productReadDal.DeleteProduct(id);
             return new OkResult();
-        }
-
-        [HttpPost]
-        public IActionResult Login(LoginRequest loginRequest)
-        {
-            var adminUsername = Environment.GetEnvironmentVariable("ADMIN_USERNAME");
-            var adminHash = Environment.GetEnvironmentVariable("ADMIN_HASH");
-            var adminSalt = Environment.GetEnvironmentVariable("ADMIN_SALT");
-            var passwordMatches = /*loginRequest.Username == adminUsername && */ _hash.ValueMatches(loginRequest.Password, adminHash, adminSalt);
-
-            IActionResult result;
-            if (passwordMatches)
-            {
-                var token = _token.GenerateToken(loginRequest.Username, Token.DEFAULT_HOURS_TO_EXPIRE);
-                result = new JsonResult(new { token });
-            }
-            else
-            {
-                result = new UnauthorizedResult();
-            }
-            return result;
         }
     }
 }
