@@ -44,7 +44,10 @@
 
     function addNewProduct() {
         var productInfo = {
-            id: generateUuid()
+            id: generateUuid(),
+            code: '',
+            shortDescription: '',
+            longDescription: ''
         };
         var productItem = getNewProductItem(productInfo);
         var productList = document.getElementById('flightshop-admin-products-list');
