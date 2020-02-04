@@ -46,7 +46,7 @@
         var productIds = Object.keys(_products);
         for (var i = 0; i < productIds.length; i++) {
             var product = _products[productIds[i]];
-            var isVisible = searchValue ? product.code.toLowerCase().includes(searchValue) : true;
+            var isVisible = searchValue ? product.code.toLowerCase().includes(searchValue) || (product.shortDescription && product.shortDescription.toLowerCase().includes(searchValue)) : true;
             document.getElementById('product-item-' + product.id).style.display = isVisible ? 'block' : 'none';
         }
     }
