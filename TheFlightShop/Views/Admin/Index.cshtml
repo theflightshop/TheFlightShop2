@@ -29,11 +29,28 @@
 </div>
 <div id="flightshop-admin-products-view" style="display: none;">
     <h2>Products</h2>
-    <button onclick="addNewProduct();">+ Add Product</button>
+    <p>
+        <input id="flightshop-admin-product-search" class="form-control" placeholder="Search products..." oninput="adminProductSearchChange()" />
+        <button class="btn btn-info" onclick="addNewProduct();">+ Add Product</button>
+    </p>
     <ul id="flightshop-admin-products-list"></ul>
 </div>
 
 <script>
+    function adminProductSearchChange() {
+        var searchValue = document.getElementById('flightshop-admin-product-search').value;
+        if (searchValue) {
+            searchValue = searchValue.toLowerCase().trim();
+        }
+
+        var productIds = Object.keys(_products);
+        for (var i = 0; i < productIds.length; i++) {
+            var product = _products[productIds[i]];
+            var isVisible = searchValue ? product.code.toLowerCase().includes(searchValue) : true;
+            document.getElementById('product-item-' + product.id).style.display = isVisible ? 'block' : 'none';
+        }
+    }
+
     /** found at https://stackoverflow.com/questions/105034. mathematically, risk of collision is rather low, to the point this is very likely to be safe enough for the purpose it serves. */
     function generateUuid() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -58,7 +75,7 @@
         var productImg = document.getElementById('product-img-' + productId);
         if (productImg) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
             document.getElementById('product-save-' + productId).disabled = true;
-            document.getElementById('product-cancel-btn-' + productId).innerHTML = '&#128465;';
+            document.getElementById('product-cancel-btn-' + productId).innerHTML = '&#128465; delete';
 
             var formData = new FormData();
             var imgFiles = productImg.files;
@@ -147,7 +164,7 @@
         }
         subCategoryInput.selectedIndex = originalIndex;
 
-        productCancelBtn.innerHTML = '&#128465;';
+        productCancelBtn.innerHTML = '&#128465; delete';
         productCancelBtn.setAttribute('x-action', 'delete');
         productCancelBtn.removeAttribute('disabled');
     }
@@ -191,7 +208,7 @@
         var cancelOrDeleteBtn = document.getElementById('product-cancel-btn-' + productId);
         if (cancelOrDeleteBtn) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
             cancelOrDeleteBtn.setAttribute('x-action', 'cancel');
-            cancelOrDeleteBtn.innerHTML = '&#x26D4;';
+            cancelOrDeleteBtn.innerHTML = '&#x26D4; cancel';
             document.getElementById('product-save-' + productId).removeAttribute('disabled');
         }
     }
@@ -200,17 +217,31 @@
         var productItem = document.createElement('li');
         productItem.id = 'product-item-' + product.id;
         var productItemContent = document.createElement('div');
+        productItemContent.style.height = '225px';
+        productItemContent.style.borderBottom = '1px solid #ccc';
+        productItemContent.style.marginBottom = '20px';
         productItem.appendChild(productItemContent);
+
+        var row1 = document.createElement('div');
+        row1.style.height = '140px';
+        row1.classList.add('row');
+        productItemContent.appendChild(row1);
+
+        var imgCol = document.createElement('div');
+        imgCol.classList.add('col-sm-3');
+        row1.appendChild(imgCol);
 
         var productImg = document.createElement('img');
         productImg.id = 'product-img-display-' + product.id;
+        productImg.style.maxWidth = '100px';
         productImg.src = _baseUrl + '/products/product-images/' + product.imageFilename;
         productImg.alt = product.code;
-        productItemContent.appendChild(productImg);
+        imgCol.appendChild(productImg);
 
         var productImgUploadLabel = document.createElement('div');
         productImgUploadLabel.innerHTML = 'upload image: ';
         var productImgUpload = document.createElement('input');
+        productImgUpload.style.width = '100%';
         productImgUpload.setAttribute('x-product-id', product.id);
         productImgUpload.onchange = function (event) {
             var productId = event.target.getAttribute('x-product-id');
@@ -222,12 +253,16 @@
         productImgUpload.type = 'file';
         productImgUpload.accept = 'image/*';
         productImgUploadLabel.appendChild(productImgUpload);
-        productItemContent.appendChild(productImgUploadLabel);
+        imgCol.appendChild(productImgUploadLabel);
+
+        var drawCol = document.createElement('div');
+        drawCol.classList.add('col-sm-3');
+        row1.appendChild(drawCol);
 
         var drawingLabel = document.createElement('div');
         drawingLabel.id = 'product-draw-label-' + product.id;
         drawingLabel.innerHTML = 'drawing: <em>loading...</em>';
-        productItemContent.appendChild(drawingLabel);
+        drawCol.appendChild(drawingLabel);
         (function (productId, drawingFilename) {
             $.get(_baseUrl + '/products/drawings/' + drawingFilename)
                 .done(function () {
@@ -241,6 +276,7 @@
         var drawingUploadLabel = document.createElement('div');
         drawingUploadLabel.innerHTML = 'upload drawing: ';
         var drawingUpload = document.createElement('input');
+        drawingUpload.style.width = '100%';
         drawingUpload.setAttribute('x-product-id', product.id);
         drawingUpload.onchange = function (event) {
             var productId = event.target.getAttribute('x-product-id');
@@ -250,10 +286,15 @@
         drawingUpload.type = 'file';
         drawingUpload.accept = 'application/pdf';
         drawingUploadLabel.appendChild(drawingUpload);
-        productItemContent.appendChild(drawingUploadLabel);
+        drawCol.appendChild(drawingUploadLabel);
+
+        var codeCol = document.createElement('div');
+        codeCol.classList.add('col-sm-2');
+        row1.appendChild(codeCol);
 
         var codeInput = document.createElement('input');
         codeInput.id = 'product-code-' + product.id;
+        codeInput.style.width = '100%';
         codeInput.setAttribute('x-product-id', product.id);
         codeInput.placeholder = 'Code ex. "CB4023"';
         codeInput.value = product.code;
@@ -261,10 +302,15 @@
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
         };
-        productItemContent.appendChild(codeInput);
+        codeCol.appendChild(codeInput);
+
+        var shortDescCol = document.createElement('div');
+        shortDescCol.classList.add('col-sm-2');
+        row1.appendChild(shortDescCol);
 
         var shortDesc = document.createElement('input');
         shortDesc.id = 'product-short-desc-' + product.id;
+        shortDesc.style.width = '100%';
         shortDesc.setAttribute('x-product-id', product.id);
         shortDesc.placeholder = 'Short description';
         shortDesc.value = product.shortDescription;
@@ -272,10 +318,40 @@
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
         };
-        productItemContent.appendChild(shortDesc);
+        shortDescCol.appendChild(shortDesc);
+
+        var mostPopularCol = document.createElement('div');
+        mostPopularCol.classList.add('col-sm-2');
+        row1.appendChild(mostPopularCol);
+
+        var mostPopular = document.createElement('div');
+        var mostPopularInput = document.createElement('input');
+        mostPopularInput.id = 'product-most-popular-' + product.id;
+        mostPopularInput.setAttribute('x-product-id', product.id);
+        mostPopularInput.type = 'checkbox';
+        mostPopularInput.checked = product.mostPopular;
+        mostPopularInput.onchange = function (event) {
+            var productId = event.target.getAttribute('x-product-id');
+            productChanged(productId);
+        }
+        var mostPopularLabel = document.createElement('span');
+        mostPopularLabel.innerHTML = 'Most popular';
+        mostPopular.appendChild(mostPopularInput);
+        mostPopular.appendChild(mostPopularLabel);
+        mostPopularCol.appendChild(mostPopular);
+
+        var row2 = document.createElement('div');
+        row2.style.height = '85px';
+        row2.classList.add('row');
+        productItemContent.appendChild(row2);
+
+        var longDescCol = document.createElement('div');
+        longDescCol.classList.add('col-sm-3');
+        row2.appendChild(longDescCol);
 
         var longDesc = document.createElement('textarea');
         longDesc.id = 'product-long-desc-' + product.id;
+        longDesc.style.width = '100%';
         longDesc.setAttribute('x-product-id', product.id);
         longDesc.placeholder = 'Long description';
         longDesc.value = product.longDescription;
@@ -284,10 +360,15 @@
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
         };
-        productItemContent.appendChild(longDesc);
+        longDescCol.appendChild(longDesc);
+
+        var categoryCol = document.createElement('div');
+        categoryCol.classList.add('col-sm-2');
+        row2.appendChild(categoryCol);
 
         var categoryDropdown = document.createElement('select');
         categoryDropdown.id = 'product-category-' + product.id;
+        categoryDropdown.style.width = '100%';
         categoryDropdown.setAttribute('x-product-id', product.id);
         var selectedIndex = 0;
         _categories.forEach(function (category, index) {
@@ -304,10 +385,15 @@
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
         }
-        productItemContent.appendChild(categoryDropdown);
+        categoryCol.appendChild(categoryDropdown);
+
+        var subCategoryCol = document.createElement('div');
+        subCategoryCol.classList.add('col-sm-2');
+        row2.appendChild(subCategoryCol);
 
         var subCategoryDropdown = document.createElement('select');
         subCategoryDropdown.id = 'product-sub-category-' + product.id;
+        subCategoryDropdown.style.width = '100%';
         subCategoryDropdown.setAttribute('x-product-id', product.id);
         selectedIndex = 0;
         _subCategories.forEach(function (subCategory, index) {
@@ -324,48 +410,37 @@
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
         }
-        productItemContent.appendChild(subCategoryDropdown);
+        subCategoryCol.appendChild(subCategoryDropdown);
 
-        var mostPopular = document.createElement('div');
-        var mostPopularInput = document.createElement('input');
-        mostPopularInput.id = 'product-most-popular-' + product.id;
-        mostPopularInput.setAttribute('x-product-id', product.id);
-        mostPopularInput.type = 'checkbox';
-        mostPopularInput.checked = product.mostPopular;
-        mostPopularInput.onchange = function (event) {
-            var productId = event.target.getAttribute('x-product-id');
-            productChanged(productId);
-        }
-        var mostPopularLabel = document.createElement('span');
-        mostPopularLabel.innerHTML = 'Most popular';
-        mostPopular.appendChild(mostPopularInput);
-        mostPopular.appendChild(mostPopularLabel);
-        productItemContent.appendChild(mostPopular);
+        var buttonsCol = document.createElement('div');
+        buttonsCol.classList.add('col-sm-2');
+        row2.appendChild(buttonsCol);
 
         var saveButton = document.createElement('button');
         saveButton.id = 'product-save-' + product.id;
+        saveButton.style.marginRight = '0.5em';
         saveButton.setAttribute('x-product-id', product.id);
         saveButton.classList.add('btn', 'btn-success');
         saveButton.disabled = true;
-        saveButton.innerHTML = '&#x2714;';
+        saveButton.innerHTML = '&#x2714; save';
         saveButton.onclick = function (event) {
             var productId = event.target.getAttribute('x-product-id');
             uploadProduct(productId);
         };
-        productItemContent.appendChild(saveButton);
+        buttonsCol.appendChild(saveButton);
 
         var cancelOrDeleteButton = document.createElement('button');
         cancelOrDeleteButton.id = 'product-cancel-btn-' + product.id;
         cancelOrDeleteButton.setAttribute('x-product-id', product.id);
         cancelOrDeleteButton.classList.add('btn', 'btn-danger');
         cancelOrDeleteButton.setAttribute('x-action', 'delete');
-        cancelOrDeleteButton.innerHTML = '&#128465;';
+        cancelOrDeleteButton.innerHTML = '&#128465; delete';
         // delete icon
         cancelOrDeleteButton.onclick = function (event) {
             var productId = event.target.getAttribute('x-product-id');
             cancelOrDeleteProduct(productId);
         };
-        productItemContent.appendChild(cancelOrDeleteButton);
+        buttonsCol.appendChild(cancelOrDeleteButton);
 
         return productItem;
     }
