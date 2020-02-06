@@ -4,39 +4,193 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="flightshop-admin-login-view" style="display: none;">
-    <h2>Log In</h2>
+<div style="margin-top: 2em;">
+    <div id="flightshop-admin-login-view" style="display: none;">
+        <h2>Log In</h2>
 
-    <form onsubmit="submitAdminLogin(); return false;">
-        <div class="row">
-            <div class="col-sm-5 form-group">
-                <input id="flightshop-admin-username" class="form-control" type="text" placeholder="Username" required />
+        <form onsubmit="submitAdminLogin(); return false;">
+            <div class="row">
+                <div class="col-sm-5 form-group">
+                    <input id="flightshop-admin-username" class="form-control" type="text" placeholder="Username" required />
+                </div>
+                <div class="col-sm-5 form-group">
+                    <input id="flightshop-admin-password" class="form-control" type="password" placeholder="Password" required />
+                </div>
             </div>
-            <div class="col-sm-5 form-group">
-                <input id="flightshop-admin-password" class="form-control" type="password" placeholder="Password" required />
+            <div class="row">
+                <div class="col-sm-8 form-group">
+                    <input id="keep-admin-logged-in" type="checkbox" class="form-control" />
+                    <label for="keep-admin-logged-in">Stay signed in</label>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-success">Log In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="flightshop-admin-products-view" style="display: none;">
+        <ul class="nav nav-pills" style="padding-bottom: 5em;">
+            <li x-subview="products" class="active"><a href="#" onclick="switchTab('products')">Products</a></li>
+            <li x-subview="categories"><a href="#" onclick="switchTab('categories')">Categories</a></li>
+        </ul>
+        <div x-subview="products">
+            <div id="flightshop-admin-products-loader" style="margin-top: 1em;">
+                <div class="loader"></div>
+                <p style="margin-top: 0.5em;"><em>Loading products...</em></p>
+            </div>
+            <div id="flightshop-admin-products-content" style="display: none;">
+                <p>
+                    <input id="flightshop-admin-product-search" class="form-control" placeholder="Search products..." oninput="adminProductSearchChange()" />
+                    <button class="btn btn-info" onclick="addNewProduct();">+ Add Product</button>
+                </p>
+                <ul id="flightshop-admin-products-list"></ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-8 form-group">
-                <input id="keep-admin-logged-in" type="checkbox" class="form-control" />
-                <label for="keep-admin-logged-in">Stay signed in</label>
-            </div>
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-success">Log In</button>
+        <div x-subview="categories" style="display: none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Category</h3>
+                    <div style="margin-top: 1em;">
+                        <select id="flightshop-admin-selected-category" onchange="selectedAdminCategoryChange()">
+                            <option value="--">--</option>
+                        </select>
+                        <button class="btn btn-info" onclick="addNewCategory()">+ Add Category</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-7">
+                            <input id="flightshop-admin-category-input" type="text" class="form-control" placeholder="Category name" oninput="adminCategoryInputChange()" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <button id="admin-btn-save-category" class="btn btn-success" onclick="saveAdminCategory()" disabled>&#x2714; save</button>
+                            <button class="btn btn-danger" onclick="cancelOrDeleteAdminCategory()" x-action="delete">&#128465; delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>Sub-Category</h3>
+                    <div style="margin-top: 1em;">
+                        <select id="flightshop-admin-selected-sub-category" onchange="selectedAdminSubCategoryChange()">
+                            <option value="--">--</option>
+                        </select>
+                        <button id="admin-btn-add-sub-category" class="btn btn-info" onclick="addNewSubCategory()">+ Add Sub-Category</button>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-7">
+                            <input id="flightshop-admin-sub-category-input" type="text" class="form-control" placeholder="Sub-category name" oninput="adminSubCategoryInputChange()" />
+                        </div>
+                        <div class="form-group col-md-4">
+                            <button id="admin-btn-save-sub-category" class="btn btn-success" onclick="saveAdminSubCategory()" disabled>&#x2714; save</button>
+                            <button class="btn btn-danger" onclick="cancelOrDeleteAdminSubCategory()" x-action="delete">&#128465; delete</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
-</div>
-<div id="flightshop-admin-products-view" style="display: none;">
-    <h2>Products</h2>
-    <p>
-        <input id="flightshop-admin-product-search" class="form-control" placeholder="Search products..." oninput="adminProductSearchChange()" />
-        <button class="btn btn-info" onclick="addNewProduct();">+ Add Product</button>
-    </p>
-    <ul id="flightshop-admin-products-list"></ul>
+    </div>
 </div>
 
+<style>
+    .loader {
+      border: 16px solid #f3f3f3; /* Light grey */
+      border-top: 16px solid #3498db; /* Blue */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+    }
+
+    @@keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+</style>
 <script>
+    function getNoneOption(categoryType) {
+        var noneOption = document.createElement('option');
+        noneOption.setAttribute('disabled', 'true');
+        noneOption.innerHTML = '-- New ' + categoryType[0].toUpperCase() + categoryType.substring(1) + ' --';
+        return noneOption;
+    }
+
+    function addNewCategoryOption(categoryType) {
+        var categorySelect = document.getElementById('flightshop-admin-selected-' + categoryType);
+        if (!categorySelect.firstChild.value.startsWith('-- New')) {
+            var noneOption = getNoneOption(categoryType);
+            categorySelect.insertBefore(noneOption, categorySelect.firstChild);
+        }
+        categorySelect.selectedIndex = 0;
+
+        document.getElementById('flightshop-admin-' + categoryType + '-input').value = '';
+
+        if (categoryType === 'category') {
+            document.getElementById('admin-btn-add-sub-category').style.display = 'none';
+            var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
+            clearChildren(subCategorySelect);
+            var noneOption = getNoneOption('sub-category');
+            subCategorySelect.appendChild(noneOption);
+            subCategorySelect.selectedIndex = 0;
+
+            document.getElementById('flightshop-admin-sub-category-input').value = '';
+        }
+    }
+
+    function addNewCategory() {
+        addNewCategoryOption('category');
+    }
+
+    function addNewSubCategory() {
+        addNewCategoryOption('sub-category');
+    }
+
+    function adminCategoryInputChange() {
+        document.getElementById('admin-btn-save-category').removeAttribute('disabled');
+    }
+
+    function adminSubCategoryInputChange() {
+        document.getElementById('admin-btn-save-sub-category').removeAttribute('disabled');
+    }
+
+    function selectedAdminCategoryChange() {
+        document.getElementById('admin-btn-save-category').setAttribute('disabled', 'true');
+        document.getElementById('admin-btn-save-sub-category').setAttribute('disabled', 'true');
+        document.getElementById('admin-btn-add-sub-category').style.display = 'block';
+
+        var categoryId = document.getElementById('flightshop-admin-selected-category').value;
+        setSubCategories(categoryId);
+
+        var category = _categoriesById[categoryId];
+        document.getElementById('flightshop-admin-category-input').value = category.name;
+
+        var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
+        subCategorySelect.selectedIndex = 0;
+        var firstSubCategoryName = subCategorySelect.firstChild.innerHTML;
+        document.getElementById('flightshop-admin-sub-category-input').value = firstSubCategoryName;
+    }
+
+    function selectedAdminSubCategoryChange() {
+        document.getElementById('admin-btn-save-sub-category').setAttribute('disabled', 'true');
+
+        var subCategoryId = document.getElementById('flightshop-admin-selected-sub-category').value;
+        var subCategory = _subCategories.find(function (sub) { return sub.id === subCategoryId; });
+        document.getElementById('flightshop-admin-sub-category-input').value = subCategory.name;
+    }
+
+    function switchTab(tabName) {
+        var tabViews = document.querySelectorAll('div[x-subview]');
+        tabViews.forEach(function (tabView) {
+            tabView.style.display = tabView.getAttribute('x-subview') === tabName ? 'block' : 'none';
+        });
+        var tabs = document.querySelectorAll('li[x-subview]');
+        tabs.forEach(function (tab) {
+            if (tab.getAttribute('x-subview') === tabName) {
+                tab.classList.add('active');
+            }
+            else {
+                tab.classList.remove('active');
+            }
+        })
+    }
+
     function adminProductSearchChange() {
         var searchValue = document.getElementById('flightshop-admin-product-search').value;
         if (searchValue) {
@@ -46,7 +200,7 @@
         var productIds = Object.keys(_products);
         for (var i = 0; i < productIds.length; i++) {
             var product = _products[productIds[i]];
-            var isVisible = searchValue ? product.code.toLowerCase().includes(searchValue) || (product.shortDescription && product.shortDescription.toLowerCase().includes(searchValue)) : true;
+            var isVisible = searchValue ? (product.code && product.code.toLowerCase().includes(searchValue)) || (product.shortDescription && product.shortDescription.toLowerCase().includes(searchValue)) : true;
             document.getElementById('product-item-' + product.id).style.display = isVisible ? 'block' : 'none';
         }
     }
@@ -156,6 +310,7 @@
         categoryInput.selectedIndex = originalIndex;
 
         var subCategoryInput = document.getElementById('product-sub-category-' + productId);
+        setProductSubCategories(subCategoryInput, originalIndex, originalProduct.subCategoryId);
         originalIndex = -1;
         for (var i = 0; i < subCategoryInput.childNodes.length && originalIndex < 0; i++) {
             if (subCategoryInput.childNodes[i].value === originalProduct.subCategoryId) {
@@ -172,23 +327,31 @@
     function cancelOrDeleteProduct(productId) {
         var productCancelBtn = document.getElementById('product-cancel-btn-' + productId);
         if (productCancelBtn) { // product has been attached to DOM (check for misfire of event, possibly due to closure?)
-            productCancelBtn.disabled = true;
             var action = productCancelBtn.getAttribute('x-action');
             if (action === 'delete') {
+                var product = _products[productId];
                 var deletedItem = document.getElementById('product-item-' + productId);
-                document.getElementById('flightshop-admin-products-list').removeChild(deletedItem);
-                delete _products[productId];
-                $.ajax({
-                    type: 'DELETE',
-                    url: '@Url.Action("Product", "Admin")' + '/' + productId,
-                    headers: {
-                        Authorization: 'bearer ' + getToken()
-                    }
-                }).fail(function (err) {
-                    checkAuth(err);
-                })
+                  
+                if (product && confirm('Are you sure you want to delete product with code "' + product.code + '"?')) {
+                    productCancelBtn.disabled = true;
+                    document.getElementById('flightshop-admin-products-list').removeChild(deletedItem);
+                    delete product;
+                    $.ajax({
+                        type: 'DELETE',
+                        url: '@Url.Action("Product", "Admin")' + '/' + productId,
+                        headers: {
+                            Authorization: 'bearer ' + getToken()
+                        }
+                    }).fail(function (err) {
+                        checkAuth(err);
+                    })
+                }
+                else if (!product) {
+                    document.getElementById('flightshop-admin-products-list').removeChild(deletedItem);
+                }
             }
             else if (action === 'cancel') {
+                productCancelBtn.disabled = true;
                 var originalProduct = _products[productId];
                 if (originalProduct) {
                     cancelProductUpdates(productId, originalProduct, productCancelBtn);
@@ -211,6 +374,23 @@
             cancelOrDeleteBtn.innerHTML = '&#x26D4; cancel';
             document.getElementById('product-save-' + productId).removeAttribute('disabled');
         }
+    }
+
+    function setProductSubCategories(subCategoryDropdown, selectedCategoryIndex, subCategoryId) {
+        var subCategories = _subCategoriesByCategory[_categories[selectedCategoryIndex].id];
+        selectedIndex = 0; 
+        if (subCategories) {
+            subCategories.forEach(function (subCategory, index) {
+                var categoryOption = document.createElement('option');
+                categoryOption.value = subCategory.id;
+                categoryOption.innerHTML = subCategory.name;
+                subCategoryDropdown.appendChild(categoryOption);
+                if (subCategoryId && subCategoryId == subCategory.id) {
+                    selectedIndex = index;
+                }
+            });
+        }
+        subCategoryDropdown.selectedIndex = selectedIndex;
     }
 
     function getNewProductItem(product) {
@@ -383,6 +563,9 @@
         categoryDropdown.selectedIndex = selectedIndex;
         categoryDropdown.onchange = function (event) {
             var productId = event.target.getAttribute('x-product-id');
+            var subCategoryDropdown = document.getElementById('product-sub-category-' + productId);
+            clearChildren(subCategoryDropdown);
+            setProductSubCategories(subCategoryDropdown, event.target.selectedIndex);
             productChanged(productId);
         }
         categoryCol.appendChild(categoryDropdown);
@@ -395,17 +578,7 @@
         subCategoryDropdown.id = 'product-sub-category-' + product.id;
         subCategoryDropdown.style.width = '100%';
         subCategoryDropdown.setAttribute('x-product-id', product.id);
-        selectedIndex = 0;
-        _subCategories.forEach(function (subCategory, index) {
-            var categoryOption = document.createElement('option');
-            categoryOption.value = subCategory.id;
-            categoryOption.innerHTML = subCategory.name;
-            subCategoryDropdown.appendChild(categoryOption);
-            if (subCategory.id == product.subCategoryId) {
-                selectedIndex = index;
-            }
-        });
-        subCategoryDropdown.selectedIndex = selectedIndex;
+        setProductSubCategories(subCategoryDropdown, selectedIndex, product.subCategoryId);
         subCategoryDropdown.onchange = function (event) {
             var productId = event.target.getAttribute('x-product-id');
             productChanged(productId);
@@ -445,11 +618,52 @@
         return productItem;
     }
 
+    function clearChildren(element) {
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+    }
+
+    function setSubCategories(categoryId) {
+        var subCategories = _subCategoriesByCategory[categoryId] || [];
+        var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
+        clearChildren(subCategorySelect);
+        subCategories.forEach(function (subCategory) {
+            var subCategoryOption = document.createElement('option');
+            subCategoryOption.value = subCategory.id;
+            subCategoryOption.innerHTML = subCategory.name;
+            subCategorySelect.appendChild(subCategoryOption);
+        });
+    }
+
+    _subCategoriesByCategory = {};
+    _categoriesById = {};
+    function setUpCategories() {
+        if (_categories && _categories.length) {
+            var categorySelect = document.getElementById('flightshop-admin-selected-category');
+            clearChildren(categorySelect);
+            _categories.forEach(function (category) {
+                var categoryOption = document.createElement('option');
+                categoryOption.value = category.id;
+                categoryOption.innerHTML = category.name;
+                categorySelect.appendChild(categoryOption);
+
+                var subCategories = _subCategories.filter(function (subCategory) { return subCategory.categoryId === category.id });
+                _subCategoriesByCategory[category.id] = subCategories;
+                _categoriesById[category.id] = category;
+            });
+            selectedAdminCategoryChange();
+        }
+    }
+
     var _baseUrl = '@Url.Action("Index", "Admin")'.split('/Admin')[0];
     var _products = {};
     var _categories = [];
     var _subCategories = [];
     function getProducts(token) {
+         document.getElementById('flightshop-admin-login-view').style.display = 'none';
+        document.getElementById('flightshop-admin-products-view').style.display = 'block';
+
          $.ajax({
                 url: '@Url.Action("Products", "Admin")',
                 type: 'POST',
@@ -462,6 +676,7 @@
                  var products = response.products;
                  _categories = response.categories;
                  _subCategories = response.subCategories;
+                 setUpCategories();
                  var productList = document.getElementById('flightshop-admin-products-list');
 
                  for (var i = 0; i < products.length; i++) {
@@ -470,17 +685,21 @@
                      var productItem = getNewProductItem(product);                     
 
                      // todo: add sub-form/btn for adding and editing parts, using product.Parts -- btn for adding should be at top probs
-                     // todo: add endpts for UpdatePart, DeleteProduct, and DeletePart, and UpdateProduct/part/etc DAL functions
-                     // todo: add-product btn at top of view
+                     // todo: add endpts for UpdatePart, and DeletePart, and update part/etc DAL functions
 
                      productList.appendChild(productItem);
                  }
 
-                     document.getElementById('flightshop-admin-login-view').style.display = 'none';
-                     document.getElementById('flightshop-admin-products-view').style.display = 'block';
+                 document.getElementById('flightshop-admin-products-loader').style.display = 'none';
+                 document.getElementById('flightshop-admin-products-content').style.display = 'block';
                 })
                 .fail(function (err) {
-                    console.log('bugga ', err)
+                    if (err.status === 401) {
+                        window.localStorage.removeItem('token');
+                        window.sessionStorage.removeItem('token');
+                        document.getElementById('flightshop-admin-products-view').style.display = 'none';
+                        document.getElementById('flightshop-admin-login-view').style.display = 'block';
+                    }
                 })
     }
 
