@@ -67,9 +67,13 @@ namespace TheFlightShop.Auth
                     validationResult.Expired = expired;
                 }
             }
-            catch (SecurityTokenValidationException)
+            catch (Exception ex)
             {
-                // log exception, dont throw because this exception means validation failed (cheers to Microsoft for deliberately throwing exceptions)
+                if (ex is SecurityTokenValidationException || ex is ArgumentException)
+                {
+                    // log exception, dont throw because this exception means validation failed (cheers to Microsoft for deliberately throwing exceptions)
+                }
+                else throw;
             }
 
             return validationResult;

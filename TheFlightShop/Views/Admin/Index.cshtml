@@ -7,6 +7,9 @@
 <div style="margin-top: 2em;">
     <div id="flightshop-admin-login-view" style="display: none;">
         <h2>Log In</h2>
+        <div id="admin-login-fail" class="alert alert-danger" role="alert" style="display: none;">
+            Username and/or password not recognized. Please try again. 
+        </div>
 
         <form onsubmit="submitAdminLogin(); return false;">
             <div class="row">
@@ -19,8 +22,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-8 form-group">
-                    <input id="keep-admin-logged-in" type="checkbox" class="form-control" />
-                    <label for="keep-admin-logged-in">Stay signed in</label>
+                    <input id="keep-admin-logged-in" type="checkbox" class="form-check-input" />
+                    <label for="keep-admin-logged-in" class="form-check-label">Stay signed in</label>
                 </div>
                 <div class="col-sm-2">
                     <button type="submit" class="btn btn-success">Log In</button>
@@ -33,6 +36,7 @@
             <li x-subview="products" class="active"><a href="#" onclick="switchTab('products')">Products</a></li>
             <li x-subview="categories"><a href="#" onclick="switchTab('categories')">Categories</a></li>
         </ul>
+        <button id="admin-btn-logout" type="button" class="btn btn-warning" onclick="logOut()">Log Out</button>
         <div x-subview="products">
             <div id="flightshop-admin-products-loader" style="margin-top: 1em;">
                 <div class="loader"></div>
@@ -90,6 +94,13 @@
 </div>
 
 <style>
+    #admin-btn-logout {
+        float: right;
+        position: absolute;
+        top: 100px;
+        right: 10%;
+    }
+
     .loader {
       border: 16px solid #f3f3f3; /* Light grey */
       border-top: 16px solid #3498db; /* Blue */
@@ -105,6 +116,13 @@
     }
 </style>
 <script>
+    function logOut() {
+        window.localStorage.removeItem('token');
+        window.sessionStorage.removeItem('token');
+        document.getElementById('flightshop-admin-products-view').style.display = 'none';
+        document.getElementById('flightshop-admin-login-view').style.display = 'block';
+    }
+
     function saveAdminCategory() {
         var categoryName = document.getElementById('flightshop-admin-category-input').value;
         var categorySelect = document.getElementById('flightshop-admin-selected-category');
@@ -906,11 +924,17 @@
                     } else {
                         window.localStorage.setItem('token', response.token);
                     }
+
+                    document.getElementById('admin-login-fail').style.display = 'none';
                     getProducts(response.token);
                 })
-                .fail(function () {
-                    alert('hell nah!')
-                    // TODO: alert problem loggin in
+                .fail(function (err) {
+                    if (err.status === 401) {
+                        document.getElementById('admin-login-fail').style.display = 'block';
+                    }
+                    else {
+                        alert('Oops! There was an issue logging in. Please contact your IT administrator.');
+                    }
                 });
         }
 
