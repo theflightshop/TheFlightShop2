@@ -19,5 +19,8 @@ namespace TheFlightShop.DAL
 
         void CreateOrUpdateProduct(Product product);
         void DeleteProduct(Guid productId);
+        void CreateOrUpdateCategory(Category category);
+        void DeleteCategoryAndProducts(Guid categoryId);
+        void DeleteSubCategoryAndProducts(Guid subCategoryId);
     }
 }

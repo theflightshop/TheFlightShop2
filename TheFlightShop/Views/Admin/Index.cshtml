@@ -62,7 +62,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <button id="admin-btn-save-category" class="btn btn-success" onclick="saveAdminCategory()" disabled>&#x2714; save</button>
-                            <button class="btn btn-danger" onclick="cancelOrDeleteAdminCategory()" x-action="delete">&#128465; delete</button>
+                            <button id="admin-btn-del-category" class="btn btn-danger" onclick="cancelOrDeleteAdminCategory()" x-action="delete">&#128465; delete</button>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <button id="admin-btn-save-sub-category" class="btn btn-success" onclick="saveAdminSubCategory()" disabled>&#x2714; save</button>
-                            <button class="btn btn-danger" onclick="cancelOrDeleteAdminSubCategory()" x-action="delete">&#128465; delete</button>
+                            <button id="admin-btn-del-sub-category" class="btn btn-danger" onclick="cancelOrDeleteAdminSubCategory()" x-action="delete">&#128465; delete</button>
                         </div>
                     </div>
                 </div>
@@ -105,6 +105,151 @@
     }
 </style>
 <script>
+    function saveAdminCategory() {
+        var categoryName = document.getElementById('flightshop-admin-category-input').value;
+        var categorySelect = document.getElementById('flightshop-admin-selected-category');
+        var categoryId = categorySelect.childNodes[categorySelect.selectedIndex].value;
+        var category = {
+            Id: categoryId,
+            Name: categoryName,
+            CategoryId: null
+        };
+
+        $.ajax({
+            url: '@Url.Action("CreateOrUpdateCategory", "Admin")',
+            type: 'POST',
+            data: category,
+            headers: {
+                Authorization: 'bearer ' + getToken()
+            }
+        })
+            .done(function () {
+                _categories.push(category);
+                _subCategoriesByCategory[categoryId] = [];
+                var categoryOption = document.createElement('option');
+                categoryOption.value = categoryId;
+                categoryOption.innerHTML = categoryName;
+                var placeholderOption = categorySelect.firstChild;
+                categorySelect.insertBefore(categoryOption, placeholderOption);
+                categorySelect.removeChild(placeholderOption);
+
+                var btnDelete = document.getElementById('admin-btn-del-category');
+                btnDelete.setAttribute('x-action', 'delete');
+                btnDelete.innerHTML = '&#128465; delete';
+            })
+            .fail(function (err) {
+                checkAuth(err);
+            });
+    }
+
+    function saveAdminSubCategory() {        
+        var categorySelect = document.getElementById('flightshop-admin-selected-category');
+        var categoryId = categorySelect.childNodes[categorySelect.selectedIndex].value;
+
+        var subCategoryName = document.getElementById('flightshop-admin-sub-category-input').value;
+        var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
+        var subCategoryId = subCategorySelect.childNodes[subCategorySelect.selectedIndex].value;
+        var subCategory = {
+            Id: subCategoryId,
+            Name: subCategoryName,
+            CategoryId: categoryId
+        };
+
+        $.ajax({
+            url: '@Url.Action("CreateOrUpdateCategory", "Admin")',
+            type: 'POST',
+            data: subCategory,
+            headers: {
+                Authorization: 'bearer ' + getToken()
+            }
+        })
+            .done(function () {
+                _subCategories.push(subCategory);
+                _subCategoriesByCategory[categoryId].push(subCategory);
+                console.log('men ', _subCategories, _subCategoriesByCategory)
+                var categoryOption = document.createElement('option');
+                categoryOption.value = subCategoryId;
+                categoryOption.innerHTML = subCategoryName;
+                var placeholderOption = subCategorySelect.firstChild;
+                subCategorySelect.insertBefore(categoryOption, placeholderOption);
+                subCategorySelect.removeChild(placeholderOption);
+                document.getElementById('admin-btn-add-sub-category').style.display = 'inline-block';
+
+                var btnDelete = document.getElementById('admin-btn-del-sub-category');
+                btnDelete.setAttribute('x-action', 'delete');
+                btnDelete.innerHTML = '&#128465; delete';
+            })
+            .fail(function (err) {
+                checkAuth(err);
+            });
+    }
+
+    function cancelOrDeleteAdminCategory() {
+        var btnDelete = document.getElementById('admin-btn-del-category');
+        var categorySelect = document.getElementById('flightshop-admin-selected-category');
+        if (btnDelete.getAttribute('x-action') === 'cancel') {            
+            if (categorySelect.firstChild && categorySelect.firstChild.innerHTML === '-- New Category --') {
+                categorySelect.removeChild(categorySelect.firstChild);
+            }
+            selectedAdminCategoryChange();
+            btnDelete.setAttribute('x-action', 'delete');
+            btnDelete.innerHTML = '&#128465; delete';
+        }
+        else {
+            var selectedOption = categorySelect.childNodes[categorySelect.selectedIndex];
+            var categoryId = selectedOption.value;
+            
+            $.ajax({
+                url: '@Url.Action("Category", "Admin")' + '/' + categoryId,
+                type: 'DELETE',
+                headers: {
+                    Authorization: 'bearer ' + getToken()
+                }
+            })
+                .done(function () {
+                    categorySelect.removeChild(selectedOption);
+                    categorySelect.selectedIndex = 0;
+                    selectedAdminCategoryChange();
+                })
+                .fail(function (err) {
+                    checkAuth(err);
+                });
+        }
+    }
+
+    function cancelOrDeleteAdminSubCategory() {
+        var btnDelete = document.getElementById('admin-btn-del-sub-category');
+        var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
+        if (btnDelete.getAttribute('x-action') === 'cancel') {
+            if (subCategorySelect.firstChild && subCategorySelect.firstChild.innerHTML === '-- New Sub-category --') {
+                subCategorySelect.removeChild(subCategorySelect.firstChild);
+            }
+            selectedAdminSubCategoryChange();
+            btnDelete.setAttribute('x-action', 'delete');
+            btnDelete.innerHTML = '&#128465; delete';
+        }
+        else {
+            var selectedOption = subCategorySelect.childNodes[subCategorySelect.selectedIndex];
+            var subCategoryId = selectedOption.value;
+            
+            $.ajax({
+                url: '@Url.Action("SubCategory", "Admin")' + '/' + subCategoryId,
+                type: 'DELETE',
+                headers: {
+                    Authorization: 'bearer ' + getToken()
+                }
+            })
+                .done(function () {
+                    subCategorySelect.removeChild(selectedOption);
+                    subCategorySelect.selectedIndex = 0;
+                    selectedAdminSubCategoryChange();
+                })
+                .fail(function (err) {
+                    checkAuth(err);
+                });
+        }
+    }
+
     function getNoneOption(categoryType) {
         var noneOption = document.createElement('option');
         noneOption.setAttribute('disabled', 'true');
@@ -114,8 +259,9 @@
 
     function addNewCategoryOption(categoryType) {
         var categorySelect = document.getElementById('flightshop-admin-selected-' + categoryType);
-        if (!categorySelect.firstChild.value.startsWith('-- New')) {
+        if (!categorySelect.firstChild.innerHTML.startsWith('-- New')) {
             var noneOption = getNoneOption(categoryType);
+            noneOption.value = generateUuid();
             categorySelect.insertBefore(noneOption, categorySelect.firstChild);
         }
         categorySelect.selectedIndex = 0;
@@ -127,6 +273,7 @@
             var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
             clearChildren(subCategorySelect);
             var noneOption = getNoneOption('sub-category');
+            noneOption.value = generateUuid();
             subCategorySelect.appendChild(noneOption);
             subCategorySelect.selectedIndex = 0;
 
@@ -136,24 +283,51 @@
 
     function addNewCategory() {
         addNewCategoryOption('category');
+        var btnDelete = document.getElementById('admin-btn-del-category');
+        btnDelete.setAttribute('x-action', 'cancel');
+        btnDelete.innerHTML = '&#x26D4; cancel';
     }
 
     function addNewSubCategory() {
         addNewCategoryOption('sub-category');
+        var btnDelete = document.getElementById('admin-btn-del-sub-category');
+        btnDelete.setAttribute('x-action', 'cancel');
+        btnDelete.innerHTML = '&#x26D4; cancel';
     }
 
     function adminCategoryInputChange() {
-        document.getElementById('admin-btn-save-category').removeAttribute('disabled');
+        var saveButton = document.getElementById('admin-btn-save-category')
+        var btnDelete = document.getElementById('admin-btn-del-category');
+        btnDelete.setAttribute('x-action', 'cancel');
+        btnDelete.innerHTML = '&#x26D4; cancel';
+        if (document.getElementById('flightshop-admin-category-input').value) {
+            saveButton.removeAttribute('disabled');
+        }
+        else {
+            saveButton.setAttribute('disabled', 'true');
+        }
     }
 
     function adminSubCategoryInputChange() {
-        document.getElementById('admin-btn-save-sub-category').removeAttribute('disabled');
+        var saveButton = document.getElementById('admin-btn-save-sub-category')
+        var btnDelete = document.getElementById('admin-btn-del-sub-category');
+        btnDelete.setAttribute('x-action', 'cancel');
+        btnDelete.innerHTML = '&#x26D4; cancel';
+        if (document.getElementById('flightshop-admin-sub-category-input').value) {
+            saveButton.removeAttribute('disabled');
+        }
+        else {
+            saveButton.setAttribute('disabled', 'true');
+        }
     }
 
     function selectedAdminCategoryChange() {
         document.getElementById('admin-btn-save-category').setAttribute('disabled', 'true');
         document.getElementById('admin-btn-save-sub-category').setAttribute('disabled', 'true');
         document.getElementById('admin-btn-add-sub-category').style.display = 'block';
+        var btnDelete = document.getElementById('admin-btn-del-category');
+        btnDelete.setAttribute('x-action', 'delete');
+        btnDelete.innerHTML = '&#128465; delete';
 
         var categoryId = document.getElementById('flightshop-admin-selected-category').value;
         setSubCategories(categoryId);
@@ -164,11 +338,15 @@
         var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
         subCategorySelect.selectedIndex = 0;
         var firstSubCategoryName = subCategorySelect.firstChild.innerHTML;
+        
         document.getElementById('flightshop-admin-sub-category-input').value = firstSubCategoryName;
     }
 
     function selectedAdminSubCategoryChange() {
         document.getElementById('admin-btn-save-sub-category').setAttribute('disabled', 'true');
+        var btnDelete = document.getElementById('admin-btn-del-sub-category');
+        btnDelete.setAttribute('x-action', 'delete');
+        btnDelete.innerHTML = '&#128465; delete';
 
         var subCategoryId = document.getElementById('flightshop-admin-selected-sub-category').value;
         var subCategory = _subCategories.find(function (sub) { return sub.id === subCategoryId; });
@@ -628,12 +806,19 @@
         var subCategories = _subCategoriesByCategory[categoryId] || [];
         var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
         clearChildren(subCategorySelect);
-        subCategories.forEach(function (subCategory) {
-            var subCategoryOption = document.createElement('option');
-            subCategoryOption.value = subCategory.id;
-            subCategoryOption.innerHTML = subCategory.name;
-            subCategorySelect.appendChild(subCategoryOption);
-        });
+        if (subCategories && subCategories.length) {
+            subCategories.forEach(function (subCategory) {
+                var subCategoryOption = document.createElement('option');
+                subCategoryOption.value = subCategory.id;
+                subCategoryOption.innerHTML = subCategory.name;
+                subCategorySelect.appendChild(subCategoryOption);
+            });
+        }
+        else {
+            var noneOption = getNoneOption('sub-category');
+            noneOption.value = generateUuid();
+            subCategorySelect.appendChild(noneOption);
+        }
     }
 
     _subCategoriesByCategory = {};

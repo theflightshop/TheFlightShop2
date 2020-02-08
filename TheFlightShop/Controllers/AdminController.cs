@@ -37,12 +37,12 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
-        public IActionResult Encrypt(string value)
-        {
-            var hashAndSalt = _hash.GenerateHashAndSalt(value);
-            return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
-        }        
+        //[TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        //public IActionResult Encrypt(string value)
+        //{
+        //    var hashAndSalt = _hash.GenerateHashAndSalt(value);
+        //    return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
+        //}        
 
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         public IActionResult Products()
@@ -97,6 +97,39 @@ namespace TheFlightShop.Controllers
         public IActionResult DeleteProduct(Guid id)
         {
             _productReadDal.DeleteProduct(id);
+            return new OkResult();
+        }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        public IActionResult CreateOrUpdateCategory([FromForm]Guid Id, [FromForm]string Name, [FromForm]Guid? CategoryId)
+        {
+            var category = new Category
+            {
+                Id = Id,
+                Name = Name,
+                CategoryId = CategoryId,
+                IsActive = true
+            };
+            _productReadDal.CreateOrUpdateCategory(category);
+
+            return new OkResult();
+        }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        [HttpDelete]
+        [Route("~/Admin/Category/{id:Guid}")]
+        public IActionResult DeleteCategory(Guid id)
+        {
+            _productReadDal.DeleteCategoryAndProducts(id);
+            return new OkResult();
+        }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        [HttpDelete]
+        [Route("~/Admin/SubCategory/{id:Guid}")]
+        public IActionResult DeleteSubCategory(Guid id)
+        {
+            _productReadDal.DeleteSubCategoryAndProducts(id);
             return new OkResult();
         }
     }

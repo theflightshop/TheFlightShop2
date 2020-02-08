@@ -5978,5 +5978,49 @@ namespace TheFlightShop.DAL
         {
             return "/products/installation-examples/" + productCode + "/";
         }
+
+        public void CreateOrUpdateCategory(Category category)
+        {
+            var existingCategory = Categories.FirstOrDefault(ctgry => ctgry.Id == category.Id);
+            if (existingCategory == null)
+            {
+                Categories.Add(category);
+            }
+            else
+            {
+                existingCategory.CategoryId = category.CategoryId;
+                existingCategory.Name = category.Name;
+            }
+
+            SaveChanges();
+        }
+
+        public void DeleteCategoryAndProducts(Guid categoryId)
+        {            
+            var categoryToDelete = Categories.FirstOrDefault(category => category.Id == categoryId);
+            if (categoryToDelete != null)
+            {
+                var productsToDelete = Products.Where(product => product.CategoryId == categoryId);
+                var subCategoriesToDelete = Categories.Where(category => category.CategoryId == categoryId);
+                Products.RemoveRange(productsToDelete);
+                Categories.RemoveRange(subCategoriesToDelete);
+                Categories.Remove(categoryToDelete);
+
+                SaveChanges();
+            }
+        }
+
+        public void DeleteSubCategoryAndProducts(Guid subCategoryId)
+        {
+            var subCategory = Categories.FirstOrDefault(category => category.Id == subCategoryId);
+            if (subCategory != null)
+            {
+                var productsToDelete = Products.Where(product => product.SubCategoryId == subCategoryId);
+                Products.RemoveRange(productsToDelete);
+                Categories.Remove(subCategory);
+
+                SaveChanges();
+            }
+        }
     }
 }
