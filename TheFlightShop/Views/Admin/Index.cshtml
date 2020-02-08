@@ -324,7 +324,7 @@
     function selectedAdminCategoryChange() {
         document.getElementById('admin-btn-save-category').setAttribute('disabled', 'true');
         document.getElementById('admin-btn-save-sub-category').setAttribute('disabled', 'true');
-        document.getElementById('admin-btn-add-sub-category').style.display = 'block';
+        document.getElementById('admin-btn-add-sub-category').style.display = 'inline-block';
         var btnDelete = document.getElementById('admin-btn-del-category');
         btnDelete.setAttribute('x-action', 'delete');
         btnDelete.innerHTML = '&#128465; delete';
