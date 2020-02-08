@@ -128,9 +128,9 @@
         var categorySelect = document.getElementById('flightshop-admin-selected-category');
         var categoryId = categorySelect.childNodes[categorySelect.selectedIndex].value;
         var category = {
-            Id: categoryId,
-            Name: categoryName,
-            CategoryId: null
+            id: categoryId,
+            name: categoryName,
+            categoryId: null
         };
 
         $.ajax({
@@ -168,9 +168,9 @@
         var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
         var subCategoryId = subCategorySelect.childNodes[subCategorySelect.selectedIndex].value;
         var subCategory = {
-            Id: subCategoryId,
-            Name: subCategoryName,
-            CategoryId: categoryId
+            id: subCategoryId,
+            name: subCategoryName,
+            categoryId: categoryId
         };
 
         $.ajax({
@@ -216,22 +216,26 @@
         else {
             var selectedOption = categorySelect.childNodes[categorySelect.selectedIndex];
             var categoryId = selectedOption.value;
-            
-            $.ajax({
-                url: '@Url.Action("Category", "Admin")' + '/' + categoryId,
-                type: 'DELETE',
-                headers: {
-                    Authorization: 'bearer ' + getToken()
-                }
-            })
-                .done(function () {
-                    categorySelect.removeChild(selectedOption);
-                    categorySelect.selectedIndex = 0;
-                    selectedAdminCategoryChange();
+
+            if (confirm('WARNING: Deleting category "' + selectedOption.innerHTML +
+                '" will also delete all products in the category. Are you sure you want to ' +
+                'delete this category and all of its products? ')) {
+                $.ajax({
+                    url: '@Url.Action("Category", "Admin")' + '/' + categoryId,
+                    type: 'DELETE',
+                    headers: {
+                        Authorization: 'bearer ' + getToken()
+                    }
                 })
-                .fail(function (err) {
-                    checkAuth(err);
-                });
+                    .done(function () {
+                        categorySelect.removeChild(selectedOption);
+                        categorySelect.selectedIndex = 0;
+                        selectedAdminCategoryChange();
+                    })
+                    .fail(function (err) {
+                        checkAuth(err);
+                    });
+            }
         }
     }
 
@@ -249,22 +253,26 @@
         else {
             var selectedOption = subCategorySelect.childNodes[subCategorySelect.selectedIndex];
             var subCategoryId = selectedOption.value;
-            
-            $.ajax({
-                url: '@Url.Action("SubCategory", "Admin")' + '/' + subCategoryId,
-                type: 'DELETE',
-                headers: {
-                    Authorization: 'bearer ' + getToken()
-                }
-            })
-                .done(function () {
-                    subCategorySelect.removeChild(selectedOption);
-                    subCategorySelect.selectedIndex = 0;
-                    selectedAdminSubCategoryChange();
+
+            if (confirm('WARNING: Deleting sub-category "' + selectedOption.innerHTML +
+                '" will also delete all products in the sub-category. Are you sure you want to ' +
+                'delete this sub-category and all of its products? ')) {
+                $.ajax({
+                    url: '@Url.Action("SubCategory", "Admin")' + '/' + subCategoryId,
+                    type: 'DELETE',
+                    headers: {
+                        Authorization: 'bearer ' + getToken()
+                    }
                 })
-                .fail(function (err) {
-                    checkAuth(err);
-                });
+                    .done(function () {
+                        subCategorySelect.removeChild(selectedOption);
+                        subCategorySelect.selectedIndex = 0;
+                        selectedAdminSubCategoryChange();
+                    })
+                    .fail(function (err) {
+                        checkAuth(err);
+                    });
+            }
         }
     }
 
