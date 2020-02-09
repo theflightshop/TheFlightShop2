@@ -6022,5 +6022,32 @@ namespace TheFlightShop.DAL
                 SaveChanges();
             }
         }
+
+        public void CreateOrUpdatePart(Part part)
+        {
+            var existingPart = Parts.FirstOrDefault(prt => prt.Id == part.Id);
+            if (existingPart == null)
+            {
+                Parts.Add(part);
+            }
+            else
+            {
+                existingPart.PartNumber = part.PartNumber;
+                existingPart.Description = part.Description;
+                existingPart.Price = part.Price;
+            }
+
+            SaveChanges();
+        }
+
+        public void DeletePart(Guid id)
+        {
+            var part = Parts.FirstOrDefault(prt => prt.Id == id);
+            if (part != null)
+            {
+                Parts.Remove(part);
+                SaveChanges();
+            }
+        }
     }
 }

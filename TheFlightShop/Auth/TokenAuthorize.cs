@@ -36,7 +36,7 @@ namespace TheFlightShop.Auth
             else
             {
                 var splitToken = authorization.ToString().Split("bearer ");
-                var tokenValue = splitToken.Any() ? splitToken[1] : null;
+                var tokenValue = splitToken.Length == 2 ? splitToken[1] : null;
                 if (string.IsNullOrEmpty(tokenValue))
                 {
                     context.Result = new StatusCodeResult((int)HttpStatusCode.Unauthorized);

@@ -93,6 +93,14 @@
     </div>
 </div>
 
+<li id="add-part-form-template" style="display: none;" class="form-group">
+    <input class="admin-part-name-input form-control" type="text" placeholder="Part #" style="width: 20%; display: inline-block;" />&nbsp;
+    <input class="admin-part-desc-input form-control" type="text" placeholder="Description" style="width: 25%; display: inline-block;" />&nbsp;
+    <input class="admin-part-price-input form-control" type="number" placeholder="Price" style="width: 15%; display: inline-block;" />&nbsp;
+    <button type="button" class="admin-part-save-btn btn btn-secondary" onclick="savePart(this)">&#x2714; save</button>&nbsp;
+    <button type="button" class="admin-part-del-btn btn btn-secondary" onclick="deletePart(this)">&#128465; delete</button>
+</li>
+
 <style>
     #admin-btn-logout {
         float: right;
@@ -600,15 +608,15 @@
     function getNewProductItem(product) {
         var productItem = document.createElement('li');
         productItem.id = 'product-item-' + product.id;
-        var productItemContent = document.createElement('div');
+        var productItemContent = document.createElement('table');
         productItemContent.style.height = '225px';
         productItemContent.style.borderBottom = '1px solid #ccc';
         productItemContent.style.marginBottom = '20px';
         productItem.appendChild(productItemContent);
 
-        var row1 = document.createElement('div');
+        var row1 = document.createElement('tr');
         row1.style.height = '140px';
-        row1.classList.add('row');
+        //row1.classList.add('row');
         productItemContent.appendChild(row1);
 
         var imgCol = document.createElement('div');
@@ -724,9 +732,9 @@
         mostPopular.appendChild(mostPopularLabel);
         mostPopularCol.appendChild(mostPopular);
 
-        var row2 = document.createElement('div');
+        var row2 = document.createElement('tr');
         row2.style.height = '85px';
-        row2.classList.add('row');
+        //row2.classList.add('row');
         productItemContent.appendChild(row2);
 
         var longDescCol = document.createElement('div');
@@ -819,7 +827,135 @@
         };
         buttonsCol.appendChild(cancelOrDeleteButton);
 
+        //add-part-form-template
+        var row3 = document.createElement('tr');
+        //row3.classList.add('row');
+        productItemContent.appendChild(row3);
+
+        var addPartBtn = document.createElement('button');
+        addPartBtn.type = 'button';
+        addPartBtn.innerHTML = '+ Add part';
+        addPartBtn.classList.add('btn', 'btn-info');
+        addPartBtn.style.marginBottom = '0.5em';
+        addPartBtn.setAttribute('x-product-id', product.id);
+        row3.appendChild(addPartBtn);
+
+        var partList = document.createElement('ul');
+        partList.style.listStyleType = 'none';
+        partList.setAttribute('x-part-list-id', product.id);
+        row3.appendChild(partList);
+
+        addPartBtn.onclick = function (evt) {
+            var partId = generateUuid();
+            var partForm = document.getElementById('add-part-form-template').cloneNode(true);
+            partForm.style.display = 'inline-block';
+            partForm.id = 'part-form-' + partId;
+            var productId = evt.target.getAttribute('x-product-id');
+
+            var partNr = partForm.querySelector('.admin-part-name-input');
+            partNr.setAttribute('x-part-id', partId);
+            partNr.value = '';
+
+            var partDesc = partForm.querySelector('.admin-part-desc-input');
+            partDesc.setAttribute('x-part-id', partId);
+            partDesc.value = '';
+
+            var partPrice = partForm.querySelector('.admin-part-price-input');
+            partPrice.setAttribute('x-part-id', partId);
+            partPrice.value = '';
+
+            partForm.querySelector('.admin-part-save-btn').setAttribute('x-product-id', productId);
+            partForm.querySelector('.admin-part-save-btn').setAttribute('x-part-id', partId);
+            partForm.querySelector('.admin-part-del-btn').setAttribute('x-new-part', 'true');
+            partForm.querySelector('.admin-part-del-btn').setAttribute('x-part-id', partId);
+
+            var productId = evt.target.getAttribute('x-product-id');
+            var targetList = document.querySelector('[x-part-list-id="' + productId + '"]');
+            targetList.appendChild(partForm);
+        }
+
+        if (product.parts && product.parts.length) {
+            product.parts.forEach(part => {
+                var partForm = document.getElementById('add-part-form-template').cloneNode(true);
+                partForm.id = 'part-form-' + part.id;
+                partForm.style.display = 'inline-block';
+
+                var partNr = partForm.querySelector('.admin-part-name-input');
+                partNr.setAttribute('x-part-id', part.id);
+                partNr.value = part.partNumber;
+
+                var partDesc = partForm.querySelector('.admin-part-desc-input');
+                partDesc.setAttribute('x-part-id', part.Id);
+                partDesc.value = part.description;
+
+                var partPrice = partForm.querySelector('.admin-part-price-input');
+                partPrice.setAttribute('x-part-id', part.id);
+                partPrice.value = part.price;
+
+                partForm.querySelector('.admin-part-save-btn').setAttribute('x-product-id', product.id);
+                partForm.querySelector('.admin-part-save-btn').setAttribute('x-part-id', part.id);
+                partForm.querySelector('.admin-part-del-btn').setAttribute('x-part-id', part.id);
+                partList.appendChild(partForm);
+            });
+        }
+        
+
         return productItem;
+    }
+
+    function savePart(saveBtn) {        
+        var partId = saveBtn.getAttribute('x-part-id');
+        var productId = saveBtn.getAttribute('x-product-id');
+        var partNr = document.querySelector('.admin-part-name-input[x-part-id="' + partId + '"]').value;
+        var description = document.querySelector('.admin-part-desc-input[x-part-id="' + partId + '"]').value;
+        var price = document.querySelector('.admin-part-price-input[x-part-id="' + partId + '"]').value;
+
+        document.querySelector('.admin-part-del-btn[x-part-id="' + partId + '"]').removeAttribute('x-new-part');
+
+        var part = {
+            id: partId,
+            productId: productId,
+            partNumber: partNr,
+            description: description,
+            price: price
+        };
+        $.ajax({
+            url: '@Url.Action("CreateOrUpdatePart", "Admin")',
+            type: 'POST',
+            data: part,
+            headers: {
+                Authorization: 'bearer ' + getToken()
+            }
+        })
+            .fail(function (err) {
+                checkAuth(err);
+            });
+    }
+
+    function deletePart(deleteBtn) {
+        var partId = deleteBtn.getAttribute('x-part-id');
+        var partNr = document.querySelector('.admin-part-name-input[x-part-id="' + partId + '"]').value;        
+
+        if (deleteBtn.getAttribute('x-new-part')) {            
+            var partForm = document.getElementById('part-form-' + partId);
+            partForm.parentElement.removeChild(partForm);
+        }
+        else if (confirm('Are you sure you want to delete part with part number "' + partNr + '"?')) {
+            $.ajax({
+                url: '@Url.Action("Part", "Admin")/' + partId,
+                type: 'DELETE',
+                headers: {
+                    Authorization: 'bearer ' + getToken()
+                }
+            })
+                .done(function () {
+                    var partForm = document.getElementById('part-form-' + partId);
+                    partForm.parentElement.removeChild(partForm);
+                })
+                .fail(function (err) {
+                    checkAuth(err)
+                });
+        }        
     }
 
     function clearChildren(element) {

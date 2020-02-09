@@ -132,5 +132,31 @@ namespace TheFlightShop.Controllers
             _productReadDal.DeleteSubCategoryAndProducts(id);
             return new OkResult();
         }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        public IActionResult CreateOrUpdatePart([FromForm]Guid id, [FromForm]string partNumber, [FromForm]Guid productId, [FromForm]string description, [FromForm]decimal price)
+        {
+            var part = new Part
+            {
+                Id = id,
+                PartNumber = partNumber,
+                ProductId = productId,
+                Description = description,
+                Price = price,
+                IsActive = true
+            };
+            _productReadDal.CreateOrUpdatePart(part);
+
+            return new OkResult();
+        }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        [HttpDelete]
+        [Route("~/Admin/Part/{id:Guid}")]
+        public IActionResult DeletePart(Guid id)
+        {
+            _productReadDal.DeletePart(id);
+            return new OkResult();
+        }
     }
 }
