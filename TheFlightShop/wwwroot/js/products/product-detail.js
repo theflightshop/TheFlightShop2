@@ -111,18 +111,25 @@ function getQuantity(id) {
 }
 
 function requestAddToCart(productId, partNumber, description, quantity, price, imgSrc, isUserDefined) {
-    addItemToProductAddedDisplay(partNumber, quantity, price);
     var cartValue = window.sessionStorage.getItem('cartItems');
     var cart = cartValue ? JSON.parse(cartValue) : [];
-    cart.push({
-        ProductId: productId,
-        PartNumber: partNumber,
-        Description: description,
-        Quantity: quantity,
-        ImageSrc: imgSrc,
-        IsUserDefined: isUserDefined
-    });
+    var existingItem = cart.filter(function (item) { return item.PartNumber === partNumber; });
+    if (existingItem && existingItem.length) {
+        existingItem[0].Quantity += quantity || 0;
+    }
+    else {
+        cart.push({
+            ProductId: productId,
+            PartNumber: partNumber,
+            Description: description,
+            Quantity: quantity,
+            ImageSrc: imgSrc,
+            IsUserDefined: isUserDefined
+        });
+    }
+    
     window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
+    addItemToProductAddedDisplay(partNumber, quantity, price);
     showProductAddedDisplay(true);
 }
 
