@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using TheFlightShop.DAL.Schemas;
@@ -10,6 +11,9 @@ namespace TheFlightShop.DAL
 {
     public class ProductReadDAL : DbContext, IProductReadDAL
     {
+        private const string NON_WORD_CHARACTER_PATTERN = @"[\W]+";
+        private const string NUMBER_PATTERN = @"[\d]+";
+
         private class ProductCategoryMapping
         {
             public int ProductId { get; set; }
@@ -5839,7 +5843,9 @@ namespace TheFlightShop.DAL
             if (product != null)
             {
                 var category = Categories.First(c => c.Id == product.CategoryId);
-                var parts = Parts.Where(p => p.ProductId == product.Id && p.IsActive);
+                var parts = Parts.Where(p => p.ProductId == product.Id && p.IsActive).ToList();
+                parts.Sort((a, b) => CompareParts(a, b));
+
                 viewModel = new ProductDetailViewModel
                 {
                     ProductId = productId,
@@ -5861,6 +5867,44 @@ namespace TheFlightShop.DAL
                 };
             }
             return viewModel;
+        }
+
+        private int CompareParts(Part a, Part b)
+        {
+            var result = 0;
+            var tokensA = Regex.Split(a.PartNumber, NON_WORD_CHARACTER_PATTERN);
+            var tokensB = Regex.Split(b.PartNumber, NON_WORD_CHARACTER_PATTERN);
+
+            for (int i = 0; result == 0 && i < tokensA.Length && i < tokensB.Length; i++)
+            {
+                var numberMatchA = Regex.Match(tokensA[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
+                var numberMatchB = Regex.Match(tokensB[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
+                
+                if (numberMatchA.Success && numberMatchB.Success)
+                {
+                    var numberA = long.Parse(numberMatchA.Value);
+                    var numberB = long.Parse(numberMatchB.Value);
+                    result = numberA.CompareTo(numberB);
+                }
+                else
+                {
+                    result = tokensA[i].CompareTo(tokensB[i]);
+                }
+            }
+
+            if (result == 0)
+            {
+                if (tokensA.Length < tokensB.Length)
+                {
+                    result = -1;
+                } 
+                else if (tokensB.Length < tokensA.Length)
+                {
+                    result = 1;
+                }
+            }
+
+            return result;
         }
 
         public IEnumerable<SearchResult> SearchParts(string query)
