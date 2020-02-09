@@ -236,9 +236,7 @@
                     }
                 })
                     .done(function () {
-                        categorySelect.removeChild(selectedOption);
-                        categorySelect.selectedIndex = 0;
-                        selectedAdminCategoryChange();
+                        location.reload();
                     })
                     .fail(function (err) {
                         checkAuth(err);
@@ -273,9 +271,7 @@
                     }
                 })
                     .done(function () {
-                        subCategorySelect.removeChild(selectedOption);
-                        subCategorySelect.selectedIndex = 0;
-                        selectedAdminSubCategoryChange();
+                        location.reload();
                     })
                     .fail(function (err) {
                         checkAuth(err);
@@ -484,6 +480,7 @@
                     imageFilename: imageFilename,
                     drawingFilename: drawingFilename
                 };
+                document.getElementById('product-cancel-btn-' + productId).setAttribute('x-action', 'delete');
             }
             request.open("post", '@Url.Action("CreateOrUpdateProduct", "Admin")');
             request.setRequestHeader("Authorization", "bearer " + getToken());
@@ -554,9 +551,13 @@
                         headers: {
                             Authorization: 'bearer ' + getToken()
                         }
-                    }).fail(function (err) {
-                        checkAuth(err);
                     })
+                        .done(function () {
+                            location.reload();
+                        })
+                        .fail(function (err) {
+                            checkAuth(err);
+                        })
                 }
                 else if (!product) {
                     document.getElementById('flightshop-admin-products-list').removeChild(deletedItem);

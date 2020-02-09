@@ -6003,9 +6003,10 @@ namespace TheFlightShop.DAL
                 var productsToDelete = Products.Where(product => product.CategoryId == categoryId);
                 var subCategoriesToDelete = Categories.Where(category => category.CategoryId == categoryId);
                 Products.RemoveRange(productsToDelete);
+                SaveChanges();
                 Categories.RemoveRange(subCategoriesToDelete);
+                SaveChanges();
                 Categories.Remove(categoryToDelete);
-
                 SaveChanges();
             }
         }
@@ -6017,8 +6018,8 @@ namespace TheFlightShop.DAL
             {
                 var productsToDelete = Products.Where(product => product.SubCategoryId == subCategoryId);
                 Products.RemoveRange(productsToDelete);
+                SaveChanges();
                 Categories.Remove(subCategory);
-
                 SaveChanges();
             }
         }
