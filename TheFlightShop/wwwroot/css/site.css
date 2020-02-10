@@ -516,3 +516,31 @@ body {
         left: 19em !important;
     }
 }
+
+#flightshop-scroll-to-see-more {
+       position: relative;
+    bottom: 5vw;
+    left: 0;
+    margin-left: 5vw;
+    color: #efefef;
+    font-size: 2em;
+}
+    #flightshop-scroll-to-see-more span {
+        cursor: pointer;
+    }
+        #flightshop-scroll-to-see-more span:hover {
+            text-decoration: underline;
+        }
+
+        #flightshop-home-carousel .item {
+            height: 100% !important;
+        }
+    #flightshop-home-carousel {
+        height: 90vh;
+    }
+    #flightshop-home-carousel .carousel-inner {
+        height: 100%;
+    }
+        .flightshop-carousel-img {
+            height: 100% !important;
+        }
