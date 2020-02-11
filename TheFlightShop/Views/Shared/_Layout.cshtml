@@ -68,15 +68,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img class="flightshop-carousel-img" src="~/images/index/homepage.png" alt="Los Angeles" style="width:100%;">
+                        <img class="flightshop-carousel-img" src="~/images/index/homepage.png" alt="hangar" style="width:100%;">
                     </div>
 
                     <div class="item">
-                        <img class="flightshop-carousel-img" src="https://www.w3schools.com/bootstrap/chicago.jpg" alt="Chicago" style="width:100%;">
+                        <img class="flightshop-carousel-img" src="~/images/index/carousel-2-aerostar.png" alt="Piper Aerostar 601P" style="width:100%;">
                     </div>
 
                     <div class="item">
-                        <img class="flightshop-carousel-img" src="https://www.w3schools.com/bootstrap/newyork.jpg" alt="New york" style="width:100%;">
+                        <img class="flightshop-carousel-img" src="~/images/index/carousel-3-aerostar.jpg" alt="Piper Aerostar 600 ZS-PDN" style="width:100%;">
                     </div>
                 </div>
 
@@ -91,11 +91,11 @@
                 </a>
 
                 <div id="flightshop-scroll-to-see-more">
-                    <span id="flightshop-about-us-link" onclick="window.scrollBy(0, 300)">About Us</span>&nbsp;
+                    <span id="flightshop-about-us-link" onclick="scrollToInfo()">About Us</span>&nbsp;
                     <span class="glyphicon glyphicon-chevron-down"></span>
                 </div>
             </div>
-            
+
             <div id="flightshop-weather-info">
                 <div id="flightshop-weather-location" class="flightshop-weather-item">Brigham City Airport (KBMC)</div>
                 <div id="flightshop-weather-last-updated"></div>
@@ -105,8 +105,18 @@
                 <div id="flightshop-visibility-info" class="flightshop-weather-item flightshop-weather-info-item"></div>
             </div>
 
-            
-            @*<div id="flightshop-homepage-subtitle">40 years of experience with qualified technicians.</div>*@
+            <div id="flightshop-homepage-title">
+                The Flight Shop Inc.
+                <span id="flightshop-homepage-subtitle">40 years of experience with qualified technicians.</span>
+            </div>
+
+            <div id="flightshop-click-bond-home-link">
+                <a asp-area="" asp-controller="Home" asp-action="ClickBondAuthorizedDistributor">
+                    <img id="flightshop-click-bond-home-img" src="~/images/index/click-bond.png" alt="click bond" />
+                    <p id="flightshop-click-bond-link-subtitle"><em>Authorized Distributor</em></p>
+                    <p id="flightshop-click-bond-link-text">Learn More</p>
+                </a>
+            </div>
         </div>
 
         <nav id="flightshop-nav-wrapper">
@@ -597,6 +607,12 @@
                             document.getElementById('flightshop-quick-search-no-results').style.display = 'none';
                         }
                     })
+                }
+
+                function scrollToInfo() {
+                    $('html, body').animate({
+                        scrollTop: 500
+                    }, 500);
                 }
 
                 window.addEventListener('load', function () {

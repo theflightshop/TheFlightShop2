@@ -51,10 +51,6 @@ body {
         font-size: 5em !important;
     }
 
-    #flightshop-homepage-subtitle {
-        font-size: 1.5em !important;
-    }
-
     #flightshop-temperature-info {
         font-size: 2em !important;
     }
@@ -274,17 +270,15 @@ body {
     top: 75px;
     left: 20px;
     color: #333;
-    background-color: rgba(225,225,225,0.85);
+    background-color: rgba(225,225,225,0.6);
+    padding: 10px;
+    text-align: center;
     /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #aaa, 0 0 40px #aaa, 0 0 50px #aaa, 0 0 60px #aaa, 0 0 70px #aaa;*/
 }
 
 #flightshop-homepage-subtitle {
-    font-size: 2vw;
-    position: relative;
-    bottom: 2em;
-    float: right;
-    padding-right: 1em;
-    color: #ddd;
+    font-size: 35%;
+    display: block;
 }
 
 #flightshop-weather-info {
@@ -548,3 +542,33 @@ body {
         .flightshop-carousel-img {
             height: 100% !important;
         }
+
+#flightshop-click-bond-home-link {
+    position: absolute;
+    bottom: 3vw;
+    right: 10px;
+    padding: 10px;
+    background-color: rgba(50, 50, 50, 0.65);
+    text-align: center;
+}
+
+    #flightshop-click-bond-home-link a:hover {
+        text-decoration-color: #eee;
+    }
+
+#flightshop-click-bond-home-img {
+    width: 10vw;
+    max-width: 250px;
+    background-color: #efefef;
+    padding: 10px;
+}
+
+#flightshop-click-bond-link-text {
+    color: #efefef;
+    font-size: 1.5em;
+}
+
+#flightshop-click-bond-link-subtitle {
+    color: #ddd;
+    font-size: 1.25em;
+}
