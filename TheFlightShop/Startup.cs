@@ -41,7 +41,8 @@ namespace TheFlightShop
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var connectionString = GetConnectionString();
-            services.AddScoped<IProductReadDAL>(_ => new ProductReadDAL(connectionString));
+            services.AddScoped<IProductDAL>(_ => new ProductDAL(connectionString));
+            services.AddScoped<IOrderDAL>(_ => new OrderDAL(connectionString));
 
             var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");
             var username = Environment.GetEnvironmentVariable("EMAIL_FROM_USERNAME");

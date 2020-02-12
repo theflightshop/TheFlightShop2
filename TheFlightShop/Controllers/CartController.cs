@@ -5,16 +5,21 @@ using System.Threading.Tasks;
 using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.Email;
+using TheFlightShop.DAL;
 
 namespace TheFlightShop.Controllers
 {
     public class CartController : Controller
     {
         private IEmailClient _emailClient;
+        private IProductDAL _productDAL;
+        private IOrderDAL _orderDAL;
 
-        public CartController(IEmailClient emailClient)
+        public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal)
         {
             _emailClient = emailClient;
+            _productDAL = productDal;
+            _orderDAL = orderDal;
         }
 
         public IActionResult Index()
@@ -29,7 +34,11 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> SubmitOrder(ClientOrder order)
         {
-            var succeeded = await _emailClient.SendOrderConfirmation(order);
+            var succeeded = _orderDAL.SaveNewOrder(order, _productDAL.GetParts());
+            if (succeeded)
+            {
+                succeeded = await _emailClient.SendOrderConfirmation(order);
+            }            
             return succeeded ? new OkResult() : new StatusCodeResult(400);
         }
     }

@@ -5,7 +5,7 @@ using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
 {
-    public interface IProductReadDAL
+    public interface IProductDAL
     {
         IEnumerable<Category> GetCategories();
         IEnumerable<Category> GetSubCategories();
@@ -16,6 +16,7 @@ namespace TheFlightShop.DAL
         ProductCategoryViewModel GetProducts(Guid categoryId);
         ProductDetailViewModel GetProductView(Guid productId);
         IEnumerable<SearchResult> SearchParts(string query);
+        IEnumerable<Part> GetParts();
 
         void CreateOrUpdateProduct(Product product);
         void DeleteProduct(Guid productId);

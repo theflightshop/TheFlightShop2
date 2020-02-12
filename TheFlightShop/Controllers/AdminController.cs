@@ -22,10 +22,10 @@ namespace TheFlightShop.Controllers
     {
         private readonly IHash _hash;
         
-        private readonly IProductReadDAL _productReadDal;
+        private readonly IProductDAL _productReadDal;
         private readonly IFileManager _fileManager;
 
-        public AdminController(IHash hash, IProductReadDAL productReadDal, IFileManager fileManager)
+        public AdminController(IHash hash, IProductDAL productReadDal, IFileManager fileManager)
         {
             _hash = hash;
             _productReadDal = productReadDal;
@@ -61,7 +61,7 @@ namespace TheFlightShop.Controllers
             var product = new Product
             {
                 Id = id,
-                Code = code,
+                Code = code?.Trim(),
                 ShortDescription = shortDescription,
                 LongDescription = longDescription,
                 CategoryId = categoryId,
@@ -106,7 +106,7 @@ namespace TheFlightShop.Controllers
             var category = new Category
             {
                 Id = Id,
-                Name = Name,
+                Name = Name?.Trim(),
                 CategoryId = CategoryId,
                 IsActive = true
             };
@@ -139,7 +139,7 @@ namespace TheFlightShop.Controllers
             var part = new Part
             {
                 Id = id,
-                PartNumber = partNumber,
+                PartNumber = partNumber?.Trim(),
                 ProductId = productId,
                 Description = description,
                 Price = price,

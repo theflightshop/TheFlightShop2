@@ -9,7 +9,7 @@ using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
 {
-    public class ProductReadDAL : DbContext, IProductReadDAL
+    public class ProductDAL : DbContext, IProductDAL
     {
         private const string NON_WORD_CHARACTER_PATTERN = @"[\W]+";
         private const string NUMBER_PATTERN = @"[\d]+";
@@ -39,7 +39,7 @@ namespace TheFlightShop.DAL
 
         private readonly string _connectionString;
 
-        public ProductReadDAL(string connectionString)
+        public ProductDAL(string connectionString)
         {
             _connectionString = connectionString;
         }
@@ -47,17 +47,7 @@ namespace TheFlightShop.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseMySql(_connectionString);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-           // modelBuilder.Entity<Product>().Ignore(product => product.DrawingUrl);
-            //modelBuilder.Entity<Product>().Property(p => p.IsActive).HasConversion<short>();
-            //modelBuilder.Entity<Product>().Property(p => p.MostPopular).HasConversion<short>();
-            //modelBuilder.Entity<Part>().Property(p => p.IsActive).HasConversion<short>();
-            //modelBuilder.Entity<Category>().Property(p => p.IsActive).HasConversion<short>();
-            base.OnModelCreating(modelBuilder);
-        }
+        }        
 
         public void InitializeFrom()
         {
@@ -5800,6 +5790,11 @@ namespace TheFlightShop.DAL
             }
 
             return Products;
+        }
+
+        public IEnumerable<Part> GetParts()
+        {
+            return Parts;
         }
 
         public ProductsViewModel GetProductCategories()

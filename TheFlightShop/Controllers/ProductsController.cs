@@ -8,9 +8,9 @@ namespace TheFlightShop.Controllers
 {
     public class ProductsController : Controller
     {
-        private IProductReadDAL _productReadDAL;
+        private IProductDAL _productReadDAL;
 
-        public ProductsController(IProductReadDAL productReadDAL)
+        public ProductsController(IProductDAL productReadDAL)
         {
             _productReadDAL = productReadDAL;
         }

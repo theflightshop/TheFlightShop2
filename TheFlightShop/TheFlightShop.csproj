@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -321,6 +321,11 @@
     <None Remove="Auth\Token.cs" />
     <None Remove="Auth\TokenAuthorize.cs" />
     <None Remove="Auth\TokenValidationResult.cs" />
+    <None Remove="DAL\IOrderDAL.cs" />
+    <None Remove="DAL\OrderDAL.cs" />
+    <None Remove="DAL\Schemas\Contact.cs" />
+    <None Remove="DAL\Schemas\Order.cs" />
+    <None Remove="DAL\Schemas\OrderLine.cs" />
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="IO\FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />
@@ -330,6 +335,11 @@
     <None Remove="Models\ProductFormData.cs" />
     <None Remove="Models\SearchResult.cs" />
     <None Remove="Models\SearchResultView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="DAL\IOrderDAL.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
