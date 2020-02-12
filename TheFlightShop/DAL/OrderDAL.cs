@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TheFlightShop.DAL.Schemas;
 using TheFlightShop.Models;
@@ -83,16 +84,18 @@ namespace TheFlightShop.DAL
 
         private Guid GetOrSaveContact(ClientOrder clientOrder)
         {
+            var formattedPhone = Regex.Replace(clientOrder.Phone?.Trim() ?? "", @"\D", "");
             var contactQuery = new Contact
             {
-                FirstName = clientOrder.FirstName.ToLower().Trim(),
-                LastName = clientOrder.LastName.ToLower().Trim(),
-                Email = clientOrder.Email.ToLower().Trim(),
-                Address1 = clientOrder.Address1.Trim(),
-                Address2 = clientOrder.Address2.Trim(),
-                City = clientOrder.City.ToLower().Trim(),
-                State = clientOrder.State.ToUpper().Trim(),
-                Zip = clientOrder.Zip.ToLower().Trim()
+                FirstName = clientOrder.FirstName?.ToLower().Trim(),
+                LastName = clientOrder.LastName?.ToLower().Trim(),
+                Email = clientOrder.Email?.ToLower().Trim(),
+                Phone = formattedPhone,
+                Address1 = clientOrder.Address1?.Trim(),
+                Address2 = clientOrder.Address2?.Trim(),
+                City = clientOrder.City?.ToLower().Trim(),
+                State = clientOrder.State?.ToUpper().Trim(),
+                Zip = clientOrder.Zip?.ToLower().Trim()
             };
 
             var contactSaved = GetExistingContact(contactQuery);
@@ -115,8 +118,15 @@ namespace TheFlightShop.DAL
                 contact.FirstName == contactQuery.FirstName &&
                 contact.LastName == contactQuery.LastName &&
                 contact.Email == contactQuery.Email &&
-                contact.Address1.ToLower() == contactQuery.Address1.ToLower() &&
-                contact.Address2.ToLower() == contactQuery.Address2.ToLower() &&
+                contact.Phone == contactQuery.Phone &&
+                (
+                    contact.Address1 == null || contactQuery.Address1 == null ||
+                    contact.Address1.ToLower() == contactQuery.Address1.ToLower()
+                ) &&
+                (
+                    contact.Address2 == null || contactQuery.Address2 == null || 
+                    contact.Address2.ToLower() == contactQuery.Address2.ToLower()
+                ) &&
                 contact.City == contactQuery.City &&
                 contact.State == contactQuery.State &&
                 contact.Zip == contactQuery.Zip);
