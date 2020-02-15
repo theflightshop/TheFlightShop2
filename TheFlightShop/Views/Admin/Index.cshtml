@@ -61,7 +61,12 @@
                         <button class="btn btn-info" onclick="addNewCategory()">+ Add Category</button>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-7">
+                        <div class="form-group col-md-4">
+                            <label for="admin-category-img">Category image</label>
+                            <img id="admin-category-img-preview" style="max-width: 100px;" alt="(no image selected)" />
+                            <input id="admin-category-img" type="file" class="form-control-file" onchange="adminCategoryImageChange()">
+                        </div>
+                        <div class="form-group col-md-4">
                             <input id="flightshop-admin-category-input" type="text" class="form-control" placeholder="Category name" oninput="adminCategoryInputChange()" />
                         </div>
                         <div class="form-group col-md-4">
@@ -131,41 +136,59 @@
         document.getElementById('flightshop-admin-login-view').style.display = 'block';
     }
 
+    function adminCategoryImageChange() {
+        var file = document.getElementById('admin-category-img').files[0];
+        document.getElementById('admin-category-img-preview').src = window.URL.createObjectURL(file);
+    }
+
     function saveAdminCategory() {
         var categoryName = document.getElementById('flightshop-admin-category-input').value;
         var categorySelect = document.getElementById('flightshop-admin-selected-category');
         var categoryId = categorySelect.childNodes[categorySelect.selectedIndex].value;
-        var category = {
-            id: categoryId,
-            name: categoryName,
-            categoryId: null
-        };
+        var categoryImg = document.getElementById('admin-category-img');
+        var imgFiles = categoryImg.files;
 
-        $.ajax({
-            url: '@Url.Action("CreateOrUpdateCategory", "Admin")',
-            type: 'POST',
-            data: category,
-            headers: {
-                Authorization: 'bearer ' + getToken()
+        var formData = new FormData();
+        formData.append('id', categoryId);
+        formData.append('name', categoryName);
+        if (imgFiles && imgFiles.length) {
+            formData.append('image', imgFiles[0]);
+        }
+
+        var request = new XMLHttpRequest();
+        var imageFilename = categoryImg.value ? categoryImg.value.replace(/^.*?([^\\\/]*)$/, '$1') : (_categoriesById[categoryId] ? _categoriesById[categoryId].imageFilename : null);
+        request.open("post", '@Url.Action("CreateOrUpdateCategory", "Admin")');
+        request.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    var category = {
+                        id: categoryId,
+                        name: categoryName,
+                        categoryId: null,
+                        imageFilename: imageFilename
+                    };
+                    _categoriesById[categoryId] = category;
+                    _categories.push(category);
+                    _subCategoriesByCategory[categoryId] = [];
+                    var categoryOption = document.createElement('option');
+                    categoryOption.value = categoryId;
+                    categoryOption.innerHTML = categoryName;
+                    var placeholderOption = categorySelect.firstChild;
+                    categorySelect.insertBefore(categoryOption, placeholderOption);
+                    categorySelect.removeChild(placeholderOption);
+
+                    var btnDelete = document.getElementById('admin-btn-del-category');
+                    btnDelete.setAttribute('x-action', 'delete');
+                    btnDelete.innerHTML = '&#128465; delete';
+                }
+                else {
+                    checkAuth(this.response);
+                }
             }
-        })
-            .done(function () {
-                _categories.push(category);
-                _subCategoriesByCategory[categoryId] = [];
-                var categoryOption = document.createElement('option');
-                categoryOption.value = categoryId;
-                categoryOption.innerHTML = categoryName;
-                var placeholderOption = categorySelect.firstChild;
-                categorySelect.insertBefore(categoryOption, placeholderOption);
-                categorySelect.removeChild(placeholderOption);
-
-                var btnDelete = document.getElementById('admin-btn-del-category');
-                btnDelete.setAttribute('x-action', 'delete');
-                btnDelete.innerHTML = '&#128465; delete';
-            })
-            .fail(function (err) {
-                checkAuth(err);
-            });
+        }
+        
+        request.setRequestHeader('Authorization', 'bearer ' + getToken());
+        request.send(formData);
     }
 
     function saveAdminSubCategory() {        
@@ -182,7 +205,7 @@
         };
 
         $.ajax({
-            url: '@Url.Action("CreateOrUpdateCategory", "Admin")',
+            url: '@Url.Action("CreateOrUpdateSubCategory", "Admin")',
             type: 'POST',
             data: subCategory,
             headers: {
@@ -289,7 +312,7 @@
 
     function addNewCategoryOption(categoryType) {
         var categorySelect = document.getElementById('flightshop-admin-selected-' + categoryType);
-        if (!categorySelect.firstChild.innerHTML.startsWith('-- New')) {
+        if (!categorySelect.firstChild.innerHTML || !categorySelect.firstChild.innerHTML.startsWith('-- New')) {
             var noneOption = getNoneOption(categoryType);
             noneOption.value = generateUuid();
             categorySelect.insertBefore(noneOption, categorySelect.firstChild);
@@ -315,7 +338,8 @@
         addNewCategoryOption('category');
         var btnDelete = document.getElementById('admin-btn-del-category');
         btnDelete.setAttribute('x-action', 'cancel');
-        btnDelete.innerHTML = '&#x26D4; cancel';
+        btnDelete.innerHTML = '&#x26D4; cancel';        
+        document.getElementById('admin-category-img-preview').src = '';
     }
 
     function addNewSubCategory() {
@@ -364,6 +388,7 @@
 
         var category = _categoriesById[categoryId];
         document.getElementById('flightshop-admin-category-input').value = category.name;
+        document.getElementById('admin-category-img-preview').src = '/products/category-images/' + category.imageFilename;
 
         var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
         subCategorySelect.selectedIndex = 0;

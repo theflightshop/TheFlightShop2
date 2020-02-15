@@ -29,6 +29,7 @@ CREATE TABLE `categories` (
   `IsActive` bit(1) NOT NULL,
   `CategoryId` char(38) DEFAULT NULL,
   `Name` varchar(255) DEFAULT NULL,
+  `ImageFilename` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ;
 

@@ -7,5 +7,6 @@ namespace TheFlightShop.DAL.Schemas
         public bool IsActive { get; set; }
         public Guid? CategoryId { get; set; }
         public string Name { get; set; }
+        public string ImageFilename { get; set; }
     }
 }

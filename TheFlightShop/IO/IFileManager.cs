@@ -10,5 +10,6 @@ namespace TheFlightShop.IO
     {
         Task OverwriteProductImage(IFormFile image);
         Task OverwriteProductDrawing(IFormFile drawing);
+        Task OverwriteCategoryImage(IFormFile image);
     }
 }

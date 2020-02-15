@@ -101,13 +101,35 @@ namespace TheFlightShop.Controllers
         }
 
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
-        public IActionResult CreateOrUpdateCategory([FromForm]Guid Id, [FromForm]string Name, [FromForm]Guid? CategoryId)
+        public async Task<IActionResult> CreateOrUpdateCategory([FromForm]Guid id, [FromForm]string name, [FromForm]IFormFile image)
+        {
+            var category = new Category
+            {
+                Id = id,
+                Name = name,
+                CategoryId = null,
+                ImageFilename = image?.FileName,
+                IsActive = true
+            };
+            _productReadDal.CreateOrUpdateCategory(category);
+
+            if (image != null && image.Length > 0)
+            {
+                await _fileManager.OverwriteCategoryImage(image);
+            }
+
+            return new OkResult();
+        }
+
+        [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
+        public IActionResult CreateOrUpdateSubCategory([FromForm]Guid Id, [FromForm]string Name, [FromForm]Guid CategoryId)
         {
             var category = new Category
             {
                 Id = Id,
                 Name = Name?.Trim(),
                 CategoryId = CategoryId,
+                ImageFilename = null,
                 IsActive = true
             };
             _productReadDal.CreateOrUpdateCategory(category);

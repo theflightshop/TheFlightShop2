@@ -26,11 +26,6 @@
             }
             columnNumber++;
 
-            var imageCategoryFilename = Regex.Replace(category.Name
-                .ToLower()
-                .Replace("&", "and")
-                .Replace(" ", "-"), @"[^\w\s\d\-]", "") + ".png";
-
         <td class="flightshop-product-cell">
             <a class="flightshop-product-category-link"
                asp-controller="Products"
@@ -38,7 +33,7 @@
                asp-route-id="@category.Id">
 
                 <img class="flightshop-category-image"
-                     src="~/products/category-images/@imageCategoryFilename"
+                     src="~/products/category-images/@category.ImageFilename"
                      alt="@category.Name" />
                 <h5 class="flightshop-category-title">@category.Name</h5>
             </a>
