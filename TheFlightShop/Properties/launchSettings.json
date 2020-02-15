@@ -12,7 +12,18 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ADMIN_HASH": "JYhatrQfbX+27JsRBKe90R3tCBoW3OP47KyRLe4V+Og=",
+        "ADMIN_SALT": "j2PLhDa09zxv/1RB1io86w==",
+        "AUTH_ISSUER": "The Flight Shop, Inc.",
+        "AUTH_AUDIENCE": "https://theflightshop.com",
+        "ADMIN_USERNAME": "lizzo",
+        "EMAIL_API_KEY": "key-b4b8bf015f50edc4d2d15df19df68d90",
+        "EMAIL_ADMIN_ADDRESS": "thatoneguynick@mailinator.com",
+        "EMAIL_FROM_USERNAME": "mailgun",
+        "EMAIL_DOMAIN": "sandbox57f57bb9bbe84da588461d609b8c5985.mailgun.org",
+        "EMAIL_FROM_NAME": "The Nick",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AUTH_KEY": "icNaO66riAT15MhfSzCqUx2w6NEtIK"
       }
     },
     "TheFlightShop": {
