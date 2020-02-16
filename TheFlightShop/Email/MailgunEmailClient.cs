@@ -104,7 +104,7 @@ namespace TheFlightShop.Email
 <div style=""font-family: 'sans-serif';"">
 <span style=""font-size: 28px; font-weight: bold;"">Thank you for your order!</span><br/>
 <br/>
-<span>We will be in touch soon to verify your items and process your payment.</span><br/>
+<span>We will be in touch soon to review your order with you and receive your payment information. Additional fees may apply when the order is processed, including taxes and freight charges.</span><br/>
 {orderInfo}
 <br/>
 <span>Sincerely,</span><br/><span>The Flight Shop</span><br/><br/>
