@@ -20,7 +20,7 @@ namespace TheFlightShop.Weather
         {
             Barometer = new WeatherMeasurement
             {
-                Value = currentWeather.Pressure.ToString(), // todo
+                Value = currentWeather.Pressure.ToString(), 
                 Units = "mb"
             };
             Temperature = new WeatherMeasurement

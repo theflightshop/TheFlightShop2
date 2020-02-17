@@ -32,8 +32,7 @@ namespace TheFlightShop.Weather
                 {
                     if (_currentWeather == null || _currentWeather.Expired)
                     {
-                        var weather = FetchWeather();
-                        _currentWeather = weather;
+                        _currentWeather = FetchWeather();
                     }
                 }
                 return _currentWeather;
