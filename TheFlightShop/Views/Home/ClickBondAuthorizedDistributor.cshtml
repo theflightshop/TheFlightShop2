@@ -15,13 +15,58 @@
             </p>
             <p>
                 Under Click Bond Products you will find a condensed variety of the more than 3,000 Click Bond products, including nut plates, dome nut plates, cable tie mounts, grommets, bushings, studs, standoffs, Click patches, etc., available in various sizes, materials and levels of specification. Some metric also available. We require no minimum orders and accept extended purchase orders.
-            </p>
+            </p>            
+            <img src="~/images/iso-logo.png" alt="ANAB accredited ISO/IEC 17021" id="iso-logo-clickbond-authorized" />            
             <img id="flightshop-click-bond-parts-image" src="~/images/click-bond/click-bond-parts.jpg" alt="click bond parts" />
 
             <p id="flightshop-click-bond-disclaimer">CLICK BOND® is a registered trademark of Click Bond, Inc. The Flight Shop, Inc. a factory-authorized distributor since 1997.</p>
         </div>
     </div>
     <div class="col-lg-6 auth-distrib-col">
-        <partial name="~/Views/Shared/_Products.cshtml" />
+        @*<partial name="~/Views/Shared/_Products.cshtml" />*@
+        @* pasted shared view in with different css class... *@
+        <div>
+            <h2>Products</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        ClickBond
+                    </li>
+                </ol>
+            </nav>
+            <table>
+                <tr class="">
+                    @{ var itemNumber = 1; var columnNumber = 1; }
+                    @foreach (var category in Model.Categories)
+                    {
+                        var itemClass = itemNumber > 4 ? "flightshop-product-category-margin" : "";
+                        itemNumber++;
+
+                        if (columnNumber > 4)
+                        {
+                            columnNumber = 1;
+                            @Html.Raw("</tr><tr>")
+                        }
+                        columnNumber++;
+
+                        <td class="flightshop-product-cell">
+                            <a class="flightshop-product-category-link"
+                               asp-controller="Products"
+                               asp-action="Category"
+                               asp-route-id="@category.Id">
+
+                                <img class="flightshop-category-image-small"
+                                     src="~/products/category-images/@category.ImageFilename"
+                                     alt="@category.Name" />
+                                <h5 class="flightshop-category-title">@category.Name</h5>
+                            </a>
+                        </td>
+                    }
+                </tr>
+            </table>
+        </div>
     </div>
 </div>

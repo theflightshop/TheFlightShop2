@@ -6,8 +6,8 @@
     }
 
 .flightshop-product-image {
-    max-width: 150px;
-    height: 100px;
+    max-width: 18vw;
+    height: 10vh;
     width: auto;
     margin: 0 auto;
     display: block;
@@ -30,13 +30,7 @@
 }
 
 .flightshop-product-link h5 {
-    font-size: 1.25vw;
-}
-
-@media screen and (max-width: 1150px) {
-    .flightshop-product-link h5 {
-        font-size: 1em;
-    }
+    font-size: 1.1em;
 }
 
 #flightshop-sub-category-select {
