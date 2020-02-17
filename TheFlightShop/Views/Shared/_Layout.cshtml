@@ -400,23 +400,9 @@
     // call web server
     function fetchWeatherInfo(callback) {
         $.ajax({
-            url: 'https://avwx.rest/api/metar/KBMC?options=&format=json&onfail=cache',
+            url: '@Url.Action("CurrentWeatherInfo", "Home")',
             type: 'GET',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'bearer vgBeTkyGtNest-eubNHeYFxpMw6Su7ht1dM9r-PvrcY');
-            },
             success: function(weatherInfo) {
-                var fifteenMinutesFromNow = new Date().addMinutes(15);
-                weatherInfo = {
-                    expires: fifteenMinutesFromNow,
-                    altimeter: weatherInfo.altimeter,
-                    temperature: weatherInfo.temperature,
-                    wind_speed: weatherInfo.wind_speed,
-                    wind_direction: weatherInfo.wind_direction,
-                    visibility: weatherInfo.visibility,
-                    units: weatherInfo.units
-                };
-                window.localStorage.setItem('currentWeatherInfo', JSON.stringify(weatherInfo));
                 callback(weatherInfo);
             },
             error: function(err) {
@@ -425,35 +411,18 @@
         })
     }
 
-    // try to get localStorage else fetch
-    function retrieveWeatherInfo(callback) {
-        var weatherInfo = window.localStorage.getItem('currentWeatherInfo');
-        if (weatherInfo) {
-            weatherInfo = JSON.parse(weatherInfo);
-            if (new Date(weatherInfo.expires) > new Date()) {
-                callback(weatherInfo);
-            }
-            else {
-                fetchWeatherInfo(callback);
-            }
-
-        }
-        else {
-            fetchWeatherInfo(callback);
-        }
-    }
-
     // update UI w/ current weather info
     function getCurrentWeatherInfo() {
-        retrieveWeatherInfo(function (data) {
-            var altimeterValue = data.altimeter.value;
+        fetchWeatherInfo(function (data) {
+            var barometerValue = data.barometer.value;
+            var barometerUnits = data.barometer.units;
             var temperature = data.temperature.value;
-            var temperatureUnits = data.units.temperature;
-            var windSpeed = data.wind_speed.value;
-            var windSpeedUnits = data.units.wind_speed;
-            var windDirection = data.wind_direction.value;
+            var temperatureUnits = data.temperature.units;
+            var windSpeed = data.windSpeed.value;
+            var windSpeedUnits = data.windSpeed.units;
+            var windDirection = data.windDirection.value;
             var visibility = data.visibility.value;
-            var visiblityUnits = data.units.visibility;
+            var visiblityUnits = data.visibility.units;
 
             var directionCode = null;
             for (var i = 0; i < WIND_DIRECTIONS.length && directionCode === null; i++) {
@@ -466,8 +435,7 @@
                 }
             }
 
-            var lastUpdated = new Date(data.expires);
-            lastUpdated.addMinutes(-15);
+            var lastUpdated = new Date(data.asOf);
             var ampm = "AM";
             var hours = lastUpdated.getHours();
             if (hours >= 12) {
@@ -484,7 +452,7 @@
             document.getElementById('flightshop-weather-last-updated').innerHTML = 'Last updated ' + hours + ':' + minutes + ' ' + ampm
 
             document.getElementById('flightshop-temperature-info').innerHTML = temperature + '&deg; ' + temperatureUnits;
-            document.getElementById('flightshop-altimeter-info').innerHTML = 'altimeter: ' + altimeterValue;
+            document.getElementById('flightshop-altimeter-info').innerHTML = 'barometer: ' + barometerValue + ' ' + barometerUnits;
             document.getElementById('flightshop-wind-info').innerHTML = 'wind: ' + windSpeed + ' ' + windSpeedUnits + ', ' + windDirection + '&deg; ' + directionCode;
             document.getElementById('flightshop-visibility-info').innerHTML =  'visibility: ' + visibility + ' ' + visiblityUnits;
         });

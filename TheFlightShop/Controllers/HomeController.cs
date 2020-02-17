@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.DAL;
 using TheFlightShop.Models;
+using TheFlightShop.Weather;
 
 namespace TheFlightShop.Controllers
 {
     public class HomeController : Controller
     {
-        private IProductDAL _productReadDAL;
+        private readonly IProductDAL _productReadDAL;
+        private readonly IWeatherClient _weatherClient;
 
-        public HomeController(IProductDAL productReadDAL)
+        public HomeController(IProductDAL productReadDAL, IWeatherClient weatherClient)
         {
             _productReadDAL = productReadDAL;
+            _weatherClient = weatherClient;
         }
 
         public IActionResult SetItUp()
@@ -134,6 +137,12 @@ namespace TheFlightShop.Controllers
         }
 
         #endregion
+
+        public async Task<IActionResult> CurrentWeatherInfo()
+        {
+            var weather = await _weatherClient.GetWeather();
+            return weather == null ? (IActionResult)new StatusCodeResult(500) : new JsonResult(weather);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

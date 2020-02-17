@@ -15,6 +15,7 @@ using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
 using TheFlightShop.IO;
+using TheFlightShop.Weather;
 
 namespace TheFlightShop
 {
@@ -49,16 +50,21 @@ namespace TheFlightShop
             var from = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? "The Flight Shop";
             var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
             var adminAddress = Environment.GetEnvironmentVariable("EMAIL_ADMIN_ADDRESS");
-            services.AddSingleton<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress));
+            services.AddScoped<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress));
 
-            services.AddSingleton<IHash>(_ => new Hash());
+            services.AddScoped<IHash>(_ => new Hash());
 
             var tokenIssuer = Environment.GetEnvironmentVariable("AUTH_ISSUER");
             var tokenAudience = Environment.GetEnvironmentVariable("AUTH_AUDIENCE");
             var signingKey = Environment.GetEnvironmentVariable("AUTH_KEY");
-            services.AddSingleton<IToken>(_ => new Token(tokenIssuer, tokenAudience, signingKey));
+            services.AddScoped<IToken>(_ => new Token(tokenIssuer, tokenAudience, signingKey));
 
-            services.AddSingleton<IFileManager>(_ => new FileManager());
+            services.AddScoped<IFileManager>(_ => new FileManager());
+
+            var apiKey = Environment.GetEnvironmentVariable("WEATHER_API_KEY");
+            var latitude = Environment.GetEnvironmentVariable("WEATHER_LATITUDE");
+            var longitude = Environment.GetEnvironmentVariable("WEATHER_LONGITUDE");
+            services.AddSingleton<IWeatherClient>(_ => new DarkSkyWeatherClient(apiKey, latitude, longitude));
         }
 
         private string GetConnectionString()
