@@ -5877,7 +5877,19 @@ namespace TheFlightShop.DAL
 
             for (int i = 0; result == 0 && i < tokensA.Length && i < tokensB.Length; i++)
             {
-                result = tokensA[i].CompareTo(tokensB[i]);
+                int numberA;
+                int numberB;
+                var hasNumberA = int.TryParse(tokensA[i], out numberA);
+                var hasNumberB = int.TryParse(tokensB[i], out numberB);
+
+                if (hasNumberA && hasNumberB)
+                {
+                    result = numberA - numberB;
+                }
+                else
+                {
+                    result = tokensA[i].CompareTo(tokensB[i]);
+                }
             }
 
             if (result == 0)
