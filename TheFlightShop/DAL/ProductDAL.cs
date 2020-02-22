@@ -5877,19 +5877,7 @@ namespace TheFlightShop.DAL
 
             for (int i = 0; result == 0 && i < tokensA.Length && i < tokensB.Length; i++)
             {
-                var numberMatchA = Regex.Match(tokensA[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
-                var numberMatchB = Regex.Match(tokensB[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
-                
-                if (numberMatchA.Success && numberMatchB.Success)
-                {
-                    var numberA = long.Parse(numberMatchA.Value);
-                    var numberB = long.Parse(numberMatchB.Value);
-                    result = numberA.CompareTo(numberB);
-                }
-                else
-                {
-                    result = tokensA[i].CompareTo(tokensB[i]);
-                }
+                result = tokensA[i].CompareTo(tokensB[i]);
             }
 
             if (result == 0)
