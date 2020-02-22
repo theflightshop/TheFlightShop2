@@ -13,7 +13,7 @@ namespace TheFlightShop.DAL
     {
         private const string NON_WORD_CHARACTER_PATTERN = @"[\W]+";
         private const string NUMBER_PATTERN = @"[\d]+";
-        private const string WORD_PATTERN = @"[\w]+";
+        private const string LETTER_PATTERN = @"[A-Za-z]+";
 
         private class ProductCategoryMapping
         {
@@ -5878,8 +5878,8 @@ namespace TheFlightShop.DAL
 
             for (int i = 0; result == 0 && i < tokensA.Length && i < tokensB.Length; i++)
             {
-                var wordMatchA = Regex.Match(tokensA[i], WORD_PATTERN, RegexOptions.IgnoreCase);
-                var wordMatchB = Regex.Match(tokensB[i], WORD_PATTERN, RegexOptions.IgnoreCase);
+                var wordMatchA = Regex.Match(tokensA[i], LETTER_PATTERN, RegexOptions.IgnoreCase);
+                var wordMatchB = Regex.Match(tokensB[i], LETTER_PATTERN, RegexOptions.IgnoreCase);
                 var numberMatchA = Regex.Match(tokensA[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
                 var numberMatchB = Regex.Match(tokensB[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
                 var wordResult = 0;
