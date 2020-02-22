@@ -1,8 +1,6 @@
 ﻿#flightshop-product-detail-image {
-    /* NOTE: expand image if using new ClickBond images, since they scale better
-    width: 100%;
-    height: auto;*/
     min-width: 150px;
+    max-width: 100%;
     display: block;
     margin: 0 auto;
 }
