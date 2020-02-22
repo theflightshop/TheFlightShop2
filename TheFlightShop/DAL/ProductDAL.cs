@@ -13,6 +13,7 @@ namespace TheFlightShop.DAL
     {
         private const string NON_WORD_CHARACTER_PATTERN = @"[\W]+";
         private const string NUMBER_PATTERN = @"[\d]+";
+        private const string WORD_PATTERN = @"[\w]+";
 
         private class ProductCategoryMapping
         {
@@ -5877,19 +5878,25 @@ namespace TheFlightShop.DAL
 
             for (int i = 0; result == 0 && i < tokensA.Length && i < tokensB.Length; i++)
             {
-                int numberA;
-                int numberB;
-                var hasNumberA = int.TryParse(tokensA[i], out numberA);
-                var hasNumberB = int.TryParse(tokensB[i], out numberB);
+                var wordMatchA = Regex.Match(tokensA[i], WORD_PATTERN, RegexOptions.IgnoreCase);
+                var wordMatchB = Regex.Match(tokensB[i], WORD_PATTERN, RegexOptions.IgnoreCase);
+                var numberMatchA = Regex.Match(tokensA[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
+                var numberMatchB = Regex.Match(tokensB[i], NUMBER_PATTERN, RegexOptions.IgnoreCase);
+                var wordResult = 0;
+                var numberResult = 0;
+                
+                if (wordMatchA.Success && wordMatchB.Success)
+                {
+                    wordResult = wordMatchA.Value.CompareTo(wordMatchB.Value);
+                }
+                if (numberMatchA.Success && numberMatchB.Success)
+                {
+                    var numberA = long.Parse(numberMatchA.Value);
+                    var numberB = long.Parse(numberMatchB.Value);
+                    numberResult = numberA.CompareTo(numberB);
+                }
 
-                if (hasNumberA && hasNumberB)
-                {
-                    result = numberA - numberB;
-                }
-                else
-                {
-                    result = tokensA[i].CompareTo(tokensB[i]);
-                }
+                result = wordResult == 0 ? numberResult : wordResult;
             }
 
             if (result == 0)
