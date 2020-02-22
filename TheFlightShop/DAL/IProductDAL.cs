@@ -12,11 +12,14 @@ namespace TheFlightShop.DAL
         void InitializeFrom();
 
         IEnumerable<Product> GetProducts();
+        Product GetProduct(Guid id);
         ProductsViewModel GetProductCategories();
         ProductCategoryViewModel GetProducts(Guid categoryId);
         ProductDetailViewModel GetProductView(Guid productId);
         IEnumerable<SearchResult> SearchParts(string query);
         IEnumerable<Part> GetParts();
+        IEnumerable<Product> GetProductsByCategoryOrSubCategoryId(Guid categoryOrSubCategoryId);
+        Category GetCategory(Guid id);
 
         void CreateOrUpdateProduct(Product product);
         void DeleteProduct(Guid productId);

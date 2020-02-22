@@ -388,7 +388,7 @@
 
         var category = _categoriesById[categoryId];
         document.getElementById('flightshop-admin-category-input').value = category.name;
-        document.getElementById('admin-category-img-preview').src = '/products/category-images/' + category.imageFilename;
+        document.getElementById('admin-category-img-preview').src = '@Url.Action("CategoryImage", "Products")/' + category.imageFilename;
 
         var subCategorySelect = document.getElementById('flightshop-admin-selected-sub-category');
         subCategorySelect.selectedIndex = 0;
@@ -652,7 +652,7 @@
         var productImg = document.createElement('img');
         productImg.id = 'product-img-display-' + product.id;
         productImg.style.maxWidth = '100px';
-        productImg.src = _baseUrl + '/products/product-images/' + product.imageFilename;
+        productImg.src = '@Url.Action("ProductImage", "Products")/' + product.imageFilename;
         productImg.alt = product.code;
         imgCol.appendChild(productImg);
 

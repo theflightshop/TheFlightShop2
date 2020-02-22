@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.3.110.25" />
     <PackageReference Include="FluentScheduler" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
@@ -328,7 +329,7 @@
     <None Remove="DAL\Schemas\Order.cs" />
     <None Remove="DAL\Schemas\OrderLine.cs" />
     <None Remove="Email\IEmailClient.cs" />
-    <None Remove="IO\FileManager.cs" />
+    <None Remove="IO\AwsS3FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />

@@ -25,7 +25,7 @@
 
     <div class="row">
         <div class="col-xs-5 flightshop-product-detail-overview">
-            <img id="flightshop-product-detail-image" src="@Model.ImageSource" alt="@Model.ProductCode" />
+            <img id="flightshop-product-detail-image" src="@Url.Action("ProductImage", "Products")/@Model.ImageFilename" alt="@Model.ProductCode" />
             <div id="flightshop-product-detail-external-links">
                 @*<div id="flightshop-product-detail-OG-download-section">
                     <span>Drawing:</span>
@@ -41,7 +41,7 @@
                 <div>
                     <span>Drawing:</span>
                    @* <span class="flightshop-product-detail-download-link">*@
-                        <a class="flightshop-product-detail-download-link" target="_blank" href="@Model.DrawingUrl">View</a>
+                        <a class="flightshop-product-detail-download-link" target="_blank" href="@Url.Action("ProductDrawing", "Products")/@Model.DrawingFilename">View</a>
                     @*</span>*@
                 </div>
                 <hr class="flightshop-product-detail-links-separator" />
@@ -119,7 +119,7 @@
                     <td class="flightshop-parts-table-cell">@string.Format("${0:####.00}", part.Price)</td>
                     <td class="flightshop-parts-table-cell">
                         <input id="addToCartQuantity-@part.PartNumber" class="flightshop-part-add-to-cart-input" value="1" type="number" />
-                        <button type="button" onclick="addToCart('@Model.ProductId', '@part.PartNumber', '@part.Description', @part.Price, '@Model.ImageSource')">Add</button>
+                        <button type="button" onclick="addToCart('@Model.ProductId', '@part.PartNumber', '@part.Description', @part.Price, '@Url.Action("ProductImage", "Products")/@Model.ImageFilename')">Add</button>
                     </td>
                 </tr>
             }
@@ -133,7 +133,7 @@
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
-            onclick="addUnlistedPart('@Model.ProductId', '@Model.ImageSource')"
+            onclick="addUnlistedPart('@Model.ProductId', '@Url.Action("ProductImage", "Products")/@Model.ImageFilename')"
             >
             + Add part
         </button>

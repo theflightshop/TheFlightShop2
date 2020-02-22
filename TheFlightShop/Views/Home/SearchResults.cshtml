@@ -18,7 +18,7 @@ else
         @foreach (var result in Model.Results)
         {
         <li class="flightshop-search-result-view-item">
-            <img src="@result.ImgSrc" alt="@result.Name" />
+            <img src="@Url.Action("ProductImage", "Products")/@result.ImgFilename" alt="@result.Name" />
             <div class="flightshop-search-result-info">
                 <span>@result.Category&nbsp;&gt;&nbsp;</span>
                 <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>

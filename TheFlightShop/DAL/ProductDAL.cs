@@ -5792,6 +5792,11 @@ namespace TheFlightShop.DAL
             return Products;
         }
 
+        public Product GetProduct(Guid id)
+        {
+            return Products.FirstOrDefault(product => product.Id == id);
+        }
+
         public IEnumerable<Part> GetParts()
         {
             return Parts;
@@ -5826,7 +5831,7 @@ namespace TheFlightShop.DAL
                     IsMostPopular = product.MostPopular,
                     HasPricing = Parts.Any(part => part.ProductId == product.Id),
                     SubCategory = subCategories.First(c => c.Id == product.SubCategoryId).Name,
-                    ImageSource = GetImageSource(product.ImageFilename)
+                    ImageFilename = product.ImageFilename
                 })
             };
         }
@@ -5851,8 +5856,8 @@ namespace TheFlightShop.DAL
                     LongDescription = product.LongDescription,
                     NumberOfInstallationExamples = product.NumberOfInstallationExamples,
                     InstallationExamplesPath = GetInstallationExamplesPath(product.Code),
-                    ImageSource = GetImageSource(product.ImageFilename),
-                    DrawingUrl = GetLocalDrawingUrl(product.DrawingFilename),
+                    ImageFilename = product.ImageFilename,
+                    DrawingFilename = product.DrawingFilename,
                     Parts = parts.Select(p => new PartViewModel
                     {
                         PartNumber = p.PartNumber,
@@ -5980,11 +5985,9 @@ namespace TheFlightShop.DAL
         {
             var category = GetCategoryById(product.CategoryId);
             var subCategory = GetCategoryById(product.SubCategoryId);
-            var code = product.Code;
-            var imgSrc = GetImageSource(product.ImageFilename);
             var name = part == null ? product.Code : part.PartNumber;
             var description = part == null ? product.ShortDescription : part.Description;
-            return new SearchResult(name, product.Id, description, category, subCategory, imgSrc);
+            return new SearchResult(name, product.Id, description, category, subCategory, product.ImageFilename);
         }
 
         private string GetCategoryById(Guid categoryId)
@@ -6001,18 +6004,7 @@ namespace TheFlightShop.DAL
         {
             return (product.Code?.ToLower().Contains(query) ?? false) || (product.ShortDescription?.ToLower().Contains(query) ?? false);
         }
-
-        private string GetImageSource(string imageFilename)
-        {
-            var filename = imageFilename ?? "default.gif";
-            return "/products/product-images/" + filename;
-        }
-
-        private string GetLocalDrawingUrl(string drawingFilename)
-        {
-            return "/products/drawings/" + drawingFilename;
-        }
-
+        
         private string GetInstallationExamplesPath(string productCode)
         {
             return "/products/installation-examples/" + productCode + "/";
@@ -6088,6 +6080,16 @@ namespace TheFlightShop.DAL
                 Parts.Remove(part);
                 SaveChanges();
             }
+        }
+
+        public IEnumerable<Product> GetProductsByCategoryOrSubCategoryId(Guid categoryOrSubCategoryId)
+        {
+            return Products.Where(product => product.CategoryId == categoryOrSubCategoryId || product.SubCategoryId == categoryOrSubCategoryId);
+        }
+
+        public Category GetCategory(Guid id)
+        {
+            return Categories.FirstOrDefault(category => category.Id == id);
         }
     }
 }

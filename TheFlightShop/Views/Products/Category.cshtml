@@ -45,7 +45,7 @@
                asp-route-id="@product.Id">
 
                 <img class="flightshop-product-image"
-                     src="@product.ImageSource"
+                     src="@Url.Action("ProductImage", "Products")/@product.ImageFilename"
                      alt="@product.Code" />
                 <h5>
                     @if(product.IsMostPopular) {

@@ -63,9 +63,7 @@ CREATE TABLE `orderlines` (
   `DateCreated` datetime NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `orderLines_fk_orders` (`OrderId`),
-  KEY `orderLines_fk_products` (`ProductId`),
-  CONSTRAINT `orderLines_fk_orders` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`Id`),
-  CONSTRAINT `orderLines_fk_products` FOREIGN KEY (`ProductId`) REFERENCES `products` (`Id`)
+  CONSTRAINT `orderLines_fk_orders` FOREIGN KEY (`OrderId`) REFERENCES `orders` (`Id`)
 );
 
 CREATE TABLE `parts` (
