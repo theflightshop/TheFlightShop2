@@ -38,11 +38,11 @@ namespace TheFlightShop.Controllers
         }
 
         //[TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
-        //public IActionResult Encrypt(string value)
-        //{
-        //    var hashAndSalt = _hash.GenerateHashAndSalt(value);
-        //    return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
-        //}        
+        public IActionResult Encrypt(string value)
+        {
+            var hashAndSalt = _hash.GenerateHashAndSalt(value);
+            return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
+        }
 
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         public IActionResult Products()
@@ -94,8 +94,10 @@ namespace TheFlightShop.Controllers
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         [HttpDelete]
         [Route("~/Admin/Product/{id:Guid}")]
-        public IActionResult DeleteProduct(Guid id)
-        {
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {            
+            var product = _productReadDal.GetProduct(id);
+            await _fileManager.DeleteProductFiles(new List<Product> { product });
             _productReadDal.DeleteProduct(id);
             return new OkResult();
         }
@@ -140,8 +142,13 @@ namespace TheFlightShop.Controllers
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         [HttpDelete]
         [Route("~/Admin/Category/{id:Guid}")]
-        public IActionResult DeleteCategory(Guid id)
+        public async Task<IActionResult> DeleteCategory(Guid id)
         {
+            var category = _productReadDal.GetCategory(id);
+            var products = _productReadDal.GetProductsByCategoryOrSubCategoryId(id);
+            var categoryDelTask = _fileManager.DeleteCategoryImage(category.ImageFilename);
+            var productFileDelTask = _fileManager.DeleteProductFiles(products);
+            await Task.WhenAll(categoryDelTask, productFileDelTask);
             _productReadDal.DeleteCategoryAndProducts(id);
             return new OkResult();
         }
@@ -149,8 +156,10 @@ namespace TheFlightShop.Controllers
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         [HttpDelete]
         [Route("~/Admin/SubCategory/{id:Guid}")]
-        public IActionResult DeleteSubCategory(Guid id)
+        public async Task<IActionResult> DeleteSubCategory(Guid id)
         {
+            var products = _productReadDal.GetProductsByCategoryOrSubCategoryId(id);
+            await _fileManager.DeleteProductFiles(products);
             _productReadDal.DeleteSubCategoryAndProducts(id);
             return new OkResult();
         }

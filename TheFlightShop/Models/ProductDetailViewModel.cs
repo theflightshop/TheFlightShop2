@@ -10,8 +10,8 @@ namespace TheFlightShop.Models
         public string ProductCode { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
-        public string DrawingUrl { get; set; }
-        public string ImageSource { get; set; }
+        public string DrawingFilename { get; set; }
+        public string ImageFilename { get; set; }
         public int NumberOfInstallationExamples { get; set; }
         public string InstallationExamplesPath { get; set; }
         public IEnumerable<PartViewModel> Parts { get; set; }
