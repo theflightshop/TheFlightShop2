@@ -56,7 +56,7 @@
                                asp-route-id="@category.Id">
 
                                 <img class="flightshop-category-image-small"
-                                     src="~/products/category-images/@category.ImageFilename"
+                                     src="@Url.Action("CategoryImage", "Products")/@category.ImageFilename"
                                      alt="@category.Name" />
                                 <h5 class="flightshop-category-title">@category.Name</h5>
                             </a>
