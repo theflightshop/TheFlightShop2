@@ -49,7 +49,8 @@ namespace TheFlightShop.Email
             request.AddParameter("from", $"{_fromName} <{_fromUsername}@{_domain}>");
             request.AddParameter("to", toAddress);
             request.AddParameter("subject", subject);
-            request.AddParameter("text", body);
+            request.AddParameter("html", body);
+            request.AddParameter("text", "Your email provider does not support HTML messages. Please contact The Flight Shop to review your order.");
             request.Method = Method.POST;
 
             var emailTaskCompletionSrc = new TaskCompletionSource<bool>();
