@@ -37,3 +37,12 @@
     font-size: 1em;
     height: initial;
 }
+
+.flightshop-product-link-container {
+    width: 25%;
+    padding: 1em;
+}
+
+.flightshop-category-list {
+    width: 100%;
+}

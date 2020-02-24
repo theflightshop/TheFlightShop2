@@ -158,7 +158,7 @@
 #flightshop-no-product-img-available-text {
     font-size: 1.1em;
     font-style: italic;
-    position: absolute;
-    top: 25%;
-    left: 25%;
+    position: relative;
+    top: -2.5em;
+    color: #222;
 }

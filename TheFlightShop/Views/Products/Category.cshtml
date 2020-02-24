@@ -3,7 +3,7 @@
     ViewData["Title"] = "Click Bond - Products";
 }
 
-<div class="flightshop-page-content">
+<tr class="flightshop-page-content">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -31,42 +31,51 @@
         int i = 0;
         int rowNumber = 1;
     }
-    @foreach (var product in Model.Products) {
-        if (i > 0 && i % 4 == 0) {
-            rowNumber++;
-        }
-        i++;
-        var marginClass = rowNumber > 1 ? "flightshop-product-link-margin-top" : "";
+    <table class="flightshop-category-list">
+        <tr>
 
-        <div class="col-xs-3 flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory">
-            <a class="flightshop-product-link"
-               asp-controller="Products"
-               asp-action="ProductDetail"
-               asp-route-id="@product.Id">
+            @foreach (var product in Model.Products)
+            {
+                if (i > 0 && i % 4 == 0)
+                {
+                    rowNumber++;
+                    @Html.Raw("</tr><tr class=\"\">")
+                }
+                i++;
+                var marginClass = rowNumber > 1 ? "flightshop-product-link-margin-top" : "";
 
-                @if (string.IsNullOrEmpty(product.ImageFilename))
-                {
-                    <div id="flightshop-no-product-img-available-container" style="height: 5em;">
-                        <div id="flightshop-no-product-img-available"></div>
-                        <span id="flightshop-no-product-img-available-text">No image available</span>
-                    </div>
-                }
-                else
-                {
-                    <img class="flightshop-product-image"
-                         src="@Url.Action("ProductImage", "Products")/@product.ImageFilename"
-                         alt="@product.Code" />
-                }
-                                
-                <h5>
-                    @if (product.IsMostPopular)
-                    {
-                        <span>*</span>
-                    }
-                    @product.Code
-                </h5>
-                <span class="flightshop-product-link-description">@product.ShortDescription</span>
-            </a>
-        </div>
-    }
+                <td class="flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory">
+                    <a class="flightshop-product-link"
+                       asp-controller="Products"
+                       asp-action="ProductDetail"
+                       asp-route-id="@product.Id">
+
+                        @if (string.IsNullOrEmpty(product.ImageFilename))
+                        {
+                            <div id="flightshop-no-product-img-available-container" style="height: 5em;">
+                                <div id="flightshop-no-product-img-available"></div>
+                                <span id="flightshop-no-product-img-available-text">No image available</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <img class="flightshop-product-image"
+                                 src="@Url.Action("ProductImage", "Products")/@product.ImageFilename"
+                                 alt="@product.Code" />
+                        }
+
+                        <h5>
+                            @if (product.IsMostPopular)
+                            {
+                                <span>*</span>
+                            }
+                            @product.Code
+                        </h5>
+                        <span class="flightshop-product-link-description">@product.ShortDescription</span>
+                    </a>
+                </td>
+            }
+
+        </tr>
+    </table>
 </div>
