@@ -31,20 +31,19 @@
         int i = 0;
         int rowNumber = 1;
     }
-    <table class="flightshop-category-list">
-        <tr>
+    <div class="flightshop-category-list">
+      @*  <tr>*@
 
             @foreach (var product in Model.Products)
             {
                 if (i > 0 && i % 4 == 0)
                 {
                     rowNumber++;
-                    @Html.Raw("</tr><tr class=\"\">")
                 }
                 i++;
                 var marginClass = rowNumber > 1 ? "flightshop-product-link-margin-top" : "";
 
-                <td class="flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory">
+                <div class="flightshop-product-link-container @marginClass" data-subcategory="@product.SubCategory" style="display: inline-block;">
                     <a class="flightshop-product-link"
                        asp-controller="Products"
                        asp-action="ProductDetail"
@@ -73,9 +72,9 @@
                         </h5>
                         <span class="flightshop-product-link-description">@product.ShortDescription</span>
                     </a>
-                </td>
+                </div>
             }
 
-        </tr>
-    </table>
+        
+    </div>
 </div>
