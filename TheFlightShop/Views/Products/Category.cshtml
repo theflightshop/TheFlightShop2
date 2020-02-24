@@ -44,11 +44,23 @@
                asp-action="ProductDetail"
                asp-route-id="@product.Id">
 
-                <img class="flightshop-product-image"
-                     src="@Url.Action("ProductImage", "Products")/@product.ImageFilename"
-                     alt="@product.Code" />
+                @if (string.IsNullOrEmpty(product.ImageFilename))
+                {
+                    <div id="flightshop-no-product-img-available-container">
+                        <div id="flightshop-no-product-img-available"></div>
+                        <span id="flightshop-no-product-img-available-text">No image available</span>
+                    </div>
+                }
+                else
+                {
+                    <img class="flightshop-product-image"
+                         src="@Url.Action("ProductImage", "Products")/@product.ImageFilename"
+                         alt="@product.Code" />
+                }
+                                
                 <h5>
-                    @if(product.IsMostPopular) {
+                    @if (product.IsMostPopular)
+                    {
                         <span>*</span>
                     }
                     @product.Code
