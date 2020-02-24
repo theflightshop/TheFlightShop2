@@ -25,45 +25,53 @@
 
     <div class="row">
         <div class="col-xs-5 flightshop-product-detail-overview">
-            <img id="flightshop-product-detail-image" src="@Url.Action("ProductImage", "Products")/@Model.ImageFilename" alt="@Model.ProductCode" />
-            <div id="flightshop-product-detail-external-links">
-                @*<div id="flightshop-product-detail-OG-download-section">
-                    <span>Drawing:</span>
-                    <a download href="@Model.DrawingUrl">Download</a>
+            @if (string.IsNullOrEmpty(Model.ImageFilename))
+            {
+                <div id="flightshop-no-product-img-available-container">
+                    <div id="flightshop-no-product-img-available"></div>
+                    <span id="flightshop-no-product-img-available-text">No image available</span>
                 </div>
-                <div>
+            }
+            else
+            {
+                <img id="flightshop-product-detail-image" src="@Url.Action("ProductImage", "Products")/@Model.ImageFilename" alt="@Model.ProductCode" />
+            }
 
-                </div>*@
-                @*
-                    NOTE: this is for when blown-up (scalable) images are used
-                    old Flight Shop images (original site) don't scale well, so different styling was used*@
+            @*@if (!string.IsNullOrEmpty(Model.DrawingFilename) || Model.NumberOfInstallationExamples > 0)
+            {*@
+        <div id="flightshop-product-detail-external-links">
+            @if (string.IsNullOrEmpty(Model.DrawingFilename))
+            {
+                <hr class="flightshop-product-detail-links-separator" />
+                <div>
+                    <span>No drawing available</span>
+                </div>
+            }
+            else
+            {
                 <hr class="flightshop-product-detail-links-separator" />
                 <div>
                     <span>Drawing:</span>
-                   @* <span class="flightshop-product-detail-download-link">*@
-                        <a class="flightshop-product-detail-download-link" target="_blank" href="@Url.Action("ProductDrawing", "Products")/@Model.DrawingFilename">View</a>
-                    @*</span>*@
+                    <a class="flightshop-product-detail-download-link" target="_blank" href="@Url.Action("ProductDrawing", "Products")/@Model.DrawingFilename">View</a>
                 </div>
-                <hr class="flightshop-product-detail-links-separator" />
-                @if (Model.NumberOfInstallationExamples > 0) {
-                    <div>
-                        <span>Installation Examples:</span>
-                        <span class="flightshop-product-detail-download-link">
-                            <a style="cursor: pointer;"
-                               href="javascript:void(0)"
-                               onclick="openInstallationExamples()">
-                                View
-                            </a>
-                        </span>
-                    </div>
-                }
-        @*<div>
-            <span>Comparison Table:</span>
-            <span class="flightshop-product-detail-download-link">
-                <a href="@Model.ComparisonTableUrl">Download</a>
-            </span>
-        </div>*@
-            </div>
+            }
+
+            <hr class="flightshop-product-detail-links-separator" />
+            @if (Model.NumberOfInstallationExamples > 0)
+            {
+                <div>
+                    <span>Installation Examples:</span>
+                    <span class="flightshop-product-detail-download-link">
+                        <a style="cursor: pointer;"
+                           href="javascript:void(0)"
+                           onclick="openInstallationExamples()">
+                            View
+                        </a>
+                    </span>
+                </div>
+            }
+        </div>
+            @* } *@
         </div>
         <div class="col-xs-7 flightshop-product-detail-content">
             <h3 id="flightshop-product-detail-title">@Model.ProductCode</h3>
