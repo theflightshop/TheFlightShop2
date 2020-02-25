@@ -141,21 +141,21 @@
     /*z-index: -1;*/
 }
 
-#flightshop-no-product-img-available-container {
+.flightshop-no-product-img-available-container {
     min-height: 100px;
     height: 10em;
     text-align: center;
     padding-top: 1em;
 }
 
-#flightshop-no-product-img-available {
+.flightshop-no-product-img-available {
     background-image: url(/images/index/click-bond.jpg);
     background-size: contain;
     opacity: 0.2;
     height: 100%;
 }
 
-#flightshop-no-product-img-available-text {
+.flightshop-no-product-img-available-text {
     font-size: 1.1em;
     font-style: italic;
     position: relative;

@@ -199,10 +199,31 @@
         thumbnailWrapper.classList.add('cart-item-img-wrapper');
         cartItem.appendChild(thumbnailWrapper);
 
-        var thumbnail = document.createElement('img');
-        thumbnail.src = part.ImageSrc;
-        thumbnail.classList.add('cart-item-img');
-        thumbnailWrapper.appendChild(thumbnail);
+        if (part.ImageSrc && part.ImageSrc.indexOf('.') >= 0) {
+            var thumbnail = document.createElement('img');
+            thumbnail.src = part.ImageSrc;
+            thumbnail.classList.add('cart-item-img');
+            thumbnailWrapper.appendChild(thumbnail);
+        }
+        else {
+            var noImgTag = document.createElement('div');
+            noImgTag.classList.add('flightshop-no-product-img-available-container');
+            noImgTag.style.minHeight = '';
+            noImgTag.style.height = '100%';
+            noImgTag.style.marginRight = '0.75em';
+            noImgTag.style.paddingTop = '0';
+
+            var noImgBg = document.createElement('div');
+            noImgBg.classList.add('flightshop-no-product-img-available');
+            noImgTag.appendChild(noImgBg);
+
+            var noImgText = document.createElement('span');
+            noImgText.classList.add('flightshop-no-product-img-available-text');
+            noImgText.innerHTML = 'No image available';
+            noImgTag.appendChild(noImgText);
+
+            thumbnailWrapper.appendChild(noImgTag);
+        }        
 
         var title = document.createElement('a');
         var titleText = part.PartNumber.slice(0, 20);

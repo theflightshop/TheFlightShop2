@@ -38,11 +38,11 @@ namespace TheFlightShop.Controllers
         }
 
         //[TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
-        public IActionResult Encrypt(string value)
-        {
-            var hashAndSalt = _hash.GenerateHashAndSalt(value);
-            return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
-        }
+        //public IActionResult Encrypt(string value)
+        //{
+        //    var hashAndSalt = _hash.GenerateHashAndSalt(value);
+        //    return new JsonResult(new { hash = hashAndSalt.Item1, salt = hashAndSalt.Item2 });
+        //}
 
         [TokenAuthorize(Roles = new string[] { RequestRole.ADMIN })]
         public IActionResult Products()
