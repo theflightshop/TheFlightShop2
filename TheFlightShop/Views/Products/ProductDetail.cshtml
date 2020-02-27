@@ -131,6 +131,19 @@
                     </td>
                 </tr>
             }
+
+            @if (Model.Parts == null || !Model.Parts.Any())
+            {
+                <tr>
+                    <td class="flightshop-parts-table-cell"><input id="default-unlisted-part-nr" type="text" placeholder="Part #" value="@Model.ProductCode" /></td>
+                    <td class="flightshop-parts-table-cell">@Model.ShortDescription</td>
+                    <td class="flightshop-parts-table-cell"><em>(quote)</em></td>
+                    <td class="flightshop-parts-table-cell">
+                        <input id="addToCartQuantity-@Model.ProductId" class="flightshop-part-add-to-cart-input" value="1" type="number" />
+                        <button type="button" onclick="addToCart('@Model.ProductId', document.getElementById('default-unlisted-part-nr').value, '@Model.ShortDescription', null, '@Url.Action("ProductImage", "Products")/@Model.ImageFilename', true)">Add</button>
+                    </td>
+                </tr>
+            }
         </table>
         <div id="flightshop-invalid-unlisted-part-alert" class="alert alert-danger" style="display: none;">
             Please provide part number.
@@ -141,7 +154,7 @@
         <button id="flightshop-button-add-special-part" 
             type="button" 
             class="btn btn-default"
-            onclick="addUnlistedPart('@Model.ProductId', '@Url.Action("ProductImage", "Products")/@Model.ImageFilename')"
+            onclick="addUnlistedPart('@Model.ProductId', '@Model.ShortDescription', '@Url.Action("ProductImage", "Products")/@Model.ImageFilename')"
             >
             + Add part
         </button>

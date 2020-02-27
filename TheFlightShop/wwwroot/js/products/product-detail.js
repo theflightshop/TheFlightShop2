@@ -8,7 +8,7 @@ function closeInstallationExamples() {
 }
 
 var unlistedPartCount = 1;
-function addUnlistedPart(productId, imgSrc) {
+function addUnlistedPart(productId, description, imgSrc) {
     var specialPartRow = document.createElement('tr');
 
     var partNumberCol = document.createElement('td');
@@ -24,12 +24,7 @@ function addUnlistedPart(productId, imgSrc) {
 
     var descriptionCol = document.createElement('td');
     descriptionCol.classList.add('flightshop-parts-table-cell');
-
-    var descriptionInput = document.createElement('input');
-    descriptionInput.id = 'description-input-' + unlistedPartCount;
-    descriptionInput.placeholder = 'Description of part';
-    descriptionCol.appendChild(descriptionInput);
-    descriptionCol.style.borderLeft = 'none';
+    descriptionCol.innerHTML = description;
 
     var priceCol = document.createElement('td');
     priceCol.classList.add('flightshop-parts-table-cell');
@@ -53,7 +48,7 @@ function addUnlistedPart(productId, imgSrc) {
     addToCartButton.innerHTML = 'Add';
     var inputId = unlistedPartCount;
     addToCartButton.addEventListener('click', function () {
-        addUnlistedToCart('' + inputId, productId, imgSrc)
+        addUnlistedToCart('' + inputId, productId, description, imgSrc)
     });
     addToCartCol.appendChild(addToCartButton);
 
@@ -66,9 +61,8 @@ function addUnlistedPart(productId, imgSrc) {
     unlistedPartCount++;
 }
 
-function addUnlistedToCart(inputId, productId, imgSrc) {
+function addUnlistedToCart(inputId, productId, description, imgSrc) {
     var partNumber = document.getElementById('part-nr-input-' + inputId).value;
-    var description = document.getElementById('description-input-' + inputId).value;
     var quantity = getQuantity('item-quantity-' + inputId);
 
     var validationAlert = document.getElementById('flightshop-invalid-unlisted-part-alert');
@@ -89,16 +83,23 @@ function addUnlistedToCart(inputId, productId, imgSrc) {
     renderCartButton();
 }
 
-function addToCart(productId, partNumber, description, price, imgSrc) {
-    var quantity = getQuantity('addToCartQuantity-' + partNumber);
+function addToCart(productId, partNumber, description, price, imgSrc, defaultUnlistedPart) {
+    var quantity = getQuantity('addToCartQuantity-' + (defaultUnlistedPart ? productId : partNumber));
+
+    var validationAlert = document.getElementById('flightshop-invalid-unlisted-part-alert');
     var quantityAlert = document.getElementById('flightshop-invalid-part-quantity');
 
-    if (quantity) {
+    if ((!defaultUnlistedPart || partNumber) && quantity) {
+        validationAlert.style.display = 'none';
         quantityAlert.style.display = 'none';
-        requestAddToCart(productId, partNumber, description, quantity, price, imgSrc);
+        var isUserDefined = defaultUnlistedPart;
+        requestAddToCart(productId, partNumber, description, quantity, price, imgSrc, isUserDefined);
+    }
+    else if (partNumber) {
+        quantityAlert.style.display = 'block';
     }
     else {
-        quantityAlert.style.display = 'block';
+        validationAlert.style.display = 'block';
     }
 
     renderCartButton();
