@@ -52,7 +52,7 @@ namespace TheFlightShop.Controllers
         public IActionResult Search(string q)
         {
             var results = _productReadDAL.SearchParts(q);
-            return new JsonResult(results);
+            return new JsonResult(new { results, query = q });
         }
 
         public IActionResult SearchResults(string q)

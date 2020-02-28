@@ -551,14 +551,18 @@
                     }
                 }
 
+                var lastQuery = null;
                 function beginListenForQueries() {
                     setInterval(function () {
                         if (queuedQuery) {
                             var searchUrl = encodeURI('@Url.Action("Search", "Home")' + '?q=' + queuedQuery);
+                            lastQuery = queuedQuery;
                             queuedQuery = null;
                             $.get(searchUrl)
-                                .done(function (results) {
-                                    renderSearchResults(results);
+                                .done(function (response) {
+                                    if (response.query === lastQuery) {
+                                        renderSearchResults(response.results);
+                                    }
                                 });
                         }
                     }, 250);
