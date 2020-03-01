@@ -69,15 +69,15 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img class="flightshop-carousel-img" src="~/images/index/homepage.png" alt="hangar" style="width:100%;">
+                        <img class="flightshop-carousel-img" alt="hangar" style="width:100%;">
                     </div>
 
                     <div class="item">
-                        <img class="flightshop-carousel-img" src="~/images/index/carousel-2-aerostar.png" alt="Piper Aerostar 601P" style="width:100%;">
+                        <img class="flightshop-carousel-img" alt="Piper Aerostar 601P" style="width:100%;">
                     </div>
 
                     <div class="item">
-                        <img class="flightshop-carousel-img" src="~/images/index/carousel-3-aerostar.jpg" alt="Piper Aerostar 600 ZS-PDN" style="width:100%;">
+                        <img class="flightshop-carousel-img" alt="Piper Aerostar 600 ZS-PDN" style="width:100%;">
                     </div>
                 </div>
 
@@ -581,6 +581,15 @@
                         scrollTop: 500
                     }, 500);
                 }
+
+                //preload
+                window.addEventListener('DOMContentLoaded', function () {
+                    var carouselImgSources = ['/images/index/homepage.png', '/images/index/carousel-2-aerostar.png', '/images/index/carousel-3-aerostar.jpg']
+                    var carouselImages = document.getElementsByClassName('flightshop-carousel-img');
+                    for (var i = 0; i < carouselImages.length; i++) {
+                        carouselImages[i].src = carouselImgSources[i];
+                    }
+                })
 
                 window.addEventListener('load', function () {
                     beginListenForQueries();
