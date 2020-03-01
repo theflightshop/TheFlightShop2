@@ -37,7 +37,7 @@ body {
 }
 @media screen and (max-width: 1174px) {
     #flightshop-homepage-title {
-        font-size: 5em !important;
+        font-size: 3.5em !important;
     }
 
     #flightshop-temperature-info {
@@ -256,12 +256,13 @@ body {
 }
 
 #flightshop-homepage-title {
-    font-size: 6vw;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 5vw;
     position: absolute;
     top: 75px;
     left: 20px;
     color: #333;
-    background-color: rgba(225,225,225,0.6);
+    background-color: rgba(245,245,245,0.75);
     padding: 10px;
     text-align: center;
     /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #aaa, 0 0 40px #aaa, 0 0 50px #aaa, 0 0 60px #aaa, 0 0 70px #aaa;*/
