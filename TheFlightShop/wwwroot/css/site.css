@@ -265,7 +265,11 @@ body {
     background-color: rgba(245,245,245,0.75);
     padding: 10px;
     text-align: center;
-    /*text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #aaa, 0 0 40px #aaa, 0 0 50px #aaa, 0 0 60px #aaa, 0 0 70px #aaa;*/
+    width: 50vw;
+}
+#flightshop-homepage-logo {
+    width: 100%;
+    margin-bottom: 0.5em;
 }
 
 #flightshop-homepage-subtitle {
@@ -679,5 +683,25 @@ body {
 @media screen and (max-width: 1099px) {
     #flightshop-nav-hamberders {
         display: block !important;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    #carousel-img-md {
+        display: none;
+    }
+    
+    #carousel-img-sm {
+        display: inline-block !important;
+    }
+}
+
+@media screen and (min-width: 1451px) {
+    #carousel-img-md {
+        display: inline-block !important;
+    }
+
+    #carousel-img-sm {
+        display: none;
     }
 }

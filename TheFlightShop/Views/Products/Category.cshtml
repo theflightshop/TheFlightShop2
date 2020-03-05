@@ -33,8 +33,25 @@
     }
     <div class="flightshop-category-list">
       @*  <tr>*@
+        @functions {
+            public static decimal GetNumericValue(string productCode)
+            {
+                var numericMatch = System.Text.RegularExpressions.Regex.Match(productCode, @"\d+").Value;
+                int numericValue;
+                if (!int.TryParse(numericMatch, out numericValue))
+                {
+                    numericValue = 0;
+                }
+                return numericValue;
+            }
 
-            @foreach (var product in Model.Products)
+            public static IEnumerable<ProductViewModel> OrderProductsByCode(IEnumerable<ProductViewModel> products)
+            {
+                return products.OrderBy(product => System.Text.RegularExpressions.Regex.Match(product.Code, @"[A-Za-z]+").Value).ThenBy(product => GetNumericValue(product.Code));
+            }
+        }
+
+            @foreach (var product in OrderProductsByCode(Model.Products))
             {
                 if (i > 0 && i % 4 == 0)
                 {
