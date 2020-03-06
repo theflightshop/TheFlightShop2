@@ -685,23 +685,3 @@ body {
         display: block !important;
     }
 }
-
-@media screen and (max-width: 1450px) {
-    #carousel-img-md {
-        display: none;
-    }
-    
-    #carousel-img-sm {
-        display: inline-block !important;
-    }
-}
-
-@media screen and (min-width: 1451px) {
-    #carousel-img-md {
-        display: inline-block !important;
-    }
-
-    #carousel-img-sm {
-        display: none;
-    }
-}
