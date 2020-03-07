@@ -83,11 +83,6 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public IActionResult Parts()
-        {
-            return View();
-        }
-
         public IActionResult Modifications()
         {
             return View();
@@ -127,11 +122,6 @@ namespace TheFlightShop.Controllers
         }
 
         public IActionResult ClickBondStrengthData()
-        {
-            return View();
-        }
-
-        public IActionResult OrderingInformation()
         {
             return View();
         }

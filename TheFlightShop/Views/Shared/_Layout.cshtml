@@ -128,7 +128,7 @@
 
                 <div id="flightshop-search-container" class="input-group">
                     <form onsubmit="userSearchEnter(); return false;">
-                        <input id="user-search-val" type="text" class="form-control" placeholder="Search ClickBond products..." oninput="userSearchChange()" />
+                        <input id="user-search-val" type="text" class="form-control" placeholder="Search Click Bond products..." oninput="userSearchChange()" />
                         <div class="input-group-append">
                             <button id="flightshop-search-button" type="submit" class="btn btn-outline-secondary">
                                 <img id="flightshop-search-button-image" src="~/images/icons/mag.png" alt="search" />
@@ -163,7 +163,7 @@
                                asp-action="ClickBondStrengthData">Strength Data</a>
                             <a asp-area=""
                                asp-controller="Home"
-                               asp-action="OrderingInformation">Ordering Information</a>
+                               asp-action="Terms">Terms</a>
                         </div>
                         <div class="hamberders-submenu" style="padding-right: 2vw;">
                             <span class="hamburger-sec-title">Maintenance</span>
@@ -176,9 +176,6 @@
                             <a asp-area=""
                                asp-controller="Home"
                                asp-action="Services">Services</a>
-                            <a asp-area=""
-                               asp-controller="Home"
-                               asp-action="Parts">Parts</a>
                             <a asp-area=""
                                asp-controller="Home"
                                asp-action="Modifications">Modifications</a>
@@ -218,10 +215,6 @@
                        asp-area=""
                        asp-controller="home"
                        asp-action="services">Services</a>
-                    <a class="dropdown-item flightshop-sub-nav-option"
-                       asp-area=""
-                       asp-controller="home"
-                       asp-action="parts">Parts</a>
                     <a class="dropdown-item flightshop-sub-nav-option"
                        asp-area=""
                        asp-controller="home"
@@ -271,7 +264,7 @@
                     <a class="dropdown-item flightshop-sub-nav-option"
                        asp-area=""
                        asp-controller="home"
-                       asp-action="orderinginformation">Ordering Information</a>
+                       asp-action="terms">Terms</a>
                 </div>
             </li>
             <li style="margin-left: 1em;">
