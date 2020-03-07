@@ -45,4 +45,6 @@
 
 .flightshop-category-list {
     width: 100%;
+    height: calc(75vh);
+    overflow-y: scroll;
 }
