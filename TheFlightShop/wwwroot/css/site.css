@@ -685,3 +685,34 @@ body {
         display: block !important;
     }
 }
+
+.flightshop-quick-search-loader {
+    display: inline-block;
+    border: 3px solid #cdcdcd;
+    border-top: 3px solid #5555ff;
+    border-radius: 50%;
+    width: 1.75em;
+    height: 1.75em;
+    animation: spin 1.25s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.flightshop-quick-search-loader-text {
+    position: relative;
+    top: -0.2em;
+    left: 0.4em;
+    font-size: 1.3em;
+}
+
+.flightshop-quick-search-loading-container {
+    padding: 0.75em 1em;
+}
