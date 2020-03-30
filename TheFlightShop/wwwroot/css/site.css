@@ -716,3 +716,18 @@ body {
 .flightshop-quick-search-loading-container {
     padding: 0.75em 1em;
 }
+
+/** change home page logo image based on screen size so logo doesn't cover hangar image */
+#flightshop-homepage-logo {
+    background-image: url('/images/the-flight-shop.png');
+    height: 10vw;
+    margin-bottom: 5px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+@media screen and (min-width: 1300px) {
+    #flightshop-homepage-logo {
+        background-image: url('/images/the-flight-shop-wide.png');
+        height: 5vw;
+    }
+}
