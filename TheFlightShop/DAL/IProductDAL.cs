@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TheFlightShop.DAL.Schemas;
 using TheFlightShop.Models;
 
@@ -7,26 +8,25 @@ namespace TheFlightShop.DAL
 {
     public interface IProductDAL
     {
-        IEnumerable<Category> GetCategories();
-        IEnumerable<Category> GetSubCategories();
-        void InitializeFrom();
+        Task<IEnumerable<Category>> GetCategories();
+        Task<IEnumerable<Category>> GetSubCategories();
 
-        IEnumerable<Product> GetProducts();
-        Product GetProduct(Guid id);
-        ProductsViewModel GetProductCategories();
-        ProductCategoryViewModel GetProducts(Guid categoryId);
-        ProductDetailViewModel GetProductView(Guid productId);
-        IEnumerable<SearchResult> SearchParts(string query);
-        IEnumerable<Part> GetParts();
-        IEnumerable<Product> GetProductsByCategoryOrSubCategoryId(Guid categoryOrSubCategoryId);
-        Category GetCategory(Guid id);
+        Task<IEnumerable<Product>> GetProducts();
+        Task<Product> GetProduct(Guid id);
+        Task<ProductsViewModel> GetProductCategories();
+        Task<ProductCategoryViewModel> GetProducts(Guid categoryId);
+        Task<ProductDetailViewModel> GetProductView(Guid productId);
+        Task<IEnumerable<SearchResult>> SearchParts(string query);
+        Task<IEnumerable<Part>> GetParts();
+        Task<IEnumerable<Product>> GetProductsByCategoryOrSubCategoryId(Guid categoryOrSubCategoryId);
+        Task<Category> GetCategory(Guid id);
 
-        void CreateOrUpdateProduct(Product product);
-        void DeleteProduct(Guid productId);
-        void CreateOrUpdateCategory(Category category);
-        void DeleteCategoryAndProducts(Guid categoryId);
-        void DeleteSubCategoryAndProducts(Guid subCategoryId);
-        void CreateOrUpdatePart(Part part);
-        void DeletePart(Guid id);
+        Task CreateOrUpdateProduct(Product product);
+        Task DeleteProduct(Guid productId);
+        Task CreateOrUpdateCategory(Category category);
+        Task DeleteCategoryAndProducts(Guid categoryId);
+        Task DeleteSubCategoryAndProducts(Guid subCategoryId);
+        Task CreateOrUpdatePart(Part part);
+        Task DeletePart(Guid id);
     }
 }

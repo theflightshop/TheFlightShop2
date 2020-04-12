@@ -34,7 +34,8 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> SubmitOrder(ClientOrder order)
         {
-            var succeeded = _orderDAL.SaveNewOrder(order, _productDAL.GetParts());
+            var parts = await _productDAL.GetParts();
+            var succeeded = _orderDAL.SaveNewOrder(order, parts);
             if (succeeded)
             {
                 succeeded = await _emailClient.SendOrderConfirmation(order);

@@ -15,7 +15,6 @@ namespace TheFlightShop.DAL
         public DbSet<OrderLine> OrderLines { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         
-        private DbSet<Part> _parts { get; set; }
         private readonly string _connectionString;
 
         public OrderDAL(string connectionString)

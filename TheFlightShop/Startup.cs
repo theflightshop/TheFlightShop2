@@ -59,10 +59,10 @@ namespace TheFlightShop
             var signingKey = Environment.GetEnvironmentVariable("AUTH_KEY");
             services.AddScoped<IToken>(_ => new Token(tokenIssuer, tokenAudience, signingKey));
 
-            var accessKeyId = ""; //Environment.GetEnvironmentVariable("S3_ACCESS_KEY_ID");
-            var secretAccessKey = ""; //Environment.GetEnvironmentVariable("S3_SECRET_ACCESS_KEY");
-            var productContentBucketName = ""; //Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_BUCKET_NAME");
-            var productContentRegion = "us-west-1";// Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_REGION");
+            var accessKeyId = Environment.GetEnvironmentVariable("S3_ACCESS_KEY_ID");
+            var secretAccessKey = Environment.GetEnvironmentVariable("S3_SECRET_ACCESS_KEY");
+            var productContentBucketName = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_BUCKET_NAME");
+            var productContentRegion = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_REGION");
             services.AddScoped<IFileManager>(_ => new AwsS3FileManager(accessKeyId, secretAccessKey, productContentBucketName, productContentRegion));
 
             var apiKey = Environment.GetEnvironmentVariable("WEATHER_API_KEY");

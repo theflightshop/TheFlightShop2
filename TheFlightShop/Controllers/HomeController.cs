@@ -21,12 +21,6 @@ namespace TheFlightShop.Controllers
             _weatherClient = weatherClient;
         }
 
-        public IActionResult SetItUp()
-        {
-            _productReadDAL.InitializeFrom();
-            return new JsonResult(true);
-        }
-
         public IActionResult Index(bool? orderSubmitted = null)
         {
             var result = new HomeViewModel
@@ -49,15 +43,15 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public IActionResult Search(string q)
+        public async Task<IActionResult> Search(string q)
         {
-            var results = _productReadDAL.SearchParts(q);
+            var results = await _productReadDAL.SearchParts(q);
             return new JsonResult(new { results, query = q });
         }
 
-        public IActionResult SearchResults(string q)
+        public async Task<IActionResult> SearchResults(string q)
         {
-            var results = _productReadDAL.SearchParts(q);
+            var results = await _productReadDAL.SearchParts(q);
             var resultView = new SearchResultView
             {
                 Query = q,

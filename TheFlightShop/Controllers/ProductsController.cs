@@ -24,21 +24,21 @@ namespace TheFlightShop.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var viewModel = _productReadDAL.GetProductCategories();
+            var viewModel = await _productReadDAL.GetProductCategories();
             return View(viewModel);
         }
 
-        public IActionResult Category(Guid id)
+        public async Task<IActionResult> Category(Guid id)
         {
-            var viewModel = _productReadDAL.GetProducts(id);
+            var viewModel = await _productReadDAL.GetProducts(id);
             return View(viewModel);
         }
 
-        public IActionResult ProductDetail(Guid id)
+        public async Task<IActionResult> ProductDetail(Guid id)
         {
-            var productView = _productReadDAL.GetProductView(id);
+            var productView = await _productReadDAL.GetProductView(id);
             return productView == null ? (IActionResult)new StatusCodeResult(404) : View(productView);
         }
 

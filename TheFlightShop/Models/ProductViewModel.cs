@@ -9,6 +9,5 @@ namespace TheFlightShop.Models
         public string ShortDescription { get; set; }
         public string ImageFilename { get; set; }
         public bool IsMostPopular { get; set; }
-        public bool HasPricing { get; set; }
     }
 }

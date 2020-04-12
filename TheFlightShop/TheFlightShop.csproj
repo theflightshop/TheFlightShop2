@@ -325,6 +325,7 @@
     <None Remove="Auth\TokenValidationResult.cs" />
     <None Remove="DAL\IOrderDAL.cs" />
     <None Remove="DAL\OrderDAL.cs" />
+    <None Remove="DAL\ProductContext.cs" />
     <None Remove="DAL\Schemas\Contact.cs" />
     <None Remove="DAL\Schemas\Order.cs" />
     <None Remove="DAL\Schemas\OrderLine.cs" />
@@ -334,6 +335,8 @@
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
     <None Remove="Models\HomeViewModel.cs" />
+    <None Remove="Models\MaintenanceSearchResult.cs" />
+    <None Remove="Models\PartSearchResult.cs" />
     <None Remove="Models\ProductFormData.cs" />
     <None Remove="Models\SearchResult.cs" />
     <None Remove="Models\SearchResultView.cs" />
