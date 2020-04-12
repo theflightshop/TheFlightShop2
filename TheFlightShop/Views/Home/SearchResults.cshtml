@@ -22,7 +22,14 @@ else
             <div class="flightshop-search-result-info">
                 <span>@result.Category&nbsp;&gt;&nbsp;</span>
                 <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>
-                @Html.ActionLink(result.Name, "ProductDetail", "Products", new { id = result.ProductId })
+                @if (result.Id.HasValue)
+                {
+                    @Html.ActionLink(result.Name, result.ActionName, result.ControllerName, new { id = result.Id.Value })
+                }
+                else
+                {
+                    @Html.ActionLink(result.Name, result.ActionName, result.ControllerName)
+                }
                 <br /><span class="flightshop-search-result-desc">@result.Description</span>
             </div>
         </li>

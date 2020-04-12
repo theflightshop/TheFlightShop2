@@ -7,9 +7,12 @@ namespace TheFlightShop.Models
         public override bool IsCategoryHyperlinked => true;
         public override bool IsSubCategoryHyperlinked => true;
 
+        public override string ControllerName => "Products";
+        public override string ActionName => "ProductDetail";
+
         public PartSearchResult(string name, Guid productId, string description, string category, string subCategory, string imgFilename)
         {
-            ProductId = productId;
+            Id = productId;
             Name = name;
             Description = description;
             Category = category;
