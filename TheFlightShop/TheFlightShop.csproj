@@ -327,6 +327,7 @@
     <None Remove="DAL\OrderDAL.cs" />
     <None Remove="DAL\ProductContext.cs" />
     <None Remove="DAL\Schemas\Contact.cs" />
+    <None Remove="DAL\Schemas\MaintenanceItem.cs" />
     <None Remove="DAL\Schemas\Order.cs" />
     <None Remove="DAL\Schemas\OrderLine.cs" />
     <None Remove="Email\IEmailClient.cs" />

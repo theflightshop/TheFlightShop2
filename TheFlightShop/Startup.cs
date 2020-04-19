@@ -42,7 +42,13 @@ namespace TheFlightShop
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var connectionString = GetConnectionString();
-            services.AddScoped<IProductDAL>(_ => new ProductDAL(connectionString));
+            var maintenanceSubdir = Environment.GetEnvironmentVariable("S3_MAINTENANCE_ITEMS_SUB_DIRECTORY");
+            if (string.IsNullOrEmpty(maintenanceSubdir))
+            {
+                maintenanceSubdir = "maintenance";
+            }
+
+            services.AddScoped<IProductDAL>(_ => new ProductDAL(connectionString, maintenanceSubdir));
             services.AddScoped<IOrderDAL>(_ => new OrderDAL(connectionString));
 
             var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");

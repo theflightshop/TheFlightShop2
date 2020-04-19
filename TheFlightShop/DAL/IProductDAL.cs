@@ -28,5 +28,6 @@ namespace TheFlightShop.DAL
         Task DeleteSubCategoryAndProducts(Guid subCategoryId);
         Task CreateOrUpdatePart(Part part);
         Task DeletePart(Guid id);
+        string MaintenanceSubdirectory { get; }
     }
 }

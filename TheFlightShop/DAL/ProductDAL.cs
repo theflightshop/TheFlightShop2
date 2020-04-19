@@ -37,9 +37,12 @@ namespace TheFlightShop.DAL
 
         private readonly string _connectionString;
 
-        public ProductDAL(string connectionString)
+        public string MaintenanceSubdirectory { get; }
+
+        public ProductDAL(string connectionString, string maintenanceSubdirectory)
         {
             _connectionString = connectionString;
+            MaintenanceSubdirectory = maintenanceSubdirectory;
         }
 
         public async Task<IEnumerable<Category>> GetCategories()
@@ -229,35 +232,61 @@ namespace TheFlightShop.DAL
                 if (!string.IsNullOrEmpty(query))
                 {
                     var formattedQuery = query.ToLower().Trim();
-                    var matchingParts = await db.Parts.Where(part => part.IsActive && MatchesQuery(part, formattedQuery)).ToListAsync();
-                    if (matchingParts.Any())
-                    {
-                        foreach (var part in matchingParts)
-                        {
-                            var product = await db.Products.FindAsync(part.ProductId);
-                            if (product == null)
-                            {
-                                // todo: log product not found and move on
-                            }
-                            else
-                            {
-                                var result = await GetNewSearchResult(db, product, part);
-                                results.Add(result);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var matchingProducts = await db.Products.Where(product => product.IsActive && MatchesQuery(product, formattedQuery)).ToListAsync();
-                        foreach (var product in matchingProducts)
-                        {
-                            var result = await GetNewSearchResult(db, product);
-                            results.Add(result);
-                        }
-                    }
+                    var searchParts = SearchPartsOrProducts(formattedQuery, db);
+                    var searchMaintenance = SearchMaintenanceItems(formattedQuery, db);
+                    await Task.WhenAll(searchParts, searchMaintenance);
+                    results.AddRange(searchParts.Result);
+                    results.AddRange(searchMaintenance.Result);
                 }
                 return results;
             }
+        }
+
+        private async Task<IEnumerable<PartSearchResult>> SearchPartsOrProducts(string trimmedLowercaseQuery, ProductContext db)
+        {
+            var results = new List<PartSearchResult>();
+
+            var matchingParts = await db.Parts.Where(part => part.IsActive && MatchesQuery(part, trimmedLowercaseQuery)).ToListAsync();
+            if (matchingParts.Any())
+            {
+                foreach (var part in matchingParts)
+                {
+                    var product = await db.Products.FindAsync(part.ProductId);
+                    if (product == null)
+                    {
+                        // todo: log product not found and move on
+                    }
+                    else
+                    {
+                        var result = await GetNewSearchResult(db, product, part);
+                        results.Add(result);
+                    }
+                }
+            }
+            else
+            {
+                var matchingProducts = await db.Products.Where(product => product.IsActive && MatchesQuery(product, trimmedLowercaseQuery)).ToListAsync();
+                foreach (var product in matchingProducts)
+                {
+                    var result = await GetNewSearchResult(db, product);
+                    results.Add(result);
+                }
+            }
+
+            return results;
+        }
+
+        private async Task<IEnumerable<MaintenanceSearchResult>> SearchMaintenanceItems(string trimmedLowercaseQuery, ProductContext db)
+        {
+            var results = new List<MaintenanceSearchResult>();
+            var matchingItems = await db.MaintenanceItems.Where(item => item.IsActive && MatchesQuery(item, trimmedLowercaseQuery)).ToListAsync();
+            foreach (var item in matchingItems)
+            {
+                var maintenanceFilename = $"{MaintenanceSubdirectory}/{item.ImageFilename}";
+                var result = new MaintenanceSearchResult(item.Name, item.Description, item.Controller, item.Action, maintenanceFilename);
+                results.Add(result);
+            }
+            return results;
         }
 
         public async Task CreateOrUpdateProduct(Product product)
@@ -320,14 +349,19 @@ namespace TheFlightShop.DAL
             return category?.Name ?? null;
         }
 
-        private bool MatchesQuery(Part part, string query)
+        private bool MatchesQuery(Part part, string trimmedLowercaseQuery)
         {
-            return (part.PartNumber?.ToLower().Contains(query) ?? false) || (part.Description?.ToLower().Contains(query) ?? false);
+            return (part.PartNumber?.ToLower().Contains(trimmedLowercaseQuery) ?? false) || (part.Description?.ToLower().Contains(trimmedLowercaseQuery) ?? false);
         }
 
-        private bool MatchesQuery(Product product, string query)
+        private bool MatchesQuery(Product product, string trimmedLowercaseQuery)
         {
-            return (product.Code?.ToLower().Contains(query) ?? false) || (product.ShortDescription?.ToLower().Contains(query) ?? false);
+            return (product.Code?.ToLower().Contains(trimmedLowercaseQuery) ?? false) || (product.ShortDescription?.ToLower().Contains(trimmedLowercaseQuery) ?? false);
+        }
+
+        private bool MatchesQuery(MaintenanceItem item, string trimmedLowercaseQuery)
+        {
+            return (item.Name?.ToLower().Contains(trimmedLowercaseQuery) ?? false) || (item.Keywords?.ToLower().Contains(trimmedLowercaseQuery) ?? false);
         }
 
         private string GetInstallationExamplesPath(string productCode)

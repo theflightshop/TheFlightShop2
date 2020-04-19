@@ -7,9 +7,6 @@ namespace TheFlightShop.Models
 {
     public class MaintenanceSearchResult : SearchResult
     {
-        public override bool IsCategoryHyperlinked => false;
-        public override bool IsSubCategoryHyperlinked => false;
-
         public override string ControllerName { get; }
         public override string ActionName { get; }
 

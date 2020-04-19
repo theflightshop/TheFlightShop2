@@ -515,7 +515,10 @@
 
                             var searchResultLink = document.createElement('a');
                             searchResultLink.classList.add('flightshop-quick-search-link');
-                            var routeUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '/Products/ProductDetail/' + searchResult.productId;
+                            var routeUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '/' + searchResult.controllerName + '/' + searchResult.actionName;
+                            if (searchResult.Id) {
+                                routeUrl += searchResult.id;
+                            }
                             searchResultLink.href = routeUrl;
 
                             var partNumber = document.createElement('strong');

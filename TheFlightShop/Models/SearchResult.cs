@@ -14,8 +14,6 @@ namespace TheFlightShop.Models
         public string Category { get; set; }
         public string SubCategory { get; set; }
         public string ImgFilename { get; set; }
-        public abstract bool IsCategoryHyperlinked { get; }
-        public abstract bool IsSubCategoryHyperlinked { get; }
         public abstract string ControllerName { get; }
         public abstract string ActionName { get; }
     }

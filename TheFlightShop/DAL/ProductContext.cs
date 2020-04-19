@@ -8,6 +8,7 @@ namespace TheFlightShop.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Part> Parts { get; set; }
+        public DbSet<MaintenanceItem> MaintenanceItems { get; set; }
 
         private readonly string _connectionString;
 

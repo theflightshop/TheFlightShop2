@@ -58,6 +58,14 @@ namespace TheFlightShop.Controllers
             return GetImageResult(fileStream, fileName);
         }
 
+        [ResponseCache(Duration = SECONDS_IN_ONE_YEAR)]
+        [Route("~/Products/ProductImage/Maintenance/{fileName}")]
+        public async Task<IActionResult> GetMaintenanceItemImage(string fileName)
+        {
+            var fileStream = await _fileManager.GetProductImage($"{_productReadDAL.MaintenanceSubdirectory}/{fileName}");
+            return GetImageResult(fileStream, fileName);
+        }
+
         private IActionResult GetImageResult(Stream fileStream, string fileName)
         {
             IActionResult result;

@@ -20,8 +20,15 @@ else
         <li class="flightshop-search-result-view-item">
             <img src="@Url.Action("ProductImage", "Products")/@result.ImgFilename" alt="@result.Name" />
             <div class="flightshop-search-result-info">
-                <span>@result.Category&nbsp;&gt;&nbsp;</span>
-                <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>
+                @if (!string.IsNullOrEmpty(result.Category))
+                {
+                    <span>@result.Category&nbsp;&gt;&nbsp;</span>
+                }
+                @if (!string.IsNullOrEmpty(result.SubCategory))
+                {
+                    <span>@result.SubCategory&nbsp;&gt;&nbsp;</span>
+                }
+
                 @if (result.Id.HasValue)
                 {
                     @Html.ActionLink(result.Name, result.ActionName, result.ControllerName, new { id = result.Id.Value })
