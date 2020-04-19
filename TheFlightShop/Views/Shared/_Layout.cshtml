@@ -516,7 +516,7 @@
                             var searchResultLink = document.createElement('a');
                             searchResultLink.classList.add('flightshop-quick-search-link');
                             var routeUrl = '@Context.Request.Scheme' + '://' + '@Context.Request.Host' + '/' + searchResult.controllerName + '/' + searchResult.actionName;
-                            if (searchResult.Id) {
+                            if (searchResult.id) {
                                 routeUrl += searchResult.id;
                             }
                             searchResultLink.href = routeUrl;
