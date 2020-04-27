@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TheFlightShop.Models
 {
@@ -16,6 +14,9 @@ namespace TheFlightShop.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+        public ShippingType ShippingType { get; set; }
+        public string PurchaseOrderNumber { get; set; }
+        public string Notes { get; set; }
         public IEnumerable<ClientOrderLine> OrderLines { get; set; }
 
         private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;

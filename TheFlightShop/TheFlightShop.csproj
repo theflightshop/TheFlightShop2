@@ -330,6 +330,7 @@
     <None Remove="DAL\Schemas\MaintenanceItem.cs" />
     <None Remove="DAL\Schemas\Order.cs" />
     <None Remove="DAL\Schemas\OrderLine.cs" />
+    <None Remove="DAL\ShippingType.cs" />
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="IO\AwsS3FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />

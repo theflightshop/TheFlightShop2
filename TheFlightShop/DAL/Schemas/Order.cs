@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TheFlightShop.DAL.Schemas
 {
@@ -12,5 +9,8 @@ namespace TheFlightShop.DAL.Schemas
         public bool Completed { get; set; }
         public bool Shipped { get; set; }
         public DateTime DateCreated { get; set; }
+        public short ShippingType { get; set; }
+        public string PurchaseOrderNumber { get; set; }
+        public string Notes { get; set; }
     }
 }

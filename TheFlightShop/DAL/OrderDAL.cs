@@ -34,7 +34,7 @@ namespace TheFlightShop.DAL
             try
             {
                 var contactId = GetOrSaveContact(clientOrder);
-                var orderId = CreateOrder(contactId);
+                var orderId = CreateOrder(contactId, clientOrder);
                 SaveOrderLines(orderId, clientOrder.OrderLines, parts);
 
                 succeeded = true;
@@ -67,13 +67,16 @@ namespace TheFlightShop.DAL
             SaveChanges();
         }
 
-        private Guid CreateOrder(Guid contactId)
+        private Guid CreateOrder(Guid contactId, ClientOrder clientOrder)
         {
             var order = new Order
             {
                 Id = Guid.NewGuid(),
                 ContactId = contactId,
-                DateCreated = DateTime.UtcNow
+                DateCreated = DateTime.UtcNow,
+                ShippingType = (short)clientOrder.ShippingType,
+                PurchaseOrderNumber = clientOrder.PurchaseOrderNumber,
+                Notes = clientOrder.Notes
             };
             Orders.Add(order);
             SaveChanges();

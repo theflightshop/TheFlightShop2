@@ -1,4 +1,5 @@
 ﻿
+@using TheFlightShop.DAL;
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +10,7 @@
 <form id="flightshop-checkout-form">
     <div class="flightshop-checkout-section">
         <h4 class="flightshop-checkout-section-title">Customer Information</h4>
-        <div class="row">
+        @*<div class="row">*@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="flightshop-customer-first-name">First Name</label>
@@ -22,15 +23,29 @@
                     <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
                 </div>
             </div>
+        @*</div>*@
+        @*<div class="row">*@
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="flightshop-customer-email">Email</label>
+                <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
+            </div>
         </div>
-        <div class="form-group">
-            <label for="flightshop-customer-email">Email</label>
-            <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
-        </div>
-        <div class="form-group">
-            <label for="flightshop-customer-phone">Phone</label>
-            <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
-        </div>
+        @*</div>*@
+        @*<div class="row">*@
+            <div class="col-md-6" style="padding-bottom: 1em;">
+                <div class="form-group">
+                    <label for="flightshop-customer-phone">Phone</label>
+                    <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="flightshop-po-number">PO Number (Optional)</label>
+                    <input id="flightshop-po-number" type="text" class="form-control" />
+                </div>
+            </div>
+        @*</div>*@
     </div>
 
     <div id="flightshop-addr-section" class="flightshop-checkout-section">
@@ -46,13 +61,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-5" style="padding-bottom: 1em;">
                 <label for="flightshop-customer-city">City</label>
                 <input id="flightshop-customer-city" type="text" class="form-control" placeholder="ex. Anywhereville" required />
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="flightshop-customer-state">State</label>
-                <select id="flightshop-customer-state" required>
+                <select id="flightshop-customer-state" class="flightshop-select" required>
                     <option disabled selected value="">--</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
@@ -115,7 +130,21 @@
                 <label for="flightshop-customer-zipcode">ZIP</label>
                 <input id="flightshop-customer-zipcode" type="number" class="form-control" placeholder="ex. 90210" required />
             </div>
+            <div class="form-group col-md-2">
+                <label for="flightshop-shipping-type">Shipping Type</label>
+                <select id="flightshop-shipping-type" class="flightshop-select" required>
+                    <option disabled selected value="">--</option>
+                    <option value="@ShippingType.FedEx">@ShippingType.FedEx.ToString()</option>
+                    <option value="@ShippingType.UPS">@ShippingType.UPS.ToString()</option>
+                    <option value="@ShippingType.Other">@ShippingType.Other.ToString()</option>
+                </select>
+            </div> 
         </div>
+    </div>
+
+    <div class="flightshop-checkout-section">
+        <h4 class="flightshop-checkout-section-title">Notes</h4>
+        <textarea id="flightshop-cust-notes" class="form-control" rows="4" placeholder="Enter anything you'd like us to know, including but not limited to special shipping information or questions about your order."></textarea>
     </div>
 
     <div class="flightshop-checkout-section">
@@ -133,6 +162,9 @@
     </div>
     <div class="flightshop-checkout-section">
         <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success" onclick="submitOrder()">Submit Order</button>
+        <div id="flightshop-submit-order-loading-area" style="display: none;">
+            <div id="flightshop-submit-order-loader"></div><span id="flightshop-submit-order-loader-text">Submitting order, please wait...</span>
+        </div>
     </div>
 </form>
 
@@ -149,6 +181,7 @@
         border-top: 1px solid #ddd;
         padding: 0.5em 0;
         margin-top: 2em;
+        clear: both;
     }
 
     #flightshop-addtl-info-text {
@@ -156,6 +189,28 @@
 
     #flightshop-checkout-submit-btn {
         margin-top: 1.5em;
+    }
+
+    .flightshop-select {
+        width: 100%;
+        height: 1.5em;
+    }
+
+    #flightshop-submit-order-loader {
+        display: inline-block;
+        border: 3px solid #cdcdcd;
+        border-top: 3px solid #5555ff;
+        border-radius: 50%;
+        width: 1.75em;
+        height: 1.75em;
+        animation: spin 1.25s linear infinite;
+    }   
+
+    #flightshop-submit-order-loader-text {
+        position: relative;
+        top: -0.5em;
+        left: 0.5em;
+        font-style: italic;
     }
 
     @@media screen and (min-width: 991px) {
@@ -172,23 +227,23 @@
     }
 
     function submitOrder() {
-        
-
         var clientOrder = {
             FirstName: document.getElementById('flightshop-customer-first-name').value,
             LastName: document.getElementById('flightshop-customer-last-name').value,
             Email: document.getElementById('flightshop-customer-email').value,
             Phone: document.getElementById('flightshop-customer-phone').value,
             Address1: document.getElementById('flightshop-customer-addr-1').value,
-            Address2: document.getElementById('flightshop-customer-addr-2').value,
+            Address2: document.getElementById('flightshop-customer-addr-2').value || null,
             City: document.getElementById('flightshop-customer-city').value,
             State: document.getElementById('flightshop-customer-state').value,
-            Zip: document.getElementById('flightshop-customer-zipcode').value
+            Zip: document.getElementById('flightshop-customer-zipcode').value,
+            ShippingType: parseInt(document.getElementById('flightshop-shipping-type')).value,
+            PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
+            Notes: document.getElementById('flightshop-cust-notes').value || null
         };
         var agreed = document.getElementById('flightshop-order-agree-checkbox');
-
         if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
-            clientOrder.City && clientOrder.State && clientOrder.Zip && agreed.checked) {
+            clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null) && agreed.checked) {
             var orderLines = [];
             var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
             for (var i = 0; i < cart.length; i++) {
@@ -202,6 +257,8 @@
             }
             clientOrder.OrderLines = orderLines;
 
+            document.getElementById('flightshop-checkout-submit-btn').style.display = 'none';
+            document.getElementById('flightshop-submit-order-loading-area').style.display = 'block';
             var url = '@Url.Action("SubmitOrder", "Cart")';
             $.ajax({
                 type: 'POST',
