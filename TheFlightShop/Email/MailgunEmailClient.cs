@@ -32,7 +32,7 @@ namespace TheFlightShop.Email
             var clientBody = GetClientEmailBody(order, order.ConfirmationNumber);
             var adminBody = GetAdminEmailBody(order, order.ConfirmationNumber);
             var clientTask = SendEmail(order.Email, "Order Confirmation - The Flight Shop", clientBody);
-            var adminTask = SendEmail(_adminAddress, $"Customer Order - {order.Email}", adminBody);
+            var adminTask = SendEmail(_adminAddress, $"Customer Order {order.ConfirmationNumber} - {order.Email}", adminBody);
 
             await Task.WhenAll(clientTask, adminTask);
             return clientTask.Result && adminTask.Result;
@@ -81,6 +81,7 @@ namespace TheFlightShop.Email
 
             return $@"
 <span><strong>Confirmation Number:&nbsp;</strong>{confirmationNumber}</span><br/>
+<span><strong>Notes:&nbsp;</strong>{order.Notes ?? "(none)"}</span><br/>
 <br/>
 <span style=""font-size: 20px; font-weight: bold;"">Order Summary</span>
 <table style=""margin-top: 0;"">
@@ -93,7 +94,8 @@ namespace TheFlightShop.Email
 <br/>
 <span style=""font-size: 20px; font-weight: bold;"">Shipping Information</span><br/>
 <span>{order.Address1}&nbsp;{order.Address2}</span><br/>
-<span>{order.City}, {order.State} {order.Zip}</span>
+<span>{order.City}, {order.State} {order.Zip}</span><br/>
+<span><strong>Shipping Type:</strong>&nbsp;{order.ShippingType.ToString()}</span><br/><br/>
 ";
         }
 
@@ -123,7 +125,8 @@ namespace TheFlightShop.Email
 <span style=""font-size: 20px; font-weight: bold;"">Customer Contact Information</span><br/>
 <span><strong>Name:&nbsp;</strong>{order.FirstName}&nbsp;{order.LastName}</span><br/>
 <span><strong>Email:&nbsp;</strong>{order.Email}</span><br/>
-<span><strong>Phone:&nbsp;</strong>{order.Phone}</span>
+<span><strong>Phone:&nbsp;</strong>{order.Phone}</span><br/>
+<span><strong>PO Number:&nbsp;</strong>{order.PurchaseOrderNumber ?? "(none)"}</span><br/>
 {orderInfo}
 </div>
 ";

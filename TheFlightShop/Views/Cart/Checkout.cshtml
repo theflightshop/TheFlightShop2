@@ -134,9 +134,9 @@
                 <label for="flightshop-shipping-type">Shipping Type</label>
                 <select id="flightshop-shipping-type" class="flightshop-select" required>
                     <option disabled selected value="">--</option>
-                    <option value="@ShippingType.FedEx">@ShippingType.FedEx.ToString()</option>
-                    <option value="@ShippingType.UPS">@ShippingType.UPS.ToString()</option>
-                    <option value="@ShippingType.Other">@ShippingType.Other.ToString()</option>
+                    <option value="@((int)ShippingType.FedEx)">@ShippingType.FedEx.ToString()</option>
+                    <option value="@((int)ShippingType.UPS)">@ShippingType.UPS.ToString()</option>
+                    <option value="@((int)ShippingType.Other)">@ShippingType.Other.ToString()</option>
                 </select>
             </div> 
         </div>
@@ -237,10 +237,11 @@
             City: document.getElementById('flightshop-customer-city').value,
             State: document.getElementById('flightshop-customer-state').value,
             Zip: document.getElementById('flightshop-customer-zipcode').value,
-            ShippingType: parseInt(document.getElementById('flightshop-shipping-type')).value,
+            ShippingType: parseInt(document.getElementById('flightshop-shipping-type').value),
             PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
             Notes: document.getElementById('flightshop-cust-notes').value || null
         };
+        console.log('hamsterdam ', document.getElementById('flightshop-shipping-type').value)
         var agreed = document.getElementById('flightshop-order-agree-checkbox');
         if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
             clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null) && agreed.checked) {

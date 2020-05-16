@@ -103,11 +103,8 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> ClickBondAuthorizedDistributor()
         {
-            return await Task.Run(() =>
-            {
-                var viewModel = _productReadDAL.GetProductCategories();
-                return View(viewModel);
-            });
+            var viewModel = await _productReadDAL.GetProductCategories();
+            return View(viewModel);
         }
 
         public IActionResult ClickBondInstallation()
