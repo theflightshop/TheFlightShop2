@@ -17,13 +17,6 @@
                 </li>
             </ol>
         </nav>
-        <!-- NOTE: if more comparison charts are requested, esp. at category-level, then save filename to Category table and save file to S3 -->
-        @if (Model.CategoryName.ToLower() == "adhesives")
-        {
-            <div class="flightshop-category-comparison-chart-wrapper">
-                <strong>Comparison Chart:</strong>&nbsp;<a target="_blank" href="~/adhesives-comparison.pdf">View</a>
-            </div>
-        }
         <div class="form-group">
             <label for="flightshop-sub-category-select">Sub-category:</label>
             <select id="flightshop-sub-category-select" class="form-control" onchange="selectedCategoryChange(this.value)">
@@ -35,6 +28,14 @@
             </select>
         </div>
         <div id="flightshop-products-most-popular-legend">* Most Popular</div>
+        <!-- NOTE: if more comparison charts are requested, esp. at category-level, then save filename to Category table and save file to S3 -->
+        @if (Model.CategoryName.ToLower() == "adhesives")
+        {
+            <div class="flightshop-category-comparison-chart-wrapper">
+                <strong>Comparison Chart:</strong>&nbsp;<a target="_blank" href="~/adhesives-comparison.pdf">View</a>
+            </div>
+        }
+
         @{
             int i = 0;
             int rowNumber = 1;
