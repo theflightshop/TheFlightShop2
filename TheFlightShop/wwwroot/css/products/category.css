@@ -48,3 +48,10 @@
     height: calc(75vh);
     overflow-y: scroll;
 }
+
+.flightshop-category-comparison-chart-wrapper {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    display: inline-block;
+    background-color: #def;
+}

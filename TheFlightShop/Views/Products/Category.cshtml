@@ -3,53 +3,61 @@
     ViewData["Title"] = "Click Bond - Products";
 }
 
-<tr class="flightshop-page-content">
-    <nav aria-label="breadcrumb" style="margin-top: 2em;">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a asp-controller="Home" asp-action="Index">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a asp-controller="Products" asp-action="Index">Click Bond</a>
-            </li>
-            <li id="flightshop-active-subcategory-breadcrumb" class="breadcrumb-item active" aria-current="page">
-                @Model.CategoryName
-            </li>
-        </ol>
-    </nav>
-    <div class="form-group">
-        <label for="flightshop-sub-category-select">Sub-category:</label>
-        <select id="flightshop-sub-category-select" class="form-control" onchange="selectedCategoryChange(this.value)">
-            <option value="all">All</option>
-            @foreach (var subCategory in Model.SubCategories) {
-                <option value="@subCategory">@subCategory</option>
-            }
-        </select>
-    </div>
-    <div id="flightshop-products-most-popular-legend">* Most Popular</div>
-    @{ 
-        int i = 0;
-        int rowNumber = 1;
-    }
-    <div class="flightshop-category-list">
-      @*  <tr>*@
-        @functions {
-            public static decimal GetNumericValue(string productCode)
-            {
-                var numericMatch = System.Text.RegularExpressions.Regex.Match(productCode, @"\d+").Value;
-                int numericValue;
-                if (!int.TryParse(numericMatch, out numericValue))
-                {
-                    numericValue = 0;
-                }
-                return numericValue;
-            }
-
-            public static IEnumerable<ProductViewModel> OrderProductsByCode(IEnumerable<ProductViewModel> products)
-            {
-                return products.OrderBy(product => System.Text.RegularExpressions.Regex.Match(product.Code, @"[A-Za-z]+").Value).ThenBy(product => GetNumericValue(product.Code));
-            }
+    <tr class="flightshop-page-content">
+        <nav aria-label="breadcrumb" style="margin-top: 2em;">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a asp-controller="Products" asp-action="Index">Click Bond</a>
+                </li>
+                <li id="flightshop-active-subcategory-breadcrumb" class="breadcrumb-item active" aria-current="page">
+                    @Model.CategoryName
+                </li>
+            </ol>
+        </nav>
+        <!-- NOTE: if more comparison charts are requested, esp. at category-level, then save filename to Category table and save file to S3 -->
+        @if (Model.CategoryName.ToLower() == "adhesives")
+        {
+            <div class="flightshop-category-comparison-chart-wrapper">
+                <strong>Comparison Chart:</strong>&nbsp;<a target="_blank" href="~/adhesives-comparison.pdf">View</a>
+            </div>
         }
+        <div class="form-group">
+            <label for="flightshop-sub-category-select">Sub-category:</label>
+            <select id="flightshop-sub-category-select" class="form-control" onchange="selectedCategoryChange(this.value)">
+                <option value="all">All</option>
+                @foreach (var subCategory in Model.SubCategories)
+                {
+                    <option value="@subCategory">@subCategory</option>
+                }
+            </select>
+        </div>
+        <div id="flightshop-products-most-popular-legend">* Most Popular</div>
+        @{
+            int i = 0;
+            int rowNumber = 1;
+        }
+        <div class="flightshop-category-list">
+            @*  <tr>*@
+            @functions {
+                public static decimal GetNumericValue(string productCode)
+                {
+                    var numericMatch = System.Text.RegularExpressions.Regex.Match(productCode, @"\d+").Value;
+                    int numericValue;
+                    if (!int.TryParse(numericMatch, out numericValue))
+                    {
+                        numericValue = 0;
+                    }
+                    return numericValue;
+                }
+
+                public static IEnumerable<ProductViewModel> OrderProductsByCode(IEnumerable<ProductViewModel> products)
+                {
+                    return products.OrderBy(product => System.Text.RegularExpressions.Regex.Match(product.Code, @"[A-Za-z]+").Value).ThenBy(product => GetNumericValue(product.Code));
+                }
+            }
 
             @foreach (var product in OrderProductsByCode(Model.Products))
             {
@@ -92,6 +100,6 @@
                 </div>
             }
 
-        
-    </div>
-</div>
+
+        </div>
+        </div>
