@@ -92,11 +92,6 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public IActionResult WindowShades()
-        {
-            return View();
-        }
-
         #endregion
 
         #region Click Bond

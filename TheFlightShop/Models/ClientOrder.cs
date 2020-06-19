@@ -14,7 +14,7 @@ namespace TheFlightShop.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
-        public ShippingType ShippingType { get; set; }
+        public int ShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string Notes { get; set; }
         public IEnumerable<ClientOrderLine> OrderLines { get; set; }

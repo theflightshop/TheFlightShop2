@@ -134,9 +134,14 @@
                 <label for="flightshop-shipping-type">Shipping Type</label>
                 <select id="flightshop-shipping-type" class="flightshop-select" required>
                     <option disabled selected value="">--</option>
-                    <option value="@((int)ShippingType.FedEx)">@ShippingType.FedEx.ToString()</option>
-                    <option value="@((int)ShippingType.UPS)">@ShippingType.UPS.ToString()</option>
-                    <option value="@((int)ShippingType.Other)">@ShippingType.Other.ToString()</option>
+                    <option value="@((int)ShippingType.UpsGround)">@ShippingType.UpsGround.Name</option>
+                    <option value="@((int)ShippingType.UpsRed)">@ShippingType.UpsRed.Name</option>
+                    <option value="@((int)ShippingType.UpsTwoDay)">@ShippingType.UpsTwoDay.Name</option>
+                    <option value="@((int)ShippingType.UpsThreeDay)">@ShippingType.UpsThreeDay.Name</option>
+                    <option value="@((int)ShippingType.FedExGround)">@ShippingType.FedExGround.Name</option>
+                    <option value="@((int)ShippingType.FedExP2)">@ShippingType.FedExP2.Name</option>
+                    <option value="@((int)ShippingType.FedExP1)">@ShippingType.FedExP1.Name</option>
+                    <option value="@((int)ShippingType.Other)">@ShippingType.Other.Name</option>
                 </select>
             </div> 
         </div>

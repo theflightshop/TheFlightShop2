@@ -95,7 +95,7 @@ namespace TheFlightShop.Email
 <span style=""font-size: 20px; font-weight: bold;"">Shipping Information</span><br/>
 <span>{order.Address1}&nbsp;{order.Address2}</span><br/>
 <span>{order.City}, {order.State} {order.Zip}</span><br/>
-<span><strong>Shipping Type:</strong>&nbsp;{order.ShippingType.ToString()}</span><br/><br/>
+<span><strong>Shipping Type:</strong>&nbsp;{(ShippingType)order.ShippingType}</span><br/><br/>
 ";
         }
 
