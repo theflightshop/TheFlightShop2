@@ -12,5 +12,7 @@ namespace TheFlightShop.DAL.Schemas
         public short ShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string Notes { get; set; }
+        public string AttentionTo { get; set; }
+        public string CustomShippingType { get; set; }
     }
 }

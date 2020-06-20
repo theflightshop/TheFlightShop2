@@ -33,7 +33,7 @@ namespace TheFlightShop.DAL
 
             try
             {
-                var contactId = GetOrSaveContact(clientOrder);
+                var contactId = SaveContact(clientOrder);
                 var orderId = CreateOrder(contactId, clientOrder);
                 SaveOrderLines(orderId, clientOrder.OrderLines, parts);
 
@@ -76,7 +76,9 @@ namespace TheFlightShop.DAL
                 DateCreated = DateTime.UtcNow,
                 ShippingType = (short)clientOrder.ShippingType,
                 PurchaseOrderNumber = clientOrder.PurchaseOrderNumber,
-                Notes = clientOrder.Notes
+                Notes = clientOrder.Notes,
+                AttentionTo = clientOrder.AttentionTo,
+                CustomShippingType = clientOrder.CustomShippingType
             };
             Orders.Add(order);
             SaveChanges();
@@ -84,54 +86,36 @@ namespace TheFlightShop.DAL
             return order.Id;
         }
 
-        private Guid GetOrSaveContact(ClientOrder clientOrder)
+        private Guid SaveContact(ClientOrder clientOrder)
         {
             var formattedPhone = Regex.Replace(clientOrder.Phone?.Trim() ?? "", @"\D", "");
-            var contactQuery = new Contact
+            var contact = new Contact
             {
-                FirstName = clientOrder.FirstName?.ToLower().Trim(),
-                LastName = clientOrder.LastName?.ToLower().Trim(),
+                Id = Guid.NewGuid(),
+                FirstName = clientOrder.FirstName?.Trim(),
+                LastName = clientOrder.LastName?.Trim(),
                 Email = clientOrder.Email?.ToLower().Trim(),
                 Phone = formattedPhone,
                 Address1 = clientOrder.Address1?.Trim(),
                 Address2 = clientOrder.Address2?.Trim(),
                 City = clientOrder.City?.ToLower().Trim(),
                 State = clientOrder.State?.ToUpper().Trim(),
-                Zip = clientOrder.Zip?.ToLower().Trim()
+                Zip = clientOrder.Zip?.ToLower().Trim(),
+                BillingAddress1 = clientOrder.BillingAddress1?.Trim(),
+                BillingAddress2 = clientOrder.BillingAddress2?.Trim(),
+                BillingCity = clientOrder.BillingCity?.ToLower().Trim(),
+                BillingState = clientOrder.BillingState?.ToUpper().Trim(),
+                BillingZip = clientOrder.BillingZip?.ToLower().Trim(),
+                CompanyName = clientOrder.CompanyName?.Trim(),
+                DateCreated = DateTime.UtcNow
             };
 
-            var contactSaved = GetExistingContact(contactQuery);
-            if (contactSaved == null)
-            {
-                contactSaved = contactQuery;
-                contactSaved.Id = Guid.NewGuid();
-                contactSaved.DateCreated = DateTime.UtcNow;
+            // todo: save new ea. order for auditing? and then have user w/ contactId //--- var contactSaved =GetExistingContact(contactQuery);
 
-                Contacts.Add(contactSaved);
-                SaveChanges();
-            }
+            Contacts.Add(contact);
+            SaveChanges();
 
-            return contactSaved.Id;
-        }
-
-        private Contact GetExistingContact(Contact contactQuery)
-        {
-            return Contacts.FirstOrDefault(contact =>
-                contact.FirstName == contactQuery.FirstName &&
-                contact.LastName == contactQuery.LastName &&
-                contact.Email == contactQuery.Email &&
-                contact.Phone == contactQuery.Phone &&
-                (
-                    contact.Address1 == null || contactQuery.Address1 == null ||
-                    contact.Address1.ToLower() == contactQuery.Address1.ToLower()
-                ) &&
-                (
-                    contact.Address2 == null || contactQuery.Address2 == null || 
-                    contact.Address2.ToLower() == contactQuery.Address2.ToLower()
-                ) &&
-                contact.City == contactQuery.City &&
-                contact.State == contactQuery.State &&
-                contact.Zip == contactQuery.Zip);
+            return contact.Id;
         }
     }
 }

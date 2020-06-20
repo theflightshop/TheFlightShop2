@@ -11,18 +11,18 @@
     <div class="flightshop-checkout-section">
         <h4 class="flightshop-checkout-section-title">Customer Information</h4>
         @*<div class="row">*@
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="flightshop-customer-first-name">First Name</label>
-                    <input id="flightshop-customer-first-name" type="text" class="form-control" placeholder="ex. Bessie" required />
-                </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="flightshop-customer-first-name">First Name</label>
+                <input id="flightshop-customer-first-name" type="text" class="form-control" placeholder="ex. Bessie" required />
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="flightshop-customer-last-name">Last Name</label>
-                    <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
-                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="flightshop-customer-last-name">Last Name</label>
+                <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
             </div>
+        </div>
         @*</div>*@
         @*<div class="row">*@
         <div class="col-md-12">
@@ -33,23 +33,33 @@
         </div>
         @*</div>*@
         @*<div class="row">*@
-            <div class="col-md-6" style="padding-bottom: 1em;">
-                <div class="form-group">
-                    <label for="flightshop-customer-phone">Phone</label>
-                    <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
-                </div>
+        <div class="col-md-6" style="padding-bottom: 1em;">
+            <div class="form-group">
+                <label for="flightshop-customer-phone">Phone</label>
+                <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="flightshop-po-number">PO Number (Optional)</label>
-                    <input id="flightshop-po-number" type="text" class="form-control" />
-                </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="flightshop-po-number">PO Number (Optional)</label>
+                <input id="flightshop-po-number" type="text" class="form-control" />
             </div>
+        </div>
         @*</div>*@
     </div>
 
     <div id="flightshop-addr-section" class="flightshop-checkout-section">
         <h4 class="flightshop-checkout-section-title">Shipping Address</h4>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label for="flightshop-customer-company-name">Company Name (Optional)</label>
+                <input id="flightshop-customer-company-name" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="flightshop-customer-attention-to">Attention To (Optional)</label>
+                <input id="flightshop-customer-attention-to" type="text" class="form-control" />
+            </div>
+        </div>
         <div class="row">
             <div class="form-group col-md-8">
                 <label for="flightshop-customer-addr-1">Address Line 1</label>
@@ -65,7 +75,7 @@
                 <label for="flightshop-customer-city">City</label>
                 <input id="flightshop-customer-city" type="text" class="form-control" placeholder="ex. Anywhereville" required />
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="flightshop-customer-state">State</label>
                 <select id="flightshop-customer-state" class="flightshop-select" required>
                     <option disabled selected value="">--</option>
@@ -126,13 +136,15 @@
                     <option value="VI">U.S. Virgin Islands</option>
                 </select>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-4">
                 <label for="flightshop-customer-zipcode">ZIP</label>
                 <input id="flightshop-customer-zipcode" type="number" class="form-control" placeholder="ex. 90210" required />
             </div>
-            <div class="form-group col-md-2">
+        </div>
+        <div class="row" style="clear: both;">
+            <div class="form-group col-md-3" style="padding-bottom: 1.5em;">
                 <label for="flightshop-shipping-type">Shipping Type</label>
-                <select id="flightshop-shipping-type" class="flightshop-select" required>
+                <select id="flightshop-shipping-type" class="flightshop-select" onchange="shippingTypeChanged()" required>
                     <option disabled selected value="">--</option>
                     <option value="@((int)ShippingType.UpsGround)">@ShippingType.UpsGround.Name</option>
                     <option value="@((int)ShippingType.UpsRed)">@ShippingType.UpsRed.Name</option>
@@ -143,7 +155,102 @@
                     <option value="@((int)ShippingType.FedExP1)">@ShippingType.FedExP1.Name</option>
                     <option value="@((int)ShippingType.Other)">@ShippingType.Other.Name</option>
                 </select>
-            </div> 
+            </div>
+            <div class="col-md-5">
+                <label style="visibility: hidden;">Invisible label for styling (tisk, tisk)</label>
+                <input id="flightshop-customer-custom-shipping-type" type="text" placeholder="Please specify shipping type" style="width: 100%; display: none;" />
+            </div>
+        </div>
+    </div>
+
+    <div class="flightshop-checkout-section">
+        <h4 class="flightshop-checkout-section-title">Billing Address</h4>
+        <div class="row">
+            <div class="form-group col-md-8">
+                <input id="flightshop-billing-use-shipping" class="checkout-form-checkbox" type="checkbox" onclick="billingUseShippingChecked()" />
+                <label for="flightshop-billing-use-shipping">Same as shipping address</label>
+            </div>
+        </div>
+        <div class="row billing-addr-row">
+            <div class="form-group col-md-8">
+                <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
+                <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control" placeholder="ex. 123 Maple St" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
+                <input id="flightshop-customer-addr-2-billing" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
+            </div>
+        </div>
+        <div class="row billing-addr-row">
+            <div class="form-group col-md-5" style="padding-bottom: 1em;">
+                <label for="flightshop-customer-city-billing">City</label>
+                <input id="flightshop-customer-city-billing" type="text" class="form-control billing-addr-form-control" placeholder="ex. Anywhereville" required />
+            </div>
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-state-billing">State</label>
+                <select id="flightshop-customer-state-billing" class="flightshop-select billing-addr-form-control" required>
+                    <option disabled selected value="">--</option>
+                    <option value="AK">AK</option>
+                    <option value="AL">AL</option>
+                    <option value="AR">AR</option>
+                    <option value="AZ">AZ</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="MA">MA</option>
+                    <option value="MA">MD</option>
+                    <option value="ME">ME</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MO">MO</option>
+                    <option value="MS">MS</option>
+                    <option value="MT">MT</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="NE">NE</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NV">NV</option>
+                    <option value="NY">NY</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VA">VA</option>
+                    <option value="VT">VT</option>
+                    <option value="WA">WA</option>
+                    <option value="WI">WI</option>
+                    <option value="WV">WV</option>
+                    <option value="WY">WY</option>
+                    <option value="PR">Puerto Rico</option>
+                    <option value="GU">Guam</option>
+                    <option value="AS">American Samoa</option>
+                    <option value="MP">Northern Mariana Islands</option>
+                    <option value="VI">U.S. Virgin Islands</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-zipcode-billing">ZIP</label>
+                <input id="flightshop-customer-zipcode-billing" type="number" class="form-control billing-addr-form-control" placeholder="ex. 90210" required />
+            </div>
         </div>
     </div>
 
@@ -158,22 +265,36 @@
             <ul>
                 <li>We will be in touch soon to review your order with you and receive your payment information.</li>
                 <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
+                <li>The Notes field above is private and won't be shared, but it isn't secured with bank-level encryption, so we don't recommend entering credit card information in Notes.</li>
             </ul>
         </p>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
+            <input class="form-check-input checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
             <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
         </div>
     </div>
     <div class="flightshop-checkout-section">
         <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success" onclick="submitOrder()">Submit Order</button>
-        <div id="flightshop-submit-order-loading-area" style="display: none;">
+        <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
             <div id="flightshop-submit-order-loader"></div><span id="flightshop-submit-order-loader-text">Submitting order, please wait...</span>
         </div>
     </div>
 </form>
 
 <style>
+    .checkout-form-checkbox {
+        -ms-transform: scale(2);
+        -moz-transform: scale(2);
+        -webkit-transform: scale(2);
+        -o-transform: scale(2);
+        transform: scale(2);
+        padding: 10px;
+        cursor: pointer;
+        margin-right: 0.5em !important;
+        margin-top: 0.5em;
+        margin-left: 0.5em !important;
+    }
+
     #flightshop-checkout-title {
         margin-top: 2em;
     }
@@ -184,9 +305,11 @@
 
     .flightshop-checkout-section-title {
         border-top: 1px solid #ddd;
-        padding: 0.5em 0;
+        padding: 0.5em;
         margin-top: 2em;
         clear: both;
+        font-size: 1.1em;
+        background-color: #E9F5FD;
     }
 
     #flightshop-addtl-info-text {
@@ -194,6 +317,7 @@
 
     #flightshop-checkout-submit-btn {
         margin-top: 1.5em;
+        font-size: 1em;
     }
 
     .flightshop-select {
@@ -226,6 +350,46 @@
 </style>
 
 <script>
+    function isCustomShippingType() {
+        var shippingType = document.getElementById('flightshop-shipping-type').value;
+        var otherType = '@((int)ShippingType.Other)';
+        return shippingType === otherType;
+    }
+
+    function shippingTypeChanged() {
+        var isCustomShipType = isCustomShippingType();
+        var shippingTypeTextDisplay = isCustomShipType ? 'inline-block' : 'none';
+        var customShipType = document.getElementById('flightshop-customer-custom-shipping-type');
+        customShipType.style.display = shippingTypeTextDisplay;
+        if (isCustomShipType) {
+            customShipType.setAttribute('required', true);
+        } else {
+            customShipType.removeAttribute('required');
+        }
+    }
+
+    function useShippingAddrForBilling() {
+        return document.getElementById('flightshop-billing-use-shipping').checked || false;
+    }
+
+    function billingUseShippingChecked() {
+        var checked = useShippingAddrForBilling();
+        var billingAddrDisplay = checked ? 'none' : 'block';
+        var addressRows = document.getElementsByClassName('billing-addr-row');
+        [].forEach.call(addressRows, function (row) {
+            row.style.display = billingAddrDisplay;
+        });
+        var isBillingAddrRequired = !checked;
+        var formControls = document.getElementsByClassName('billing-addr-form-control');
+        [].forEach.call(formControls, function (control) {
+            if (isBillingAddrRequired) {
+                control.setAttribute('required', true);
+            } else {
+                control.removeAttribute('required');
+            }
+        })
+    }
+
     function clearCart() {
         window.sessionStorage.setItem('cartItems', []);
         renderCartButton();
@@ -239,17 +403,29 @@
             Phone: document.getElementById('flightshop-customer-phone').value,
             Address1: document.getElementById('flightshop-customer-addr-1').value,
             Address2: document.getElementById('flightshop-customer-addr-2').value || null,
+            CompanyName: document.getElementById('flightshop-customer-company-name').value || null,
+            AttentionTo: document.getElementById('flightshop-customer-attention-to').value || null,
             City: document.getElementById('flightshop-customer-city').value,
             State: document.getElementById('flightshop-customer-state').value,
             Zip: document.getElementById('flightshop-customer-zipcode').value,
             ShippingType: parseInt(document.getElementById('flightshop-shipping-type').value),
+            CustomShippingType: document.getElementById('flightshop-customer-custom-shipping-type').value || null,
             PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
             Notes: document.getElementById('flightshop-cust-notes').value || null
         };
-        console.log('hamsterdam ', document.getElementById('flightshop-shipping-type').value)
+        var useShippingAddressForBilling = useShippingAddrForBilling();
+        if (!useShippingAddressForBilling) {
+            clientOrder.BillingAddress1 = document.getElementById('flightshop-customer-addr-1-billing').value;
+            clientOrder.BillingAddress2 = document.getElementById('flightshop-customer-addr-2-billing').value || null;
+            clientOrder.BillingCity = document.getElementById('flightshop-customer-city-billing').value;
+            clientOrder.BillingState = document.getElementById('flightshop-customer-state-billing').value;
+            clientOrder.BillingZip = document.getElementById('flightshop-customer-zipcode-billing').value;
+        }
         var agreed = document.getElementById('flightshop-order-agree-checkbox');
+        var shippingTypeValid = clientOrder.ShippingType !== null && (!isCustomShippingType() || clientOrder.CustomShippingType !== null);
+        var billingAddrValid = useShippingAddressForBilling || (clientOrder.BillingAddress1 && clientOrder.BillingCity && clientOrder.BillingState && clientOrder.BillingZip);
         if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && clientOrder.Address1 &&
-            clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null) && agreed.checked) {
+            clientOrder.City && clientOrder.State && clientOrder.Zip && shippingTypeValid && agreed.checked && billingAddrValid) {
             var orderLines = [];
             var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
             for (var i = 0; i < cart.length; i++) {

@@ -79,6 +79,16 @@ namespace TheFlightShop.Email
                     $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Quantity}</td></tr>";
             }
 
+            var shipToNames = "";
+            if (!string.IsNullOrWhiteSpace(order.CompanyName))
+            {
+                shipToNames += $"<span><strong>Company Name:</strong> {order.CompanyName}<span><br />";
+            }
+            if (!string.IsNullOrWhiteSpace(order.AttentionTo))
+            {
+                shipToNames += $"<span><strong>Attention To:</strong> {order.AttentionTo}<span><br />";
+            }
+
             return $@"
 <span><strong>Confirmation Number:&nbsp;</strong>{confirmationNumber}</span><br/>
 <span><strong>Notes:&nbsp;</strong>{order.Notes ?? "(none)"}</span><br/>
@@ -93,10 +103,12 @@ namespace TheFlightShop.Email
 </table>
 <br/>
 <span style=""font-size: 20px; font-weight: bold;"">Shipping Information</span><br/>
+{shipToNames}
+<span><strong>Shipping Type:</strong>&nbsp;{GetShipTypeText(order.ShippingType, order.CustomShippingType)}</span><br/>
+<span><strong>Address:</strong></span><br/>
 <span>{order.Address1}&nbsp;{order.Address2}</span><br/>
 <span>{order.City}, {order.State} {order.Zip}</span><br/>
-<span><strong>Shipping Type:</strong>&nbsp;{(ShippingType)order.ShippingType}</span><br/><br/>
-";
+<br/>";
         }
 
         private string GetClientEmailBody(ClientOrder order, string confirmationNumber)
@@ -116,9 +128,28 @@ namespace TheFlightShop.Email
 ";
         }
 
+        private string GetShipTypeText(int shipType, string otherShipType)
+        {
+            var text = $"{(ShippingType)shipType}";
+            if (shipType == (int)ShippingType.Other)
+            {
+                text += $" - {otherShipType}";
+            }
+            return text;
+        }
+
+        private string GetBillingAddressMarkup(ClientOrder order)
+        {
+            return $@"
+<span>{order.BillingAddress1}&nbsp;{order.BillingAddress2}</span><br/>
+<span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>
+";
+        }
+
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)
         {
             var orderInfo = GetOrderInformationMarkup(order, confirmationNumber);
+            string billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
 
             return $@"
 <div style=""font-family: 'sans-serif';"">
@@ -128,6 +159,8 @@ namespace TheFlightShop.Email
 <span><strong>Phone:&nbsp;</strong>{order.Phone}</span><br/>
 <span><strong>PO Number:&nbsp;</strong>{order.PurchaseOrderNumber ?? "(none)"}</span><br/>
 {orderInfo}
+<span style=""font-size: 20px; font-weight: bold;"">Billing Address</span><br/>
+{billingAddress}
 </div>
 ";
         }
