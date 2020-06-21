@@ -80,7 +80,7 @@ namespace TheFlightShop
         private string GetConnectionString()
         {
             var connectionStringTemplate = Configuration.GetConnectionString("FlightShopData");
-            var databaseUrl = (string)null;// Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
+            var databaseUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
             var username = "FlightShopAdmin";
             var password = "fly2mySHOP!";
