@@ -106,8 +106,7 @@ namespace TheFlightShop.Email
 {shipToNames}
 <span><strong>Shipping Type:</strong>&nbsp;{GetShipTypeText(order.ShippingType, order.CustomShippingType)}</span><br/>
 <span><strong>Address:</strong></span><br/>
-<span>{order.Address1}&nbsp;{order.Address2}</span><br/>
-<span>{order.City}, {order.State} {order.Zip}</span><br/>
+{GetShippingAddressMarkup(order)}
 <br/>";
         }
 
@@ -138,12 +137,36 @@ namespace TheFlightShop.Email
             return text;
         }
 
+        private string GetShippingAddressMarkup(ClientOrder order)
+        {
+            string address;
+            if (string.IsNullOrWhiteSpace(order.InternationalShippingAddress))
+            {
+                address = $@"
+<span>{order.Address1}&nbsp;{order.Address2}</span><br/>
+<span>{order.City}, {order.State} {order.Zip}</span><br/>";
+            }
+            else
+            {
+                address = order.InternationalShippingAddress.Replace("\n", "<br/>");
+            }
+            return address;
+        }
+
         private string GetBillingAddressMarkup(ClientOrder order)
         {
-            return $@"
+            string address;
+            if (string.IsNullOrWhiteSpace(order.InternationalBillingAddress))
+            {
+                address = $@"
 <span>{order.BillingAddress1}&nbsp;{order.BillingAddress2}</span><br/>
-<span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>
-";
+<span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>";
+            }
+            else
+            {
+                address = order.InternationalBillingAddress.Replace("\n", "<br/>");
+            }
+            return address;
         }
 
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)

@@ -101,12 +101,14 @@ namespace TheFlightShop.DAL
                 City = clientOrder.City?.ToLower().Trim(),
                 State = clientOrder.State?.ToUpper().Trim(),
                 Zip = clientOrder.Zip?.ToLower().Trim(),
+                InternationalShippingAddress = clientOrder.InternationalShippingAddress,
                 BillingAddress1 = clientOrder.BillingAddress1?.Trim(),
                 BillingAddress2 = clientOrder.BillingAddress2?.Trim(),
                 BillingCity = clientOrder.BillingCity?.ToLower().Trim(),
                 BillingState = clientOrder.BillingState?.ToUpper().Trim(),
                 BillingZip = clientOrder.BillingZip?.ToLower().Trim(),
                 CompanyName = clientOrder.CompanyName?.Trim(),
+                InternationalBillingAddress = clientOrder.InternationalBillingAddress,
                 DateCreated = DateTime.UtcNow
             };
 
