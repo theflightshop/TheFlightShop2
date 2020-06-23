@@ -136,8 +136,8 @@
                         </div>
                     </form>
                 </div>
-                <ul id="flightshop-quick-search-results-list" style="z-index: 1; display: none;">
-                    <li id="flightshop-quick-searching" class="flightshop-quick-search-li flightshop-quick-search-loading-container"><div class="flightshop-quick-search-loader"></div><span class="flightshop-quick-search-loader-text">&nbsp;Searching parts...</span></li>
+                <ul id="flightshop-quick-search-results-list" style="z-index: 1;">
+                    <li id="flightshop-quick-searching" class="flightshop-quick-search-li flightshop-quick-search-loading-container" style="display: none;"><div class="flightshop-quick-search-loader"></div><span class="flightshop-quick-search-loader-text">&nbsp;Searching parts...</span></li>
                 </ul>
                 <div id="flightshop-quick-search-no-results" style="display: none;">
                     There are no results matching that search.
@@ -460,8 +460,6 @@
 
                 function toggleSearchSpinner(show) {
                     document.getElementById('flightshop-quick-searching').style.display = show ? 'block' : 'none';
-                    document.getElementById('flightshop-quick-search-results-list').style.display = show ? 'block' : 'none';
-                    console.log('did it ', show)
                 }
 
                 function userSearchEnter() {

@@ -29,31 +29,3 @@
     min-width: 600px;
 }
 
-.modal-title {
-    width: 80%;
-    display: inline-block;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #efefef;
-}
-
-.submit-success-header {
-    background-color: #28a745;
-}
-.submit-error-header {
-    background-color: #bd2130;
-}
-
-.dialog-close-x {
-    text-shadow: none;
-    font-size: 1.75em;
-    color: #efefef;
-}
-
-.modal-btn-fs {
-    font-size: 1em;
-}
-
-.modal {
-    background-color: rgba(0, 0, 0, 0.5) !important;
-}

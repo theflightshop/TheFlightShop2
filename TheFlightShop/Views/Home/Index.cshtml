@@ -8,46 +8,26 @@
     @* todo: reenable this after implementing center menu -- navSubMenu.style.width = '600px';
     navSubMenu.style.paddingRight = '25em';*@
 
-    function is(value) {
-        return value.toLowerCase() === 'true';
-    }
-
     window.addEventListener('load', function () {
-        if ('@Model.OrderSubmitted'.toLowerCase() === 'true') {
-            document.getElementById('flightshop-order-alert-header').style.backgroundColor = is('@Model.OrderSubmissionFailed') ? '#bd2130' : '#28a745';
-            document.getElementById('flightshop-order-alert-header-text').innerHTML = is('@Model.OrderSubmissionFailed') ? '<strong>Oops!</strong>&nbsp;There was a problem submitting your order.' : 'Order submitted.';
-            this.document.getElementById('flightshop-order-alert-body').innerHTML = is('@Model.OrderSubmissionFailed') ?
-                'Please try again or reach out to us @Html.ActionLink("here", "Contact", "Home") for assistance.' :
-                'Thank you for your support! A confirmation message has been sent to the email address provided. We will be in touch soon to review your order with you.';
-            $('#flightshop-order-alert').show(300);
+        if ('@Model.OrderSubmitted'.toLowerCase() == 'true') {
+            var alertId = '@Model.OrderSubmissionFailed'.toLowerCase() == 'true' ? 'flightshop-order-err-alert' : 'flightshop-order-success-alert';
+            $('#' + alertId).show(750);
         }
 
         getCurrentWeatherInfo();
-    });
-
-    function closeModal() {
-        $('#flightshop-order-alert').modal('toggle');
-    }
-    </script>
+    });</script>
 <div>
-
-    <div id="flightshop-order-alert" class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div id="flightshop-order-alert-header" class="modal-header">
-                    <h5 id="flightshop-order-alert-header-text" class="modal-title">Order submitted.</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
-                        <span class="dialog-close-x" aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="flightshop-order-alert-body"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light modal-btn-fs" data-dismiss="modal" onclick="closeModal()">OK</button>
-                </div>
-            </div>
-        </div>
+    <div id="flightshop-order-success-alert" class="alert alert-success flightshop-top-alert" role="alert" style="display: none;">
+        <strong>Order submitted.</strong>&nbsp;A confirmation message has been sent to the email address provided.&nbsp;&nbsp;
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div id="flightshop-order-err-alert" class="alert alert-danger flightshop-top-alert" role="alert" style="display: none;">
+        <strong>Oops!</strong>&nbsp;There was a problem submitting your order. Please try again later.&nbsp;&nbsp;
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
     <div class="row">
