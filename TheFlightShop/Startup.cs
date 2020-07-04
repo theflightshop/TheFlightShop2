@@ -75,12 +75,7 @@ namespace TheFlightShop
             var latitude = Environment.GetEnvironmentVariable("WEATHER_LATITUDE");
             var longitude = Environment.GetEnvironmentVariable("WEATHER_LONGITUDE");
             services.AddSingleton<IWeatherClient>(_ => new DarkSkyWeatherClient(apiKey, latitude, longitude));
-
-            services.AddHttpsRedirection(options =>
-            {
-                options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                options.HttpsPort = 443;
-            });
+                      
         }
 
         private string GetConnectionString()
