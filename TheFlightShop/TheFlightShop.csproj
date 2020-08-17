@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.14" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.4" />
     <PackageReference Include="RestSharp.NetCore" Version="105.2.3" />
   </ItemGroup>
@@ -36,6 +37,7 @@
     <Folder Include="product-static-files\installation-examples\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="nlog.config" />
     <Content Remove="wwwroot\css\font-awesome.css" />
     <Content Remove="wwwroot\css\min\site.min.css" />
     <Content Remove="product-static-files\json\dbexport-oct-19\productInfo.json" />
@@ -334,6 +336,7 @@
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="IO\AwsS3FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />
+    <None Remove="Logging\AmazonS3LogTarget.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
     <None Remove="Models\HomeViewModel.cs" />
@@ -356,6 +359,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="nlog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

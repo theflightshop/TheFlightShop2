@@ -6,29 +6,34 @@ using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.Email;
 using TheFlightShop.DAL;
+using Microsoft.Extensions.Logging;
 
 namespace TheFlightShop.Controllers
 {
     public class CartController : Controller
     {
-        private IEmailClient _emailClient;
-        private IProductDAL _productDAL;
-        private IOrderDAL _orderDAL;
+        private readonly IEmailClient _emailClient;
+        private readonly IProductDAL _productDAL;
+        private readonly IOrderDAL _orderDAL;
+        private readonly ILogger _logger;
 
-        public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal)
+        public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal, ILogger<CartController> logger)
         {
             _emailClient = emailClient;
             _productDAL = productDal;
             _orderDAL = orderDal;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
+            _logger.LogWarning("Testing some cute logging functionality ;)");
             return View();
         }
 
         public IActionResult Checkout()
         {
+            _logger.LogError(new Exception("this is a test error message"), "this is the only time an exception is good");
             return View();
         }
 
