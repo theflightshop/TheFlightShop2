@@ -326,6 +326,7 @@
     <None Remove="Auth\TokenAuthorize.cs" />
     <None Remove="Auth\TokenValidationResult.cs" />
     <None Remove="DAL\IOrderDAL.cs" />
+    <None Remove="DAL\OrderContext.cs" />
     <None Remove="DAL\OrderDAL.cs" />
     <None Remove="DAL\ProductContext.cs" />
     <None Remove="DAL\Schemas\Contact.cs" />

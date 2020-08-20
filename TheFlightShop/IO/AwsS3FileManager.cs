@@ -2,8 +2,10 @@
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,13 +23,15 @@ namespace TheFlightShop.IO
         private readonly string _secretAccessKey;
         private readonly string _bucketName;
         private readonly Amazon.RegionEndpoint _region;
+        private readonly ILogger _logger;
 
-        public AwsS3FileManager(string accessKeyId, string secretAccessKey, string bucketName, string regionName)
+        public AwsS3FileManager(string accessKeyId, string secretAccessKey, string bucketName, string regionName, ILogger logger)
         {
             _accessKeyId = accessKeyId;
             _secretAccessKey = secretAccessKey;
             _bucketName = bucketName;
             _region = Amazon.RegionEndpoint.GetBySystemName(regionName);
+            _logger = logger;
         }
 
         public async Task<Stream> GetCategoryImage(string fileName)
@@ -51,6 +55,7 @@ namespace TheFlightShop.IO
 
             try
             {
+                var stopwatch = Stopwatch.StartNew();
                 using (var client = new AmazonS3Client(_accessKeyId, _secretAccessKey, _region))
                 {
                     var response = await client.GetObjectAsync(_bucketName, key);
@@ -60,11 +65,13 @@ namespace TheFlightShop.IO
                         responseStream.CopyTo(stream);
                     }
                 }
+
+                stopwatch.Stop();
+                _logger.LogInformation($"{nameof(AwsS3FileManager)}.{nameof(GetFileStream)}-fetched key={key} in {stopwatch.ElapsedMilliseconds}ms");
             }
             catch (Exception ex)
             {
-                int x = 0;
-                // todo: logging
+                _logger.LogError(ex, $"{nameof(AwsS3FileManager)}.{nameof(GetFileStream)}-failed to get stream for key={key}");
             }
 
             return stream;
@@ -113,7 +120,8 @@ namespace TheFlightShop.IO
             }
             catch (Exception ex)
             {
-                // todo: logging
+                _logger.LogError(ex, $"{nameof(AwsS3FileManager)}.{nameof(OverwriteFile)}-failed to overwrite key={containingDirectory}/{file?.FileName}");
+                throw;
             }
 
             return succeeded;
@@ -163,8 +171,8 @@ namespace TheFlightShop.IO
             }
             catch (Exception ex)
             {
-                int x = 0; 
-                // todo: logging
+                _logger.LogError(ex, $"{nameof(AwsS3FileManager)}.{nameof(DeleteFiles)}-failed to delete keys={string.Join(",", keys ?? new List<string>())}");
+                throw;
             }
         }
     }

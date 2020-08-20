@@ -32,7 +32,7 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> Category(Guid id)
         {
-            var viewModel = await _productReadDAL.GetProducts(id);
+            var viewModel = await _productReadDAL.GetProductsByCategory(id);
             return View(viewModel);
         }
 

@@ -10,6 +10,6 @@ namespace TheFlightShop.DAL
 {
     public interface IOrderDAL
     {
-        bool SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts);
+        Task<bool> SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts);
     }
 }

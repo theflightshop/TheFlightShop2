@@ -2,6 +2,7 @@
 using Amazon.S3;
 using Amazon.S3.Model;
 using NLog;
+using NLog.Common;
 using NLog.Config;
 using NLog.Targets;
 using System;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace TheFlightShop.Logging
 {
     [Target("AmazonS3LogTarget")]
-    public sealed class AmazonS3LogTarget : AsyncTaskTarget
+    public sealed class AmazonS3LogTarget : TargetWithLayout
     {
         [RequiredParameter]
         public string Bucket { get; set; }
@@ -28,10 +29,15 @@ namespace TheFlightShop.Logging
         [RequiredParameter]
         public string Region { get; set; }
 
-        protected override async Task WriteAsyncTask(LogEventInfo logEvent, CancellationToken cancellationToken)
+        protected override void Write(IList<AsyncLogEventInfo> logEvents)
         {
-            var logMessage = RenderLogEvent(Layout, logEvent);
-            await WriteToServer(logMessage);
+            if (logEvents != null && logEvents.Any())
+            {
+                var logMessages = logEvents.Select(logEvent => RenderLogEvent(Layout, logEvent.LogEvent));
+                var combinedLogMessage = string.Join($"{Environment.NewLine}{Environment.NewLine}", logMessages);
+                var writeToServer = WriteToServer(combinedLogMessage);
+                writeToServer.Wait();
+            }
         }
 
         private async Task WriteToServer(string logMessage)
