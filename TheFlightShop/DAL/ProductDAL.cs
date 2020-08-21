@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TheFlightShop.DAL.Schemas;
 using TheFlightShop.Models;
@@ -36,71 +38,125 @@ namespace TheFlightShop.DAL
         }
 
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
         public string MaintenanceSubdirectory { get; }
 
-        public ProductDAL(string connectionString, string maintenanceSubdirectory)
+        public ProductDAL(string connectionString, string maintenanceSubdirectory, ILogger logger)
         {
             _connectionString = connectionString;
+            _logger = logger;
             MaintenanceSubdirectory = maintenanceSubdirectory;
         }
 
         public async Task<IEnumerable<Category>> GetCategories()
         {
-            return await GetParentCategories();
+            try
+            {
+                return await GetParentCategories();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetCategories)}");
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Category>> GetSubCategories()
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                return await db.Categories.Where(category => category.IsActive && category.CategoryId.HasValue).ToListAsync();
+                using (var db = new ProductContext(_connectionString))
+                {
+                    return await db.Categories.Where(category => category.IsActive && category.CategoryId.HasValue).ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetSubCategories)}");
+                throw;
             }
         }
 
         public async Task<IEnumerable<Product>> GetProducts()
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var getParts = db.Parts.ToListAsync();
-                var getProducts = db.Products.ToListAsync();
-                await Task.WhenAll(getParts, getProducts);
-
-                var products = getProducts.Result;
-                var partsByProductId = getParts.Result.GroupBy(part => part.ProductId).ToDictionary(group => group.Key);
-                foreach (var product in products)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    if (partsByProductId.ContainsKey(product.Id))
+                    var stopwatch = Stopwatch.StartNew();
+
+                    var getParts = db.Parts.ToListAsync();
+                    var getProducts = db.Products.ToListAsync();
+                    await Task.WhenAll(getParts, getProducts);
+                    
+                    var products = getProducts.Result;
+                    var partsByProductId = getParts.Result.GroupBy(part => part.ProductId).ToDictionary(group => group.Key);
+                    foreach (var product in products)
                     {
-                        product.Parts = partsByProductId[product.Id];
+                        if (partsByProductId.ContainsKey(product.Id))
+                        {
+                            product.Parts = partsByProductId[product.Id];
+                        }
                     }
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(GetProducts)}-{products?.Count ?? 0} products in {stopwatch.ElapsedMilliseconds}ms");
+
+                    return products;
                 }
-
-                return products;
             }
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProducts)}");
+                throw;
+            }
         }
 
         public async Task<Product> GetProduct(Guid id)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                return await db.Products.FindAsync(id);
+                using (var db = new ProductContext(_connectionString))
+                {
+                    return await db.Products.FindAsync(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProduct)}");
+                throw;
             }
         }
 
         public async Task<IEnumerable<Part>> GetParts()
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                return await db.Parts.ToListAsync();
+                using (var db = new ProductContext(_connectionString))
+                {
+                    return await db.Parts.ToListAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetParts)}");
+                throw;
             }
         }
 
         public async Task<ProductsViewModel> GetProductCategories()
         {
-            var parentCategories = await GetParentCategories();
-            return new ProductsViewModel { Categories = parentCategories };
+            try
+            {
+                var parentCategories = await GetParentCategories();
+                return new ProductsViewModel { Categories = parentCategories };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProductCategories)}");
+                throw;
+            }
         }
 
         private async Task<IEnumerable<Category>> GetParentCategories()
@@ -111,72 +167,103 @@ namespace TheFlightShop.DAL
             }
         }
 
-        public async Task<ProductCategoryViewModel> GetProducts(Guid categoryId)
+        public async Task<ProductCategoryViewModel> GetProductsByCategory(Guid categoryId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var getProducts = db.Products.Where(product => product.IsActive && product.CategoryId == categoryId).ToListAsync();
-                var getCategory = db.Categories.FindAsync(categoryId);
-                var getSubCategories = db.Categories.Where(cat => cat.CategoryId == categoryId).ToListAsync();
-                await Task.WhenAll(getProducts, getCategory, getSubCategories);
-
-                var products = getProducts.Result;
-                var category = getCategory.Result;
-                var subCategories = getSubCategories.Result;
-                return new ProductCategoryViewModel
+                using (var db = new ProductContext(_connectionString))
                 {
-                    CategoryName = category?.Name ?? "N/A",
-                    SubCategories = subCategories.Select(c => c.Name).ToList(),
-                    Products = products.Select(product => new ProductViewModel
+                    var stopwatch = Stopwatch.StartNew();
+
+                    var getProducts = db.Products.Where(product => product.IsActive && product.CategoryId == categoryId).ToListAsync();
+                    var getCategory = db.Categories.FindAsync(categoryId);
+                    var getSubCategories = db.Categories.Where(cat => cat.CategoryId == categoryId).ToListAsync();
+                    await Task.WhenAll(getProducts, getCategory, getSubCategories);
+
+                    var products = getProducts.Result;
+                    var category = getCategory.Result;
+                    var subCategories = getSubCategories.Result;
+                    var viewModel = new ProductCategoryViewModel
                     {
-                        Id = product.Id,
-                        Code = product.Code,
-                        ShortDescription = product.ShortDescription,
-                        IsMostPopular = product.MostPopular,
-                        SubCategory = subCategories.First(c => c.Id == product.SubCategoryId).Name,
-                        ImageFilename = product.ImageFilename
-                    })
-                };
+                        CategoryName = category?.Name ?? "N/A",
+                        SubCategories = subCategories.Select(c => c.Name).ToList(),
+                        Products = products.Select(product => new ProductViewModel
+                        {
+                            Id = product.Id,
+                            Code = product.Code,
+                            ShortDescription = product.ShortDescription,
+                            IsMostPopular = product.MostPopular,
+                            SubCategory = subCategories.First(c => c.Id == product.SubCategoryId).Name,
+                            ImageFilename = product.ImageFilename
+                        })
+                    };
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(GetProductsByCategory)}-{products.Count} products in {stopwatch.ElapsedMilliseconds}ms");
+                    return viewModel;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProductsByCategory)},categoryId={categoryId}");
+                throw;
             }
         }
 
         public async Task<ProductDetailViewModel> GetProductView(Guid productId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var product = await db.Products.FindAsync(productId);
-                var viewModel = (ProductDetailViewModel)null;
-                if (product != null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    var getCategory = db.Categories.FindAsync(product.CategoryId);
-                    var getParts = db.Parts.Where(p => p.ProductId == product.Id && p.IsActive).ToListAsync();
-                    await Task.WhenAll(getCategory, getParts);
-                    var category = getCategory.Result;
-                    var parts = getParts.Result;
+                    var stopwatch = Stopwatch.StartNew();
 
-                    parts.Sort((a, b) => CompareParts(a, b));
-
-                    viewModel = new ProductDetailViewModel
+                    var product = await db.Products.FindAsync(productId);
+                    var viewModel = (ProductDetailViewModel)null;
+                    if (product != null)
                     {
-                        ProductId = productId,
-                        Category = category.Name,
-                        CategoryId = category.Id,
-                        ProductCode = product.Code,
-                        ShortDescription = product.ShortDescription,
-                        LongDescription = product.LongDescription,
-                        NumberOfInstallationExamples = product.NumberOfInstallationExamples,
-                        InstallationExamplesPath = GetInstallationExamplesPath(product.Code),
-                        ImageFilename = product.ImageFilename,
-                        DrawingFilename = product.DrawingFilename,
-                        Parts = parts.Select(p => new PartViewModel
+                        var getCategory = db.Categories.FindAsync(product.CategoryId);
+                        var getParts = db.Parts.Where(p => p.ProductId == product.Id && p.IsActive).ToListAsync();
+                        await Task.WhenAll(getCategory, getParts);
+                        var category = getCategory.Result;
+                        var parts = getParts.Result;
+
+                        parts.Sort((a, b) => CompareParts(a, b));
+
+                        viewModel = new ProductDetailViewModel
                         {
-                            PartNumber = p.PartNumber,
-                            Description = p.Description,
-                            Price = p.Price
-                        })
-                    };
+                            ProductId = productId,
+                            Category = category.Name,
+                            CategoryId = category.Id,
+                            ProductCode = product.Code,
+                            ShortDescription = product.ShortDescription,
+                            LongDescription = product.LongDescription,
+                            NumberOfInstallationExamples = product.NumberOfInstallationExamples,
+                            InstallationExamplesPath = GetInstallationExamplesPath(product.Code),
+                            ImageFilename = product.ImageFilename,
+                            DrawingFilename = product.DrawingFilename,
+                            Parts = parts.Select(p => new PartViewModel
+                            {
+                                PartNumber = p.PartNumber,
+                                Description = p.Description,
+                                Price = p.Price
+                            })
+                        };
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"{nameof(ProductDAL)}.{nameof(GetProductView)}-no product found for productId={productId}");
+                    }
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(GetProductView)}-productId={productId} in {stopwatch.ElapsedMilliseconds}ms");
+                    return viewModel;
                 }
-                return viewModel;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProductView)},productId={productId}");
+                throw;
             }
         }
 
@@ -226,19 +313,36 @@ namespace TheFlightShop.DAL
 
         public async Task<IEnumerable<SearchResult>> SearchParts(string query)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var results = new List<SearchResult>();
-                if (!string.IsNullOrEmpty(query))
+                using (var db = new ProductContext(_connectionString))
                 {
-                    var formattedQuery = query.ToLower().Trim();
-                    var searchParts = SearchPartsOrProducts(formattedQuery, db);
-                    var searchMaintenance = SearchMaintenanceItems(formattedQuery, db);
-                    await Task.WhenAll(searchParts, searchMaintenance);
-                    results.AddRange(searchParts.Result);
-                    results.AddRange(searchMaintenance.Result);
+                    var stopwatch = Stopwatch.StartNew();
+
+                    var results = new List<SearchResult>();
+                    if (!string.IsNullOrEmpty(query))
+                    {
+                        var formattedQuery = query.ToLower().Trim();
+                        var searchParts = SearchPartsOrProducts(formattedQuery, db);
+                        var searchMaintenance = SearchMaintenanceItems(formattedQuery, db);
+                        await Task.WhenAll(searchParts, searchMaintenance);
+                        results.AddRange(searchParts.Result);
+                        results.AddRange(searchMaintenance.Result);
+                    }
+                    else
+                    {
+                        _logger.LogWarning($"{nameof(ProductDAL)}.{nameof(SearchParts)}-query is null or empty");
+                    }
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(SearchParts)}-{results.Count} results in {stopwatch.ElapsedMilliseconds}ms, query={query}");
+                    return results;
                 }
-                return results;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(SearchParts)},query={query}");
+                throw;
             }
         }
 
@@ -254,7 +358,7 @@ namespace TheFlightShop.DAL
                     var product = await db.Products.FindAsync(part.ProductId);
                     if (product == null)
                     {
-                        // todo: log product not found and move on
+                        _logger.LogWarning($"{nameof(ProductDAL)}.{nameof(SearchPartsOrProducts)}-part exists with partId={part.Id} and has productId={part.ProductId}, but product wasn't found with that productId.");
                     }
                     else
                     {
@@ -291,45 +395,66 @@ namespace TheFlightShop.DAL
 
         public async Task CreateOrUpdateProduct(Product product)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var existingProduct = await db.Products.FindAsync(product.Id);
-                if (existingProduct == null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    db.Products.Add(product);
-                }
-                else
-                {
-                    existingProduct.Code = product.Code;
-                    existingProduct.ShortDescription = product.ShortDescription;
-                    existingProduct.LongDescription = product.LongDescription;
-                    existingProduct.CategoryId = product.CategoryId;
-                    existingProduct.SubCategoryId = product.SubCategoryId;
-                    existingProduct.MostPopular = product.MostPopular;
-                    if (!string.IsNullOrEmpty(product.ImageFilename))
-                    {
-                        existingProduct.ImageFilename = product.ImageFilename;
-                    }
-                    if (!string.IsNullOrEmpty(product.DrawingFilename))
-                    {
-                        existingProduct.DrawingFilename = product.DrawingFilename;
-                    }
-                }
+                    var stopwatch = Stopwatch.StartNew();
 
-                await db.SaveChangesAsync();
+                    var existingProduct = await db.Products.FindAsync(product.Id);
+                    if (existingProduct == null)
+                    {
+                        db.Products.Add(product);
+                    }
+                    else
+                    {
+                        existingProduct.Code = product.Code;
+                        existingProduct.ShortDescription = product.ShortDescription;
+                        existingProduct.LongDescription = product.LongDescription;
+                        existingProduct.CategoryId = product.CategoryId;
+                        existingProduct.SubCategoryId = product.SubCategoryId;
+                        existingProduct.MostPopular = product.MostPopular;
+                        if (!string.IsNullOrEmpty(product.ImageFilename))
+                        {
+                            existingProduct.ImageFilename = product.ImageFilename;
+                        }
+                        if (!string.IsNullOrEmpty(product.DrawingFilename))
+                        {
+                            existingProduct.DrawingFilename = product.DrawingFilename;
+                        }
+                    }
+
+                    await db.SaveChangesAsync();
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(CreateOrUpdateProduct)}-productId={product.Id} saved in {stopwatch.ElapsedMilliseconds}ms");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdateProduct)},productId={product?.Id},categoryId={product?.CategoryId}");
+                throw;
             }
         }
 
         public async Task DeleteProduct(Guid productId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var product = await db.Products.FindAsync(productId);
-                if (product != null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    db.Products.Remove(product);
-                    await db.SaveChangesAsync();
+                    var product = await db.Products.FindAsync(productId);
+                    if (product != null)
+                    {
+                        db.Products.Remove(product);
+                        await db.SaveChangesAsync();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(DeleteProduct)},productId={productId}");
+                throw;
             }
         }
 
@@ -371,105 +496,170 @@ namespace TheFlightShop.DAL
 
         public async Task CreateOrUpdateCategory(Category category)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var existingCategory = await db.Categories.FindAsync(category.Id);
-                if (existingCategory == null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    db.Categories.Add(category);
-                }
-                else
-                {
-                    existingCategory.CategoryId = category.CategoryId;
-                    existingCategory.Name = category.Name;
-                }
+                    var existingCategory = await db.Categories.FindAsync(category.Id);
+                    if (existingCategory == null)
+                    {
+                        db.Categories.Add(category);
+                    }
+                    else
+                    {
+                        existingCategory.CategoryId = category.CategoryId;
+                        existingCategory.Name = category.Name;
+                    }
 
-                await db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdateCategory)},categoryId={category?.Id}");
+                throw;
             }
         }
 
         public async Task DeleteCategoryAndProducts(Guid categoryId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var categoryToDelete = await db.Categories.FindAsync(categoryId);
-                if (categoryToDelete != null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    var getDeleteProducts = db.Products.Where(product => product.CategoryId == categoryId).ToListAsync();
-                    var getDeleteSubCategories = db.Categories.Where(category => category.CategoryId == categoryId).ToListAsync();
-                    await Task.WhenAll(getDeleteProducts, getDeleteSubCategories);
-                    db.Products.RemoveRange(getDeleteProducts.Result);
-                    await db.SaveChangesAsync();
-                    db.Categories.RemoveRange(getDeleteSubCategories.Result);
-                    await db.SaveChangesAsync();
-                    db.Categories.Remove(categoryToDelete);
-                    await db.SaveChangesAsync();
+                    var stopwatch = Stopwatch.StartNew();
+
+                    var categoryToDelete = await db.Categories.FindAsync(categoryId);
+                    if (categoryToDelete != null)
+                    {
+                        var getDeleteProducts = db.Products.Where(product => product.CategoryId == categoryId).ToListAsync();
+                        var getDeleteSubCategories = db.Categories.Where(category => category.CategoryId == categoryId).ToListAsync();
+                        await Task.WhenAll(getDeleteProducts, getDeleteSubCategories);
+                        db.Products.RemoveRange(getDeleteProducts.Result);
+                        await db.SaveChangesAsync();
+                        db.Categories.RemoveRange(getDeleteSubCategories.Result);
+                        await db.SaveChangesAsync();
+                        db.Categories.Remove(categoryToDelete);
+                        await db.SaveChangesAsync();
+                    }
+
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(DeleteCategoryAndProducts)}-categoryId={categoryId} deleted in {stopwatch.ElapsedMilliseconds}ms");
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(DeleteCategoryAndProducts)},categoryId={categoryId}");
+                throw;
             }
         }
 
         public async Task DeleteSubCategoryAndProducts(Guid subCategoryId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var subCategory = await db.Categories.FindAsync(subCategoryId);
-                if (subCategory != null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    var productsToDelete = await db.Products.Where(product => product.SubCategoryId == subCategoryId).ToListAsync();
-                    db.Products.RemoveRange(productsToDelete);
-                    await db.SaveChangesAsync();
-                    db.Categories.Remove(subCategory);
-                    await db.SaveChangesAsync();
+                    var subCategory = await db.Categories.FindAsync(subCategoryId);
+                    if (subCategory != null)
+                    {
+                        var productsToDelete = await db.Products.Where(product => product.SubCategoryId == subCategoryId).ToListAsync();
+                        db.Products.RemoveRange(productsToDelete);
+                        await db.SaveChangesAsync();
+                        db.Categories.Remove(subCategory);
+                        await db.SaveChangesAsync();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(DeleteSubCategoryAndProducts)},subCategoryId={subCategoryId}");
+                throw;
             }
         }
 
         public async Task CreateOrUpdatePart(Part part)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var existingPart = await db.Parts.FindAsync(part.Id);
-                if (existingPart == null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    db.Parts.Add(part);
-                }
-                else
-                {
-                    existingPart.PartNumber = part.PartNumber;
-                    existingPart.Description = part.Description;
-                    existingPart.Price = part.Price;
-                }
+                    var existingPart = await db.Parts.FindAsync(part.Id);
+                    if (existingPart == null)
+                    {
+                        db.Parts.Add(part);
+                    }
+                    else
+                    {
+                        existingPart.PartNumber = part.PartNumber;
+                        existingPart.Description = part.Description;
+                        existingPart.Price = part.Price;
+                    }
 
-                await db.SaveChangesAsync();
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdatePart)},partId={part?.Id}");
+                throw;
             }
         }
 
         public async Task DeletePart(Guid id)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                var part = await db.Parts.FindAsync(id);
-                if (part != null)
+                using (var db = new ProductContext(_connectionString))
                 {
-                    db.Parts.Remove(part);
-                    await db.SaveChangesAsync();
+                    var part = await db.Parts.FindAsync(id);
+                    if (part != null)
+                    {
+                        db.Parts.Remove(part);
+                        await db.SaveChangesAsync();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(DeletePart)},partId={id}");
+                throw;
             }
         }
 
         public async Task<IEnumerable<Product>> GetProductsByCategoryOrSubCategoryId(Guid categoryOrSubCategoryId)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                return await db.Products.Where(product => product.CategoryId == categoryOrSubCategoryId || product.SubCategoryId == categoryOrSubCategoryId).ToListAsync();
+                using (var db = new ProductContext(_connectionString))
+                {
+                    var stopwatch = Stopwatch.StartNew();
+                    var result = await db.Products.Where(product => product.CategoryId == categoryOrSubCategoryId || product.SubCategoryId == categoryOrSubCategoryId).ToListAsync();
+                    stopwatch.Stop();
+                    _logger.LogInformation($"{nameof(ProductDAL)}.{nameof(GetProductsByCategoryOrSubCategoryId)}-{result?.Count ?? 0} products in {stopwatch.ElapsedMilliseconds}ms");
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetProductsByCategoryOrSubCategoryId)},id={categoryOrSubCategoryId}");
+                throw;
             }
         }
 
         public async Task<Category> GetCategory(Guid id)
         {
-            using (var db = new ProductContext(_connectionString))
+            try
             {
-                return await db.Categories.FindAsync(id);
+                using (var db = new ProductContext(_connectionString))
+                {
+                    return await db.Categories.FindAsync(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(ProductDAL)}.{nameof(GetCategory)},categoryId={id}");
+                throw;
             }
         }
     }
