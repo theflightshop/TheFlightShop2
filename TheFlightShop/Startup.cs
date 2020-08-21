@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
 using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
@@ -130,6 +131,7 @@ namespace TheFlightShop
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                NLogBuilder.ConfigureNLog("nlog.Development.config");
             }
             else
             {
