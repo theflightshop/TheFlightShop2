@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="nlog.config" />
+    <Content Remove="nlog.Development.config" />
     <Content Remove="wwwroot\css\font-awesome.css" />
     <Content Remove="wwwroot\css\min\site.min.css" />
     <Content Remove="product-static-files\json\dbexport-oct-19\productInfo.json" />
@@ -360,6 +361,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="nlog.Development.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="nlog.config">
