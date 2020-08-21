@@ -51,7 +51,7 @@ namespace TheFlightShop.Logging
                 var request = new PutObjectRequest()
                 {
                     BucketName = Bucket,
-                    Key = $"{Directory}/{Name}_{timestamp}_{randomKey}.txt",
+                    Key = $"{Directory}/{timestamp}_{randomKey}.txt",
                     ContentType = "text/plain",
                     InputStream = messageStream
                 };
