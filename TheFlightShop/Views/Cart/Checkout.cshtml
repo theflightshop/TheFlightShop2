@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xs-4">
                     <div id="checkout-step-customer" class="step active">
-                        <div><span class="glyphicon glyphicon-home"></span></div>
+                        <div><span class="glyphicon glyphicon-info-sign"></span></div>
                         Customer Info
                         <div class="caret right"></div>
                     </div>
@@ -377,7 +377,14 @@
         <!-- OMG TODO TODO: try using goNext(from, to) with headers on review sections via "edit" btn (pencil icon w/ "edit" text?) -->
         <!-- TODO: validate each section instead of validating whole form, before transitioning -->
         <!-- TODO: wrap CC info in border/bg-color, add lock icon and text saying "your card info is secured using 256-bit encryption" -->
+        <!-- TODO: highlight items w/o price in yellow in review step, also add line-items w/ price where available and total, and yellow-item text with (quote) for price, and (quote) for total if none have price
+        <!-- PAYMENT METHOD STEP: add disclaimer in PAYMENT METHOD step at top (above CC fields) saying,
+            "<strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for ${amount} when you press "Submit Order" on the following page, 
+            and we will get in touch with you to confirm purchase details before processing payment." -->
+        <!-- onchange, convert state/province to text inupt if countryCode !== 'US' -->
         <!-- onsubmit: call submitcustomerinfo endpoint to get form-url, then attach as action and submit form, then handle redirect/auth response -->
+        <!-- HANDLE/TEST variety of error cases -->
+        <!-- todo maybe: validate CVV where applicable? -->
         <!-- alert on leaving page? -->
 
         <div class="flightshop-checkout-section">
@@ -389,10 +396,9 @@
             <h4 class="flightshop-checkout-section-title">Additional Information</h4>
             <p id="flightshop-addtl-info-text">
                 <ul>
-                    <li><strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for the "Amount to authorize" above, and we will be in touch soon to review your order with you and process your payment.</li>
+                    <li>We will be in touch soon to review your order with you and then process your payment.</li>
                     <li>Items in your cart without listed price are highlighted in yellow above. We will confirm availability and current price of all items with you before processing your payment.</li>
                     <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
-                    <li>The Notes field above is private and won't be shared, but it isn't secured with bank-level encryption, so we don't recommend entering credit card information in Notes.</li>
                 </ul>
             </p>
             <div class="form-check">
