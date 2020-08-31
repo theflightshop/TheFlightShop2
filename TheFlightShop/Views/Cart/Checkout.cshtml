@@ -7,10 +7,66 @@
 
 <h2 id="flightshop-checkout-title">Checkout</h2>
 
+<div class="row">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div id="checkout-step-customer" class="step active">
+                        <div><span class="glyphicon glyphicon-home"></span></div>
+                        Customer Info
+                        <div class="caret right"></div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div id="checkout-step-shipping" class="step">
+                        <div>
+                            <img id="checkout-truck-active" class="checkout-truck-icon" src="~/images/flightshop-truck.svg" alt="truck" style="display: none;">
+                            <img id="checkout-truck-inactive" class="checkout-truck-icon" src="~/images/flightshop-truck-disabled.svg" alt="truck">
+                        </div>
+                        Shipping Info
+                        <div class="caret right"></div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div id="checkout-step-billing" class="step">
+                        <div><span class="glyphicon glyphicon-usd"></span></div>
+                        Billing Address
+                        <div class="caret right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row" style="clear: both;">
+                <div class="col-xs-4">
+                    <div id="checkout-step-payment" class="step">
+                        <div><span class="glyphicon glyphicon-credit-card"></span></div>
+                        Payment Method
+                        <div class="caret right"></div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div id="checkout-step-review" class="step">
+                        <div><span class="glyphicon glyphicon-eye-open"></span></div>
+                        Review
+                        <div class="caret right"></div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="step">
+                        <div><span class="glyphicon glyphicon-ok"></span></div>
+                        Confirmation
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="col-xs-12" />
+</div>
+
 <form id="flightshop-checkout-form">
-    <div class="flightshop-checkout-section">
-        <h4 class="flightshop-checkout-section-title">Customer Information</h4>
-        @*<div class="row">*@
+    <div id="flightshop-checkout-section-customer" class="flightshop-checkout-section">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="flightshop-customer-first-name">First Name</label>
@@ -23,16 +79,12 @@
                 <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
             </div>
         </div>
-        @*</div>*@
-        @*<div class="row">*@
         <div class="col-md-12">
             <div class="form-group">
                 <label for="flightshop-customer-email">Email</label>
                 <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
             </div>
         </div>
-        @*</div>*@
-        @*<div class="row">*@
         <div class="col-md-6" style="padding-bottom: 1em;">
             <div class="form-group">
                 <label for="flightshop-customer-phone">Phone</label>
@@ -45,26 +97,13 @@
                 <input id="flightshop-po-number" type="text" class="form-control" />
             </div>
         </div>
-        @*</div>*@
+
+        <div class="flightshop-checkout-button-section">
+            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('customer', 'shipping')">Next</button>
+        </div>
     </div>
 
-    <div id="flightshop-addr-section" class="flightshop-checkout-section">
-        <h4 class="flightshop-checkout-section-title">Shipping Address</h4>
-        <div class="row">
-            <div class="form-group col-md-4">
-                <label for="flightshop-customer-shipping-addr-type">Address Type</label>
-                <select id="flightshop-customer-shipping-addr-type" class="flightshop-select" onchange="addrTypeChange('shipping')">
-                    <option value="domestic">Inside U.S.</option>
-                    <option value="international">Outside U.S.</option>
-                </select>
-            </div>
-        </div>
-        <div class="row" id="shipping-addr-international" style="display: none; clear: both;">
-            <div class="form-group flightshop-addr-textarea">
-                <label for="flightshop-customer-international-shipping-addr">Address</label>
-                <textarea id="flightshop-customer-international-shipping-addr" class="form-control" rows="4" placeholder="ex. Recipient Name&#13;&#10;Storgata 15 A&#13;&#10;0161 Oslo&#13;&#10;Norway"></textarea>
-            </div>
-        </div>
+    <div id="flightshop-checkout-section-shipping" class="flightshop-checkout-section flightshop-checkout-section-hidden">
         <div class="row shipping-addr-row" style="clear: both;">
             <div class="form-group col-md-6">
                 <label for="flightshop-customer-company-name">Company Name (Optional)</label>
@@ -76,22 +115,22 @@
             </div>
         </div>
         <div class="row shipping-addr-row">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
                 <label for="flightshop-customer-addr-1">Address Line 1</label>
                 <input id="flightshop-customer-addr-1" type="text" class="form-control shipping-input-field" placeholder="ex. 123 Maple St" required />
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="flightshop-customer-addr-2">Address Line 2 (Optional)</label>
                 <input id="flightshop-customer-addr-2" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
             </div>
-        </div>
-        <div class="row shipping-addr-row">
-            <div class="form-group col-md-5" style="padding-bottom: 1em;">
+            <div class="form-group col-md-4" style="padding-bottom: 1em;">
                 <label for="flightshop-customer-city">City</label>
                 <input id="flightshop-customer-city" type="text" class="form-control shipping-input-field" placeholder="ex. Anywhereville" required />
             </div>
-            <div class="form-group col-md-3">
-                <label for="flightshop-customer-state">State</label>
+        </div>
+        <div class="row shipping-addr-row">
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-state">State/Province/Region</label>
                 <select id="flightshop-customer-state" class="flightshop-select shipping-input-field" required>
                     <option disabled selected value="">--</option>
                     <option value="AK">AK</option>
@@ -152,8 +191,17 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="flightshop-customer-zipcode">ZIP</label>
-                <input id="flightshop-customer-zipcode" type="number" class="form-control shipping-input-field" placeholder="ex. 90210" required />
+                <label for="flightshop-customer-zipcode">ZIP/Postal Code</label>
+                <input id="flightshop-customer-zipcode" type="text" class="form-control shipping-input-field" placeholder="ex. 90210" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-country">Country</label>
+                <select id="flightshop-customer-country" class="flightshop-select" required>
+                    @foreach (var countryCode in Country.CODES)
+                    {
+                        <option value="@countryCode.Value">@countryCode.Key</option>
+                    }
+                </select>
             </div>
         </div>
         <div class="row" style="clear: both;">
@@ -176,46 +224,37 @@
                 <input id="flightshop-customer-custom-shipping-type" type="text" placeholder="Please specify shipping type" style="width: 100%; display: none;" />
             </div>
         </div>
+
+        <div class="flightshop-checkout-button-section">
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('shipping', 'customer')">Back</button>
+            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('shipping', 'billing')">Next</button>
+        </div>
     </div>
 
-    <div class="flightshop-checkout-section">
-        <h4 class="flightshop-checkout-section-title">Billing Address</h4>
+    <div id="flightshop-checkout-section-billing" class="flightshop-checkout-section flightshop-checkout-section-hidden">
         <div class="row">
-            <div id="flightshop-billing-addr-type-container" class="form-group col-md-4">
-                <label for="flightshop-customer-billing-addr-type">Address Type</label>
-                <select id="flightshop-customer-billing-addr-type" class="flightshop-select" onchange="addrTypeChange('billing')">
-                    <option value="domestic">Inside U.S.</option>
-                    <option value="international">Outside U.S.</option>
-                </select>
-            </div>
             <div class="form-group col-md-8" style="padding-top: 1.25em;">
                 <input id="flightshop-billing-use-shipping" class="checkout-form-checkbox" type="checkbox" onclick="billingUseShippingChecked()" />
                 <label for="flightshop-billing-use-shipping">Same as shipping address</label>
             </div>
         </div>
-        <div class="row" id="billing-addr-international" style="display: none; clear: both;">
-            <div class="form-group flightshop-addr-textarea">
-                <label for="flightshop-customer-international-billing-addr">Address</label>
-                <textarea id="flightshop-customer-international-billing-addr" class="form-control" rows="4" placeholder="ex. Recipient Name&#13;&#10;Storgata 15 A&#13;&#10;0161 Oslo&#13;&#10;Norway"></textarea>
-            </div>
-        </div>
         <div class="row billing-addr-row" style="clear: both;">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-5">
                 <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
                 <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" required />
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
                 <input id="flightshop-customer-addr-2-billing" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
             </div>
-        </div>
-        <div class="row billing-addr-row">
-            <div class="form-group col-md-5" style="padding-bottom: 1em;">
+            <div class="form-group col-md-4" style="padding-bottom: 1em;">
                 <label for="flightshop-customer-city-billing">City</label>
                 <input id="flightshop-customer-city-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. Anywhereville" required />
             </div>
-            <div class="form-group col-md-3">
-                <label for="flightshop-customer-state-billing">State</label>
+        </div>
+        <div class="row billing-addr-row">
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-state-billing">State/Province/Region</label>
                 <select id="flightshop-customer-state-billing" class="flightshop-select billing-addr-form-control billing-input-field" required>
                     <option disabled selected value="">--</option>
                     <option value="AK">AK</option>
@@ -276,40 +315,126 @@
                 </select>
             </div>
             <div class="form-group col-md-4">
-                <label for="flightshop-customer-zipcode-billing">ZIP</label>
-                <input id="flightshop-customer-zipcode-billing" type="number" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 90210" required />
+                <label for="flightshop-customer-zipcode-billing">ZIP/Postal Code</label>
+                <input id="flightshop-customer-zipcode-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 90210" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label for="flightshop-customer-country-billing">Country</label>
+                <select id="flightshop-customer-country-billing" class="flightshop-select" required>
+                    @foreach (var countryCode in Country.CODES)
+                    {
+                        <option value="@countryCode.Value">@countryCode.Key</option>
+                    }
+                </select>
             </div>
         </div>
-    </div>
 
-    <div class="flightshop-checkout-section">
-        <h4 class="flightshop-checkout-section-title">Notes</h4>
-        <textarea id="flightshop-cust-notes" class="form-control" rows="4" placeholder="Enter anything you'd like us to know, including but not limited to special shipping information or questions about your order."></textarea>
-    </div>
-
-    <div class="flightshop-checkout-section">
-        <h4 class="flightshop-checkout-section-title">Additional Information</h4>
-        <p id="flightshop-addtl-info-text">
-            <ul>
-                <li>We will be in touch soon to review your order with you and receive your payment information.</li>
-                <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
-                <li>The Notes field above is private and won't be shared, but it isn't secured with bank-level encryption, so we don't recommend entering credit card information in Notes.</li>
-            </ul>
-        </p>
-        <div class="form-check">
-            <input class="form-check-input checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
-            <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
+        <div class="flightshop-checkout-button-section">
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('billing', 'shipping')">Back</button>
+            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('billing', 'payment')">Next</button>
         </div>
     </div>
-    <div class="flightshop-checkout-section">
-        <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success" onclick="submitOrder()">Submit Order</button>
-        <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
-            <div id="flightshop-submit-order-loader"></div><span id="flightshop-submit-order-loader-text">Submitting order, please wait...</span>
+
+    <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden">
+        <div class="form-group col-md-8">
+            <label for="flightshop-cc-number">Credit Card #</label>
+            <input id="flightshop-cc-number" type="text" required />
+        </div>
+        <div class="form-group col-md-4">
+            <label for="flightshop-cc-exp">Expiration Date</label>
+            <div id="flightshop-cc-exp" class="row">
+                <div class="form-group col-md-6">
+                    <select id="flightshop-cc-exp-month" class="flightshop-select">
+                        <option>January</option>
+                        <option>February</option>
+                        <option>March</option>
+                        <option>April</option>
+                        <option>May</option>
+                        <option>June</option>
+                        <option>July</option>
+                        <option>August</option>
+                        <option>September</option>
+                        <option>October</option>
+                        <option>November</option>
+                        <option>December</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <select id="flightshop-cc-exp-year" class="flightshop-select">
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="flightshop-checkout-button-section">
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('payment', 'billing')">Back</button>
+            <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('payment', 'review')">Next</button>
+        </div>
+    </div>
+
+    <div id="flightshop-checkout-section-review" class="flightshop-checkout-section flightshop-checkout-section-hidden">
+        <!-- REVIEW sec -->
+        <!-- OMG TODO TODO: try using goNext(from, to) with headers on review sections via "edit" btn (pencil icon w/ "edit" text?) -->
+        <!-- TODO: validate each section instead of validating whole form, before transitioning -->
+        <!-- TODO: wrap CC info in border/bg-color, add lock icon and text saying "your card info is secured using 256-bit encryption" -->
+        <!-- onsubmit: call submitcustomerinfo endpoint to get form-url, then attach as action and submit form, then handle redirect/auth response -->
+        <!-- alert on leaving page? -->
+
+        <div class="flightshop-checkout-section">
+            <h4 class="flightshop-checkout-section-title">Notes</h4>
+            <textarea id="flightshop-cust-notes" class="form-control" rows="4" placeholder="Enter anything you'd like us to know, including but not limited to special shipping information or questions about your order."></textarea>
+        </div>
+
+        <div class="flightshop-checkout-section">
+            <h4 class="flightshop-checkout-section-title">Additional Information</h4>
+            <p id="flightshop-addtl-info-text">
+                <ul>
+                    <li><strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for the "Amount to authorize" above, and we will be in touch soon to review your order with you and process your payment.</li>
+                    <li>Items in your cart without listed price are highlighted in yellow above. We will confirm availability and current price of all items with you before processing your payment.</li>
+                    <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
+                    <li>The Notes field above is private and won't be shared, but it isn't secured with bank-level encryption, so we don't recommend entering credit card information in Notes.</li>
+                </ul>
+            </p>
+            <div class="form-check">
+                <input class="form-check-input checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
+                <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
+            </div>
+        </div>
+
+        <div class="flightshop-checkout-button-section">
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('review', 'payment')">Back</button>
+            <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success flightshop-checkout-btn" onclick="submitOrder()">Submit Order</button>
+            <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
+                <div id="flightshop-submit-order-loader" class="flightshop-order-loader"></div><span class="flightshop-order-loader-text">Submitting order, please wait...</span>
+            </div>
         </div>
     </div>
 </form>
 
+<script>
+    function customerInfoSubmitted() {
+        var formUrl = '@Url.Action("SubmitCustomerInfo", "Cart")';
+        var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
+        postCustomerInfo(formUrl, errorRedirectUrl);
+    }
+</script>
+
 <style>
+    .flightshop-checkout-section-hidden {
+        /*display: none;*/
+        /*visibility: hidden;*/
+        opacity: 0;
+    }
+    .flightshop-checkout-section.section-fade-in {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.4s;
+    }
+    .flightshop-checkout-section.section-fade-out {
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
     .checkout-form-checkbox {
         -ms-transform: scale(2);
         -moz-transform: scale(2);
@@ -327,8 +452,8 @@
         margin-top: 2em;
     }
 
-    .flightshop-checkout-section {
-        
+    .flightshop-checkout-button-section {
+        width: 12em;
     }
 
     .flightshop-checkout-section-title {
@@ -343,8 +468,8 @@
     #flightshop-addtl-info-text {
     }
 
-    #flightshop-checkout-submit-btn {
-        margin-top: 1.5em;
+    .flightshop-checkout-btn {
+        margin-top: 0.5em;
         font-size: 1em;
     }
 
@@ -353,7 +478,7 @@
         height: 1.5em;
     }
 
-    #flightshop-submit-order-loader {
+    .flightshop-order-loader {
         display: inline-block;
         border: 3px solid #cdcdcd;
         border-top: 3px solid #5555ff;
@@ -363,7 +488,7 @@
         animation: spin 1.25s linear infinite;
     }   
 
-    #flightshop-submit-order-loader-text {
+    .flightshop-order-loader-text {
         position: relative;
         top: -0.5em;
         left: 0.5em;
@@ -374,160 +499,40 @@
         margin-left: 0.5em;
     }
 
-    @@media screen and (min-width: 991px) {
+    /* todo: IS THIS NEEDED???? @@media screen and (min-width: 991px) {
         #flightshop-addr-section {
             height: 210px;
         }
+    }*/
+
+    /** BEGIN: payment steps header */
+
+    .checkout-truck-icon {
+        width: 1.25em;
+        position: relative;
+        bottom: 5px;
+        color: #ccc;
+        margin: 0 auto;
     }
+    .step.active .checkout-truck-icon {color:#3C763D;}
+
+    .step {background:#eee;color:#ccc;padding:15px;font-size:1em;text-align:center;height:6em;}
+    .step.active {color:#3C763D;background-color: #eeffee;}
+    .step.active .glyphicon {font-size: 1.25em;}
+    .step .caret {position:absolute;margin:0;color:#eee;opacity:1.0;}
+    .step .caret.right {right:1px;top:0px;border-top:3em solid transparent;border-bottom:3em solid transparent;border-left:30px solid;}
+    .step.active .caret.right {color: #eeffee;}
+    .step .caret.bottom {bottom:-15px;left:40%;border-top:15px solid;border-right:50px solid transparent;border-left:50px solid transparent;}
+    @@media(max-width:991px) {
+      .step {text-align:center;margin-top:20px;height:80px;}
+      .step .caret.right {top:20px;border-top:40px solid transparent;border-bottom:40px solid transparent;}
+    }
+    @@media(max-width:767px) {
+      .step {height:auto;}
+    }
+    @@media(min-width:768px) {
+      .step {margin-right:20px;}
+    }
+
+    /** END: payment steps header */
 </style>
-
-<script>
-    function addrTypeChange(billingOrShipping) {
-        var addrType = document.getElementById('flightshop-customer-' + billingOrShipping + '-addr-type').value;
-        [].forEach.call(document.getElementsByClassName(billingOrShipping + '-addr-row'), function(row) { row.style.display = addrType === 'international' ? 'none' : 'block'; });
-        [].forEach.call(document.getElementsByClassName(billingOrShipping + '-input-field'), function (field) {
-            if (addrType === 'international') {
-                field.removeAttribute('required');
-            } else {
-                field.setAttribute('required', true);
-            }
-        });
-        var intlAddrField = document.getElementById('flightshop-customer-international-' + billingOrShipping + '-addr');
-        if (addrType === 'international') {
-            intlAddrField.setAttribute('required', true);
-        } else {
-            intlAddrField.removeAttribute('required');
-        }
-        document.getElementById(billingOrShipping + '-addr-international').style.display = addrType === 'international' ? 'block' : 'none';
-    }
-
-    function isCustomShippingType() {
-        var shippingType = document.getElementById('flightshop-shipping-type').value;
-        var otherType = '@((int)ShippingType.Other)';
-        return shippingType === otherType;
-    }
-
-    function shippingTypeChanged() {
-        var isCustomShipType = isCustomShippingType();
-        var shippingTypeTextDisplay = isCustomShipType ? 'inline-block' : 'none';
-        var customShipType = document.getElementById('flightshop-customer-custom-shipping-type');
-        customShipType.style.display = shippingTypeTextDisplay;
-        if (isCustomShipType) {
-            customShipType.setAttribute('required', true);
-        } else {
-            customShipType.removeAttribute('required');
-        }
-    }
-
-    function useShippingAddrForBilling() {
-        return document.getElementById('flightshop-billing-use-shipping').checked || false;
-    }
-
-    function billingUseShippingChecked() {
-        var checked = useShippingAddrForBilling();
-        var billingAddrDisplay = checked ? 'none' : 'block';
-        var addressRows = document.getElementsByClassName('billing-addr-row');
-        var isDomestic = document.getElementById('flightshop-customer-billing-addr-type').value === 'domestic';
-        var hideIntlBillingAddr = checked || isDomestic;
-        document.getElementById('billing-addr-international').style.display = hideIntlBillingAddr ? 'none' : 'block';
-        document.getElementById('flightshop-billing-addr-type-container').style.display = checked ? 'none' : 'block';
-        [].forEach.call(addressRows, function (row) {
-            row.style.display = isDomestic ? billingAddrDisplay : 'none';
-        });
-        var isBillingAddrRequired = !checked;
-        var formControls = document.getElementsByClassName('billing-addr-form-control');
-        [].forEach.call(formControls, function (control) {
-            if (isBillingAddrRequired) {
-                control.setAttribute('required', true);
-            } else {
-                control.removeAttribute('required');
-            }
-        });
-    }
-
-    function clearCart() {
-        window.sessionStorage.setItem('cartItems', []);
-        renderCartButton();
-    }
-
-    function setAddresses(clientOrder, isIntlShipping, isIntlBilling, useShippingAddressForBilling) {
-        if (isIntlShipping) {
-            clientOrder.InternationalShippingAddress = document.getElementById('flightshop-customer-international-shipping-addr').value;
-        } else {
-            clientOrder.Address1 = document.getElementById('flightshop-customer-addr-1').value;
-            clientOrder.Address2 = document.getElementById('flightshop-customer-addr-2').value || null;
-            clientOrder.CompanyName = document.getElementById('flightshop-customer-company-name').value || null;
-            clientOrder.AttentionTo = document.getElementById('flightshop-customer-attention-to').value || null;
-            clientOrder.City = document.getElementById('flightshop-customer-city').value;
-            clientOrder.State = document.getElementById('flightshop-customer-state').value;
-            clientOrder.Zip = document.getElementById('flightshop-customer-zipcode').value;
-        }
-        
-        if (isIntlBilling && !useShippingAddressForBilling) {
-            clientOrder.InternationalBillingAddress = document.getElementById('flightshop-customer-international-billing-addr').value;
-        } else if (!useShippingAddressForBilling) {
-            clientOrder.BillingAddress1 = document.getElementById('flightshop-customer-addr-1-billing').value;
-            clientOrder.BillingAddress2 = document.getElementById('flightshop-customer-addr-2-billing').value || null;
-            clientOrder.BillingCity = document.getElementById('flightshop-customer-city-billing').value;
-            clientOrder.BillingState = document.getElementById('flightshop-customer-state-billing').value;
-            clientOrder.BillingZip = document.getElementById('flightshop-customer-zipcode-billing').value;
-        }
-    }
-
-    function submitOrder() {
-        var clientOrder = {
-            FirstName: document.getElementById('flightshop-customer-first-name').value,
-            LastName: document.getElementById('flightshop-customer-last-name').value,
-            Email: document.getElementById('flightshop-customer-email').value,
-            Phone: document.getElementById('flightshop-customer-phone').value,
-            
-            ShippingType: parseInt(document.getElementById('flightshop-shipping-type').value),
-            CustomShippingType: document.getElementById('flightshop-customer-custom-shipping-type').value || null,
-            PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
-            Notes: document.getElementById('flightshop-cust-notes').value || null
-        };
-        var isIntlShipping = document.getElementById('flightshop-customer-shipping-addr-type').value === 'international';
-        var isIntlBilling = document.getElementById('flightshop-customer-billing-addr-type').value === 'international';
-        var useShippingAddressForBilling = useShippingAddrForBilling();
-        setAddresses(clientOrder, isIntlShipping, isIntlBilling, useShippingAddressForBilling);
-
-        var agreed = document.getElementById('flightshop-order-agree-checkbox');
-        var billingAddrValid = useShippingAddressForBilling ? true : (isIntlBilling ? clientOrder.InternationalBillingAddress : (clientOrder.BillingAddress1 && clientOrder.BillingCity && clientOrder.BillingState && clientOrder.BillingZip));
-        var shippingAddrValid = isIntlShipping ? clientOrder.InternationalShippingAddress : (clientOrder.Address1 && clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null && (!isCustomShippingType() || clientOrder.CustomShippingType !== null)));
-        if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && shippingAddrValid && billingAddrValid && agreed.checked) {
-            var orderLines = [];
-            var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
-            for (var i = 0; i < cart.length; i++) {
-                var item = cart[i];
-                var orderLine = {
-                    PartNumber: item.PartNumber,
-                    ProductId: item.ProductId || null,
-                    Quantity: parseInt(item.Quantity) || 0
-                };
-                orderLines.push(orderLine);
-            }
-            clientOrder.OrderLines = orderLines;
-
-            document.getElementById('flightshop-checkout-submit-btn').style.display = 'none';
-            document.getElementById('flightshop-submit-order-loading-area').style.display = 'block';
-            var url = '@Url.Action("SubmitOrder", "Cart")';
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: clientOrder
-            }).done(function () {
-                clearCart();
-                location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "true".ToString() })'; //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
-            }).fail(function () {
-                clearCart();
-                location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
-            });
-        }
-    }
-
-    window.addEventListener('load', function () {
-        document.getElementById('flightshop-checkout-form').addEventListener('submit', function (evt) {
-            evt.preventDefault();
-        })
-    })
-</script>

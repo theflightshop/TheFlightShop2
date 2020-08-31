@@ -17,12 +17,14 @@ namespace TheFlightShop.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Zip { get; set; }
+        public string CountryCode { get; set; }
         public string InternationalShippingAddress { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }
         public string BillingState { get; set; }
         public string BillingZip { get; set; }
+        public string BillingCountryCode { get; set; }
         public string InternationalBillingAddress { get; set; }
         public int ShippingType { get; set; }
         public string CustomShippingType { get; set; }

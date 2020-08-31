@@ -6,20 +6,25 @@ using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.Email;
 using TheFlightShop.DAL;
+using Microsoft.Extensions.Configuration;
+using TheFlightShop.Payment;
+using System.Net;
 
 namespace TheFlightShop.Controllers
 {
     public class CartController : Controller
     {
-        private IEmailClient _emailClient;
-        private IProductDAL _productDAL;
-        private IOrderDAL _orderDAL;
+        private readonly IEmailClient _emailClient;
+        private readonly IProductDAL _productDAL;
+        private readonly IOrderDAL _orderDAL;
+        private readonly NmiPaymentGateway _paymentGateway;
 
-        public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal)
+        public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal, NmiPaymentGateway paymentGateway)
         {
             _emailClient = emailClient;
             _productDAL = productDal;
             _orderDAL = orderDal;
+            _paymentGateway = paymentGateway;
         }
 
         public IActionResult Index()
@@ -32,15 +37,57 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SubmitOrder(ClientOrder order)
+        public async Task<IActionResult> SubmitCustomerInfo(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();
-            var succeeded = _orderDAL.SaveNewOrder(order, parts);
+            var savedOrder = _orderDAL.SaveNewOrder(order, parts);
+
+            IActionResult result;
+            if (savedOrder)
+            {
+                var redirectUrl = $"{Request.Scheme}://{Request.Host}/Cart/{nameof(SubmitOrder)}";
+                var gatewayFormUrlResult = await _paymentGateway.RetrievePaymentAuthUrl(order, parts, redirectUrl);
+                if (gatewayFormUrlResult.Succeeded)
+                {
+                    result = new ContentResult
+                    {
+                        Content = gatewayFormUrlResult.PaymentAuthFormUrl,
+                        ContentType = "text/plain",
+                        StatusCode = 200
+                    };
+                }
+                else if (gatewayFormUrlResult.CanRetry)
+                {
+                    result = new ContentResult
+                    {
+                        Content = gatewayFormUrlResult.ErrorReason,
+                        ContentType = "text/plain",
+                        StatusCode = 400
+                    };
+                } 
+                else
+                {
+                    result = StatusCode((int)HttpStatusCode.InternalServerError);
+                }
+            }
+            else
+            {
+                result = StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
+            return result;
+        }
+
+        public async Task<IActionResult> SubmitOrder([FromQuery(Name = "token-id")]string tokenId)
+        {
+            var succeeded = true;
             if (succeeded)
             {
-                succeeded = await _emailClient.SendOrderConfirmation(order);
+                succeeded = await _emailClient.SendOrderConfirmation(null); /// todo: DUHHHHH DERRRR 
             }            
             return succeeded ? new OkResult() : new StatusCodeResult(400);
+            return new JsonResult("");
+
         }
     }
 }

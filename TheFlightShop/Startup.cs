@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,6 +17,7 @@ using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
 using TheFlightShop.IO;
+using TheFlightShop.Payment;
 using TheFlightShop.Weather;
 
 namespace TheFlightShop
@@ -46,6 +48,7 @@ namespace TheFlightShop
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddHttpClient();
 
             var connectionString = GetConnectionString();
             var maintenanceSubdir = Environment.GetEnvironmentVariable("S3_MAINTENANCE_ITEMS_SUB_DIRECTORY");
@@ -56,6 +59,11 @@ namespace TheFlightShop
 
             services.AddScoped<IProductDAL>(_ => new ProductDAL(connectionString, maintenanceSubdir));
             services.AddScoped<IOrderDAL>(_ => new OrderDAL(connectionString));
+            services.AddScoped(provider => 
+            {
+                var clientFactory = provider.GetRequiredService<IHttpClientFactory>();
+                return new NmiPaymentGateway(clientFactory, Configuration["PaymentGateway:Url"], Configuration["PaymentGateway:ApiKey"], null);
+            });
 
             var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");
             var username = Environment.GetEnvironmentVariable("EMAIL_FROM_USERNAME");

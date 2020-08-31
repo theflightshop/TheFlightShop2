@@ -323,6 +323,7 @@
     <None Remove="Auth\Token.cs" />
     <None Remove="Auth\TokenAuthorize.cs" />
     <None Remove="Auth\TokenValidationResult.cs" />
+    <None Remove="Country.cs" />
     <None Remove="DAL\IOrderDAL.cs" />
     <None Remove="DAL\OrderDAL.cs" />
     <None Remove="DAL\ProductContext.cs" />
@@ -339,15 +340,26 @@
     <None Remove="Models\HomeViewModel.cs" />
     <None Remove="Models\MaintenanceSearchResult.cs" />
     <None Remove="Models\PartSearchResult.cs" />
+    <None Remove="Models\PaymentGatewayFormUrlResult.cs" />
+    <None Remove="Models\PaymentGatewayResult.cs" />
     <None Remove="Models\ProductFormData.cs" />
     <None Remove="Models\SearchResult.cs" />
     <None Remove="Models\SearchResultView.cs" />
+    <None Remove="Payment\NmiAddress.cs" />
+    <None Remove="Payment\NmiCustomerInfo.cs" />
+    <None Remove="Payment\NmiGatewayResponse.cs" />
+    <None Remove="Payment\NmiGatewayResponseStatus.cs" />
+    <None Remove="Payment\NmiPaymentGateway.cs" />
     <None Remove="Weather\DarkSkyCurrentWeather.cs" />
     <None Remove="Weather\DarkSkyWeather.cs" />
     <None Remove="Weather\DarkSkyWeatherClient.cs" />
     <None Remove="Weather\IWeatherClient.cs" />
     <None Remove="Weather\Weather.cs" />
     <None Remove="Weather\WeatherMeasurement.cs" />
+    <None Remove="wwwroot\js\checkout.js" />
+    <None Remove="wwwroot\lib\jquery\jquery-3.4.1.min.js" />
+    <None Remove="wwwroot\lib\select2\select2-4.1.0-beta.1.min.css" />
+    <None Remove="wwwroot\lib\select2\select2-4.1.0-beta.1.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="DAL\IOrderDAL.cs">
