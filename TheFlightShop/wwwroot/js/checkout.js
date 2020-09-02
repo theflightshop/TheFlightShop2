@@ -11,8 +11,10 @@ function shippingTypeChanged() {
     customShipType.style.display = shippingTypeTextDisplay;
     if (isCustomShipType) {
         customShipType.setAttribute('required', true);
+        customShipType.classList.add('mandatory-checkout-field');
     } else {
         customShipType.removeAttribute('required');
+        customShipType.classList.remove('mandatory-checkout-field');
     }
 }
 
@@ -32,8 +34,10 @@ function billingUseShippingChecked() {
     [].forEach.call(formControls, function (control) {
         if (isBillingAddrRequired) {
             control.setAttribute('required', true);
+            control.classList.add('mandatory-checkout-field');
         } else {
             control.removeAttribute('required');
+            control.classList.remove('mandatory-checkout-field');
         }
     });
 }
@@ -131,43 +135,79 @@ function submitOrder() {
         }).fail(function () {
             location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
         });
+    } else {
+        agreed.parentElement.classList.add('has-error');
     }
+}
+
+function goBack(fromName, toName) {
+    var fromSection = document.getElementById('flightshop-checkout-section-' + fromName);
+    var toSection = document.getElementById('flightshop-checkout-section-' + toName);
+    transitionCheckoutStep(fromName, toName, fromSection, toSection);
+
+    var currentStepFields = fromSection.getElementsByClassName('mandatory-checkout-field');
+    var previousStepFields = toSection.getElementsByClassName('mandatory-checkout-field');
+    changeCurrentRequiredFields(currentStepFields, previousStepFields);
 }
 
 function goNext(fromName, toName) {
     var fromSection = document.getElementById('flightshop-checkout-section-' + fromName);
+    var toSection = document.getElementById('flightshop-checkout-section-' + toName);
+
+    var currentStepFields = fromSection.getElementsByClassName('mandatory-checkout-field');
+    var isFormComplete = true;
+    for (var i = 0; i < currentStepFields.length && isFormComplete; i++) {
+        isFormComplete = currentStepFields[i].value ? true : false;
+        if (isFormComplete) {
+            currentStepFields[i].parentElement.classList.remove('has-error');
+        } else {
+            currentStepFields[i].parentElement.classList.add('has-error');
+        }
+    }
+
+    if (isFormComplete) {
+        transitionCheckoutStep(fromName, toName, fromSection, toSection);
+        var nextStepFields = toSection.getElementsByClassName('mandatory-checkout-field');
+        changeCurrentRequiredFields(currentStepFields, nextStepFields);
+    }
+}
+
+function changeCurrentRequiredFields(fieldsNotRequired, fieldsRequired) {
+    for (var i = 0; i < fieldsRequired.length; i++) {
+        fieldsRequired[i].setAttribute('required', true);
+    }
+    for (var j = 0; j < fieldsNotRequired.length; j++) {
+        fieldsNotRequired[j].removeAttribute('required');
+    }
+}
+
+function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
     fromSection.classList.remove('section-fade-in');
     fromSection.classList.add('section-fade-out');
-    var toSection = document.getElementById('flightshop-checkout-section-' + toName);
+    
     var fromStep = document.getElementById('checkout-step-' + fromName);
     var toStep = document.getElementById('checkout-step-' + toName);
 
-    //if (toSection.style.display === 'none') {
-    //    fromSection.style.display = 'none';
-    //    toSection.style.opacity = '1';
-    //    toSection.style.display = 'block';
-    //} else {
-        setTimeout(function () {
-            fromSection.style.display = 'none';
-            fromStep.classList.remove('active');
-            toStep.classList.add('active');
+    setTimeout(function () {
+        fromSection.style.display = 'none';
+        fromStep.classList.remove('active');
+        toStep.classList.add('active');
 
-            if (toSection.style.display === 'none') {
-                toSection.style.display = 'block';
-            }
+        if (toSection.style.display === 'none') {
+            toSection.style.display = 'block';
+        }
 
-            if (fromName === 'shipping') {
-                document.getElementById('checkout-truck-active').style.display = 'none';
-                document.getElementById('checkout-truck-inactive').style.display = 'block';
-            } else if (toName === 'shipping') {
-                document.getElementById('checkout-truck-inactive').style.display = 'none';
-                document.getElementById('checkout-truck-active').style.display = 'block';
-            }
-            toSection.classList.remove('section-fade-out');
-            toSection.classList.add('section-fade-in');
-            window.scrollTo(0, 0);
-        }, 400);
-    //}
+        if (fromName === 'shipping') {
+            document.getElementById('checkout-truck-active').style.display = 'none';
+            document.getElementById('checkout-truck-inactive').style.display = 'block';
+        } else if (toName === 'shipping') {
+            document.getElementById('checkout-truck-inactive').style.display = 'none';
+            document.getElementById('checkout-truck-active').style.display = 'block';
+        }
+        toSection.classList.remove('section-fade-out');
+        toSection.classList.add('section-fade-in');
+        window.scrollTo(0, 0);
+    }, 200);
 }
 
 $(document).ready(function () {

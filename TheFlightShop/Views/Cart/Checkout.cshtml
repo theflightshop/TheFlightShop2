@@ -70,25 +70,29 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="flightshop-customer-first-name">First Name</label>
-                <input id="flightshop-customer-first-name" type="text" class="form-control" placeholder="ex. Bessie" required />
+                <input id="flightshop-customer-first-name" type="text" class="form-control mandatory-checkout-field" placeholder="ex. Bessie" required />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="flightshop-customer-last-name">Last Name</label>
-                <input id="flightshop-customer-last-name" type="text" class="form-control" placeholder="ex. Doolittle" required />
+                <input id="flightshop-customer-last-name" type="text" class="form-control mandatory-checkout-field" placeholder="ex. Doolittle" required />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <label for="flightshop-customer-email">Email</label>
-                <input id="flightshop-customer-email" type="text" class="form-control" placeholder="ex. someone@example.com" required />
+                <input id="flightshop-customer-email" type="text" class="form-control mandatory-checkout-field" placeholder="ex. someone@example.com" required />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="col-md-6" style="padding-bottom: 1em;">
             <div class="form-group">
                 <label for="flightshop-customer-phone">Phone</label>
-                <input id="flightshop-customer-phone" type="text" class="form-control" placeholder="ex. 5551110000" required />
+                <input id="flightshop-customer-phone" type="text" class="form-control mandatory-checkout-field" placeholder="ex. 5551110000" required />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="col-md-6">
@@ -99,7 +103,7 @@
         </div>
 
         <div class="flightshop-checkout-button-section">
-            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('customer', 'shipping')">Next</button>
+            <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('customer', 'shipping')">Next</button>
         </div>
     </div>
 
@@ -117,7 +121,8 @@
         <div class="row shipping-addr-row">
             <div class="form-group col-md-5">
                 <label for="flightshop-customer-addr-1">Address Line 1</label>
-                <input id="flightshop-customer-addr-1" type="text" class="form-control shipping-input-field" placeholder="ex. 123 Maple St" required />
+                <input id="flightshop-customer-addr-1" type="text" class="form-control mandatory-checkout-field shipping-input-field" placeholder="ex. 123 Maple St" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-3">
                 <label for="flightshop-customer-addr-2">Address Line 2 (Optional)</label>
@@ -125,13 +130,14 @@
             </div>
             <div class="form-group col-md-4" style="padding-bottom: 1em;">
                 <label for="flightshop-customer-city">City</label>
-                <input id="flightshop-customer-city" type="text" class="form-control shipping-input-field" placeholder="ex. Anywhereville" required />
+                <input id="flightshop-customer-city" type="text" class="form-control mandatory-checkout-field shipping-input-field" placeholder="ex. Anywhereville" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="row shipping-addr-row">
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-state">State/Province/Region</label>
-                <select id="flightshop-customer-state" class="flightshop-select shipping-input-field" required>
+                <select id="flightshop-customer-state" class="flightshop-select mandatory-checkout-field shipping-input-field">
                     <option disabled selected value="">--</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
@@ -189,25 +195,29 @@
                     <option value="MP">Northern Mariana Islands</option>
                     <option value="VI">U.S. Virgin Islands</option>
                 </select>
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-zipcode">ZIP/Postal Code</label>
-                <input id="flightshop-customer-zipcode" type="text" class="form-control shipping-input-field" placeholder="ex. 90210" required />
+                <input id="flightshop-customer-zipcode" type="text" class="form-control mandatory-checkout-field shipping-input-field" placeholder="ex. 90210" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-country">Country</label>
-                <select id="flightshop-customer-country" class="flightshop-select" required>
+                <select id="flightshop-customer-country" class="flightshop-select mandatory-checkout-field">
+                    <option disabled selected value="">--</option>
                     @foreach (var countryCode in Country.CODES)
                     {
                         <option value="@countryCode.Value">@countryCode.Key</option>
                     }
                 </select>
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="row" style="clear: both;">
             <div class="form-group col-md-3" style="padding-bottom: 1.5em;">
                 <label for="flightshop-shipping-type">Shipping Type</label>
-                <select id="flightshop-shipping-type" class="flightshop-select" onchange="shippingTypeChanged()" required>
+                <select id="flightshop-shipping-type" class="flightshop-select mandatory-checkout-field" onchange="shippingTypeChanged()">
                     <option disabled selected value="">--</option>
                     <option value="@((int)ShippingType.UpsGround)">@ShippingType.UpsGround.Name</option>
                     <option value="@((int)ShippingType.UpsRed)">@ShippingType.UpsRed.Name</option>
@@ -218,16 +228,18 @@
                     <option value="@((int)ShippingType.FedExP1)">@ShippingType.FedExP1.Name</option>
                     <option value="@((int)ShippingType.Other)">@ShippingType.Other.Name</option>
                 </select>
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="col-md-5">
                 <label style="visibility: hidden;">Invisible label for styling (tisk, tisk)</label>
                 <input id="flightshop-customer-custom-shipping-type" type="text" placeholder="Please specify shipping type" style="width: 100%; display: none;" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
 
         <div class="flightshop-checkout-button-section">
-            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('shipping', 'customer')">Back</button>
-            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('shipping', 'billing')">Next</button>
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('shipping', 'customer')">Back</button>
+            <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('shipping', 'billing')">Next</button>
         </div>
     </div>
 
@@ -241,7 +253,8 @@
         <div class="row billing-addr-row" style="clear: both;">
             <div class="form-group col-md-5">
                 <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
-                <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" required />
+                <input id="flightshop-customer-addr-1-billing" type="text" class="form-control mandatory-checkout-field billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-3">
                 <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
@@ -249,13 +262,14 @@
             </div>
             <div class="form-group col-md-4" style="padding-bottom: 1em;">
                 <label for="flightshop-customer-city-billing">City</label>
-                <input id="flightshop-customer-city-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. Anywhereville" required />
+                <input id="flightshop-customer-city-billing" type="text" class="form-control mandatory-checkout-field billing-addr-form-control billing-input-field" placeholder="ex. Anywhereville" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
         <div class="row billing-addr-row">
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-state-billing">State/Province/Region</label>
-                <select id="flightshop-customer-state-billing" class="flightshop-select billing-addr-form-control billing-input-field" required>
+                <select id="flightshop-customer-state-billing" class="flightshop-select mandatory-checkout-field billing-addr-form-control billing-input-field">
                     <option disabled selected value="">--</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
@@ -313,38 +327,43 @@
                     <option value="MP">Northern Mariana Islands</option>
                     <option value="VI">U.S. Virgin Islands</option>
                 </select>
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-zipcode-billing">ZIP/Postal Code</label>
-                <input id="flightshop-customer-zipcode-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 90210" required />
+                <input id="flightshop-customer-zipcode-billing" type="text" class="form-control mandatory-checkout-field billing-addr-form-control billing-input-field" placeholder="ex. 90210" />
+                <span class="help-block">Please fill out this field.</span>
             </div>
             <div class="form-group col-md-4">
                 <label for="flightshop-customer-country-billing">Country</label>
-                <select id="flightshop-customer-country-billing" class="flightshop-select" required>
+                <select id="flightshop-customer-country-billing" class="flightshop-select mandatory-checkout-field">
                     @foreach (var countryCode in Country.CODES)
                     {
                         <option value="@countryCode.Value">@countryCode.Key</option>
                     }
                 </select>
+                <span class="help-block">Please fill out this field.</span>
             </div>
         </div>
 
         <div class="flightshop-checkout-button-section">
-            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('billing', 'shipping')">Back</button>
-            <button type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('billing', 'payment')">Next</button>
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('billing', 'shipping')">Back</button>
+            <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('billing', 'payment')">Next</button>
         </div>
     </div>
 
     <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden">
         <div class="form-group col-md-8">
             <label for="flightshop-cc-number">Credit Card #</label>
-            <input id="flightshop-cc-number" type="text" required />
+            <input id="flightshop-cc-number" class="form-control mandatory-checkout-field" type="number" />
+            <span class="help-block">Please fill out this field.</span>
         </div>
         <div class="form-group col-md-4">
             <label for="flightshop-cc-exp">Expiration Date</label>
             <div id="flightshop-cc-exp" class="row">
                 <div class="form-group col-md-6">
-                    <select id="flightshop-cc-exp-month" class="flightshop-select">
+                    <select id="flightshop-cc-exp-month" class="flightshop-select mandatory-checkout-field">
+                        <option disabled selected value="">--</option>
                         <option>January</option>
                         <option>February</option>
                         <option>March</option>
@@ -358,26 +377,28 @@
                         <option>November</option>
                         <option>December</option>
                     </select>
+                    <span class="help-block">Please fill out this field.</span>
                 </div>
                 <div class="form-group col-md-6">
-                    <select id="flightshop-cc-exp-year" class="flightshop-select">
+                    <select id="flightshop-cc-exp-year" class="flightshop-select mandatory-checkout-field">
+                        <option disabled selected value="">--</option>
                     </select>
+                    <span class="help-block">Please fill out this field.</span>
                 </div>
             </div>
         </div>
 
         <div class="flightshop-checkout-button-section">
-            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('payment', 'billing')">Back</button>
-            <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success flightshop-checkout-btn" onclick="goNext('payment', 'review')">Next</button>
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'billing')">Back</button>
+            <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('payment', 'review')">Next</button>
         </div>
     </div>
 
     <div id="flightshop-checkout-section-review" class="flightshop-checkout-section flightshop-checkout-section-hidden">
         <!-- REVIEW sec -->
         <!-- OMG TODO TODO: try using goNext(from, to) with headers on review sections via "edit" btn (pencil icon w/ "edit" text?) -->
-        <!-- TODO: validate each section instead of validating whole form, before transitioning -->
         <!-- TODO: wrap CC info in border/bg-color, add lock icon and text saying "your card info is secured using 256-bit encryption" -->
-        <!-- TODO: highlight items w/o price in yellow in review step, also add line-items w/ price where available and total, and yellow-item text with (quote) for price, and (quote) for total if none have price
+        <!-- TODO: add line-items w/ price where available and total, and yellow-item text with (quote) for price, and (quote) for total if none have price
         <!-- PAYMENT METHOD STEP: add disclaimer in PAYMENT METHOD step at top (above CC fields) saying,
             "<strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for ${amount} when you press "Submit Order" on the following page, 
             and we will get in touch with you to confirm purchase details before processing payment." -->
@@ -397,19 +418,20 @@
             <p id="flightshop-addtl-info-text">
                 <ul>
                     <li>We will be in touch soon to review your order with you and then process your payment.</li>
-                    <li>Items in your cart without listed price are highlighted in yellow above. We will confirm availability and current price of all items with you before processing your payment.</li>
+                    <li>We will confirm availability and current price of all items with you before processing your payment.</li>
                     <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
                 </ul>
             </p>
-            <div class="form-check">
-                <input class="form-check-input checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox" required>
+            <div class="form-group form-check">
+                <input class="form-check-input mandatory-checkout-field checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox">
                 <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
+                <span class="help-block">Please check this box if you want to proceed.</span>
             </div>
         </div>
 
         <div class="flightshop-checkout-button-section">
-            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goNext('review', 'payment')">Back</button>
-            <button id="flightshop-checkout-submit-btn" type="submit" class="btn btn-success flightshop-checkout-btn" onclick="submitOrder()">Submit Order</button>
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('review', 'payment')">Back</button>
+            <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="submitOrder()">Submit Order</button>
             <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
                 <div id="flightshop-submit-order-loader" class="flightshop-order-loader"></div><span class="flightshop-order-loader-text">Submitting order, please wait...</span>
             </div>
@@ -434,11 +456,11 @@
     .flightshop-checkout-section.section-fade-in {
         visibility: visible;
         opacity: 1;
-        transition: opacity 0.4s;
+        transition: opacity 0.2s;
     }
     .flightshop-checkout-section.section-fade-out {
         opacity: 0;
-        transition: opacity 0.4s;
+        transition: opacity 0.2s;
     }
 
     .checkout-form-checkbox {
@@ -504,6 +526,9 @@
     .flightshop-addr-textarea {
         margin-left: 0.5em;
     }
+
+    .help-block {display: none;}
+    .has-error .help-block {display: block;}
 
     /* todo: IS THIS NEEDED???? @@media screen and (min-width: 991px) {
         #flightshop-addr-section {
