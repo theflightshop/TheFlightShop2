@@ -47,28 +47,13 @@ namespace TheFlightShop.Controllers
             {
                 var redirectUrl = $"{Request.Scheme}://{Request.Host}/Cart/{nameof(SubmitOrder)}";
                 var gatewayFormUrlResult = await _paymentGateway.RetrievePaymentAuthUrl(order, parts, redirectUrl);
-                if (gatewayFormUrlResult.Succeeded)
+                var ifSuccessResult = new ContentResult
                 {
-                    result = new ContentResult
-                    {
-                        Content = gatewayFormUrlResult.PaymentAuthFormUrl,
-                        ContentType = "text/plain",
-                        StatusCode = 200
-                    };
-                }
-                else if (gatewayFormUrlResult.CanRetry)
-                {
-                    result = new ContentResult
-                    {
-                        Content = gatewayFormUrlResult.ErrorReason,
-                        ContentType = "text/plain",
-                        StatusCode = 400
-                    };
-                } 
-                else
-                {
-                    result = StatusCode((int)HttpStatusCode.InternalServerError);
-                }
+                    Content = gatewayFormUrlResult.PaymentAuthFormUrl,
+                    ContentType = "text/plain",
+                    StatusCode = 200
+                };
+                result = GetPaymentGatewayActionResult(gatewayFormUrlResult, ifSuccessResult);
             }
             else
             {
@@ -80,14 +65,35 @@ namespace TheFlightShop.Controllers
 
         public async Task<IActionResult> SubmitOrder([FromQuery(Name = "token-id")]string tokenId)
         {
-            var succeeded = true;
-            if (succeeded)
-            {
-                succeeded = await _emailClient.SendOrderConfirmation(null); /// todo: DUHHHHH DERRRR 
-            }            
-            return succeeded ? new OkResult() : new StatusCodeResult(400);
-            return new JsonResult("");
+            var authResult = await _paymentGateway.AuthorizeOrValidatePaymentAmount(tokenId);
+            var ifSuccessResult = new NoContentResult();
+            var actionResult = GetPaymentGatewayActionResult(authResult, ifSuccessResult);
+            return actionResult;
+        }
 
+        private IActionResult GetPaymentGatewayActionResult(PaymentGatewayResult gatewayResult, IActionResult ifSuccessResult)
+        {
+            IActionResult result;
+
+            if (gatewayResult.Succeeded)
+            {
+                result = ifSuccessResult;
+            }
+            else if (gatewayResult.CanRetry)
+            {
+                result = new ContentResult
+                {
+                    Content = gatewayResult.ErrorReason,
+                    ContentType = "text/plain",
+                    StatusCode = 400
+                };
+            }
+            else
+            {
+                result = StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
+            return result;
         }
     }
 }

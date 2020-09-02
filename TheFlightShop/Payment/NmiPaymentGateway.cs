@@ -26,6 +26,29 @@ namespace TheFlightShop.Payment
             _httpClient.BaseAddress = new Uri(gatewayUrl);
         }
 
+        public async Task<PaymentGatewayResult> AuthorizeOrValidatePaymentAmount(string tokenId)
+        {
+            var authResult = new PaymentGatewayResult();
+
+            try
+            {
+                var paymentAuth = new NmiPaymentAuth
+                {
+                    ApiKey = _apiKey,
+                    TokenId = tokenId
+                };
+                var xmlBody = SerializeXml(paymentAuth);
+                var authResponse = await PostXml(xmlBody);
+                authResult = DetermineGatewayResult(authResponse);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(AuthorizeOrValidatePaymentAmount)}- error validating token {tokenId}.");
+            }
+
+            return authResult;
+        }
+
         public async Task<PaymentGatewayFormUrlResult> RetrievePaymentAuthUrl(ClientOrder order, IEnumerable<Part> parts, string redirectUrl)
         {
             // TODO: see if this returns errors for invalid addresses??
@@ -34,52 +57,62 @@ namespace TheFlightShop.Payment
             try
             {
                 var xmlBody = SerializeOrderXml(order, parts, redirectUrl);
-                var content = new StringContent(xmlBody, Encoding.UTF8, "text/xml");
-                var response = await _httpClient.PostAsync(string.Empty, content);
-
-                var formUrlResponse = await ParseGatewayResponse(response);
-                if (Enum.TryParse(formUrlResponse.Result, out NmiGatewayResponseStatus responseStatus))
+                var formUrlResponse = await PostXml(xmlBody);                
+                if (string.IsNullOrWhiteSpace(formUrlResponse.PaymentAuthFormUrl))
                 {
-                    if (responseStatus == NmiGatewayResponseStatus.Approved)
-                    {
-                        // TODO: on fail set CanRetry and/or ErrorReason
-
-                        if (string.IsNullOrWhiteSpace(formUrlResponse.PaymentAuthFormUrl))
-                        {
-                            // todo: log warn couldn't parse NMI payment gateway form URL for method, print response STRING
-                        }
-                        else
-                        {
-                            formUrlResult.Succeeded = true;
-                            formUrlResult.PaymentAuthFormUrl = formUrlResponse.PaymentAuthFormUrl;
-                        }
-                    }
-                    else
-                    {
-                        // todo: gracefully handle response failure using result text/code
-                    }
+                    // todo: log warn couldn't parse NMI payment gateway form URL for method, print response STRING
                 }
                 else
                 {
-                    // todo: log warn couldn't parse NMI payment gateway response for method, print response STRING
+                    var parsedResponse = DetermineGatewayResult(formUrlResponse);
+                    formUrlResult = new PaymentGatewayFormUrlResult
+                    {
+                        Succeeded = parsedResponse.Succeeded,
+                        CanRetry = parsedResponse.CanRetry,
+                        ErrorReason = parsedResponse.ErrorReason,
+                        PaymentAuthFormUrl = parsedResponse.Succeeded ? formUrlResponse.PaymentAuthFormUrl : null
+                    };
                 }
-                        
-                    // todo: httpclientfactory send text/xml message
-                    // process response if success or not
-                    // NOTE: if payment auth fails, show specific error if possible
-                    // add review screen (don't post CC info ;)), allow to edit 
-                    // submit to NMI from there
-                    // redirect to action to submit token/auth
-                    // handle errors, should return JSON response 
-                    // allow to edit if errors
                 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $""); // todo: fill this out
+                _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- error for order {order?.ConfirmationNumber}."); 
             }
 
             return formUrlResult;
+        }
+
+        private PaymentGatewayResult DetermineGatewayResult(NmiGatewayResponse response)
+        {
+            var result = new PaymentGatewayResult();
+
+            if (Enum.TryParse(response.Result, out NmiGatewayResponseStatus responseStatus))
+            {
+                if (responseStatus == NmiGatewayResponseStatus.Approved)
+                {
+                    // TODO: on fail set CanRetry and/or ErrorReason
+
+                    result.Succeeded = true;
+                }
+                else
+                {
+                    // todo: gracefully handle response failure using result text/code
+                }
+            }
+            else
+            {
+                // todo: log warn couldn't parse NMI payment gateway response for method, print response STRING
+            }
+
+            return result;
+        }
+
+        private async Task<NmiGatewayResponse> PostXml(string xmlBody)
+        {
+            var content = new StringContent(xmlBody, Encoding.UTF8, "text/xml");
+            var response = await _httpClient.PostAsync(string.Empty, content);
+            return await ParseGatewayResponse(response);
         }
 
         private async Task<NmiGatewayResponse> ParseGatewayResponse(HttpResponseMessage responseMessage)
@@ -147,7 +180,12 @@ namespace TheFlightShop.Payment
             };
 
             var rootElementName = amountToAuthorize > 0.00m ? "auth" : "validate";
-            var requestSerializer = new XmlSerializer(typeof(NmiCustomerInfo), new XmlRootAttribute(rootElementName));
+            return SerializeXml(customerInfo, rootElementName);
+        }
+
+        private string SerializeXml<T>(T obj, string rootElementName = null)
+        {
+            var requestSerializer = rootElementName == null ? new XmlSerializer(typeof(T)) : new XmlSerializer(typeof(T), new XmlRootAttribute(rootElementName));
             var emptyNamespaces = new XmlSerializerNamespaces();
             emptyNamespaces.Add(string.Empty, string.Empty);
 
@@ -155,7 +193,7 @@ namespace TheFlightShop.Payment
             {
                 using (var streamWriter = new StreamWriter(stream, Encoding.UTF8, bufferSize: 1024, leaveOpen: true))
                 {
-                    requestSerializer.Serialize(streamWriter, customerInfo, emptyNamespaces);
+                    requestSerializer.Serialize(streamWriter, obj, emptyNamespaces);
                     stream.Position = 0;
                 }
                 using (var streamReader = new StreamReader(stream))

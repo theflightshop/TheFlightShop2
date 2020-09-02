@@ -68,8 +68,48 @@ function setAddresses(clientOrder, useShippingAddressForBilling) {
 }
 
 var creditCardAuthUrl = '';
+//todo: delete?
+//function postCustomerInfo(formUrl, errorRedirectUrl) {
+    
 
-function postCustomerInfo(formUrl, errorRedirectUrl) {
+    
+//    var billingAddrValid = useShippingAddressForBilling ? true : clientOrder.BillingAddress1 && clientOrder.BillingCity && clientOrder.BillingState && clientOrder.BillingZip;
+//    var shippingAddrValid = clientOrder.Address1 && clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null && (!isCustomShippingType() || clientOrder.CustomShippingType !== null));
+//    if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && shippingAddrValid && billingAddrValid) {
+//        var orderLines = [];
+//        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+//        for (var i = 0; i < cart.length; i++) {
+//            var item = cart[i];
+//            var orderLine = {
+//                PartNumber: item.PartNumber,
+//                ProductId: item.ProductId || null,
+//                Quantity: parseInt(item.Quantity) || 0
+//            };
+//            orderLines.push(orderLine);
+//        }
+//        clientOrder.OrderLines = orderLines;
+
+//        document.getElementById('flightshop-checkout-get-form-url-btn').style.display = 'none';
+//        document.getElementById('flightshop-get-form-url-loading-area').style.display = 'block';
+//        $.ajax({
+//            type: 'POST',
+//            url: formUrl,
+//            data: clientOrder
+//        }).done(function (response) {
+//            creditCardAuthUrl = response.responseText;
+//            // todo: TO BE CONT'D
+//        }).fail(function (err) {
+//            if (err.statusCode === 400 && err.responseText) {
+//                // todo: display error as alert so user can (maybe) correct mistake
+//                // todo: test to see if maybe this applies more to submission of CC info, and if so then move this code
+//            } else {
+//                location.href = errorRedirectUrl;
+//            }
+//        });
+//    }
+//}
+
+function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) {
     var clientOrder = {
         FirstName: document.getElementById('flightshop-customer-first-name').value,
         LastName: document.getElementById('flightshop-customer-last-name').value,
@@ -84,56 +124,47 @@ function postCustomerInfo(formUrl, errorRedirectUrl) {
     var useShippingAddressForBilling = useShippingAddrForBilling();
     setAddresses(clientOrder, useShippingAddressForBilling);
 
-    
-    var billingAddrValid = useShippingAddressForBilling ? true : clientOrder.BillingAddress1 && clientOrder.BillingCity && clientOrder.BillingState && clientOrder.BillingZip;
-    var shippingAddrValid = clientOrder.Address1 && clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null && (!isCustomShippingType() || clientOrder.CustomShippingType !== null));
-    if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && shippingAddrValid && billingAddrValid) {
-        var orderLines = [];
-        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
-        for (var i = 0; i < cart.length; i++) {
-            var item = cart[i];
-            var orderLine = {
-                PartNumber: item.PartNumber,
-                ProductId: item.ProductId || null,
-                Quantity: parseInt(item.Quantity) || 0
-            };
-            orderLines.push(orderLine);
-        }
-        clientOrder.OrderLines = orderLines;
-
-        document.getElementById('flightshop-checkout-get-form-url-btn').style.display = 'none';
-        document.getElementById('flightshop-get-form-url-loading-area').style.display = 'block';
-        $.ajax({
-            type: 'POST',
-            url: formUrl,
-            data: clientOrder
-        }).done(function (response) {
-            creditCardAuthUrl = response.responseText;
-            // todo: TO BE CONT'D
-        }).fail(function (err) {
-            if (err.statusCode === 400 && err.responseText) {
-                // todo: display error as alert so user can (maybe) correct mistake
-                // todo: test to see if maybe this applies more to submission of CC info, and if so then move this code
-            } else {
-                location.href = errorRedirectUrl;
-            }
-        });
+    var orderLines = [];
+    var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+    for (var i = 0; i < cart.length; i++) {
+        var item = cart[i];
+        var orderLine = {
+            PartNumber: item.PartNumber,
+            ProductId: item.ProductId || null,
+            Quantity: parseInt(item.Quantity) || 0
+        };
+        orderLines.push(orderLine);
     }
+    clientOrder.OrderLines = orderLines;
+
+    $.ajax({
+        type: 'POST',
+        url: customerInfoUrl,
+        data: clientOrder
+    }).done(function (response) {
+        formUrlReturned(response);
+    }).fail(function () {
+        if (err.statusCode === 400 && err.responseText) {
+            // todo: display error as alert so user can (maybe) correct mistake
+            // todo: test to see if maybe this applies more to submission of CC info, and if so then move this code
+        } else {
+            location.href = errorRedirectUrl;
+        }
+    });
 }
 
-function submitOrder() {
+function submitOrder(customerInfoUrl, errorRedirectUrl) {
     var agreed = document.getElementById('flightshop-order-agree-checkbox');
-// check CC stuff, CHECK AGREED.CHECKED for addt'l info
     if (agreed.checked) {
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: clientOrder
-        }).done(function () {
-            clearCart();
-            location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "true".ToString() })'; //    location.href = '/'; url action 'cart' 'confirmation' (w/ conf #)
-        }).fail(function () {
-            location.href = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
+        document.getElementById('flightshop-checkout-section-review').style.display = 'none';
+        document.getElementById('flightshop-checkout-steps-header').style.display = 'none';
+        document.getElementById('flightshop-checkout-title').style.display = 'none';
+        document.getElementById('flightshop-checkout-section-processing').style.display = 'block';
+        submitCustomerInfo(customerInfoUrl, errorRedirectUrl, function (formUrl) {
+            var cardForm = document.getElementById('flightshop-checkout-form');
+            cardForm.action = formUrl;
+            cardForm.submit();
+            // todo: how to handle response? maybe have to redirect to new View, and if err then tough shit? or maybe not, investigate..
         });
     } else {
         agreed.parentElement.classList.add('has-error');
@@ -213,15 +244,6 @@ function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
 $(document).ready(function () {
     $('#flightshop-customer-country').select2();
     $('#flightshop-customer-country-billing').select2();
-
-    var currentYear = new Date().getFullYear();
-    var expYear = document.getElementById('flightshop-cc-exp-year');
-    for (var i = currentYear; i < currentYear + 50; i++) {
-        var yearOption = document.createElement('option');
-        yearOption.value = i;
-        yearOption.innerHTML = i;
-        expYear.appendChild(yearOption);
-    }
 
     document.getElementById('flightshop-checkout-form').addEventListener('submit', function (evt) {
         evt.preventDefault();

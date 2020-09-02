@@ -349,6 +349,7 @@
     <None Remove="Payment\NmiCustomerInfo.cs" />
     <None Remove="Payment\NmiGatewayResponse.cs" />
     <None Remove="Payment\NmiGatewayResponseStatus.cs" />
+    <None Remove="Payment\NmiPaymentAuth.cs" />
     <None Remove="Payment\NmiPaymentGateway.cs" />
     <None Remove="Weather\DarkSkyCurrentWeather.cs" />
     <None Remove="Weather\DarkSkyWeather.cs" />
