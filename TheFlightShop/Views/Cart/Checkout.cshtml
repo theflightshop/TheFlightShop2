@@ -1,5 +1,5 @@
 ﻿
-@using TheFlightShop.DAL;
+@model TheFlightShop.Payment.NmiGatewayResponse
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,7 +12,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-xs-4">
-                    <div id="checkout-step-customer" class="step active">
+                    <div id="checkout-step-customer" class="step">
                         <div><span class="glyphicon glyphicon-info-sign"></span></div>
                         Customer Info
                         <div class="caret right"></div>
@@ -54,8 +54,8 @@
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <div class="step">
-                        <div><span class="glyphicon glyphicon-ok"></span></div>
+                    <div id="checkout-step-confirmation" class="step">
+                        <div><span id="flightshop-checkout-glyphicon" class="glyphicon"></span></div>
                         Confirmation
                     </div>
                 </div>
@@ -65,7 +65,7 @@
     <hr class="col-xs-12" />
 </div>
 
-<div id="flightshop-checkout-section-customer" class="flightshop-checkout-section">
+<div id="flightshop-checkout-section-customer" class="flightshop-checkout-section" style="display: none;">
     <div class="col-md-6">
         <div class="form-group">
             <label for="flightshop-customer-first-name">First Name</label>
@@ -352,42 +352,29 @@
 </div>
 
 <form id="flightshop-checkout-form" method="post">
-    <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden">
-        <div class="form-group col-md-8">
-            <label for="billing-cc-number">Credit Card #</label>
-            <input id="billing-cc-number" name="billing-cc-number" class="form-control mandatory-checkout-field" type="number" />
-            <span class="help-block">Please fill out this field.</span>
-        </div>
-        <div class="form-group col-md-4">
-            <label for="flightshop-cc-exp">Expiration Date <small>(format MMYY, e.g. 0129 for January 2029)</small></label>
-            <div id="flightshop-cc-exp" class="row">
-                <div class="form-group col-md-6">
-                    <input id="billing-cc-exp" name="billing-cc-exp" type="number" placeholder="MMYY" class="form-control mandatory-checkout-field" />
-                    <span class="help-block">Please fill out this field.</span>
-                </div>
-                <div class="form-group col-md-6">
-                    <div>(Optional) Select month below to see numerical representation of month, e.g. 01 for January, 02 for February, etc.</div>
-                    <select class="flightshop-select mandatory-checkout-field">
-                        <option>January</option>
-                        <option>February</option>
-                        <option>March</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                        <option>July</option>
-                        <option>August</option>
-                        <option>September</option>
-                        <option>October</option>
-                        <option>November</option>
-                        <option>December</option>
-                    </select>
-                </div>
+    <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden" >
+        <div id="flightshop-credit-card-container">
+            <div style="margin-bottom: 1.25em;">
+                <span id="flightshop-checkout-cc-lock-icon" class="glyphicon glyphicon-lock"></span>
+                <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card authorization</strong></p>
+                <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
             </div>
-        </div>
+            <div class="form-group col-md-8">
+                <label for="billing-cc-number">Card Number</label>
+                <input id="billing-cc-number" name="billing-cc-number" class="form-control mandatory-checkout-field" type="number" />
+                <span class="help-block">Please fill out this field.</span>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="billing-cc-exp">Expiration Date</label>
+                <input id="billing-cc-exp" name="billing-cc-exp" type="number" placeholder="MMYY" class="form-control mandatory-checkout-field" oninput="limitCreditCardExpLength(this)" />
+                <p><small>(format MMYY, e.g. 0129 for January 2029)</small></p>
+                <span id="billing-cc-exp-validation-msg" class="help-block"></span>
+            </div>
 
-        <div class="flightshop-checkout-button-section">
-            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'billing')">Back</button>
-            <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('payment', 'review')">Next</button>
+            <div class="flightshop-checkout-button-section">
+                <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'billing')">Back</button>
+                <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="paymentInfoSubmitted()">Next</button>
+            </div>
         </div>
     </div>
 </form>
@@ -401,7 +388,7 @@
         "<strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for ${amount} when you press "Submit Order" on the following page,
         and we will get in touch with you to confirm purchase details before processing payment." -->
     <!-- onchange, convert state/province to text inupt if countryCode !== 'US' -->
-    <!-- onsubmit: call submitcustomerinfo endpoint to get form-url, then attach as action and submit form, then handle redirect/auth response -->
+<!-- todo: cc exp valite 4 chars else "invalid format, should be MMYY" -->
     <!-- HANDLE/TEST variety of error cases -->
     <!-- todo maybe: validate CVV where applicable? -->
     <!-- alert on leaving page? -->
@@ -441,11 +428,96 @@
     <img id="flightshop-checkout-processing-spinner" src="~/images/propeller.png" alt="processing payment..." />
 </div>
 
+@if (Model != null)
+{
+<div id="flightshop-checkout-section-confirmation">
+    @if (Model.Succeeded)
+    {
+        <p>Order submitted.</p>
+        <p><strong>Confirmation number:</strong>&nbsp;@Model.ConfirmationNumber.</p>
+        <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you and answer any questions you have.</p>
+        <div style="padding-top: 0.5em;">
+            <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
+        </div>
+    }
+    else
+    {
+        <p>There was a problem submitting your order.</p>
+        <div>
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorReason))
+            {
+                <p>
+                    <span><strong>Reason:</strong>&nbsp;@Model.ErrorReason</span>
+                    @if (!Model.ErrorReason.EndsWith('.'))
+                    {<span>&#46;</span>}
+                </p>
+            }
+            <p>Please try correcting the error or contacting us using buttons below.</p>
+            <div style="padding-top: 0.5em;">
+                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'customer')">Go to customer info</button></p>
+                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'shipping')">Go to shipping info</button></p>
+                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'billing')">Go to billing address</button></p>
+                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'payment')">Go to payment method</button></p>
+                <p><a class="btn btn-info" href="@Url.Action("Contact", "Home")"><span class="glyphicon glyphicon-phone"></span>&nbsp;Contact us</a></p>
+                <p><a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></p>
+            </div>
+        </div>
+    }
+</div>
+}
+
 <script>
+    function setInputValue(id, storageKey) {
+        var value = window.sessionStorage.getItem(storageKey);
+        document.getElementById(id).value = value;
+    }
+
+    var checkoutLoadHandler = function () {
+        if ('@Model' === '' || '@Model' === 'null') {
+            document.getElementById('flightshop-checkout-section-customer').style.display = 'block';
+            document.getElementById('checkout-step-customer').classList.add('active');
+        } else if ('@Model?.Succeeded' === 'true') {
+            document.getElementById('flightshop-checkout-glyphicon').classList.add('glyphicon-ok');
+            document.getElementById('checkout-step-confirmation').classList.add('active');
+            clearCart();
+        } else {
+            document.getElementById('flightshop-checkout-glyphicon').classList.add('glyphicon-remove');
+            document.getElementById('checkout-step-confirmation').classList.add('step-error');
+
+            setInputValue('flightshop-customer-first-name', 'first-name');
+            setInputValue('flightshop-customer-last-name', 'last-name');
+            setInputValue('flightshop-customer-phone', 'customer-phone');
+            setInputValue('flightshop-customer-email', 'customer-email');
+            setInputValue('flightshop-shipping-type', 'shipping-type');
+            setInputValue('flightshop-po-number', 'po-number');
+            setInputValue('flightshop-customer-attention-to', 'attention-to');
+            setInputValue('flightshop-customer-addr-1', 'addr-1');
+            setInputValue('flightshop-customer-addr-2', 'addr-2');
+            setInputValue('flightshop-customer-city', 'customer-city');
+            setInputValue('flightshop-customer-state', 'customer-state');
+            setInputValue('flightshop-customer-zipcode', 'customer-zipcode');
+            setInputValue('flightshop-customer-country', 'customer-country');
+            setInputValue('flightshop-customer-addr-1-billing', 'addr-1-billing');
+            setInputValue('flightshop-customer-addr-2-billing', 'addr-2-billing');
+            setInputValue('flightshop-customer-city-billing', 'city-billing');
+            setInputValue('flightshop-customer-state-billing', 'state-billing');
+            setInputValue('flightshop-customer-zipcode-billing', 'zipcode-billing');
+            setInputValue('flightshop-customer-country-billing', 'country-billing');
+        }
+        window.removeEventListener('load', checkoutLoadHandler);
+    };
+    window.addEventListener('load', checkoutLoadHandler);
+
     function submitOrderPressed() {
         var customerInfoUrl = '@Url.Action("SubmitCustomerInfo", "Cart")';
         var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
         submitOrder(customerInfoUrl, errorRedirectUrl);
+    }
+
+    function clearCart() {
+        window.sessionStorage.setItem('cartItems', []);
+        renderCartButton();
+        window.removeEventListener('load', clearCart);
     }
 </script>
 
@@ -576,6 +648,21 @@
             }
         }
 
+        #flightshop-credit-card-container {
+            clear: both;
+            background-color: #DAEFFE;
+            padding: 0.5em;
+            border: 2px solid #eee;
+            border-radius: 1px;
+        }
+
+        #flightshop-checkout-cc-lock-icon {
+            font-size: 1.5em;
+            float: left;
+            padding: 0.5em;
+            color: #444;
+        }
+
         /* todo: IS THIS NEEDED???? @@media screen and (min-width: 991px) {
         #flightshop-addr-section {
             height: 210px;
@@ -609,6 +696,10 @@
                 color: #3C763D;
                 background-color: #eeffee;
             }
+            .step.step-error {
+                color: #a94442;
+                background-color: #f2dede;
+            }
 
                 .step.active .glyphicon {
                     font-size: 1.25em;
@@ -631,6 +722,9 @@
 
             .step.active .caret.right {
                 color: #eeffee;
+            }
+            .step.step-error .caret.right {
+                color: #f2dede;
             }
 
             .step .caret.bottom {

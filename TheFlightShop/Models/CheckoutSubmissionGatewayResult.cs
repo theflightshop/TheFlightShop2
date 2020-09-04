@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace TheFlightShop.Models
 {
-    public class PaymentGatewayResult
+    public class CheckoutSubmissionGatewayResult : PaymentGatewayResult
     {
-        public bool Succeeded { get; set; }
-        public string ErrorReason { get; set; }
+
     }
 }

@@ -47,13 +47,19 @@ namespace TheFlightShop.Controllers
             {
                 var redirectUrl = $"{Request.Scheme}://{Request.Host}/Cart/{nameof(SubmitOrder)}";
                 var gatewayFormUrlResult = await _paymentGateway.RetrievePaymentAuthUrl(order, parts, redirectUrl);
-                var ifSuccessResult = new ContentResult
+                if (gatewayFormUrlResult.Succeeded)
                 {
-                    Content = gatewayFormUrlResult.PaymentAuthFormUrl,
-                    ContentType = "text/plain",
-                    StatusCode = 200
-                };
-                result = GetPaymentGatewayActionResult(gatewayFormUrlResult, ifSuccessResult);
+                    result = new ContentResult
+                    {
+                        Content = gatewayFormUrlResult.PaymentAuthFormUrl,
+                        ContentType = "text/plain",
+                        StatusCode = 200
+                    };
+                }
+                else
+                {
+                    result = StatusCode((int)HttpStatusCode.InternalServerError);
+                }
             }
             else
             {
@@ -66,34 +72,28 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> SubmitOrder([FromQuery(Name = "token-id")]string tokenId)
         {
             var authResult = await _paymentGateway.AuthorizeOrValidatePaymentAmount(tokenId);
-            var ifSuccessResult = new NoContentResult();
-            var actionResult = GetPaymentGatewayActionResult(authResult, ifSuccessResult);
-            return actionResult;
-        }
+            IActionResult actionResult;
 
-        private IActionResult GetPaymentGatewayActionResult(PaymentGatewayResult gatewayResult, IActionResult ifSuccessResult)
-        {
-            IActionResult result;
-
-            if (gatewayResult.Succeeded)
+            if (authResult.Succeeded)
             {
-                result = ifSuccessResult;
-            }
-            else if (gatewayResult.CanRetry)
-            {
-                result = new ContentResult
+                //var clientOrder = authResult.AsClientOrder();
+                var emailsSent = false;// await _emailClient.SendOrderConfirmation(clientOrder);
+                if (emailsSent)
                 {
-                    Content = gatewayResult.ErrorReason,
-                    ContentType = "text/plain",
-                    StatusCode = 400
-                };
+                    ViewData["Title"] = "Order Submitted";
+                    actionResult = View("Checkout", authResult);
+                }
+                else
+                {
+                    actionResult = new RedirectToActionResult("Index", "Home", new { orderSubmitted = false });
+                }
             }
             else
             {
-                result = StatusCode((int)HttpStatusCode.InternalServerError);
+                ViewData["Title"] = "Error Submitting Order";
+                actionResult = View("Checkout", authResult);
             }
-
-            return result;
+            return actionResult;
         }
     }
 }

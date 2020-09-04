@@ -18,14 +18,12 @@ namespace TheFlightShop.Models
         public string State { get; set; }
         public string Zip { get; set; }
         public string CountryCode { get; set; }
-        public string InternationalShippingAddress { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }
         public string BillingState { get; set; }
         public string BillingZip { get; set; }
         public string BillingCountryCode { get; set; }
-        public string InternationalBillingAddress { get; set; }
         public int ShippingType { get; set; }
         public string CustomShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }
@@ -33,7 +31,7 @@ namespace TheFlightShop.Models
         public IEnumerable<ClientOrderLine> OrderLines { get; set; }
 
         [JsonIgnore]
-        public bool UseShippingAddressForBilling => InternationalBillingAddress == null && BillingAddress1 == null && BillingCity == null && BillingState == null && BillingZip == null;
+        public bool UseShippingAddressForBilling => BillingAddress1 == null && BillingCity == null && BillingState == null && BillingZip == null;
 
         private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;
         private string _confirmationNumber;
@@ -47,6 +45,7 @@ namespace TheFlightShop.Models
                 }
                 return _confirmationNumber;
             }
+            set { _confirmationNumber = value; }
         }
 
         private string GenerateConfirmationNumber()

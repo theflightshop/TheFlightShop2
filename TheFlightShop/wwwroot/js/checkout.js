@@ -42,11 +42,6 @@ function billingUseShippingChecked() {
     });
 }
 
-function clearCart() {
-    window.sessionStorage.setItem('cartItems', []);
-    renderCartButton();
-}
-
 function setAddresses(clientOrder, useShippingAddressForBilling) {
     clientOrder.Address1 = document.getElementById('flightshop-customer-addr-1').value;
     clientOrder.Address2 = document.getElementById('flightshop-customer-addr-2').value || null;
@@ -109,6 +104,39 @@ var creditCardAuthUrl = '';
 //    }
 //}
 
+function limitCreditCardExpLength(input) {
+    if (input.value && input.value.length > 4) {
+        input.value = input.value.slice(0, 4);
+    }
+}
+
+function saveInputValueToStorage(id, storageKey) {
+    var value = document.getElementById(id).value;
+    window.sessionStorage.setItem(storageKey, value);
+}
+
+function saveInputValuesToStorage() {
+    saveInputValueToStorage('flightshop-customer-first-name', 'first-name');
+    saveInputValueToStorage('flightshop-customer-last-name', 'last-name');
+    saveInputValueToStorage('flightshop-customer-phone', 'customer-phone');
+    saveInputValueToStorage('flightshop-customer-email', 'customer-email');
+    saveInputValueToStorage('flightshop-shipping-type', 'shipping-type');
+    saveInputValueToStorage('flightshop-po-number', 'po-number');
+    saveInputValueToStorage('flightshop-customer-attention-to', 'attention-to');
+    saveInputValueToStorage('flightshop-customer-addr-1', 'addr-1');
+    saveInputValueToStorage('flightshop-customer-addr-2', 'addr-2');
+    saveInputValueToStorage('flightshop-customer-city', 'customer-city');
+    saveInputValueToStorage('flightshop-customer-state', 'customer-state');
+    saveInputValueToStorage('flightshop-customer-zipcode', 'customer-zipcode');
+    saveInputValueToStorage('flightshop-customer-country', 'customer-country');
+    saveInputValueToStorage('flightshop-customer-addr-1-billing', 'addr-1-billing');
+    saveInputValueToStorage('flightshop-customer-addr-2-billing', 'addr-2-billing');
+    saveInputValueToStorage('flightshop-customer-city-billing', 'city-billing');
+    saveInputValueToStorage('flightshop-customer-state-billing', 'state-billing');
+    saveInputValueToStorage('flightshop-customer-zipcode-billing', 'zipcode-billing');
+    saveInputValueToStorage('flightshop-customer-country-billing', 'country-billing');
+}
+
 function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) {
     var clientOrder = {
         FirstName: document.getElementById('flightshop-customer-first-name').value,
@@ -137,6 +165,8 @@ function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) 
     }
     clientOrder.OrderLines = orderLines;
 
+    saveInputValuesToStorage();
+
     $.ajax({
         type: 'POST',
         url: customerInfoUrl,
@@ -144,12 +174,7 @@ function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) 
     }).done(function (response) {
         formUrlReturned(response);
     }).fail(function () {
-        if (err.statusCode === 400 && err.responseText) {
-            // todo: display error as alert so user can (maybe) correct mistake
-            // todo: test to see if maybe this applies more to submission of CC info, and if so then move this code
-        } else {
-            location.href = errorRedirectUrl;
-        }
+        location.href = errorRedirectUrl;
     });
 }
 
@@ -164,11 +189,34 @@ function submitOrder(customerInfoUrl, errorRedirectUrl) {
             var cardForm = document.getElementById('flightshop-checkout-form');
             cardForm.action = formUrl;
             cardForm.submit();
-            // todo: how to handle response? maybe have to redirect to new View, and if err then tough shit? or maybe not, investigate..
         });
     } else {
         agreed.parentElement.classList.add('has-error');
     }
+}
+
+function paymentInfoSubmitted() {
+    var cardExp = document.getElementById('billing-cc-exp');
+    var validationMsg = null;
+    if (!cardExp.value) {
+        validationMsg = 'Please fill out this field.';
+    } else if (cardExp.value.length < 4) {
+        validationMsg = 'Please enter valid date in MMYY format.';
+    } else {
+        var month = parseInt(cardExp.value.slice(0, 2));
+        if (isNaN(month) || month > 12) {
+            validationMsg = 'Please enter month between 01 to 12.';
+        }
+    }
+
+    if (validationMsg) {
+        document.getElementById('billing-cc-exp-validation-msg').innerHTML = validationMsg;
+        cardExp.classList.add('invalid-input');
+    } else {
+        cardExp.classList.remove('invalid-input');
+    }
+
+    goNext('payment', 'review');
 }
 
 function goBack(fromName, toName) {
@@ -188,7 +236,7 @@ function goNext(fromName, toName) {
     var currentStepFields = fromSection.getElementsByClassName('mandatory-checkout-field');
     var isFormComplete = true;
     for (var i = 0; i < currentStepFields.length && isFormComplete; i++) {
-        isFormComplete = currentStepFields[i].value ? true : false;
+        isFormComplete = currentStepFields[i].value && !currentStepFields[i].classList.contains('invalid-input');
         if (isFormComplete) {
             currentStepFields[i].parentElement.classList.remove('has-error');
         } else {
@@ -221,7 +269,7 @@ function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
 
     setTimeout(function () {
         fromSection.style.display = 'none';
-        fromStep.classList.remove('active');
+        fromStep.classList.remove('active', 'step-error');
         toStep.classList.add('active');
 
         if (toSection.style.display === 'none') {
@@ -242,10 +290,13 @@ function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
 }
 
 $(document).ready(function () {
-    $('#flightshop-customer-country').select2();
-    $('#flightshop-customer-country-billing').select2();
+    var checkoutForm = document.getElementById('flightshop-checkout-form');
+    if (checkoutForm) {
+        $('#flightshop-customer-country').select2();
+        $('#flightshop-customer-country-billing').select2();
 
-    document.getElementById('flightshop-checkout-form').addEventListener('submit', function (evt) {
-        evt.preventDefault();
-    });
+        checkoutForm.addEventListener('submit', function (evt) {
+            evt.preventDefault();
+        });
+    }
 });

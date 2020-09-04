@@ -1,0 +1,40 @@
+﻿@model TheFlightShop.Models.PaymentGatewayResult
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Succeeded)
+{
+    <h2>Order Submitted</h2>
+    <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you and answer any questions you have.</p>
+} else  {
+    <h2>There was a problem submitting your order.</h2>
+    <div>
+        
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorReason))
+        {
+        <p>
+            <span><strong>Reason:</strong>&nbsp;@Model.ErrorReason</span>
+            @if (!Model.ErrorReason.EndsWith('.'))
+            {<span>&#46;</span>}
+        </p>
+        }
+        <p>&nbsp;Please try checking out again @Html.ActionLink("here", "Checkout", "Cart"), or reach out to us via contact info found @Html.ActionLink("here", "Contact", "Home").</p>
+    </div>
+}
+<div style="padding-top: 0.5em;">
+    <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
+</div>
+
+@if (Model.Succeeded)
+{
+    <script>
+        var clearCart = function () {
+            window.sessionStorage.setItem('cartItems', []);
+            renderCartButton();
+            window.removeEventListener('load', clearCart);
+        };
+        window.addEventListener('load', clearCart)
+    </script>
+}

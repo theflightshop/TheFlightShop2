@@ -26,9 +26,9 @@ namespace TheFlightShop.Payment
             _httpClient.BaseAddress = new Uri(gatewayUrl);
         }
 
-        public async Task<PaymentGatewayResult> AuthorizeOrValidatePaymentAmount(string tokenId)
+        public async Task<NmiGatewayResponse> AuthorizeOrValidatePaymentAmount(string tokenId)
         {
-            var authResult = new PaymentGatewayResult();
+            var authResponse = new NmiGatewayResponse();
 
             try
             {
@@ -38,40 +38,33 @@ namespace TheFlightShop.Payment
                     TokenId = tokenId
                 };
                 var xmlBody = SerializeXml(paymentAuth);
-                var authResponse = await PostXml(xmlBody);
-                authResult = DetermineGatewayResult(authResponse);
+                authResponse = await PostXml(xmlBody);
+                LogGatewayResult(authResponse);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(AuthorizeOrValidatePaymentAmount)}- error validating token {tokenId}.");
             }
 
-            return authResult;
+            return authResponse;
         }
 
-        public async Task<PaymentGatewayFormUrlResult> RetrievePaymentAuthUrl(ClientOrder order, IEnumerable<Part> parts, string redirectUrl)
+        public async Task<NmiGatewayResponse> RetrievePaymentAuthUrl(ClientOrder order, IEnumerable<Part> parts, string redirectUrl)
         {
             // TODO: see if this returns errors for invalid addresses??
-            var formUrlResult = new PaymentGatewayFormUrlResult();
+            var response = new NmiGatewayResponse();
 
             try
             {
                 var xmlBody = SerializeOrderXml(order, parts, redirectUrl);
-                var formUrlResponse = await PostXml(xmlBody);                
-                if (string.IsNullOrWhiteSpace(formUrlResponse.PaymentAuthFormUrl))
+                response = await PostXml(xmlBody); 
+                LogGatewayResult(response);
+
+                if (response.Succeeded && string.IsNullOrWhiteSpace(response.PaymentAuthFormUrl))
                 {
-                    // todo: log warn couldn't parse NMI payment gateway form URL for method, print response STRING
-                }
-                else
-                {
-                    var parsedResponse = DetermineGatewayResult(formUrlResponse);
-                    formUrlResult = new PaymentGatewayFormUrlResult
-                    {
-                        Succeeded = parsedResponse.Succeeded,
-                        CanRetry = parsedResponse.CanRetry,
-                        ErrorReason = parsedResponse.ErrorReason,
-                        PaymentAuthFormUrl = parsedResponse.Succeeded ? formUrlResponse.PaymentAuthFormUrl : null
-                    };
+                    response = new NmiGatewayResponse();
+                    _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- couldn't parse NMI gateway form URL, but response was successful. " + 
+                        $"status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId}");
                 }
                 
             }
@@ -80,32 +73,29 @@ namespace TheFlightShop.Payment
                 _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- error for order {order?.ConfirmationNumber}."); 
             }
 
-            return formUrlResult;
+            return response;
         }
 
-        private PaymentGatewayResult DetermineGatewayResult(NmiGatewayResponse response)
+        private void LogGatewayResult(NmiGatewayResponse response)
         {
-            var result = new PaymentGatewayResult();
+            var responseStatus = response.GetResponseStatus();
 
-            if (Enum.TryParse(response.Result, out NmiGatewayResponseStatus responseStatus))
+            if (responseStatus == null)
             {
-                if (responseStatus == NmiGatewayResponseStatus.Approved)
-                {
-                    // TODO: on fail set CanRetry and/or ErrorReason
-
-                    result.Succeeded = true;
-                }
-                else
-                {
-                    // todo: gracefully handle response failure using result text/code
-                }
+                _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- couldn't parse NMI gateway response status. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId}");
             }
-            else
+            else if (responseStatus == NmiGatewayResponseStatus.Approved)
             {
-                // todo: log warn couldn't parse NMI payment gateway response for method, print response STRING
+                //todo: _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer submission approved. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
             }
-
-            return result;
+            else if (responseStatus == NmiGatewayResponseStatus.Declined)
+            {
+                //todo: _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer card declined. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+            }
+            else // error
+            {
+                //todo: _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- error processing customer submission. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+            }
         }
 
         private async Task<NmiGatewayResponse> PostXml(string xmlBody)
@@ -176,6 +166,7 @@ namespace TheFlightShop.Payment
                 Amount = amountToAuthorize,
                 ApiKey = _apiKey,
                 RedirectUrl = redirectUrl,
+                ConfirmationNumber = order.ConfirmationNumber,
                 BillingAddress = billingAddress
             };
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using TheFlightShop.Models;
 
 namespace TheFlightShop.Payment
 {
@@ -14,6 +15,28 @@ namespace TheFlightShop.Payment
     [XmlRoot("response")]
     public class NmiGatewayResponse
     {
+        [XmlIgnore]
+        public bool Succeeded => GetResponseStatus() == NmiGatewayResponseStatus.Approved;
+
+        [XmlIgnore]
+        public string ErrorReason
+        {
+            get
+            {
+                var status = GetResponseStatus();
+                var reason = (string)null;
+                if (status == NmiGatewayResponseStatus.Declined)
+                {
+                    reason = "Your card was declined.";
+                }
+                else if (status == NmiGatewayResponseStatus.Error)
+                {
+                    reason = ResultText;
+                }
+                return reason;
+            }
+        }
+
         [XmlElement("result")]
         public string Result { get; set; }
 
@@ -32,9 +55,20 @@ namespace TheFlightShop.Payment
         [XmlElement("form-url")]
         public string PaymentAuthFormUrl { get; set; }
 
+        /// <summary>
+        /// Returned from Step 3 of NMI's Three Step Redirect API.
+        /// </summary>
+        [XmlElement("order-id")]
+        public string ConfirmationNumber { get; set; }
+
         public override string ToString()
         {
             return $"TransactionId={TransactionId},Result={Result},ResultText={ResultText},ResultCode={ResultCode},PaymentAuthFormUrl={PaymentAuthFormUrl}";
+        }
+
+        public NmiGatewayResponseStatus? GetResponseStatus()
+        {
+            return Enum.TryParse(Result, out NmiGatewayResponseStatus status) ? status : (NmiGatewayResponseStatus?)null;
         }
     }
 }

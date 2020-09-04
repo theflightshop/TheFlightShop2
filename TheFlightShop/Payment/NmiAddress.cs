@@ -14,6 +14,12 @@ namespace TheFlightShop.Payment
         [XmlElement("last-name")]
         public string LastName { get; set; }
 
+        [XmlElement("phone")]
+        public string PhoneNumber { get; set; }
+
+        [XmlElement("email")]
+        public string EmailAddress { get; set; }
+
         [XmlElement("company")]
         public string CompanyName { get; set; }
 
