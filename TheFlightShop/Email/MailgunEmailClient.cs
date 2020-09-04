@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Extensions.Logging;
 using RestSharp;
 using RestSharp.Authenticators;
 using System;
@@ -17,25 +18,39 @@ namespace TheFlightShop.Email
         private readonly string _fromName;
         private readonly string _domain;
         private readonly string _adminAddress;
+        private readonly ILogger _logger;
 
-        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain, string adminAddress)
+        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain, string adminAddress, ILogger logger)
         {
             _apiKey = apiKey;
             _fromUsername = fromUsername;
             _fromName = fromName;
             _domain = domain;
             _adminAddress = adminAddress;
+            _logger = logger;
         }
 
         public async Task<bool> SendOrderConfirmation(ClientOrder order)
         {
-            var clientBody = GetClientEmailBody(order, order.ConfirmationNumber);
-            var adminBody = GetAdminEmailBody(order, order.ConfirmationNumber);
-            var clientTask = SendEmail(order.Email, "Order Confirmation - The Flight Shop", clientBody);
-            var adminTask = SendEmail(_adminAddress, $"Customer Order {order.ConfirmationNumber} - {order.Email}", adminBody);
+            var succeeded = false;
 
-            await Task.WhenAll(clientTask, adminTask);
-            return clientTask.Result && adminTask.Result;
+            try
+            {
+                var clientBody = GetClientEmailBody(order, order.ConfirmationNumber);
+                var adminBody = GetAdminEmailBody(order, order.ConfirmationNumber);
+                var clientTask = SendEmail(order.Email, "Order Confirmation - The Flight Shop", clientBody);
+                var adminTask = SendEmail(_adminAddress, $"Customer Order {order.ConfirmationNumber} - {order.Email}", adminBody);
+
+                await Task.WhenAll(clientTask, adminTask);
+                succeeded = clientTask.Result && adminTask.Result;
+            }
+            catch (Exception ex)
+            {
+                var hasApiKey = !string.IsNullOrEmpty(_apiKey);
+                _logger.LogError(ex, $"method={nameof(MailgunEmailClient)}.{nameof(SendOrderConfirmation)},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},confirmation#={order.ConfirmationNumber},customerEmail={order.Email}.");
+            }
+
+            return succeeded;
         }
 
         private async Task<bool> SendEmail(string toAddress, string subject, string body)
@@ -62,7 +77,8 @@ namespace TheFlightShop.Email
                 }
                 else
                 {
-                    // TODO: add logging
+                    var hasApiKey = !string.IsNullOrEmpty(_apiKey);
+                    _logger.LogWarning($"method={nameof(MailgunEmailClient)}.{nameof(SendEmail)} FAILED,responseStatus={response.StatusCode},responseContent={response.Content},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},toAddress={toAddress}");
                     emailTaskCompletionSrc.SetResult(false);
                 }
             });

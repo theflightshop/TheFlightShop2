@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -9,65 +11,64 @@ using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
 {
-    public class OrderDAL : DbContext, IOrderDAL
+    public class OrderDAL : IOrderDAL
     {
-        public DbSet<Order>  Orders { get; set; }        
-        public DbSet<OrderLine> OrderLines { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        
         private readonly string _connectionString;
+        private readonly ILogger _logger;
 
-        public OrderDAL(string connectionString)
+        public OrderDAL(string connectionString, ILogger logger)
         {
             _connectionString = connectionString;
+            _logger = logger;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySql(_connectionString);
-        }
-
-        public bool SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts)
+        public async Task<bool> SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts)
         {
             bool succeeded = false;
 
             try
             {
-                var contactId = SaveContact(clientOrder);
-                var orderId = CreateOrder(contactId, clientOrder);
-                SaveOrderLines(orderId, clientOrder.OrderLines, parts);
+                var stopwatch = Stopwatch.StartNew();
+                var contactId = await SaveContact(clientOrder);
+                var orderId = await CreateOrder(contactId, clientOrder);
+                await SaveOrderLines(orderId, clientOrder.OrderLines, parts);
+                stopwatch.Stop();
+                _logger.LogInformation($"{nameof(OrderDAL)}.{nameof(SaveNewOrder)}-{clientOrder.OrderLines?.Count() ?? 0} orderlines in {stopwatch.ElapsedMilliseconds}ms");
 
                 succeeded = true;
             }
             catch (Exception ex)
             {
-                // todo: logging 
+                _logger.LogError(ex, $"method={nameof(OrderDAL)}.{nameof(SaveNewOrder)},confirmation#={clientOrder.ConfirmationNumber},customerEmail={clientOrder.Email}.");
             }
 
             return succeeded;
         }
 
-        private void SaveOrderLines(Guid orderId, IEnumerable<ClientOrderLine> orderLines, IEnumerable<Part> parts)
+        private async Task SaveOrderLines(Guid orderId, IEnumerable<ClientOrderLine> orderLines, IEnumerable<Part> parts)
         {
-            foreach (var orderLine in orderLines)
+            using (var db = new OrderContext(_connectionString))
             {
-                var existingPart = parts.FirstOrDefault(part => part.PartNumber.ToLower() == orderLine.PartNumber.ToLower());
-                var orderLineSaved = new OrderLine
+                foreach (var orderLine in orderLines)
                 {
-                    Id = Guid.NewGuid(),
-                    OrderId = orderId,
-                    ProductId = orderLine.ProductId,
-                    PartId = existingPart?.Id,
-                    PartNumber = orderLine.PartNumber,
-                    Quantity = orderLine.Quantity,
-                    DateCreated = DateTime.UtcNow
-                };
-                OrderLines.Add(orderLineSaved);
+                    var existingPart = parts.FirstOrDefault(part => part.PartNumber.ToLower() == orderLine.PartNumber.ToLower());
+                    var orderLineSaved = new OrderLine
+                    {
+                        Id = Guid.NewGuid(),
+                        OrderId = orderId,
+                        ProductId = orderLine.ProductId,
+                        PartId = existingPart?.Id,
+                        PartNumber = orderLine.PartNumber,
+                        Quantity = orderLine.Quantity,
+                        DateCreated = DateTime.UtcNow
+                    };
+                    db.OrderLines.Add(orderLineSaved);
+                }
+                await db.SaveChangesAsync();
             }
-            SaveChanges();
         }
 
-        private Guid CreateOrder(Guid contactId, ClientOrder clientOrder)
+        private async Task<Guid> CreateOrder(Guid contactId, ClientOrder clientOrder)
         {
             var order = new Order
             {
@@ -80,13 +81,17 @@ namespace TheFlightShop.DAL
                 AttentionTo = clientOrder.AttentionTo,
                 CustomShippingType = clientOrder.CustomShippingType
             };
-            Orders.Add(order);
-            SaveChanges();
+            
+            using (var db = new OrderContext(_connectionString))
+            {
+                db.Orders.Add(order);
+                await db.SaveChangesAsync();
+            }
 
             return order.Id;
         }
 
-        private Guid SaveContact(ClientOrder clientOrder)
+        private async Task<Guid> SaveContact(ClientOrder clientOrder)
         {
             var formattedPhone = Regex.Replace(clientOrder.Phone?.Trim() ?? "", @"\D", "");
             var contact = new Contact
@@ -112,8 +117,11 @@ namespace TheFlightShop.DAL
 
             // todo: save new ea. order for auditing? and then have user w/ contactId //--- var contactSaved =GetExistingContact(contactQuery);
 
-            Contacts.Add(contact);
-            SaveChanges();
+            using (var db = new OrderContext(_connectionString))
+            {
+                db.Contacts.Add(contact);
+                await db.SaveChangesAsync();
+            }
 
             return contact.Id;
         }

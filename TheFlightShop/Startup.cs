@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Logging;
+using NLog.Web;
 using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
@@ -57,12 +59,12 @@ namespace TheFlightShop
                 maintenanceSubdir = "maintenance";
             }
 
-            services.AddScoped<IProductDAL>(_ => new ProductDAL(connectionString, maintenanceSubdir));
-            services.AddScoped<IOrderDAL>(_ => new OrderDAL(connectionString));
-            services.AddScoped(provider => 
+            services.AddScoped<IProductDAL>(provider => new ProductDAL(connectionString, maintenanceSubdir, provider.GetRequiredService<ILogger<ProductDAL>>()));
+            services.AddScoped<IOrderDAL>(provider => new OrderDAL(connectionString, provider.GetRequiredService<ILogger<OrderDAL>>()));
+            services.AddScoped(provider =>
             {
                 var clientFactory = provider.GetRequiredService<IHttpClientFactory>();
-                return new NmiPaymentGateway(clientFactory, Configuration["PaymentGateway:Url"], Configuration["PaymentGateway:ApiKey"], null);
+                return new NmiPaymentGateway(clientFactory, Configuration["PaymentGateway:Url"], Configuration["PaymentGateway:ApiKey"], provider.GetRequiredService<ILogger<NmiPaymentGateway>>());
             });
 
             var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");
@@ -70,7 +72,7 @@ namespace TheFlightShop
             var from = Environment.GetEnvironmentVariable("EMAIL_FROM_NAME") ?? "The Flight Shop";
             var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
             var adminAddress = Environment.GetEnvironmentVariable("EMAIL_ADMIN_ADDRESS");
-            services.AddScoped<IEmailClient>(_ => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress));
+            services.AddScoped<IEmailClient>(provider => new MailgunEmailClient(emailApiKey, username, from, emailDomain, adminAddress, provider.GetRequiredService<ILogger<MailgunEmailClient>>()));
 
             services.AddScoped<IHash>(_ => new Hash());
 
@@ -83,13 +85,12 @@ namespace TheFlightShop
             var secretAccessKey = Environment.GetEnvironmentVariable("S3_SECRET_ACCESS_KEY");
             var productContentBucketName = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_BUCKET_NAME");
             var productContentRegion = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_REGION");
-            services.AddScoped<IFileManager>(_ => new AwsS3FileManager(accessKeyId, secretAccessKey, productContentBucketName, productContentRegion));
+            services.AddScoped<IFileManager>(provider => new AwsS3FileManager(accessKeyId, secretAccessKey, productContentBucketName, productContentRegion, provider.GetRequiredService<ILogger<AwsS3FileManager>>()));
 
             var apiKey = Environment.GetEnvironmentVariable("WEATHER_API_KEY");
             var latitude = Environment.GetEnvironmentVariable("WEATHER_LATITUDE");
             var longitude = Environment.GetEnvironmentVariable("WEATHER_LONGITUDE");
-            services.AddSingleton<IWeatherClient>(_ => new DarkSkyWeatherClient(apiKey, latitude, longitude));
-                      
+            services.AddSingleton<IWeatherClient>(provider => new DarkSkyWeatherClient(apiKey, latitude, longitude, provider.GetRequiredService<ILogger<AwsS3FileManager>>()));
         }
 
         private string GetConnectionString()
@@ -138,6 +139,7 @@ namespace TheFlightShop
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                NLogBuilder.ConfigureNLog("nlog.Development.config");
             }
             else
             {

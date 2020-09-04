@@ -9,6 +9,7 @@ using TheFlightShop.DAL;
 using Microsoft.Extensions.Configuration;
 using TheFlightShop.Payment;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace TheFlightShop.Controllers
 {
@@ -40,7 +41,7 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> SubmitCustomerInfo(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();
-            var savedOrder = _orderDAL.SaveNewOrder(order, parts);
+            var savedOrder = await _orderDAL.SaveNewOrder(order, parts);
 
             IActionResult result;
             if (savedOrder)
