@@ -14,7 +14,7 @@ namespace TheFlightShop.DAL
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProduct(Guid id);
         Task<ProductsViewModel> GetProductCategories();
-        Task<ProductCategoryViewModel> GetProducts(Guid categoryId);
+        Task<ProductCategoryViewModel> GetProductsByCategory(Guid categoryId);
         Task<ProductDetailViewModel> GetProductView(Guid productId);
         Task<IEnumerable<SearchResult>> SearchParts(string query);
         Task<IEnumerable<Part>> GetParts();

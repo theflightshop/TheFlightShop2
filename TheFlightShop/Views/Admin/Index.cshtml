@@ -521,6 +521,8 @@
         if (err.status == 401) {
             document.getElementById('flightshop-admin-products-view').style.display = 'none';
             document.getElementById('flightshop-admin-login-view').style.display = 'block';
+        } else if (err.status >= 400) {
+            alert('ERROR occurred. Please check logs or contact IT support for more information.');
         }
     }
 

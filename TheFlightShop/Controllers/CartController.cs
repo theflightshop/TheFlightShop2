@@ -6,15 +6,16 @@ using TheFlightShop.Models;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.Email;
 using TheFlightShop.DAL;
+using Microsoft.Extensions.Logging;
 
 namespace TheFlightShop.Controllers
 {
     public class CartController : Controller
     {
-        private IEmailClient _emailClient;
-        private IProductDAL _productDAL;
-        private IOrderDAL _orderDAL;
-
+        private readonly IEmailClient _emailClient;
+        private readonly IProductDAL _productDAL;
+        private readonly IOrderDAL _orderDAL;
+        
         public CartController(IEmailClient emailClient, IProductDAL productDal, IOrderDAL orderDal)
         {
             _emailClient = emailClient;
@@ -35,7 +36,7 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> SubmitOrder(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();
-            var succeeded = _orderDAL.SaveNewOrder(order, parts);
+            var succeeded = await _orderDAL.SaveNewOrder(order, parts);
             if (succeeded)
             {
                 succeeded = await _emailClient.SendOrderConfirmation(order);
