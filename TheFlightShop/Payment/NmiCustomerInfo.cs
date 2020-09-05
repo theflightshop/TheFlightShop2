@@ -31,7 +31,28 @@ namespace TheFlightShop.Payment
         [XmlElement("order-id")]
         public string ConfirmationNumber { get; set; }
 
+        [XmlElement("po-number")]
+        public string PurchaseOrderNumber { get; set; }
+
+        [XmlElement(NmiCustomXmlField.ATTENTION_TO)]
+        public string AttentionTo { get; set; }
+
+        [XmlElement(NmiCustomXmlField.CUSTOMER_NOTES)]
+        public string Notes { get; set; }
+
+        [XmlElement(NmiCustomXmlField.SHIPPING_TYPE)]
+        public string ShippingType { get; set; }
+
+        [XmlElement(NmiCustomXmlField.CUSTOM_SHIPPING_TYPE_VALUE)]
+        public string CustomShippingType { get; set; }
+
         [XmlElement("billing")]
         public NmiAddress BillingAddress { get; set; }
+
+        [XmlElement("shipping")]
+        public NmiAddress ShippingAddress { get; set; }
+
+        [XmlElement("product")]
+        public NmiLineItem[] LineItems { get; set; }
     }
 }

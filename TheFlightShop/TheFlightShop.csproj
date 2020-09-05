@@ -341,6 +341,7 @@
     <None Remove="IO\IFileManager.cs" />
     <None Remove="Models\CheckoutSubmissionGatewayResult.cs" />
     <None Remove="Logging\AmazonS3LogTarget.cs" />
+    <None Remove="Models\CheckoutSubmissionViewModel.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
     <None Remove="Models\HomeViewModel.cs" />
@@ -356,6 +357,7 @@
     <None Remove="Payment\NmiCustomXmlField.cs" />
     <None Remove="Payment\NmiGatewayResponse.cs" />
     <None Remove="Payment\NmiGatewayResponseStatus.cs" />
+    <None Remove="Payment\NmiLineItem.cs" />
     <None Remove="Payment\NmiPaymentAuth.cs" />
     <None Remove="Payment\NmiPaymentGateway.cs" />
     <None Remove="Weather\DarkSkyCurrentWeather.cs" />

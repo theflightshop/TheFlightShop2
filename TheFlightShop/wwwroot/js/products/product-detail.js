@@ -124,6 +124,7 @@ function requestAddToCart(productId, partNumber, description, quantity, price, i
             PartNumber: partNumber,
             Description: description,
             Quantity: quantity,
+            Price: price,
             ImageSrc: imgSrc,
             IsUserDefined: isUserDefined
         });

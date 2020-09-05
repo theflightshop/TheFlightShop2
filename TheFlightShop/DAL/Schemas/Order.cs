@@ -6,6 +6,7 @@ namespace TheFlightShop.DAL.Schemas
     {
         public Guid Id { get; set; }
         public Guid ContactId { get; set; }
+        public string ConfirmationNumber { get; set; }
         public bool Completed { get; set; }
         public bool Shipped { get; set; }
         public DateTime DateCreated { get; set; }

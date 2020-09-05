@@ -234,7 +234,6 @@ namespace TheFlightShop
             { "Ukraine", "UA" },
             { "United Arab Emirates", "AE" },
             { "United Kingdom of Great Britain and Northern Ireland", "GB" },
-            { "United States Minor Outlying Islands", "UM" },
             { "United States of America", "US" },
             { "Uruguay", "UY" },
             { "Uzbekistan", "UZ" },

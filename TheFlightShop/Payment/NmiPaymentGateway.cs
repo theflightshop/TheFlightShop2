@@ -156,9 +156,13 @@ namespace TheFlightShop.Payment
                     CountryCode = order.BillingCountryCode
                 };
             }
-            billingAddress.FirstName = order.FirstName;
-            billingAddress.LastName = order.LastName;
-            billingAddress.CompanyName = order.CompanyName;
+
+            var lineItems = order.OrderLines.Select(line => new NmiLineItem
+            {
+                PartNumber = line.PartNumber,
+                ProductId = line.ProductId.ToString(),
+                Quantity = line.Quantity
+            }).ToArray();
 
             var amountToAuthorize = order.OrderLines.Sum(line => GetLineAmount(line, parts));
             var customerInfo = new NmiCustomerInfo
@@ -167,7 +171,27 @@ namespace TheFlightShop.Payment
                 ApiKey = _apiKey,
                 RedirectUrl = redirectUrl,
                 ConfirmationNumber = order.ConfirmationNumber,
-                BillingAddress = billingAddress
+                AttentionTo = order.AttentionTo,
+                ShippingType = order.ShippingType.ToString(),
+                CustomShippingType = order.ShippingType == (int)ShippingType.Other ? order.CustomShippingType : null,
+                PurchaseOrderNumber = order.PurchaseOrderNumber,
+                Notes = order.Notes,
+                LineItems = lineItems,
+                BillingAddress = billingAddress,
+                ShippingAddress = new NmiAddress
+                {
+                    FirstName = order.FirstName,
+                    LastName = order.LastName,
+                    CompanyName = order.CompanyName,
+                    EmailAddress = order.Email,
+                    PhoneNumber = order.Phone,
+                    Address1 = order.Address1,
+                    Address2 = order.Address2,
+                    City = order.City,
+                    State = order.State,
+                    PostalCode = order.Zip,
+                    CountryCode = order.CountryCode
+                }
             };
 
             var rootElementName = amountToAuthorize > 0.00m ? "auth" : "validate";

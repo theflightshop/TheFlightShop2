@@ -1,11 +1,5 @@
-﻿function isCustomShippingType() {
-    var shippingType = document.getElementById('flightshop-shipping-type').value;
-    var otherType = '@((int)ShippingType.Other)';
-    return shippingType === otherType;
-}
-
-function shippingTypeChanged() {
-    var isCustomShipType = isCustomShippingType();
+﻿function shippingTypeChanged(otherShipType) {
+    var isCustomShipType = document.getElementById('flightshop-shipping-type').value === otherShipType;
     var shippingTypeTextDisplay = isCustomShipType ? 'inline-block' : 'none';
     var customShipType = document.getElementById('flightshop-customer-custom-shipping-type');
     customShipType.style.display = shippingTypeTextDisplay;
@@ -16,6 +10,37 @@ function shippingTypeChanged() {
         customShipType.removeAttribute('required');
         customShipType.classList.remove('mandatory-checkout-field');
     }
+}
+
+function countryChanged(formType) {
+    var id = 'flightshop-customer-country';
+    var stateId = 'flightshop-customer-state';
+    var altStateId = 'flightshop-customer-state-custom';
+    var labelId = 'customer-state-label';
+    if (formType === 'billing') {
+        id += '-billing';
+        stateId += '-billing';
+        altStateId += '-billing';
+        labelId += '-billing';
+    }
+
+    var state = document.getElementById(stateId);
+    var altState = document.getElementById(altStateId);
+    var label = document.getElementById(labelId);
+    var isMerica = document.getElementById(id).value === 'US';
+    if (isMerica) {
+        label.innerHTML = 'State/Province/Region';
+        state.setAttribute('required', true);
+        state.classList.add('mandatory-checkout-field');
+    } else {
+        label.innerHTML = 'State/Province/Region (Optional)';
+        state.removeAttribute('required');
+        state.classList.remove('mandatory-checkout-field');
+        state.parentElement.classList.remove('has-error');
+    }
+
+    state.style.display = isMerica ? 'inline-block' : 'none';
+    altState.style.display = isMerica ? 'none' : 'inline-block';
 }
 
 function useShippingAddrForBilling() {
@@ -48,61 +73,19 @@ function setAddresses(clientOrder, useShippingAddressForBilling) {
     clientOrder.CompanyName = document.getElementById('flightshop-customer-company-name').value || null;
     clientOrder.AttentionTo = document.getElementById('flightshop-customer-attention-to').value || null;
     clientOrder.City = document.getElementById('flightshop-customer-city').value;
-    clientOrder.State = document.getElementById('flightshop-customer-state').value;
-    clientOrder.Zip = document.getElementById('flightshop-customer-zipcode').value;
     clientOrder.CountryCode = document.getElementById('flightshop-customer-country').value;
+    clientOrder.State = clientOrder.CountryCode === 'US' ? document.getElementById('flightshop-customer-state').value : document.getElementById('flightshop-customer-state-custom').value;
+    clientOrder.Zip = document.getElementById('flightshop-customer-zipcode').value;
 
     if (!useShippingAddressForBilling) {
         clientOrder.BillingAddress1 = document.getElementById('flightshop-customer-addr-1-billing').value;
         clientOrder.BillingAddress2 = document.getElementById('flightshop-customer-addr-2-billing').value || null;
         clientOrder.BillingCity = document.getElementById('flightshop-customer-city-billing').value;
-        clientOrder.BillingState = document.getElementById('flightshop-customer-state-billing').value;
-        clientOrder.BillingZip = document.getElementById('flightshop-customer-zipcode-billing').value;
         clientOrder.BillingCountryCode = document.getElementById('flightshop-customer-country-billing').value;
+        clientOrder.BillingState = clientOrder.CountryCode === 'US' ? document.getElementById('flightshop-customer-state-billing').value : document.getElementById('flightshop-customer-state-custom-billing').value;
+        clientOrder.BillingZip = document.getElementById('flightshop-customer-zipcode-billing').value;
     }
 }
-
-var creditCardAuthUrl = '';
-//todo: delete?
-//function postCustomerInfo(formUrl, errorRedirectUrl) {
-    
-
-    
-//    var billingAddrValid = useShippingAddressForBilling ? true : clientOrder.BillingAddress1 && clientOrder.BillingCity && clientOrder.BillingState && clientOrder.BillingZip;
-//    var shippingAddrValid = clientOrder.Address1 && clientOrder.City && clientOrder.State && clientOrder.Zip && (clientOrder.ShippingType !== null && (!isCustomShippingType() || clientOrder.CustomShippingType !== null));
-//    if (clientOrder.FirstName && clientOrder.LastName && clientOrder.Email && clientOrder.Phone && shippingAddrValid && billingAddrValid) {
-//        var orderLines = [];
-//        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
-//        for (var i = 0; i < cart.length; i++) {
-//            var item = cart[i];
-//            var orderLine = {
-//                PartNumber: item.PartNumber,
-//                ProductId: item.ProductId || null,
-//                Quantity: parseInt(item.Quantity) || 0
-//            };
-//            orderLines.push(orderLine);
-//        }
-//        clientOrder.OrderLines = orderLines;
-
-//        document.getElementById('flightshop-checkout-get-form-url-btn').style.display = 'none';
-//        document.getElementById('flightshop-get-form-url-loading-area').style.display = 'block';
-//        $.ajax({
-//            type: 'POST',
-//            url: formUrl,
-//            data: clientOrder
-//        }).done(function (response) {
-//            creditCardAuthUrl = response.responseText;
-//            // todo: TO BE CONT'D
-//        }).fail(function (err) {
-//            if (err.statusCode === 400 && err.responseText) {
-//                // todo: display error as alert so user can (maybe) correct mistake
-//                // todo: test to see if maybe this applies more to submission of CC info, and if so then move this code
-//            } else {
-//                location.href = errorRedirectUrl;
-//            }
-//        });
-//    }
-//}
 
 function limitCreditCardExpLength(input) {
     if (input.value && input.value.length > 4) {
@@ -137,15 +120,16 @@ function saveInputValuesToStorage() {
     saveInputValueToStorage('flightshop-customer-country-billing', 'country-billing');
 }
 
-function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) {
+function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, customShipType, formUrlReturned) {
+    var shippingType = parseInt(document.getElementById('flightshop-shipping-type').value);
     var clientOrder = {
         FirstName: document.getElementById('flightshop-customer-first-name').value,
         LastName: document.getElementById('flightshop-customer-last-name').value,
         Email: document.getElementById('flightshop-customer-email').value,
         Phone: document.getElementById('flightshop-customer-phone').value,
 
-        ShippingType: parseInt(document.getElementById('flightshop-shipping-type').value),
-        CustomShippingType: document.getElementById('flightshop-customer-custom-shipping-type').value || null,
+        ShippingType: shippingType,
+        CustomShippingType: shippingType === customShipType ? document.getElementById('flightshop-customer-custom-shipping-type').value || null : null,
         PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
         Notes: document.getElementById('flightshop-cust-notes').value || null
     };
@@ -178,14 +162,14 @@ function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, formUrlReturned) 
     });
 }
 
-function submitOrder(customerInfoUrl, errorRedirectUrl) {
+function submitOrder(customerInfoUrl, errorRedirectUrl, customShipType) {
     var agreed = document.getElementById('flightshop-order-agree-checkbox');
     if (agreed.checked) {
         document.getElementById('flightshop-checkout-section-review').style.display = 'none';
         document.getElementById('flightshop-checkout-steps-header').style.display = 'none';
         document.getElementById('flightshop-checkout-title').style.display = 'none';
         document.getElementById('flightshop-checkout-section-processing').style.display = 'block';
-        submitCustomerInfo(customerInfoUrl, errorRedirectUrl, function (formUrl) {
+        submitCustomerInfo(customerInfoUrl, errorRedirectUrl, customShipType, function (formUrl) {
             var cardForm = document.getElementById('flightshop-checkout-form');
             cardForm.action = formUrl;
             cardForm.submit();
@@ -289,11 +273,26 @@ function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
     }, 200);
 }
 
+function setPaymentAuthAmountText() {
+    var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+    console.log('cart ', cart)
+    var authAmount = 0;
+    for (var i = 0; i < cart.length; i++) {
+        authAmount += (cart[i].Price || 0) * (cart[i].Quantity || 0);
+    }
+    document.getElementById('flightshop-cc-amount-text').innerHTML = 'Your card will be authorized for <strong>$' + authAmount.toFixed(2) +
+        '</strong> when you press "Submit Order" on the following page, and we will get in touch with you to confirm purchase details before processing payment.';
+}
+
 $(document).ready(function () {
     var checkoutForm = document.getElementById('flightshop-checkout-form');
     if (checkoutForm) {
+        document.getElementById('flightshop-customer-country').value = 'US';
+        document.getElementById('flightshop-customer-country-billing').value = 'US';
         $('#flightshop-customer-country').select2();
         $('#flightshop-customer-country-billing').select2();
+
+        setPaymentAuthAmountText();
 
         checkoutForm.addEventListener('submit', function (evt) {
             evt.preventDefault();

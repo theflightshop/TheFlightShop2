@@ -10,6 +10,7 @@ namespace TheFlightShop.DAL
 {
     public interface IOrderDAL
     {
+        //todo: Task<ClientOrder> GetClientOrderByConfirmationNumber(string confirmationNumber);
         Task<bool> SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts);
     }
 }

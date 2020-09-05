@@ -56,10 +56,39 @@ namespace TheFlightShop.Payment
         public string PaymentAuthFormUrl { get; set; }
 
         /// <summary>
-        /// Returned from Step 3 of NMI's Three Step Redirect API.
+        /// Returned from Step 3 of NMI's Three Step Redirect API. 
+        /// ***WARNING: These elements appear to only be returned on successful response i.e. <see cref="NmiGatewayResponseStatus.Approved"/>, as of Sep 5, 2020.
         /// </summary>
+        #region NMI Redirect API Step 3
+
         [XmlElement("order-id")]
         public string ConfirmationNumber { get; set; }
+
+        [XmlElement("po-number")]
+        public string PurchaseOrderNumber { get; set; }
+
+        [XmlElement(NmiCustomXmlField.ATTENTION_TO)]
+        public string AttentionTo { get; set; }
+
+        [XmlElement(NmiCustomXmlField.CUSTOMER_NOTES)]
+        public string Notes { get; set; }
+
+        [XmlElement(NmiCustomXmlField.SHIPPING_TYPE)]
+        public string ShippingType { get; set; }
+
+        [XmlElement(NmiCustomXmlField.CUSTOM_SHIPPING_TYPE_VALUE)]
+        public string CustomShippingType { get; set; }
+
+        [XmlElement("billing")]
+        public NmiAddress BillingAddress { get; set; }
+
+        [XmlElement("shipping")]
+        public NmiAddress ShippingAddress { get; set; }
+
+        [XmlElement("product")]
+        public NmiLineItem[] LineItems { get; set; }
+
+        #endregion
 
         public override string ToString()
         {

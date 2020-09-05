@@ -77,16 +77,23 @@ namespace TheFlightShop.Controllers
 
             if (authResult.Succeeded)
             {
-                //var clientOrder = authResult.AsClientOrder();
-                var emailsSent = false;// await _emailClient.SendOrderConfirmation(clientOrder);
-                if (emailsSent)
+                var clientOrder = new ClientOrder(); //await _orderDAL.GetClientOrderByConfirmationNumber(authResult.ConfirmationNumber);
+                if (clientOrder == null)
                 {
-                    ViewData["Title"] = "Order Submitted";
-                    actionResult = View("Checkout", authResult);
+                    actionResult = new RedirectToActionResult("Index", "Home", new { orderSubmitted = false });
                 }
                 else
                 {
-                    actionResult = new RedirectToActionResult("Index", "Home", new { orderSubmitted = false });
+                    var emailsSent = await _emailClient.SendOrderConfirmation(clientOrder);
+                    if (emailsSent)
+                    {
+                        ViewData["Title"] = "Order Submitted";
+                        actionResult = View("Checkout", authResult);
+                    }
+                    else
+                    {
+                        actionResult = new RedirectToActionResult("Index", "Home", new { orderSubmitted = false });
+                    }
                 }
             }
             else

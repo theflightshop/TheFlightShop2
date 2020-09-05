@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TheFlightShop.Models
 {
@@ -18,12 +19,16 @@ namespace TheFlightShop.Models
         public string State { get; set; }
         public string Zip { get; set; }
         public string CountryCode { get; set; }
+        [JsonIgnore]
+        public string Country => TheFlightShop.Country.CODES.First(kvp => kvp.Value == CountryCode).Key;
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }
         public string BillingState { get; set; }
         public string BillingZip { get; set; }
         public string BillingCountryCode { get; set; }
+        [JsonIgnore]
+        public string BillingCountry => BillingCountryCode == null ? null : TheFlightShop.Country.CODES.First(kvp => kvp.Value == BillingCountryCode).Key;
         public int ShippingType { get; set; }
         public string CustomShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }

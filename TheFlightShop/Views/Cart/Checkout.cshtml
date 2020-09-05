@@ -1,5 +1,5 @@
 ﻿
-@model TheFlightShop.Payment.NmiGatewayResponse
+@model TheFlightShop.Models.CheckoutSubmissionViewModel
 @{
     ViewData["Title"] = "Checkout";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,7 +22,7 @@
                     <div id="checkout-step-shipping" class="step">
                         <div>
                             <img id="checkout-truck-active" class="checkout-truck-icon" src="~/images/flightshop-truck.svg" alt="truck" style="display: none;">
-                            <img id="checkout-truck-inactive" class="checkout-truck-icon" src="~/images/flightshop-truck-disabled.svg" alt="truck">
+                            <img id="checkout-truck-inactive" class="checkout-truck-icon" src="~/images/flightshop-truck-disabled.svg" alt="truck" style="display: none;">
                         </div>
                         Shipping Info
                         <div class="caret right"></div>
@@ -135,7 +135,7 @@
     </div>
     <div class="row shipping-addr-row">
         <div class="form-group col-md-4">
-            <label for="flightshop-customer-state">State/Province/Region</label>
+            <label id="customer-state-label" for="flightshop-customer-state">State/Province/Region</label>
             <select id="flightshop-customer-state" class="flightshop-select mandatory-checkout-field shipping-input-field">
                 <option disabled selected value="">--</option>
                 <option value="AK">AK</option>
@@ -194,6 +194,7 @@
                 <option value="MP">Northern Mariana Islands</option>
                 <option value="VI">U.S. Virgin Islands</option>
             </select>
+            <input id="flightshop-customer-state-custom" class="form-control" type="text" style="display: none;" />
             <span class="help-block">Please fill out this field.</span>
         </div>
         <div class="form-group col-md-4">
@@ -203,7 +204,7 @@
         </div>
         <div class="form-group col-md-4">
             <label for="flightshop-customer-country">Country</label>
-            <select id="flightshop-customer-country" class="flightshop-select mandatory-checkout-field">
+            <select id="flightshop-customer-country" class="flightshop-select mandatory-checkout-field" onchange="countryChanged('shipping')">
                 <option disabled selected value="">--</option>
                 @foreach (var countryCode in Country.CODES)
                 {
@@ -216,7 +217,7 @@
     <div class="row" style="clear: both;">
         <div class="form-group col-md-3" style="padding-bottom: 1.5em;">
             <label for="flightshop-shipping-type">Shipping Type</label>
-            <select id="flightshop-shipping-type" class="flightshop-select mandatory-checkout-field" onchange="shippingTypeChanged()">
+            <select id="flightshop-shipping-type" class="flightshop-select mandatory-checkout-field" onchange="shippingTypeChanged('@((int)ShippingType.Other)')">
                 <option disabled selected value="">--</option>
                 <option value="@((int)ShippingType.UpsGround)">@ShippingType.UpsGround.Name</option>
                 <option value="@((int)ShippingType.UpsRed)">@ShippingType.UpsRed.Name</option>
@@ -267,7 +268,7 @@
     </div>
     <div class="row billing-addr-row">
         <div class="form-group col-md-4">
-            <label for="flightshop-customer-state-billing">State/Province/Region</label>
+            <label id="customer-state-label-billing" for="flightshop-customer-state-billing">State/Province/Region</label>
             <select id="flightshop-customer-state-billing" class="flightshop-select mandatory-checkout-field billing-addr-form-control billing-input-field">
                 <option disabled selected value="">--</option>
                 <option value="AK">AK</option>
@@ -326,6 +327,7 @@
                 <option value="MP">Northern Mariana Islands</option>
                 <option value="VI">U.S. Virgin Islands</option>
             </select>
+            <input id="flightshop-customer-state-custom-billing" class="form-control" type="text" style="display: none;" />
             <span class="help-block">Please fill out this field.</span>
         </div>
         <div class="form-group col-md-4">
@@ -335,7 +337,8 @@
         </div>
         <div class="form-group col-md-4">
             <label for="flightshop-customer-country-billing">Country</label>
-            <select id="flightshop-customer-country-billing" class="flightshop-select mandatory-checkout-field">
+            <select id="flightshop-customer-country-billing" class="flightshop-select mandatory-checkout-field billing-addr-form-control" onchange="countryChanged('billing')">
+                <option disabled selected value="">--</option>
                 @foreach (var countryCode in Country.CODES)
                 {
                     <option value="@countryCode.Value">@countryCode.Key</option>
@@ -359,6 +362,9 @@
                 <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card authorization</strong></p>
                 <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
             </div>
+            <div id="flightshop-cc-auth-disclaimer">
+                <p style="font-size: 1.25em;">Your credit card won't be charged at this time.</p><span id="flightshop-cc-amount-text"></span>
+            </div>
             <div class="form-group col-md-8">
                 <label for="billing-cc-number">Card Number</label>
                 <input id="billing-cc-number" name="billing-cc-number" class="form-control mandatory-checkout-field" type="number" />
@@ -380,17 +386,14 @@
 </form>
 
 <div id="flightshop-checkout-section-review" class="flightshop-checkout-section flightshop-checkout-section-hidden">
+    <!-- TODO 
+        ADD CVV verification!!!!!!!!!!!!!!!!!!!
+        -->
+
     <!-- REVIEW sec -->
     <!-- OMG TODO TODO: try using goNext(from, to) with headers on review sections via "edit" btn (pencil icon w/ "edit" text?) -->
-    <!-- TODO: wrap CC info in border/bg-color, add lock icon and text saying "your card info is secured using 256-bit encryption" -->
     <!-- TODO: add line-items w/ price where available and total, and yellow-item text with (quote) for price, and (quote) for total if none have price
-    <!-- PAYMENT METHOD STEP: add disclaimer in PAYMENT METHOD step at top (above CC fields) saying,
-        "<strong>Your credit card won't be charged at this time.</strong> Your card will be authorized for ${amount} when you press "Submit Order" on the following page,
-        and we will get in touch with you to confirm purchase details before processing payment." -->
-    <!-- onchange, convert state/province to text inupt if countryCode !== 'US' -->
-<!-- todo: cc exp valite 4 chars else "invalid format, should be MMYY" -->
     <!-- HANDLE/TEST variety of error cases -->
-    <!-- todo maybe: validate CVV where applicable? -->
     <!-- alert on leaving page? -->
 
     <div class="flightshop-checkout-section">
@@ -473,9 +476,12 @@
     }
 
     var checkoutLoadHandler = function () {
+        document.getElementById('checkout-truck-inactive').style.display = 'inline';
+
         if ('@Model' === '' || '@Model' === 'null') {
             document.getElementById('flightshop-checkout-section-customer').style.display = 'block';
             document.getElementById('checkout-step-customer').classList.add('active');
+            document.getElementById('flightshop-checkout-glyphicon').classList.add('glyphicon-ok');
         } else if ('@Model?.Succeeded' === 'true') {
             document.getElementById('flightshop-checkout-glyphicon').classList.add('glyphicon-ok');
             document.getElementById('checkout-step-confirmation').classList.add('active');
@@ -511,7 +517,7 @@
     function submitOrderPressed() {
         var customerInfoUrl = '@Url.Action("SubmitCustomerInfo", "Cart")';
         var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
-        submitOrder(customerInfoUrl, errorRedirectUrl);
+        submitOrder(customerInfoUrl, errorRedirectUrl, @((int)ShippingType.Other));
     }
 
     function clearCart() {
@@ -627,6 +633,12 @@
             -webkit-animation: spin 2s linear infinite;
             -moz-animation: spin 2s linear infinite;
             animation: spin 2s linear infinite;
+        }
+
+        #flightshop-cc-auth-disclaimer {
+            margin-bottom: 1em;
+            background-color: #fff3cd;
+            padding: 0.5em;
         }
 
         @@-moz-keyframes spin {
