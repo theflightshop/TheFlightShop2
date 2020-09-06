@@ -21,75 +21,7 @@ namespace TheFlightShop.DAL
             _connectionString = connectionString;
             _logger = logger;
         }
-
-        //todo:
-        //public async Task<ClientOrder> GetClientOrderByConfirmationNumber(string confirmationNumber)
-        //{
-        //    try
-        //    {
-        //        ClientOrder result = null;
-        //        using (var db = new OrderContext(_connectionString))
-        //        {
-        //            var matchingOrders = await db.Orders.Where(order => order.ConfirmationNumber == confirmationNumber.Trim()).ToArrayAsync();
-        //            if (!matchingOrders.Any())
-        //            {
-        //                _logger.LogWarning($"method={nameof(OrderDAL)}.{nameof(GetClientOrderByConfirmationNumber)}- no order found by confirmation # {confirmationNumber}.");
-        //            }
-        //            else if (matchingOrders.Length > 1)
-        //            {
-        //                var orderIds = string.Join(',', matchingOrders.Select(order => order.Id));
-        //                _logger.LogWarning($"method={nameof(OrderDAL)}.{nameof(GetClientOrderByConfirmationNumber)}- multiple orders found by confirmation # {confirmationNumber}. orderIds={orderIds}.");
-        //            }
-        //            else
-        //            {
-        //                var order = matchingOrders.First();
-        //                var contactTask = db.Contacts.FindAsync(order.ContactId);
-        //                var orderLinesTask = db.OrderLines.Where(line => line.OrderId == order.Id).ToArrayAsync();
-        //                await Task.WhenAll(contactTask, orderLinesTask);
-        //                var contact = contactTask.Result;
-        //                result = new ClientOrder
-        //                {
-        //                    ConfirmationNumber = order.ConfirmationNumber,
-        //                    AttentionTo = order.AttentionTo,
-        //                    PurchaseOrderNumber = order.PurchaseOrderNumber,
-        //                    CustomShippingType = order.CustomShippingType,
-        //                    ShippingType = order.ShippingType,
-        //                    Notes = order.Notes,
-        //                    OrderLines = orderLinesTask.Result.Select(line => new ClientOrderLine
-        //                    {
-        //                        PartNumber = line.PartNumber,
-        //                        ProductId = line.ProductId,
-        //                        Quantity = (int)line.Quantity
-        //                    }),
-        //                    FirstName = contact.FirstName,
-        //                    LastName = contact.LastName,
-        //                    CompanyName = contact.CompanyName,
-        //                    Email = contact.Email,
-        //                    Phone = contact.Phone,
-        //                    Address1 = contact.Address1,
-        //                    Address2 = contact.Address2,
-        //                    City = contact.City,
-        //                    State = contact.State,
-        //                    Zip = contact.Zip,
-        //                    CountryCode = contact.CountryCode,
-        //                    BillingAddress1 = contact.BillingAddress1,
-        //                    BillingAddress2 = contact.BillingAddress2,
-        //                    BillingCity = contact.BillingCity,
-        //                    BillingState = contact.BillingState,
-        //                    BillingZip = contact.BillingZip,
-        //                    BillingCountryCode = contact.BillingCountryCode
-        //                };
-        //            }
-        //        }
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, $"method={nameof(OrderDAL)}.{nameof(GetClientOrderByConfirmationNumber)}- error retrieving order by confirmation # {confirmationNumber}.");
-        //        throw;
-        //    }
-        //}
-
+        
         public async Task<bool> SaveNewOrder(ClientOrder clientOrder, IEnumerable<Part> parts)
         {
             bool succeeded = false;
@@ -186,8 +118,6 @@ namespace TheFlightShop.DAL
                 CompanyName = clientOrder.CompanyName,
                 DateCreated = DateTime.UtcNow
             };
-
-            // todo: save new ea. order for auditing? and then have user w/ contactId //--- var contactSaved =GetExistingContact(contactQuery);
 
             using (var db = new OrderContext(_connectionString))
             {
