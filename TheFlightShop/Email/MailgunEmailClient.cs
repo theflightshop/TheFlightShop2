@@ -157,14 +157,16 @@ namespace TheFlightShop.Email
         {
             return $@"
 <span>{order.Address1}&nbsp;{order.Address2}</span><br/>
-<span>{order.City}, {order.State} {order.Zip}</span><br/>";
+<span>{order.City}, {order.State} {order.Zip}</span><br/>
+<span>{order.Country}</span><br/>";
         }
 
         private string GetBillingAddressMarkup(ClientOrder order)
         {
             return $@"
 <span>{order.BillingAddress1}&nbsp;{order.BillingAddress2}</span><br/>
-<span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>";
+<span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>
+<span>{order.BillingCountry}</span><br/>";
         }
 
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)

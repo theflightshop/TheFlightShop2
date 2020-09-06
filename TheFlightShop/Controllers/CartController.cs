@@ -88,7 +88,8 @@ namespace TheFlightShop.Controllers
                     if (emailsSent)
                     {
                         ViewData["Title"] = "Order Submitted";
-                        actionResult = View("Checkout", authResult);
+                        var submissionResult = CheckoutSubmissionViewModel.Success(authResult.ConfirmationNumber);
+                        actionResult = View("Checkout", submissionResult);
                     }
                     else
                     {
@@ -99,7 +100,8 @@ namespace TheFlightShop.Controllers
             else
             {
                 ViewData["Title"] = "Error Submitting Order";
-                actionResult = View("Checkout", authResult);
+                var submissionResult = CheckoutSubmissionViewModel.Failure(authResult.ErrorReason);
+                actionResult = View("Checkout", submissionResult);
             }
             return actionResult;
         }

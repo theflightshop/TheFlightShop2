@@ -38,7 +38,8 @@
         padding-top: 1.5em;
         margin-top: 1.5em;
         margin-bottom: 2em;
-        height: 125px;
+        height: 7em;
+        min-height: 125px;
     }
 
     .cart-item-img-wrapper {
@@ -300,6 +301,13 @@
             renderCartButton();
         }
         qtyForm.appendChild(qtyMore);
+
+        if (part.Price) {
+            var priceCol = document.createElement('div');
+            var priceText = '$' + part.Price.toFixed(2);
+            priceCol.innerHTML = priceText;
+            cartItem.appendChild(priceCol);
+        }
 
         return cartItem;
     }
