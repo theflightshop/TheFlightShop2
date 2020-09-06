@@ -18,7 +18,7 @@ namespace TheFlightShop.Models
             ErrorReason = errorMessage;
         }
 
-        public static CheckoutSubmissionViewModel Success(string confirmationNumber) => new CheckoutSubmissionViewModel(succeeded: true, confirmationNumber, errorMessage: null);
-        public static CheckoutSubmissionViewModel Failure(string errorMessage) => new CheckoutSubmissionViewModel(succeeded: false, confirmationNumber: null, errorMessage);
+        public static CheckoutSubmissionViewModel Success(string confirmationNumber) => new CheckoutSubmissionViewModel(succeeded: true, confirmationNumber: confirmationNumber, errorMessage: null);
+        public static CheckoutSubmissionViewModel Failure(string errorMessage) => new CheckoutSubmissionViewModel(succeeded: false, confirmationNumber: null, errorMessage: errorMessage);
     }
 }
