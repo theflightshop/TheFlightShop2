@@ -86,15 +86,15 @@ namespace TheFlightShop.Payment
             }
             else if (responseStatus == NmiGatewayResponseStatus.Approved)
             {
-                //todo: _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer submission approved. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer submission approved. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
             }
             else if (responseStatus == NmiGatewayResponseStatus.Declined)
             {
-                //todo: _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer card declined. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer card declined. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
             }
             else // error
             {
-                //todo: _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- error processing customer submission. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- error processing customer submission. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
             }
         }
 
