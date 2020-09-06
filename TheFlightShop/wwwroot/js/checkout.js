@@ -179,7 +179,7 @@ function submitOrder(customerInfoUrl, errorRedirectUrl, customShipType) {
     }
 }
 
-function paymentInfoSubmitted() {
+function validateCardInfo() {
     var cardExp = document.getElementById('billing-cc-exp');
     var validationMsg = null;
     if (!cardExp.value) {
@@ -199,7 +199,58 @@ function paymentInfoSubmitted() {
     } else {
         cardExp.classList.remove('invalid-input');
     }
+}
 
+function populateReviewFields(customShipType) {
+    var countryElement = document.getElementById('flightshop-customer-country');
+    var shipTypeElement = document.getElementById('flightshop-shipping-type');
+    var addr1 = document.getElementById('flightshop-customer-addr-1').value;
+    var addr2 = document.getElementById('flightshop-customer-addr-2').value || '(none)';
+    var city = document.getElementById('flightshop-customer-city').value;
+    var stateId = countryElement.value === 'US' ? 'flightshop-customer-state' : 'flightshop-customer-state-custom';
+    var state = document.getElementById(stateId).value || '(none)';
+    var zip = document.getElementById('flightshop-customer-zipcode').value;
+    var country = countryElement.options[countryElement.selectedIndex].innerHTML;
+    var shipTypeValue = shipTypeElement.value;
+    var shipTypeText = shipTypeValue === customShipType ? document.getElementById('flightshop-customer-custom-shipping-type').value : shipTypeElement.options[shipTypeElement.selectedIndex].innerHTML;
+
+    document.getElementById('flightshop-order-review-fname').innerHTML = document.getElementById('flightshop-customer-first-name').value;
+    document.getElementById('flightshop-order-review-lname').innerHTML = document.getElementById('flightshop-customer-last-name').value;
+    document.getElementById('flightshop-order-review-phone').innerHTML = document.getElementById('flightshop-customer-phone').value;
+    document.getElementById('flightshop-order-review-email').innerHTML = document.getElementById('flightshop-customer-email').value;
+    document.getElementById('flightshop-order-review-po-number').innerHTML = document.getElementById('flightshop-po-number').value || '(none)';
+    document.getElementById('flightshop-order-review-company').innerHTML = document.getElementById('flightshop-customer-company-name').value || '(none)';
+    document.getElementById('flightshop-order-review-attnto').innerHTML = document.getElementById('flightshop-customer-attention-to').value || '(none)'; 
+    document.getElementById('flightshop-order-review-addr1').innerHTML = addr1;
+    document.getElementById('flightshop-order-review-addr2').innerHTML = addr2;
+    document.getElementById('flightshop-order-review-city').innerHTML = city;
+    document.getElementById('flightshop-order-review-state').innerHTML = state;
+    document.getElementById('flightshop-order-review-zip').innerHTML = zip;
+    document.getElementById('flightshop-order-review-country').innerHTML = country;
+    document.getElementById('flightshop-order-review-shiptype').innerHTML = shipTypeText;
+
+    if (useShippingAddrForBilling()) {
+        document.getElementById('flightshop-order-review-addr1-billing').innerHTML = addr1;
+        document.getElementById('flightshop-order-review-addr2-billing').innerHTML = addr2;
+        document.getElementById('flightshop-order-review-city-billing').innerHTML = city;
+        document.getElementById('flightshop-order-review-state-billing').innerHTML = state;
+        document.getElementById('flightshop-order-review-zip-billing').innerHTML = zip;
+        document.getElementById('flightshop-order-review-country-billing').innerHTML = country;
+    } else {
+        document.getElementById('flightshop-order-review-addr1-billing').innerHTML = document.getElementById('flightshop-customer-addr-1-billing').value;
+        document.getElementById('flightshop-order-review-addr2-billing').innerHTML = document.getElementById('flightshop-customer-addr-2-billing').value || '(none)';
+        document.getElementById('flightshop-order-review-city-billing').innerHTML = document.getElementById('flightshop-customer-city-billing').value;
+        var billingCountryElement = document.getElementById('flightshop-customer-country');
+        var billingStateId = billingCountryElement.innerHTML === 'US' ? 'flightshop-customer-state-billing' : 'flightshop-customer-state-custom-billing';
+        document.getElementById('flightshop-order-review-state-billing').innerHTML = document.getElementById(billingStateId).value || '(none)';
+        document.getElementById('flightshop-order-review-zip-billing').innerHTML = document.getElementById('flightshop-customer-zipcode-billing').value;
+        document.getElementById('flightshop-order-review-country-billing').innerHTML = billingCountryElement.options[billingCountryElement.selectedIndex].innerHTML;
+    }
+}
+
+function paymentInfoSubmitted(customShipType) {
+    validateCardInfo();
+    populateReviewFields(customShipType);
     goNext('payment', 'review');
 }
 
@@ -273,15 +324,47 @@ function transitionCheckoutStep(fromName, toName, fromSection, toSection) {
     }, 200);
 }
 
-function setPaymentAuthAmountText() {
-    var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
-    console.log('cart ', cart)
+function setPaymentAuthAmountText(cart) {
     var authAmount = 0;
     for (var i = 0; i < cart.length; i++) {
         authAmount += (cart[i].Price || 0) * (cart[i].Quantity || 0);
     }
     document.getElementById('flightshop-cc-amount-text').innerHTML = 'Your card will be authorized for <strong>$' + authAmount.toFixed(2) +
         '</strong> when you press "Submit Order" on the following page, and we will get in touch with you to confirm purchase details before processing payment.';
+}
+
+function setOrderReviewTable(cart) {
+    var table = document.getElementById('flightshop-order-review-table-body');
+    var total = 0;
+    for (var i = 0; i < cart.length; i++) {
+        var item = cart[i];
+        var itemPrice = item.Price || 0;
+        var partNumber = document.createElement('td');
+        partNumber.innerHTML = item.PartNumber;
+        var description = document.createElement('td');
+        description.innerHTML = item.Description || '';
+        var price = document.createElement('td');
+        price.style.textAlign = 'right';
+        price.innerHTML = itemPrice ? '$' + itemPrice.toFixed(2) : '(quote)';
+        var quantity = document.createElement('td');
+        quantity.style.textAlign = 'right';
+        quantity.innerHTML = item.Quantity;
+
+        var subTotalAmount = (itemPrice * item.Quantity); 
+        total += subTotalAmount;
+        var subTotal = document.createElement('td');
+        subTotal.style.textAlign = 'right';
+        subTotal.innerHTML = itemPrice ? '$' + subTotalAmount.toFixed(2) : '(quote)';
+
+        var lineItem = document.createElement('tr');
+        lineItem.appendChild(partNumber);
+        lineItem.appendChild(description);
+        lineItem.appendChild(price);
+        lineItem.appendChild(quantity);
+        lineItem.appendChild(subTotal);
+        table.appendChild(lineItem);
+    }
+    document.getElementById('flightshop-review-total-th').innerHTML = total > 0 ? '$' + total.toFixed(2) : '(quote)'
 }
 
 $(document).ready(function () {
@@ -292,7 +375,9 @@ $(document).ready(function () {
         $('#flightshop-customer-country').select2();
         $('#flightshop-customer-country-billing').select2();
 
-        setPaymentAuthAmountText();
+        var cart = JSON.parse(window.sessionStorage.getItem('cartItems'));
+        setPaymentAuthAmountText(cart);
+        setOrderReviewTable(cart);
 
         checkoutForm.addEventListener('submit', function (evt) {
             evt.preventDefault();

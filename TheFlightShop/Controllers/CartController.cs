@@ -77,7 +77,7 @@ namespace TheFlightShop.Controllers
 
             if (authResult.Succeeded)
             {
-                var clientOrder = new ClientOrder(); //await _orderDAL.GetClientOrderByConfirmationNumber(authResult.ConfirmationNumber);
+                var clientOrder = ClientOrder.FromNmiGatewayResponse(authResult);
                 if (clientOrder == null)
                 {
                     actionResult = new RedirectToActionResult("Index", "Home", new { orderSubmitted = false });

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheFlightShop.Payment;
 
 namespace TheFlightShop.Models
 {
@@ -51,6 +52,43 @@ namespace TheFlightShop.Models
                 return _confirmationNumber;
             }
             set { _confirmationNumber = value; }
+        }
+
+        public static ClientOrder FromNmiGatewayResponse(NmiGatewayResponse gatewayResponse)
+        {
+            var orderLines = gatewayResponse.LineItems.Select(lineItem => new ClientOrderLine
+            {
+                PartNumber = lineItem.PartNumber,
+                ProductId = Guid.Parse(lineItem.ProductId.Trim()),
+                Quantity = (int)lineItem.Quantity
+            });
+            return new ClientOrder
+            {
+                ConfirmationNumber = gatewayResponse.ConfirmationNumber,
+                FirstName = gatewayResponse.ShippingAddress.FirstName,
+                LastName = gatewayResponse.ShippingAddress.LastName,
+                Phone = gatewayResponse.ShippingAddress.PhoneNumber,
+                Email = gatewayResponse.ShippingAddress.EmailAddress,
+                AttentionTo = gatewayResponse.AttentionTo,
+                PurchaseOrderNumber = gatewayResponse.PurchaseOrderNumber,
+                ShippingType = int.Parse(gatewayResponse.ShippingType.Trim()),
+                CustomShippingType  = gatewayResponse.CustomShippingType,
+                Notes = gatewayResponse.Notes,
+                CompanyName = gatewayResponse.ShippingAddress.CompanyName,
+                Address1 = gatewayResponse.ShippingAddress.Address1,
+                Address2 = gatewayResponse.ShippingAddress.Address2,
+                City = gatewayResponse.ShippingAddress.City,
+                State = gatewayResponse.ShippingAddress.State,
+                Zip = gatewayResponse.ShippingAddress.PostalCode,
+                CountryCode = gatewayResponse.ShippingAddress.CountryCode,
+                BillingAddress1 = gatewayResponse.BillingAddress.Address1,
+                BillingAddress2 = gatewayResponse.BillingAddress.Address2,
+                BillingCity = gatewayResponse.BillingAddress.City,
+                BillingState = gatewayResponse.BillingAddress.State,
+                BillingZip = gatewayResponse.BillingAddress.PostalCode,
+                BillingCountryCode = gatewayResponse.BillingAddress.CountryCode,
+                OrderLines = orderLines
+            };
         }
 
         private string GenerateConfirmationNumber()

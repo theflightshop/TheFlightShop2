@@ -365,7 +365,7 @@
             <div id="flightshop-cc-auth-disclaimer">
                 <p style="font-size: 1.25em;">Your credit card won't be charged at this time.</p><span id="flightshop-cc-amount-text"></span>
             </div>
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-6">
                 <label for="billing-cc-number">Card Number</label>
                 <input id="billing-cc-number" name="billing-cc-number" class="form-control mandatory-checkout-field" type="number" />
                 <span class="help-block">Please fill out this field.</span>
@@ -376,25 +376,88 @@
                 <p><small>(format MMYY, e.g. 0129 for January 2029)</small></p>
                 <span id="billing-cc-exp-validation-msg" class="help-block"></span>
             </div>
+            <div class="form-group col-md-2">
+                <label for="billing-cvv">CVV</label>
+                <input id="billing-cvv" name="billing-cvv" type="number" class="form-control mandatory-checkout-field" />
+                <span class="help-block">Please fill out this field.</span>
+            </div>
 
             <div class="flightshop-checkout-button-section">
                 <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'billing')">Back</button>
-                <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="paymentInfoSubmitted()">Next</button>
+                <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="paymentInfoSubmitted(@((int)ShippingType.Other))">Next</button>
             </div>
         </div>
     </div>
 </form>
 
 <div id="flightshop-checkout-section-review" class="flightshop-checkout-section flightshop-checkout-section-hidden">
-    <!-- TODO 
-        ADD CVV verification!!!!!!!!!!!!!!!!!!!
-        -->
-
-    <!-- REVIEW sec -->
+    <!-- todo: add price to cart page? -->
     <!-- OMG TODO TODO: try using goNext(from, to) with headers on review sections via "edit" btn (pencil icon w/ "edit" text?) -->
-    <!-- TODO: add line-items w/ price where available and total, and yellow-item text with (quote) for price, and (quote) for total if none have price
-    <!-- HANDLE/TEST variety of error cases -->
+    <!-- TODO: add line-items w/ price where available and total, and text with (quote) for price, and (quote) for total if none have price
+        todo: finish implementing sending order deets to email from NMI info (test a bunch, opt fields)
+        -->
+    <!-- HANDLE/TEST variety of success/error cases -->
     <!-- alert on leaving page? -->
+    <div>
+        <table id="flightshop-order-review-table" class="table">
+            <thead>
+                <tr>
+                    <th>Part #</th>
+                    <th>Description</th>
+                    <th style="text-align: right;">Price</th>
+                    <th style="text-align: right;">Quantity</th>
+                    <th style="text-align: right;">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="flightshop-order-review-table-body"></tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="flightshop-review-total-th" style="text-align: right;"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div id="flightshop-order-customer-info-review">
+        <h3>Customer Information &amp; Address(es)</h3>
+        <div class="row">
+            <div class="col-sm-4"><strong>First Name:</strong>&nbsp;<span id="flightshop-order-review-fname"></span></div>
+            <div class="col-sm-4"><strong>Last Name:</strong><span id="flightshop-order-review-lname"></span></div>
+            <div class="col-sm-4"><strong>Phone:</strong>&nbsp;<span id="flightshop-order-review-phone"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8"><strong>Email:</strong>&nbsp;<span id="flightshop-order-review-email"></span></div>
+            <div class="col-sm-4"><strong>PO Number:</strong>&nbsp;<span id="flightshop-order-review-po-number"></span></div>
+        </div>
+        <h4>Shipping Address</h4>
+        <div class="row">
+            <div class="col-sm-3"><strong>Company:</strong>&nbsp;<span id="flightshop-order-review-company"></span></div>
+            <div class="col-sm-2"><strong>Attention To:</strong>&nbsp;<span id="flightshop-order-review-attnto"></span></div>
+            <div class="col-sm-5"><strong>Address 1:</strong>&nbsp;<span id="flightshop-order-review-addr1"></span></div>
+            <div class="col-sm-2"><strong>Address 2:</strong>&nbsp;<span id="flightshop-order-review-addr2"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3"><strong>City:</strong>&nbsp;<span id="flightshop-order-review-city"></span></div>
+            <div class="col-sm-2"><strong>State:</strong>&nbsp;<span id="flightshop-order-review-state"></span></div>
+            <div class="col-sm-2"><strong>Zip/Postal:</strong>&nbsp;<span id="flightshop-order-review-zip"></span></div>
+            <div class="col-sm-3"><strong>Country:</strong>&nbsp;<span id="flightshop-order-review-country"></span></div>
+            <div class="col-sm-2"><strong>Shipping Type:</strong>&nbsp;<span id="flightshop-order-review-shiptype"></span></div>
+        </div>
+        <h4>Billing Address</h4>
+        <div class="row">
+            <div class="col-sm-8"><strong>Address 1:</strong>&nbsp;<span id="flightshop-order-review-addr1-billing"></span></div>
+            <div class="col-sm-4"><strong>Address 2:</strong><span id="flightshop-order-review-addr2-billing"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"><strong>City:</strong>&nbsp;<span id="flightshop-order-review-city-billing"></span></div>
+            <div class="col-sm-2"><strong>State:</strong>&nbsp;<span id="flightshop-order-review-state-billing"></span></div>
+            <div class="col-sm-3"><strong>Zip/Postal:</strong>&nbsp;<span id="flightshop-order-review-zip-billing"></span></div>
+            <div class="col-sm-3"><strong>Country:</strong>&nbsp;<span id="flightshop-order-review-country-billing"></span></div>
+        </div>
+    </div>
 
     <div class="flightshop-checkout-section">
         <h4 class="flightshop-checkout-section-title">Notes</h4>
@@ -457,12 +520,15 @@
             }
             <p>Please try correcting the error or contacting us using buttons below.</p>
             <div style="padding-top: 0.5em;">
-                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'customer')">Go to customer info</button></p>
-                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'shipping')">Go to shipping info</button></p>
-                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'billing')">Go to billing address</button></p>
-                <p><button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'payment')">Go to payment method</button></p>
-                <p><a class="btn btn-info" href="@Url.Action("Contact", "Home")"><span class="glyphicon glyphicon-phone"></span>&nbsp;Contact us</a></p>
-                <p><a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a></p>
+                <p>
+                    <button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'customer')">Go to customer info</button>
+                    <button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'shipping')">Go to shipping info</button>
+                    <button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'billing')">Go to billing address</button>
+                    <button type="button" class="btn btn-warning" onclick="goBack('confirmation', 'payment')">Go to payment method</button>
+                <p>
+                    <a class="btn btn-info" href="@Url.Action("Contact", "Home")"><span class="glyphicon glyphicon-phone"></span>&nbsp;Contact us</a>
+                    <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
+                </p>
             </div>
         </div>
     }
@@ -528,6 +594,12 @@
 </script>
 
 <style>
+        #flightshop-order-customer-info-review > .row > div {
+            border: 1px solid #ddd;
+            padding: 0.5em;
+            white-space: nowrap;
+        }
+
         .flightshop-checkout-section-hidden {
             opacity: 0;
         }
