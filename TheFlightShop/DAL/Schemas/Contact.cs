@@ -19,6 +19,7 @@ namespace TheFlightShop.DAL.Schemas
         public string Zip { get; set; }
         public string InternationalShippingAddress { get; set; }
         public DateTime DateCreated { get; set; }
+        public string BillingCompanyName { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }

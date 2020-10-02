@@ -107,6 +107,7 @@ namespace TheFlightShop.DAL
                 State = clientOrder.State?.ToUpper().Trim(),
                 Zip = clientOrder.Zip?.ToLower().Trim(),
                 InternationalShippingAddress = clientOrder.InternationalShippingAddress,
+                BillingCompanyName = clientOrder.BillingCompanyName?.Trim(),
                 BillingAddress1 = clientOrder.BillingAddress1?.Trim(),
                 BillingAddress2 = clientOrder.BillingAddress2?.Trim(),
                 BillingCity = clientOrder.BillingCity?.ToLower().Trim(),
