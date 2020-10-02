@@ -22,6 +22,7 @@ namespace TheFlightShop.Models
         public string CountryCode { get; set; }
         [JsonIgnore]
         public string Country => TheFlightShop.Country.CODES.First(kvp => kvp.Value == CountryCode).Key;
+        public string BillingCompanyName { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }

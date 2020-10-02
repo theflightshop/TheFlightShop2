@@ -71,6 +71,7 @@ function setAddresses(clientOrder, useShippingAddressForBilling) {
     clientOrder.Address1 = document.getElementById('flightshop-customer-addr-1').value;
     clientOrder.Address2 = document.getElementById('flightshop-customer-addr-2').value || null;
     clientOrder.CompanyName = document.getElementById('flightshop-customer-company-name').value || null;
+    clientOrder.BillingCompanyName = document.getElementById('flightshop-customer-company-name-billing').value || null;
     clientOrder.AttentionTo = document.getElementById('flightshop-customer-attention-to').value || null;
     clientOrder.City = document.getElementById('flightshop-customer-city').value;
     clientOrder.CountryCode = document.getElementById('flightshop-customer-country').value;
@@ -108,6 +109,7 @@ function saveInputValuesToStorage() {
     saveInputValueToStorage('flightshop-customer-custom-shipping-type');
     saveInputValueToStorage('flightshop-po-number');
     saveInputValueToStorage('flightshop-customer-company-name');
+    saveInputValueToStorage('flightshop-customer-company-name-billing');
     saveInputValueToStorage('flightshop-customer-attention-to');
     saveInputValueToStorage('flightshop-customer-addr-1');
     saveInputValueToStorage('flightshop-customer-addr-2');
@@ -240,6 +242,7 @@ function populateReviewFields(customShipType) {
     var state = document.getElementById(stateId).value || '(none)';
     var zip = document.getElementById('flightshop-customer-zipcode').value;
     var country = countryElement.options[countryElement.selectedIndex].innerHTML;
+    var company = document.getElementById('flightshop-customer-company-name').value || '(none)';
     var shipTypeValue = shipTypeElement.value;
     var shipTypeText = shipTypeValue === customShipType.toString() ? document.getElementById('flightshop-customer-custom-shipping-type').value : shipTypeElement.options[shipTypeElement.selectedIndex].innerHTML;
 
@@ -248,7 +251,7 @@ function populateReviewFields(customShipType) {
     document.getElementById('flightshop-order-review-phone').innerHTML = document.getElementById('flightshop-customer-phone').value;
     document.getElementById('flightshop-order-review-email').innerHTML = document.getElementById('flightshop-customer-email').value;
     document.getElementById('flightshop-order-review-po-number').innerHTML = document.getElementById('flightshop-po-number').value || '(none)';
-    document.getElementById('flightshop-order-review-company').innerHTML = document.getElementById('flightshop-customer-company-name').value || '(none)';
+    document.getElementById('flightshop-order-review-company').innerHTML = company;
     document.getElementById('flightshop-order-review-attnto').innerHTML = document.getElementById('flightshop-customer-attention-to').value || '(none)'; 
     document.getElementById('flightshop-order-review-addr1').innerHTML = addr1;
     document.getElementById('flightshop-order-review-addr2').innerHTML = addr2;
@@ -265,6 +268,7 @@ function populateReviewFields(customShipType) {
         document.getElementById('flightshop-order-review-state-billing').innerHTML = state;
         document.getElementById('flightshop-order-review-zip-billing').innerHTML = zip;
         document.getElementById('flightshop-order-review-country-billing').innerHTML = country;
+        document.getElementById('flightshop-order-review-company-billing').innerHTML = company;
     } else {
         document.getElementById('flightshop-order-review-addr1-billing').innerHTML = document.getElementById('flightshop-customer-addr-1-billing').value;
         document.getElementById('flightshop-order-review-addr2-billing').innerHTML = document.getElementById('flightshop-customer-addr-2-billing').value || '(none)';
@@ -274,6 +278,7 @@ function populateReviewFields(customShipType) {
         document.getElementById('flightshop-order-review-state-billing').innerHTML = document.getElementById(billingStateId).value || '(none)';
         document.getElementById('flightshop-order-review-zip-billing').innerHTML = document.getElementById('flightshop-customer-zipcode-billing').value;
         document.getElementById('flightshop-order-review-country-billing').innerHTML = billingCountryElement.options[billingCountryElement.selectedIndex].innerHTML;
+        document.getElementById('flightshop-order-review-company-billing').innerHTML = document.getElementById('flightshop-customer-company-name-billing').value || '(none)';
     }
 }
 

@@ -427,9 +427,25 @@
             <div class="col-sm-4 flightshop-customer-info-review-box"><strong>Last Name:</strong><span id="flightshop-order-review-lname"></span></div>
             <div class="col-sm-4 flightshop-customer-info-review-box"><strong>Phone:</strong>&nbsp;<span id="flightshop-order-review-phone"></span></div>
         </div>
+<<<<<<< HEAD
         <div class="row">
             <div class="col-sm-8 flightshop-customer-info-review-box"><strong>Email:</strong>&nbsp;<span id="flightshop-order-review-email"></span></div>
             <div class="col-sm-4 flightshop-customer-info-review-box"><strong>PO Number:</strong>&nbsp;<span id="flightshop-order-review-po-number"></span></div>
+=======
+        <div class="row billing-addr-row" style="clear: both;">
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-company-name-billing">Company Name (Optional)</label>
+                <input id="flightshop-customer-company-name-billing" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
+                <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" required />
+            </div>
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
+                <input id="flightshop-customer-addr-2-billing" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
+            </div>
+>>>>>>> company-name-billing-section
         </div>
         <div class="row"><div class="col-sm-12 order-review-subheader">Shipping Address<button onclick="goBack('review', 'shipping')" class="btn btn-info flightshop-order-review-edit-btn">Edit<span class="glyphicon glyphicon-pencil flightshop-order-review-edit-icon"></span></button></div></div>
         <div class="row">
@@ -563,6 +579,7 @@
         window.sessionStorage.removeItem('flightshop-customer-custom-shipping-type');
         window.sessionStorage.removeItem('flightshop-po-number');
         window.sessionStorage.removeItem('flightshop-customer-company-name');
+        window.sessionStorage.removeItem('flightshop-customer-company-name-billing');
         window.sessionStorage.removeItem('flightshop-customer-attention-to');
         window.sessionStorage.removeItem('flightshop-customer-addr-1');
         window.sessionStorage.removeItem('flightshop-customer-addr-2');
@@ -607,6 +624,7 @@
             }
             getInputValueFromStorage('flightshop-po-number');
             getInputValueFromStorage('flightshop-customer-company-name');
+            getInputValueFromStorage('flightshop-customer-company-name-billing');
             getInputValueFromStorage('flightshop-customer-attention-to');
             getInputValueFromStorage('flightshop-customer-addr-1');
             getInputValueFromStorage('flightshop-customer-addr-2');
