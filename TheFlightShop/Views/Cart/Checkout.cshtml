@@ -200,11 +200,15 @@
             </div>
         </div>
         <div class="row billing-addr-row" style="clear: both;">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-3">
+                <label for="flightshop-customer-company-name-billing">Company Name (Optional)</label>
+                <input id="flightshop-customer-company-name-billing" type="text" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
                 <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
                 <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" required />
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-3">
                 <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
                 <input id="flightshop-customer-addr-2-billing" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
             </div>
@@ -466,6 +470,7 @@
         if (isIntlBilling && !useShippingAddressForBilling) {
             clientOrder.InternationalBillingAddress = document.getElementById('flightshop-customer-international-billing-addr').value;
         } else if (!useShippingAddressForBilling) {
+            clientOrder.BillingCompanyName = document.getElementById('flightshop-customer-company-name-billing').value || null;
             clientOrder.BillingAddress1 = document.getElementById('flightshop-customer-addr-1-billing').value;
             clientOrder.BillingAddress2 = document.getElementById('flightshop-customer-addr-2-billing').value || null;
             clientOrder.BillingCity = document.getElementById('flightshop-customer-city-billing').value;

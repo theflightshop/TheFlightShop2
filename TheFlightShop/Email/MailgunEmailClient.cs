@@ -188,8 +188,9 @@ namespace TheFlightShop.Email
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)
         {
             var orderInfo = GetOrderInformationMarkup(order, confirmationNumber);
+            var billToName = string.IsNullOrWhiteSpace(order.BillingCompanyName) ? "" : $"<span><strong>Company Name:</strong> {order.BillingCompanyName}<span><br />";
             string billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
-
+            
             return $@"
 <div style=""font-family: 'sans-serif';"">
 <span style=""font-size: 20px; font-weight: bold;"">Customer Contact Information</span><br/>
@@ -199,6 +200,7 @@ namespace TheFlightShop.Email
 <span><strong>PO Number:&nbsp;</strong>{order.PurchaseOrderNumber ?? "(none)"}</span><br/>
 {orderInfo}
 <span style=""font-size: 20px; font-weight: bold;"">Billing Address</span><br/>
+{billToName}
 {billingAddress}
 </div>
 ";
