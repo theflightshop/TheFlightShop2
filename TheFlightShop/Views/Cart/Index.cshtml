@@ -173,11 +173,6 @@
 </style>
 
 <script>
-    function getCart() {
-        var cartText = window.sessionStorage.getItem('cartItems');
-        return cartText ? JSON.parse(cartText) : [];
-    }
-
     function setCart(cart) {
         window.sessionStorage.setItem('cartItems', JSON.stringify(cart));
     }
@@ -251,6 +246,8 @@
         var updated = false;
         for (var i = 0; i < cartItems.length && !updated; i++) {
             if (cartItems[i].PartNumber === partNumber) {
+                var deltaQty = quantity - cartItems[i].Quantity;
+                updateQuantity(partNumber, deltaQty);
                 cartItems[i].Quantity = quantity;
                 updated = true;
             }

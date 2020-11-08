@@ -31,6 +31,7 @@ namespace TheFlightShop.Models
         [JsonIgnore]
         public string BillingCountry => BillingCountryCode == null ? null : TheFlightShop.Country.CODES.First(kvp => kvp.Value == BillingCountryCode).Key;
         public int ShippingType { get; set; }
+        public PaymentType PaymentType { get; set; }
         public string CustomShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string Notes { get; set; }

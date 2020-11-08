@@ -78,6 +78,7 @@ namespace TheFlightShop.DAL
                 ConfirmationNumber = clientOrder.ConfirmationNumber,
                 DateCreated = DateTime.UtcNow,
                 ShippingType = (short)clientOrder.ShippingType,
+                PaymentType = (short)clientOrder.PaymentType,
                 PurchaseOrderNumber = clientOrder.PurchaseOrderNumber,
                 Notes = clientOrder.Notes,
                 AttentionTo = clientOrder.AttentionTo,

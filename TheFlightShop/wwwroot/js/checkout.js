@@ -1,11 +1,11 @@
 ﻿function isPaymentType(paymentType) {
-    return document.getElementById('flightshop-checkout-payment-type').value === paymentType;
+    return document.getElementById('flightshop-checkout-payment-type').value.toString() === paymentType.toString();
 }
 
 function paymentTypeChanged(creditCardPaymentType, onAccountPaymentType) {
     document.getElementById('flightshop-credit-card-container').style.display = isPaymentType(creditCardPaymentType) ? 'block' : 'none'; 
     document.getElementById('flightshop-po-number-container').style.display = isPaymentType(onAccountPaymentType) ? 'block' : 'none';
-    document.getElementById('flightshop-checkout-button-section').style.display = 'block';
+    document.getElementById('flightshop-checkout-submit-btn').style.display = 'inline-block';
 }
 
 function shippingTypeChanged(otherShipType) {
@@ -165,6 +165,7 @@ function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, customShipType, f
         Phone: document.getElementById('flightshop-customer-phone').value,
 
         ShippingType: shippingType,
+        PaymentType: parseInt(document.getElementById('flightshop-checkout-payment-type').value),
         CustomShippingType: shippingType === customShipType ? document.getElementById('flightshop-customer-custom-shipping-type').value || null : null,
         PurchaseOrderNumber: document.getElementById('flightshop-po-number').value || null,
         Notes: document.getElementById('flightshop-cust-notes').value || null

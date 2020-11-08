@@ -197,6 +197,7 @@ namespace TheFlightShop.Email
 <span><strong>Name:&nbsp;</strong>{order.FirstName}&nbsp;{order.LastName}</span><br/>
 <span><strong>Email:&nbsp;</strong>{order.Email}</span><br/>
 <span><strong>Phone:&nbsp;</strong>{order.Phone}</span><br/>
+<span><strong>Payment type:&nbsp;</strong>{order.PaymentType.GetDescription()}</span><br/>
 <span><strong>PO Number:&nbsp;</strong>{order.PurchaseOrderNumber ?? "(none)"}</span><br/>
 {orderInfo}
 <span style=""font-size: 20px; font-weight: bold;"">Billing Address</span><br/>
