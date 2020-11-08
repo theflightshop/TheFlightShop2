@@ -38,6 +38,34 @@ namespace TheFlightShop.Controllers
             return View();
         }
 
+        public async Task<IActionResult> SubmitAlternatePaymentOrder(ClientOrder order)
+        {
+            var parts = await _productDAL.GetParts();
+            var savedOrder = await _orderDAL.SaveNewOrder(order, parts);
+
+            IActionResult actionResult;
+            if (savedOrder)
+            {
+                var emailsSent = await _emailClient.SendOrderConfirmation(order);
+                if (emailsSent)
+                {
+                    ViewData["Title"] = "Order Submitted";
+                    var submissionResult = CheckoutSubmissionViewModel.Success(order.ConfirmationNumber);
+                    actionResult = Json(submissionResult);
+                }
+                else
+                {
+                    actionResult = StatusCode((int)HttpStatusCode.InternalServerError);
+                }
+            }
+            else
+            {
+                actionResult = StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
+            return actionResult;
+        }
+
         public async Task<IActionResult> SubmitCustomerInfo(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();

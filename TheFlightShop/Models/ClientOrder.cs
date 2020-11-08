@@ -59,8 +59,10 @@ namespace TheFlightShop.Models
             var orderLines = gatewayResponse.LineItems.Select(lineItem => new ClientOrderLine
             {
                 PartNumber = lineItem.PartNumber,
-                ProductId = Guid.Parse(lineItem.ProductId.Trim()),
-                Quantity = (int)lineItem.Quantity
+                ProductId = lineItem.ProductId,
+                Description = lineItem.Description,
+                Quantity = (int)lineItem.Quantity,
+                Price = lineItem.UnitCost == 0 ? (decimal?)null : lineItem.UnitCost
             });
             return new ClientOrder
             {

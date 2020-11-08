@@ -3,24 +3,56 @@
     ViewData["Title"] = "Cart - The Flight Shop";
 }
 
-<h2 id="flightshop-cart-title">Cart</h2>
-<a id="flightshop-checkout-btn" class="btn btn-success" style="display: none;" asp-controller="Cart" asp-action="Checkout">Check Out</a>
+    <div style="width: 110%; position: relative; left: -5%;">
+        <h1 id="flightshop-cart-title">Cart</h1>
+        <div id="flightshop-cart-container" style="display: none;">
+            <div class="col-md-3">
+                <div id="flightshop-cart-summary">
+                    <h2 id="flightshop-cart-total-label" style="color: #484848; margin-bottom: 0;"></h2>
+                    <a id="flightshop-checkout-btn" class="btn btn-success" style="display: none;" asp-controller="Cart" asp-action="Checkout">Check Out</a>
+                    <p id="flightshop-cart-quote-warning" style="display: none;"><strong>Note:&nbsp;</strong>You have 1 or more items in your cart with price listed as "quote". Subtotal excludes any items with price listed as "quote" because prices aren't currently available online for these items, and we will contact you to discuss current prices and availability unless you have made other arrangements with us.</p>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div id="flightshop-cart-header" class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-4">Item</div>
+                    <div class="col-xs-3">Quantity</div>
+                    <div class="col-xs-2">Subtotal</div>
+                    <div class="col-xs-1">Remove</div>
+                </div>
 
-<div id="flightshop-cart-container" style="display: none;">
-    <div id="flightshop-cart-header">
-        <span id="flightshop-delete-col-header">Remove</span>
-        <span id="flightshop-qty-col-header">Quantity</span>
+                <div id="flightshop-cart-list">
+
+                </div>
+                <div id="flightshop-subtotal-footer" class="row">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-3"><strong style="float: right;">Subtotal:</strong></div>
+                    <div class="col-xs-2"><strong id="flightshop-footer-subtotal-amount"></strong></div>
+                    <div class="col-xs-1"></div>
+                </div>
+            </div>
+        </div>
+        <div id="flightshop-empty-cart-msg" style="display: none;">
+            Your cart is empty. <a asp-controller="Products" asp-action="Index">View available products</a>.
+        </div>
+
     </div>
-
-    <div id="flightshop-cart-list">
-
-    </div>
-</div>
-<div id="flightshop-empty-cart-msg" style="display: none;">
-    Your cart is empty. <a asp-controller="Products" asp-action="Index">View available products</a>.
-</div>
 
 <style>
+    #flightshop-subtotal-footer {
+        padding-top: 1em;
+        border-top: 1px solid #ddd;
+    }
+
+    #flightshop-cart-summary {
+        background-color: #dedede;
+        border: 1px solid #bfbfbf;
+        margin: 1em 0;
+        padding-left: 1em;
+    }
+
     #cart-title-divider {
         display: inline-block;
         width: 55%;
@@ -30,7 +62,7 @@
     }
 
     #flightshop-cart-title {
-        margin-top: 2em;
+        margin-left: 0.25em;
     }
 
     .cart-item {
@@ -63,9 +95,6 @@
     }
 
     .cart-item-qty-form {
-        float: right;
-        position: relative;
-        top: -2em;
     }
 
     .cart-item-qty-btn {
@@ -94,14 +123,10 @@
     }
 
     .cart-item-del-btn {
-        float: right;
-        margin-right: 2em;
         background: none;
         border: none;
-        position: relative;
-        top: -2em;
-        left: 25px;
-        width: 5em
+        display: block;
+        margin: 0 auto;
     }
 
     .cart-item-del-btn-icon {
@@ -119,23 +144,31 @@
     }
 
         #flightshop-cart-header span {
-            float: right;
             color: #555;
             font-size: 0.9em;
         }
-
-    #flightshop-qty-col-header {
-        width: 150px;
-    }
-
-    #flightshop-delete-col-header {
-        width: 5em;
-    }
 
     .cart-item-custom-pt-label {
         width: 200px;
         display: inline-block;
         float: left;
+    }
+
+    .flightshop-cart-no-img-container::before {
+        background-image: url(/images/index/click-bond.jpg);
+        background-size: contain;
+        opacity: 0.2;
+        position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      content: "";
+    }
+    .flightshop-cart-no-img-text {
+        color: #222;
+        font-size: 1.1em;
+        font-style: italic;
     }
 </style>
 
@@ -162,19 +195,55 @@
         document.getElementById('flightshop-cart-container').style.display = 'block';
     }
 
+    function checkQtyLessDisabled(part) {
+        if (part.Quantity <= 1) {
+            document.getElementById('qty-less-' + part.PartNumber).setAttribute('disabled', true);
+        } else {
+            document.getElementById('qty-less-' + part.PartNumber).removeAttribute('disabled');
+        }
+    }
+
+    function checkCartQtyLessDisabled(cart) {
+        for (var i = 0; i < cart.length; i++) {
+            checkQtyLessDisabled(cart[i]);
+        }
+    }
+
     function updateQuantity(partNumber, deltaQuantity) {
         var cartItems = getCart();
-        var updated = false;
-        for (var i = 0; i < cartItems.length && !updated; i++) {
-            if (cartItems[i].PartNumber === partNumber) {
-                cartItems[i].Quantity += deltaQuantity;
-                updated = true;
+        var hasTotal = false;
+        var hasQuote = false;
+        var total = 0;
+        for (var i = 0; i < cartItems.length; i++) {
+            var part = cartItems[i];
+            var subTotal = 0;
+            if (part.PartNumber === partNumber) {
+                part.Quantity += deltaQuantity;
+                checkQtyLessDisabled(part);
+            }
+            if (part.Price) {
+                subTotal = part.Quantity * (parseFloat(part.Price) || 0);
+                total += subTotal;
+                hasTotal = true;
+            } else {
+                hasQuote = true;
+            }
+            if (part.PartNumber === partNumber && part.Price) {
+                var subTotalField = document.getElementById('flightshop-cart-subtotal-' + part.PartNumber);
+                subTotalField.innerHTML = part.Price ? '$' + subTotal.toFixed(2) : '(quote)';
             }
         }
 
+        var totalText = hasTotal ? 'Subtotal: $' + total.toFixed(2) : 'Subtotal: (quote)';
+        document.getElementById('flightshop-cart-total-label').innerHTML = totalText;
+        document.getElementById('flightshop-footer-subtotal-amount').innerHTML = '$' + total.toFixed(2);
+        document.getElementById('flightshop-cart-quote-warning').style.display = hasQuote ? 'block' : 'none';
+
         setCart(cartItems);
-        var qtyField = document.getElementById('qty-' + partNumber);
-        qtyField.value = parseInt(qtyField.value) + deltaQuantity;
+        if (partNumber) {
+            var qtyField = document.getElementById('qty-' + partNumber);
+            qtyField.value = parseInt(qtyField.value) + deltaQuantity;
+        }
     }
 
     function setQuantity(partNumber, quantity) {
@@ -192,14 +261,20 @@
         qtyField.value = quantity;
     }
 
+    var howManyCartItems = 0;
     function getNewCartItemElement(part) {
+        howManyCartItems++;
         var cartItem = document.createElement('div');
         cartItem.id = part.PartNumber;
         cartItem.classList.add('cart-item');
 
+        var thumbnailWrapperContainer = document.createElement('div');
+        thumbnailWrapperContainer.classList.add('col-xs-2');
+        cartItem.appendChild(thumbnailWrapperContainer);
+
         var thumbnailWrapper = document.createElement('div');
         thumbnailWrapper.classList.add('cart-item-img-wrapper');
-        cartItem.appendChild(thumbnailWrapper);
+        thumbnailWrapperContainer.appendChild(thumbnailWrapper);
 
         if (part.ImageSrc && part.ImageSrc.indexOf('.') >= 0) {
             var thumbnail = document.createElement('img');
@@ -209,23 +284,23 @@
         }
         else {
             var noImgTag = document.createElement('div');
-            noImgTag.classList.add('flightshop-no-product-img-available-container');
+            noImgTag.classList.add('flightshop-cart-no-img-container');
             noImgTag.style.minHeight = '';
             noImgTag.style.height = '100%';
             noImgTag.style.marginRight = '0.75em';
             noImgTag.style.paddingTop = '0';
-
-            var noImgBg = document.createElement('div');
-            noImgBg.classList.add('flightshop-no-product-img-available');
-            noImgTag.appendChild(noImgBg);
-
+            
             var noImgText = document.createElement('span');
-            noImgText.classList.add('flightshop-no-product-img-available-text');
+            noImgText.classList.add('flightshop-cart-no-img-text');
             noImgText.innerHTML = 'No image available';
             noImgTag.appendChild(noImgText);
 
             thumbnailWrapper.appendChild(noImgTag);
         }
+
+        var titleContainer = document.createElement('div');
+        titleContainer.classList.add('col-xs-4');
+        cartItem.appendChild(titleContainer);
 
         var title = document.createElement('a');
         var titleText = part.PartNumber.slice(0, 20);
@@ -235,7 +310,7 @@
         title.innerHTML = titleText;
         title.href = '/Products/ProductDetail/' + part.ProductId;
         title.classList.add('cart-item-title');
-        cartItem.appendChild(title);
+        titleContainer.appendChild(title);
 
         var desc = document.createElement('p');
         var descText = part.Description.slice(0, 30);
@@ -244,42 +319,33 @@
         }
         desc.innerHTML = descText || '';
         desc.classList.add('cart-item-desc');
-        cartItem.appendChild(desc);
+        titleContainer.appendChild(desc);
 
         if (part.IsUserDefined) {
             var customPartLabel = document.createElement('p');
             customPartLabel.innerHTML = '<strong>** Special Part</strong>';
             customPartLabel.classList.add('cart-item-custom-pt-label');
-            cartItem.appendChild(customPartLabel);
+            titleContainer.appendChild(customPartLabel);
+        } else if (part.Price) {
+            var priceCol = document.createElement('div');
+            var priceText = '$' + part.Price.toFixed(2);
+            priceCol.innerHTML = priceText;
+            titleContainer.appendChild(priceCol);
         }
-
-        var deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('cart-item-del-btn');
-        deleteBtn.onclick = function () {
-            var cartItems = getCart();
-            cartItems = cartItems.filter(function (item) { return item.PartNumber !== part.PartNumber });
-            setCart(cartItems);
-            renderPage(cartItems);
-            renderCartButton();
-        }
-        cartItem.appendChild(deleteBtn);
-
-        var delBtnIcon = document.createElement('img');
-        delBtnIcon.src = '/images/icons/trash.png';
-        delBtnIcon.classList.add('cart-item-del-btn-icon');
-        deleteBtn.appendChild(delBtnIcon);
 
         var qtyForm = document.createElement('div');
+        qtyForm.classList.add('col-xs-3');
         qtyForm.classList.add('cart-item-qty-form');
         cartItem.appendChild(qtyForm);
 
         var qtyLess = document.createElement('button');
+        qtyLess.id = 'qty-less-' + part.PartNumber;
         qtyLess.innerHTML = '-';
         qtyLess.classList.add('cart-item-qty-less', 'cart-item-qty-btn');
         qtyLess.onclick = function () {
             updateQuantity(part.PartNumber, -1);
             renderCartButton();
-        }
+        };
         qtyForm.appendChild(qtyLess);
 
         var quantity = document.createElement('input');
@@ -299,15 +365,35 @@
         qtyMore.onclick = function () {
             updateQuantity(part.PartNumber, 1);
             renderCartButton();
-        }
+        };
         qtyForm.appendChild(qtyMore);
 
-        if (part.Price) {
-            var priceCol = document.createElement('div');
-            var priceText = '$' + part.Price.toFixed(2);
-            priceCol.innerHTML = priceText;
-            cartItem.appendChild(priceCol);
+        var subTotal = document.createElement('div');
+        subTotal.id = 'flightshop-cart-subtotal-' + part.PartNumber;
+        subTotal.classList.add('col-xs-2');
+        var subTotalAmount = (parseFloat(part.Price) || 0) * (parseFloat(part.Quantity) || 0);
+        subTotal.innerHTML = subTotalAmount ? '$' + subTotalAmount.toFixed(2) : '(quote)';
+        cartItem.appendChild(subTotal);
+
+        var deleteBtnContainer = document.createElement('div');
+        deleteBtnContainer.classList.add('col-xs-1');
+        cartItem.appendChild(deleteBtnContainer);
+
+        var deleteBtn = document.createElement('button');
+        deleteBtn.classList.add('cart-item-del-btn');
+        deleteBtn.onclick = function () {
+            var cartItems = getCart();
+            cartItems = cartItems.filter(function (item) { return item.PartNumber !== part.PartNumber });
+            setCart(cartItems);
+            renderPage(cartItems);
+            renderCartButton();
         }
+        deleteBtnContainer.appendChild(deleteBtn);
+
+        var delBtnIcon = document.createElement('img');
+        delBtnIcon.src = '/images/icons/trash.png';
+        delBtnIcon.classList.add('cart-item-del-btn-icon');
+        deleteBtn.appendChild(delBtnIcon);
 
         return cartItem;
     }
@@ -321,6 +407,7 @@
             emptyCartMessage.style.display = 'none';
             checkoutBtn.style.display = 'inline-block';
             renderCart(cartItems);
+            updateQuantity();
         }
         else {
             cart.style.display = 'none';
@@ -332,6 +419,7 @@
     window.addEventListener('load', function () {
         var cartItems = getCart();
         renderPage(cartItems);
+        checkCartQtyLessDisabled(cartItems);
     })
 </script>
 

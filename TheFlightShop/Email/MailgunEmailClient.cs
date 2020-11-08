@@ -91,8 +91,22 @@ namespace TheFlightShop.Email
             var orderLineItems = "";
             foreach (var orderLine in order.OrderLines)
             {
-                orderLineItems += $"<tr><td style=\"border: 1px solid #ddd; text-align: center; padding: 0.25em 1em;\">{orderLine.PartNumber}</td>" + 
-                    $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Quantity}</td></tr>";
+                string priceText;
+                string lineCost;
+                if (orderLine.Price == null)
+                {
+                    priceText = lineCost = "(quote)";
+                } 
+                else
+                {
+                    priceText = string.Format("{0:C}", orderLine.Price);
+                    lineCost = string.Format("{0:C}", orderLine.Quantity * orderLine.Price);
+                }
+                orderLineItems += $"<tr><td style=\"border: 1px solid #ddd; text-align: center; padding: 0.25em 1em;\">{orderLine.PartNumber}</td>" +
+                    $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Description}</td>" +
+                    $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Quantity}</td>" + 
+                    $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{priceText}</td>" +
+                    $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{lineCost}</tr>";
             }
 
             var shipToNames = "";
@@ -113,7 +127,10 @@ namespace TheFlightShop.Email
 <table style=""margin-top: 0;"">
     <tr>
         <th style=""border: 1px solid #ddd; padding: 0.25em;"">Part #</th>
+        <th style=""border: 1px solid #ddd; padding: 0.25em;"">Description</th>
         <th style=""border: 1px solid #ddd; padding: 0.25em;"">Quantity</th>
+        <th style=""border: 1px solid #ddd; padding: 0.25em;"">Price</th>
+        <th style=""border: 1px solid #ddd; padding: 0.25em;"">Line Amount</th>
     </tr>
 {orderLineItems}
 </table>
