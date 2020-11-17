@@ -731,3 +731,13 @@ body {
         height: 5vw;
     }
 }
+
+.iso-certificate-link-container {
+    margin-top: 1em;
+    background-color: #def;
+    width: 50%;
+    margin: 1em auto 0 auto;
+    padding: 0.5em;
+    text-decoration: underline;
+    text-align: center;
+}

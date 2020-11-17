@@ -13,6 +13,7 @@ namespace TheFlightShop.Controllers
     public class ProductsController : Controller
     {
         private const int SECONDS_IN_ONE_YEAR = 60 * 60 * 24 * 365;
+        private const int SECONDS_IN_ONE_WEEK = 60 * 60 * 24 * 7;
 
         private IProductDAL _productReadDAL;
         private IFileManager _fileManager;
@@ -54,7 +55,7 @@ namespace TheFlightShop.Controllers
         [Route("~/Products/ProductImage/{fileName}")]
         public async Task<IActionResult> GetProductImage(string fileName)
         {
-            var fileStream = await _fileManager.GetProductImage(fileName);
+            var fileStream = await _fileManager.GetProductFile(fileName);
             return GetImageResult(fileStream, fileName);
         }
 
@@ -62,7 +63,7 @@ namespace TheFlightShop.Controllers
         [Route("~/Products/ProductImage/Maintenance/{fileName}")]
         public async Task<IActionResult> GetMaintenanceItemImage(string fileName)
         {
-            var fileStream = await _fileManager.GetProductImage($"{_productReadDAL.MaintenanceSubdirectory}/{fileName}");
+            var fileStream = await _fileManager.GetProductFile($"{_productReadDAL.MaintenanceSubdirectory}/{fileName}");
             return GetImageResult(fileStream, fileName);
         }
 
@@ -87,10 +88,27 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> GetProductDrawing(string fileName)
         {
             var fileStream = await _fileManager.GetProductDrawing(fileName);
+            return GetFilestreamResponse(fileStream);
+        }
+
+        [Route("~/Products/IsoCertificate")]
+        public async Task<IActionResult> GetIsoCertificate()
+        {
+            var fileName = Environment.GetEnvironmentVariable("ISO_CERTIFICATE_FILENAME");
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                fileName = "AS9120B_Certification.pdf"; 
+            }
+            var fileStream = await _fileManager.GetProductFile(fileName);
+            return GetFilestreamResponse(fileStream);
+        }
+
+        private IActionResult GetFilestreamResponse(Stream fileStream)
+        {
             IActionResult result;
             if (fileStream != null && fileStream.Length > 0)
             {
-                fileStream.Position = 0;                
+                fileStream.Position = 0;
                 result = File(fileStream, "application/pdf");
             }
             else

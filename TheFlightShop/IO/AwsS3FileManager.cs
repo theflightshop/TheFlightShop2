@@ -44,7 +44,7 @@ namespace TheFlightShop.IO
             return await GetFileStream($"{DRAWING_DIR}/{fileName}");
         }
 
-        public async Task<Stream> GetProductImage(string fileName)
+        public async Task<Stream> GetProductFile(string fileName)
         {
             return await GetFileStream($"{PRODUCT_DIR}/{fileName}");
         }
