@@ -349,6 +349,8 @@
     <None Remove="Models\PartSearchResult.cs" />
     <None Remove="Models\PaymentGatewayFormUrlResult.cs" />
     <None Remove="Models\PaymentGatewayResult.cs" />
+    <None Remove="Models\PaymentType.cs" />
+    <None Remove="Models\PaymentTypeExtensions.cs" />
     <None Remove="Models\ProductFormData.cs" />
     <None Remove="Models\SearchResult.cs" />
     <None Remove="Models\SearchResultView.cs" />

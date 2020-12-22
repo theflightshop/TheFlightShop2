@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 id="flightshop-checkout-title">Checkout</h2>
+<h1 id="flightshop-checkout-title">Checkout</h1>
 
 <div id="flightshop-checkout-steps-header" class="row">
     <div class="row">
@@ -40,16 +40,16 @@
         <div class="col-md-6">
             <div class="row" style="clear: both;">
                 <div class="col-xs-4">
-                    <div id="checkout-step-payment" class="step">
-                        <div><span class="glyphicon glyphicon-credit-card"></span></div>
-                        Payment Method
+                    <div id="checkout-step-review" class="step">
+                        <div><span class="glyphicon glyphicon-eye-open"></span></div>
+                        Review
                         <div class="caret right"></div>
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <div id="checkout-step-review" class="step">
-                        <div><span class="glyphicon glyphicon-eye-open"></span></div>
-                        Review
+                    <div id="checkout-step-payment" class="step">
+                        <div><span class="glyphicon glyphicon-credit-card"></span></div>
+                        Payment Method
                         <div class="caret right"></div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
             <span class="help-block">Please fill out this field.</span>
         </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="form-group">
             <label for="flightshop-customer-email">Email</label>
             <input id="flightshop-customer-email" type="text" class="form-control mandatory-checkout-field" placeholder="ex. someone@example.com" required />
@@ -92,12 +92,6 @@
             <label for="flightshop-customer-phone">Phone</label>
             <input id="flightshop-customer-phone" type="text" class="form-control mandatory-checkout-field" placeholder="ex. 5551110000" required />
             <span class="help-block">Please fill out this field.</span>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="flightshop-po-number">PO Number (Optional)</label>
-            <input id="flightshop-po-number" type="text" class="form-control" />
         </div>
     </div>
 
@@ -350,45 +344,9 @@
 
     <div class="flightshop-checkout-button-section">
         <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('billing', 'shipping')">Back</button>
-        <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="goNext('billing', 'payment')">Next</button>
+        <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="goToReview()">Next</button>
     </div>
 </div>
-
-<form id="flightshop-checkout-form" method="post">
-    <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden" style="display: none;">
-        <div id="flightshop-credit-card-container">
-            <div style="margin-bottom: 1.25em;">
-                <span id="flightshop-checkout-cc-lock-icon" class="glyphicon glyphicon-lock"></span>
-                <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card authorization</strong></p>
-                <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
-            </div>
-            <div id="flightshop-cc-auth-disclaimer">
-                <p style="font-size: 1.25em;">Your credit card won't be charged at this time.</p><span id="flightshop-cc-amount-text"></span>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="billing-cc-number">Card Number</label>
-                <input id="billing-cc-number" name="billing-cc-number" class="form-control mandatory-checkout-field" type="number" />
-                <span class="help-block">Please fill out this field.</span>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="billing-cc-exp">Expiration Date</label>
-                <input id="billing-cc-exp" name="billing-cc-exp" type="number" placeholder="MMYY" class="form-control mandatory-checkout-field" oninput="limitCreditCardExpLength(this)" />
-                <p><small>(format MMYY, e.g. 0129 for January 2029)</small></p>
-                <span id="billing-cc-exp-validation-msg" class="help-block"></span>
-            </div>
-            <div class="form-group col-md-2">
-                <label for="billing-cvv">CVV</label>
-                <input id="billing-cvv" name="billing-cvv" type="number" class="form-control mandatory-checkout-field" />
-                <span class="help-block">Please fill out this field.</span>
-            </div>
-
-            <div class="flightshop-checkout-button-section">
-                <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'billing')">Back</button>
-                <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="paymentInfoSubmitted(@((int)ShippingType.Other))">Next</button>
-            </div>
-        </div>
-    </div>
-</form>
 
 <div id="flightshop-checkout-section-review" class="flightshop-checkout-section flightshop-checkout-section-hidden" style="display: none;">
     <!-- todo: alert on leaving page? -->
@@ -409,7 +367,21 @@
                     <tbody id="flightshop-order-review-table-body"></tbody>
                     <tfoot>
                         <tr style="background-color: #eee;">
-                            <th>Total</th>
+                            <th>Taxes**</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th style="text-align: right; font-weight: normal; font-style: italic;">TBD**</th>
+                        </tr>
+                        <tr style="background-color: #eee;">
+                            <th>Freight**</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th style="text-align: right; font-weight: normal; font-style: italic;">TBD**</th>
+                        </tr>
+                        <tr style="background-color: #eee;">
+                            <th>Subtotal</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -417,6 +389,7 @@
                         </tr>
                     </tfoot>
                 </table>
+                <p style="margin-bottom: 0.75em;"><small>** Taxes and freight charges will be applied at time of sale. Freight charges are typically around $10.</small></p>
             </div>
         </div>
     </div>
@@ -431,21 +404,6 @@
         <div class="row">
             <div class="col-sm-8 flightshop-customer-info-review-box"><strong>Email:</strong>&nbsp;<span id="flightshop-order-review-email"></span></div>
             <div class="col-sm-4 flightshop-customer-info-review-box"><strong>PO Number:</strong>&nbsp;<span id="flightshop-order-review-po-number"></span></div>
-=======
-        <div class="row billing-addr-row" style="clear: both;">
-            <div class="form-group col-md-3">
-                <label for="flightshop-customer-company-name-billing">Company Name (Optional)</label>
-                <input id="flightshop-customer-company-name-billing" type="text" class="form-control" />
-            </div>
-            <div class="form-group col-md-6">
-                <label for="flightshop-customer-addr-1-billing">Address Line 1</label>
-                <input id="flightshop-customer-addr-1-billing" type="text" class="form-control billing-addr-form-control billing-input-field" placeholder="ex. 123 Maple St" required />
-            </div>
-            <div class="form-group col-md-3">
-                <label for="flightshop-customer-addr-2-billing">Address Line 2 (Optional)</label>
-                <input id="flightshop-customer-addr-2-billing" type="text" class="form-control" placeholder="ex. Apt. 121, Ste. 300..." />
-            </div>
->>>>>>> company-name-billing-section
         </div>
         <div class="row"><div class="col-sm-12 order-review-subheader">Shipping Address<button onclick="goBack('review', 'shipping')" class="btn btn-info flightshop-order-review-edit-btn">Edit<span class="glyphicon glyphicon-pencil flightshop-order-review-edit-icon"></span></button></div></div>
         <div class="row">
@@ -495,14 +453,86 @@
                 <h4 class="flightshop-checkout-section-title">Additional Information</h4>
                 <p id="flightshop-addtl-info-text">
                     <ul>
-                        <li>We will be in touch soon to review your order with you and then process your payment.</li>
-                        <li>We will confirm availability and current price of all items with you before processing your payment.</li>
-                        <li>Additional fees may apply when the order is processed, including taxes and freight charges.</li>
+                        <li>
+                            We will be in touch soon to review your order with you if any changes need to be made.  If you have chosen to pay with a credit card please note this is a PRE-APPROVAL only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.
+                        </li>
                     </ul>
                 </p>
-                <div class="form-group form-check">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="flightshop-checkout-section-title">Terms &amp; Conditions</h4>
+                <div id="flightshop-terms-and-conditions-scroll">
+                    <p class="flightshop-ordering-info-section">
+                        <strong>APPLICABILITY:&nbsp;</strong>The following conditions of sale apply to any purchase order covering any products or items offered by the <strong>Procuring Party</strong> (Buyer) for sale by the <strong>The Flight Shop, Inc.</strong> (Seller). All orders are subject to the following terms and conditions. No salesperson or other party is authorized to bind Seller by any other agreement, warranty, statement, promise, or other understanding not herein expressed, and no modifications shall be binding unless the same are in writing and signed by an executive of Seller or its duly authorized representative. Seller's failure to object to provisions contained in any of Buyer's forms or other documents shall not be a waiver of these terms and conditions which shall constitute the entire agreement between the parties.
+                    </p>
+
+                    <p class="flightshop-ordering-info-section">
+                        <strong>TERMS OF PAYMENT:</strong> Provided Seller’s credit and collections department has granted credit terms to Buyer and unless expressly noted via invoice, Buyer shall pay all invoiced amounts in United States Dollars (USD) within the buyer/sellers agreed terms  b following the date of Seller ’ s invoice. All payments shall be accompanied by remittance detail containing, at a minimum, Seller ’ s invoice number and amount paid per invoice. Payments must be made pursuant to the payment instructions contained in Seller ’ s invoice. Credit terms granted by Seller to Buyer are subject to reevaluation by Seller at any time. If Seller determines in its sole discretion that Buyer fails to qualify for such payment terms at any time, Seller may without notice to Buyer, modify or withdraw credit terms including, but not limited to, requiring advance payment, letters of credit, guarantees, or other security. Payments made by credit card may be subject to a convenience fee.
+                    </p>
+
+                    <p class="flightshop-ordering-info-section">
+                        <strong>
+                            DELINQUENT PAYMENT:
+                        </strong> Buyer agrees to pay all collection costs and expenses, including attorney's fees, incurred by Seller in collecting or attempting to collect on such account.
+
+                        1.       Interest
+                        Buyer shall also pay interest on any such unpaid balance(s) at a rate equal to the lesser of 18% per annum or the maximum rate permitted by applicable law, from the due date until paid.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>ATTORNEYS FEES :</strong> Should suit be brought to enforce or interpret any part of this agreement, Seller shall be entitled to recover as an element of the cost of suit and not as damages, its reasonable attorney fees (including without limitation, costs, expenses, and fees on an appeal). Seller shall be the party entitled to recover its cost of the suit regardless of whether suit proceeds to final judgment.
+                    </p>
+
+                    <p class="flightshop-ordering-info-section">
+                        <strong>
+                            ORDERS and ORDER ACCEPTANCE:
+                        </strong> All orders are subject to final approval and acceptance by Seller. Seller reserves all rights to accept orders in whole or in part.
+
+                        a)Non-Cancellable/Non-Returnable: Notwithstanding any provision of these Terms and Conditions to the contrary, orders for manufacturing, special, custom, value-added and other non-standard and Products otherwise identified by Seller as "NCNR" or "Non-Cancelable and Non-Returnable" ("Non-Standard Products") shall be non-cancelable and non-returnable.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>RETURNS :</strong> No returns will be accepted without a Return Material Authorization number provided by Seller. No returns will be accepted that are not traceable to original lot number. If multiple Seller / Mfg. lot numbers are mixed and traceability has been lost, parts will not be accepted as a valid return. All returns must be in original Seller or Manufacturer packaging unless parts are non-conforming; even in the event of non-conforming material traceability must be maintained. Credit will only be issued after inspection and approval by Seller. Any claims must be made within 15 days of material receipt.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>TAXES:</strong> Unless otherwise agreed to in writing by Seller, prices quoted are exclusive of any applicable taxes or duties on the purchase or sale of parts, including but not limited to, Federal, State, Municipal, sales, use and value added taxes, or import duties. Any such taxes and duties that may become due and owing will be paid by Buyer.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong> LIMITATIONS OF USE:</strong> Seller and the manufacturer of the products and/or items are not liable for any claim or damage arising from use. Buyer agrees to fully indemnify, defend and hold harmless Seller and the manufacturer of the products and/or items from and against any and all claims, damages, loss, cost, expense or liability arising out of or in connection with the use or performance of Products.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>DELIVERY AND SHIPPING:</strong> Seller reserves the right to make delivery in installments which shall be separately invoiced and paid for when due, without regard to subsequent deliveries. Delay in delivery of any installment shall not relieve Buyer of its obligation to accept remaining deliveries. Unless otherwise specified, products are sold F.O.B. shipping point and Buyer assumes freight cost and liability for loss or damage once they have left the Seller's premises. Seller is to follow instructions of Buyer as to method of shipment if feasible; and, if there are no instructions from Buyer, Seller may ship by any reasonable method. Seller is not required to notify Buyer of shipment. Orders are not subject to cancellation or deferment without Seller's consent and then only upon terms protecting Seller against loss. All shipments are subject to an overrun or shortage of (ten percent) 10% of the quantity specified. Delivery dates indicated on quotations and on acknowledgments of orders are approximate and not guaranteed. Seller will do everything possible to maintain the shipping dates given herein, but Seller shall not be liable for delays in delivery or in performance or failure to manufacture or deliver due to causes beyond its reasonable control such as: acts of God, acts of the Buyer, acts of civil or military authority, priorities, fires, strikes or other disturbances, floods, epidemics, war delays in transportation or car shortage or inability to obtain necessary labor, materials, components or manufacturing facilities. In the event of such delay, the date of delivery or of performance shall be extended for a period equal to the time lost by reason of delay.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>RECEIVING INSPECTION:</strong> Buyer agrees to conduct a receiving inspection of the products upon receipt to ensure product conformance to any and all purchase order requirements. Any dispute must be brought to Seller within 15 days of receipt.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong> LIABILITIES:</strong> Seller assumes no liability or responsibility whatsoever for any goods or part thereof manufactured and/or supplied to Buyer's design including, but not limited to, patent, trademark or copyright infringement. Seller's liability for any claim of any kind shall not exceed the purchase price of the goods, or portion thereof, which gives rise to the claim whether such claim shall be for breach of contract, breach of warranty, negligence, strict liability in tort, or any other legal theory, and whether such claim arises out of, or results from this contract or from the design, manufacture, sale, delivery, resale, installation, technical direction of installation, inspection repair, operation or use of any goods furnished under this contract. Seller shall not be liable, in any event, for special or consequential damages, including, but not limited to, loss of profits or revenue, loss of use of the goods or any associated goods, cost of capital, cost of substitute goods, facilities or services, down time costs, or claim of customers of Buyer for such damages. Buyer agrees to indemnify, hold harmless and defend Seller from liability, loss or damages from claims, demands, and costs of judgments arising out of use of the products sold which result from Buyer's negligence or fault.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>
+                            TERMINATION OR CANCELLATION:
+                        </strong> If Seller believes in good faith that Buyer's ability to make payments may be impaired or if Buyer shall fail to pay any invoice when due, Seller may suspend delivery of any order or any remaining balance thereof until such payment is made or cancel any order or any remaining balance thereof, and Buyer shall remain liable to pay for any Products already shipped and all NCNR Products ordered by Buyer.
+
+                        a) Seller reserves the right at any time to revoke any credit extended to Buyer if Buyer fails to pay for any shipments when due or if, in Seller's opinion, there is a material adverse change in Buyer's financial condition. Seller may, at its option, cancel any accepted order if Buyer fails to meet any invoice when due.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong> CHANGE OF CONTROL:</strong> In the event of a Change in Control, the surviving, continuing, successor, or purchasing entity or parent thereof, as the case may be (the Acquirer), shall fulfill all obligations set forth in the original purchase contract between Buyer and Seller. All terms set forth herein shall remain in full force and effect to the same degree as initially agreed upon by Buyer. These obligations include but are not limited to payment of all debts and monies owed to Seller by Buyer as well as NCNR contracts that predate the acquisition of Buyer by the new Entity.
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong>Warranties: EXCEPT TO THE EXTENT SELLER OTHERWISE SPECIFICALLY AGREES IN WRITING, THE SALE OF ALL PRODUCTS BY THE COMPANY SHALL BE WITHOUT ANY WARRANTIES WHATSOEVER, WHETHER EXPRESSED, IMPLIED, STATUTORY OR OTHER. INCLUDING BUT NOT LIMITED TO ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.</strong>
+                    </p>
+                    <p class="flightshop-ordering-info-section">
+                        <strong> NON-WAIVER BY SELLER:</strong> Waiver by Seller of a breach of any of these terms and conditions shall not be construed as a waiver of any other breach.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group form-check" style="margin-top: 1em;">
                     <input class="form-check-input mandatory-checkout-field checkout-form-checkbox" type="checkbox" value="" id="flightshop-order-agree-checkbox">
-                    <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information above.</label>
+                    <label class="form-check-label" for="flightshop-order-agree-checkbox">I have read and understand the Additional Information and Terms &amp; Conditions above.</label>
                     <span class="help-block">Please check this box if you want to proceed.</span>
                 </div>
             </div>
@@ -510,17 +540,80 @@
     </div>
 
     <div class="flightshop-checkout-button-section">
-        <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('review', 'payment')">Back</button>
-        <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="submitOrderPressed()">Submit Order</button>
-        <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
-            <div id="flightshop-submit-order-loader" class="flightshop-order-loader"></div><span class="flightshop-order-loader-text">Submitting order, please wait...</span>
-        </div>
+        <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('review', 'billing')">Back</button>
+        <button type="button" class="btn btn-success flightshop-checkout-btn" onclick="reviewStepAccepted()">Next</button>
     </div>
 </div>
+
+<form id="flightshop-checkout-form" method="post">
+    <div id="flightshop-checkout-section-payment" class="flightshop-checkout-section flightshop-checkout-section-hidden" style="display: none;">
+        <div id="flightshop-payment-type">
+            <div class="form-group">
+                <label for="flightshop-checkout-payment-type">Select payment type:</label>
+                <select id="flightshop-checkout-payment-type" class="form-control" onchange="paymentTypeChanged('@((int)PaymentType.CreditCard)', '@((int)PaymentType.OnAccount)')">
+                    <option value="--" disabled selected></option>
+                    <option value="@((int)PaymentType.CreditCard)">Credit Card</option> 
+                    <option value="@((int)PaymentType.Cd)">CD</option>
+                    <option value="@((int)PaymentType.OnAccount)">On account (PO number)</option>
+                    <option value="@((int)PaymentType.Ach)">ACH</option>
+                </select>
+            </div>
+            <div id="flightshop-po-number-container" class="form-group" style="display: none;">
+                <label for="flightshop-po-number">PO Number (Optional)</label>
+                <input id="flightshop-po-number" type="text" class="form-control" />
+            </div>
+        </div>
+        <div id="flightshop-credit-card-container" style="display: none;">
+            <div style="margin-bottom: 1.25em;">
+                <span id="flightshop-checkout-cc-lock-icon" class="glyphicon glyphicon-lock"></span>
+                <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card authorization</strong></p>
+                <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
+            </div>
+            <div id="flightshop-cc-auth-disclaimer">
+                <p style="font-size: 1.25em;">Your credit card won't be charged at this time.</p><span id="flightshop-cc-amount-text"></span>
+            </div>
+            <div style="margin-left: 2%;">
+                <div class="form-group flightshop-checkout-cc-field" style="width: 40%">
+                    <label for="billing-cc-number">Card Number</label>
+                    <input id="billing-cc-number" name="billing-cc-number" class="form-control" type="number" required />
+                    <span id="billing-cc-number-validation-msg" class="cc-validation-msg"></span>
+                </div>
+                <div class="form-group flightshop-checkout-cc-field" style="width: 30%">
+                    <label for="billing-cc-exp">Expiration Date</label>
+                    <input id="billing-cc-exp" name="billing-cc-exp" type="number" placeholder="MMYY" class="form-control" oninput="limitCreditCardExpLength(this)" />
+                    <p><small>(format MMYY, e.g. 0129 for January 2029)</small></p>
+                    <span id="billing-cc-exp-validation-msg" class="cc-validation-msg"></span>
+                </div>
+                <div class="form-group flightshop-checkout-cc-field" style="width: 25%">
+                    <label for="billing-cvv">CVV</label>
+                    <input id="billing-cvv" name="billing-cvv" type="number" class="form-control" />
+                    <span id="billing-cvv-validation-msg" class="cc-validation-msg"></span>
+                </div>
+            </div>
+        </div>
+        <p id="flightshop-payment-quote-warning" style="display: none;"><strong>Note:&nbsp;</strong>You have 1 or more items in your cart with price listed as "quote". Subtotal excludes any items with price listed as "quote" because prices aren't currently available online for these items, and we will contact you to discuss current prices and availability unless you have made other arrangements with us.</p>
+        <div id="flightshop-checkout-button-section" class="flightshop-checkout-button-section">
+            <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'review')">Back</button>
+            <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="submitOrderPressed()" style="display: none;">Submit Order</button>
+            <div id="flightshop-submit-order-loading-area" style="display: none; padding-top: 0.5em;">
+                <div id="flightshop-submit-order-loader" class="flightshop-order-loader"></div><span class="flightshop-order-loader-text">Submitting order, please wait...</span>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div id="flightshop-checkout-section-processing" style="display: none;">
     <div style="text-align: center"><h2>Processing order...</h2></div>
     <img id="flightshop-checkout-processing-spinner" src="~/images/propeller.png" alt="processing payment..." />
+</div>
+
+<div id="flightshop-alternate-checkout-confirmation" style="display: none;">
+    <p style="font-size: 1.25em;">Order submitted.</p>
+    <p><strong>Confirmation number:</strong>&nbsp;<span id="flightshop-alternate-confirmation-number"></span>.</p>
+    <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you and answer any questions you have.</p>
+    <div style="padding-top: 0.5em;">
+        <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
+    </div>
 </div>
 
 @if (Model != null)
@@ -528,7 +621,7 @@
 <div id="flightshop-checkout-section-confirmation">
     @if (Model.Succeeded)
     {
-        <p>Order submitted.</p>
+        <p style="font-size: 1.25em;">Order submitted.</p>
         <p><strong>Confirmation number:</strong>&nbsp;@Model.ConfirmationNumber.</p>
         <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you and answer any questions you have.</p>
         <div style="padding-top: 0.5em;">
@@ -595,8 +688,12 @@
         window.sessionStorage.removeItem('flightshop-customer-country-billing');
         window.sessionStorage.removeItem('flightshop-cust-notes');
     }
-
+    
     var checkoutLoadHandler = function () {
+        if (getCart().filter(part => !part.Price).length) {
+            document.getElementById('flightshop-payment-quote-warning').style.display = 'block';
+        }
+
         document.getElementById('checkout-truck-inactive').style.display = 'inline';
         if ('@Model' === '' || '@Model' === 'null') {
             document.getElementById('flightshop-customer-country').value = 'US';
@@ -658,10 +755,27 @@
     };
     window.addEventListener('load', checkoutLoadHandler);
 
+    function goToReview() {
+        populateReviewFields(@((int)ShippingType.Other));
+        goNext('billing', 'review')
+    }
+
+    function reviewStepAccepted() {
+        var agreed = document.getElementById('flightshop-order-agree-checkbox');
+        if (agreed.checked) {
+            goNext('review', 'payment');
+        } else {
+            agreed.parentElement.classList.add('has-error');
+        }
+    }
+
     function submitOrderPressed() {
-        var customerInfoUrl = '@Url.Action("SubmitCustomerInfo", "Cart")';
-        var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
-        submitOrder(customerInfoUrl, errorRedirectUrl, @((int)ShippingType.Other));
+        var isCustomerUsingCreditCard = document.getElementById('flightshop-checkout-payment-type').value === '@((int)PaymentType.CreditCard)';
+        if (!isCustomerUsingCreditCard || validateCardInfo()) {
+            var customerInfoUrl = isCustomerUsingCreditCard ? '@Url.Action("SubmitCustomerInfo", "Cart")' : '@Url.Action("SubmitAlternatePaymentOrder", "Cart")';
+            var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
+            submitOrder(customerInfoUrl, errorRedirectUrl, @((int)ShippingType.Other));
+        }        
     }
 
     function clearCart() {
@@ -674,6 +788,24 @@
 <style>
     /* Nick really did it this time... .flightshop-checkout-section is needed for checkout page transitions to work, presumably because it alters selectors to produce favorable behavior across browsers.... */
     
+        #flightshop-terms-and-conditions-scroll {
+            max-height: 50vh;
+            min-height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #ddd;
+            padding: 0.75em;
+        }
+
+        .flightshop-checkout-cc-field {
+            display: inline-block;
+            margin-right: 1%;
+            vertical-align: top;
+        }
+
+        .cc-validation-msg {
+            color: #a94442;
+        }
+
         #flightshop-order-customer-info-review .flightshop-customer-info-review-box {
             border: 1px solid #ddd;
             padding: 0.5em;
@@ -736,7 +868,8 @@
         }
 
         #flightshop-checkout-title {
-            margin-top: 2em;
+            margin-left: 0.25em;
+            margin-bottom: 0.5em;
         }
 
         .flightshop-checkout-button-section {

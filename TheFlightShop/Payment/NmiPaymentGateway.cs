@@ -160,8 +160,10 @@ namespace TheFlightShop.Payment
             var lineItems = order.OrderLines.Select(line => new NmiLineItem
             {
                 PartNumber = line.PartNumber,
-                ProductId = line.ProductId.ToString(),
-                Quantity = line.Quantity
+                ProductId = line.ProductId,
+                Description = line.Description,
+                Quantity = line.Quantity,
+                UnitCost = line.Price ?? 0m
             }).ToArray();
 
             var amountToAuthorize = order.OrderLines.Sum(line => GetLineAmount(line, parts));

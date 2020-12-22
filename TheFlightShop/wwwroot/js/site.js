@@ -26,3 +26,8 @@ window.onclick = function (event) {
         }
     }
 }
+
+function getCart() {
+    var cartText = window.sessionStorage.getItem('cartItems');
+    return cartText ? JSON.parse(cartText) : [];
+}

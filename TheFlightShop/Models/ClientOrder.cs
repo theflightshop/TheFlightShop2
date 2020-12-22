@@ -32,6 +32,7 @@ namespace TheFlightShop.Models
         [JsonIgnore]
         public string BillingCountry => BillingCountryCode == null ? null : TheFlightShop.Country.CODES.First(kvp => kvp.Value == BillingCountryCode).Key;
         public int ShippingType { get; set; }
+        public PaymentType PaymentType { get; set; }
         public string CustomShippingType { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public string Notes { get; set; }
@@ -60,8 +61,10 @@ namespace TheFlightShop.Models
             var orderLines = gatewayResponse.LineItems.Select(lineItem => new ClientOrderLine
             {
                 PartNumber = lineItem.PartNumber,
-                ProductId = Guid.Parse(lineItem.ProductId.Trim()),
-                Quantity = (int)lineItem.Quantity
+                ProductId = lineItem.ProductId,
+                Description = lineItem.Description,
+                Quantity = (int)lineItem.Quantity,
+                Price = lineItem.UnitCost == 0 ? (decimal?)null : lineItem.UnitCost
             });
             return new ClientOrder
             {
