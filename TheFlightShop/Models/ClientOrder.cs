@@ -37,25 +37,13 @@ namespace TheFlightShop.Models
         public string PurchaseOrderNumber { get; set; }
         public string Notes { get; set; }
         public IEnumerable<ClientOrderLine> OrderLines { get; set; }
+        public string ConfirmationNumber { get; set; }
 
         [JsonIgnore]
         public bool UseShippingAddressForBilling => BillingAddress1 == null && BillingCity == null && BillingState == null && BillingZip == null;
 
         private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;
-        private string _confirmationNumber;
-        public string ConfirmationNumber
-        {
-            get
-            {
-                if (_confirmationNumber == null)
-                {
-                    _confirmationNumber = GenerateConfirmationNumber();
-                }
-                return _confirmationNumber;
-            }
-            set { _confirmationNumber = value; }
-        }
-
+        
         public static ClientOrder FromNmiGatewayResponse(NmiGatewayResponse gatewayResponse)
         {
             var orderLines = gatewayResponse.LineItems.Select(lineItem => new ClientOrderLine
@@ -68,7 +56,7 @@ namespace TheFlightShop.Models
             });
             return new ClientOrder
             {
-                ConfirmationNumber = gatewayResponse.ConfirmationNumber,
+                ConfirmationNumber = gatewayResponse.TransactionId,
                 FirstName = gatewayResponse.ShippingAddress.FirstName,
                 LastName = gatewayResponse.ShippingAddress.LastName,
                 Phone = gatewayResponse.ShippingAddress.PhoneNumber,
@@ -95,7 +83,7 @@ namespace TheFlightShop.Models
             };
         }
 
-        private string GenerateConfirmationNumber()
+        public void GenerateConfirmationNumber()
         {
             var possibleCharacters = new char[]
             {
@@ -114,7 +102,7 @@ namespace TheFlightShop.Models
                 confirmationNumber += nextRandomChar;
             }
 
-            return confirmationNumber;
+            ConfirmationNumber = confirmationNumber;
         }
     }
 }

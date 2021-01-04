@@ -60,17 +60,25 @@ namespace TheFlightShop.Payment
                 response = await PostXml(xmlBody); 
                 LogGatewayResult(response);
 
-                if (response.Succeeded && string.IsNullOrWhiteSpace(response.PaymentAuthFormUrl))
+                if (response.Succeeded)
                 {
-                    response = new NmiGatewayResponse();
-                    _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- couldn't parse NMI gateway form URL, but response was successful. " + 
+                    if (string.IsNullOrWhiteSpace(response.TransactionId))
+                    {
+                        response = new NmiGatewayResponse();
+                        _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- NMI gateway response is missing transaction ID. customerName=\"{order.FirstName} {order.LastName}\". " +
                         $"status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId}");
-                }
-                
+                    }
+                    else if (string.IsNullOrWhiteSpace(response.PaymentAuthFormUrl))
+                    {
+                        response = new NmiGatewayResponse();
+                        _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- couldn't parse NMI gateway form URL, but response was successful. customerName=\"{order.FirstName} {order.LastName}\". " +
+                            $"status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId}");
+                    }
+                }                
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- error for order {order?.ConfirmationNumber}."); 
+                _logger.LogError(ex, $"{nameof(NmiPaymentGateway)}.{nameof(RetrievePaymentAuthUrl)}- error for order confirmationNumber={order?.ConfirmationNumber}, customerName=\"{order.FirstName} {order.LastName}\"."); 
             }
 
             return response;
@@ -86,15 +94,15 @@ namespace TheFlightShop.Payment
             }
             else if (responseStatus == NmiGatewayResponseStatus.Approved)
             {
-                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer submission approved. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer submission approved. transactionId={response.TransactionId}");
             }
             else if (responseStatus == NmiGatewayResponseStatus.Declined)
             {
-                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer card declined. transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogInformation($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- customer card declined. transactionId={response.TransactionId}");
             }
             else // error
             {
-                _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- error processing customer submission. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId},confirmationNumber={response.ConfirmationNumber ?? "unknown/unavailable"}");
+                _logger.LogWarning($"{nameof(NmiPaymentGateway)}.{nameof(LogGatewayResult)}- error processing customer submission. status={response.Result},code={response.ResultCode},resultText={response.ResultText},transactionId={response.TransactionId}");
             }
         }
 

@@ -231,6 +231,20 @@ function submitOrder(customerInfoUrl, errorRedirectUrl, customShipType) {
     });    
 }
 
+function validatePoNumber() {
+    var poNumber = document.getElementById('flightshop-po-number');
+    var validationMsg = document.getElementById('billing-po-number-validation-msg');
+    var hasPoNumber = poNumber.value && poNumber.value.length;
+    if (hasPoNumber) {
+        poNumber.classList.remove('invalid-input');
+        validationMsg.style.display = 'none';
+    } else {
+        poNumber.classList.add('invalid-input');
+        validationMsg.style.display = 'block';
+    }
+    return hasPoNumber;
+}
+
 function validateCardInfo() {
     var cardNumber = document.getElementById('billing-cc-number');
     var validationMsg = null;
@@ -414,7 +428,7 @@ function setPaymentAuthAmountText(cart) {
     for (var i = 0; i < cart.length; i++) {
         authAmount += (cart[i].Price || 0) * (cart[i].Quantity || 0);
     }
-    document.getElementById('flightshop-cc-amount-text').innerHTML = 'Your card will be authorized for <strong>$' + authAmount.toFixed(2) +
+    document.getElementById('flightshop-cc-amount-text').innerHTML = 'Your card will be pre-authorized for <strong>$' + authAmount.toFixed(2) +
         '</strong> when you press "Submit Order" on the following page, and we will get in touch with you to confirm purchase details before processing payment.';
 }
 

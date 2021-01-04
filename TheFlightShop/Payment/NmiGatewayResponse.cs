@@ -61,9 +61,6 @@ namespace TheFlightShop.Payment
         /// </summary>
         #region NMI Redirect API Step 3
 
-        [XmlElement("order-id")]
-        public string ConfirmationNumber { get; set; }
-
         [XmlElement("po-number")]
         public string PurchaseOrderNumber { get; set; }
 

@@ -12,8 +12,8 @@ namespace TheFlightShop.Models
         Unknown = 0,
         [Description("Credit card")]
         CreditCard = 1,
-        [Description("CD")]
-        Cd = 2,
+        [Description("COD")]
+        Cod = 2,
         [Description("On account (PO number)")]
         OnAccount = 3,
         [Description("ACH")]

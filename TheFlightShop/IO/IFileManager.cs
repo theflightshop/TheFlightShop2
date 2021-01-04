@@ -14,7 +14,7 @@ namespace TheFlightShop.IO
         Task<bool> OverwriteProductDrawing(IFormFile drawing);
         Task<bool> OverwriteCategoryImage(IFormFile image);
 
-        Task<Stream> GetProductImage(string fileName);
+        Task<Stream> GetProductFile(string fileName);
         Task<Stream> GetProductDrawing(string fileName);
         Task<Stream> GetCategoryImage(string fileName);
 
