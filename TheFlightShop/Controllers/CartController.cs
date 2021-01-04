@@ -41,6 +41,7 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> SubmitAlternatePaymentOrder(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();
+            order.GenerateConfirmationNumber();
             var savedOrder = await _orderDAL.SaveNewOrder(order, parts);
 
             IActionResult actionResult;
@@ -69,13 +70,14 @@ namespace TheFlightShop.Controllers
         public async Task<IActionResult> SubmitCustomerInfo(ClientOrder order)
         {
             var parts = await _productDAL.GetParts();
-            var savedOrder = await _orderDAL.SaveNewOrder(order, parts);
+            var redirectUrl = $"{Request.Scheme}://{Request.Host}/Cart/{nameof(SubmitOrder)}";
+            var gatewayFormUrlResult = await _paymentGateway.RetrievePaymentAuthUrl(order, parts, redirectUrl);
 
             IActionResult result;
-            if (savedOrder)
+            if (gatewayFormUrlResult.Succeeded)
             {
-                var redirectUrl = $"{Request.Scheme}://{Request.Host}/Cart/{nameof(SubmitOrder)}";
-                var gatewayFormUrlResult = await _paymentGateway.RetrievePaymentAuthUrl(order, parts, redirectUrl);
+                order.ConfirmationNumber = gatewayFormUrlResult.TransactionId;
+                var savedOrder = await _orderDAL.SaveNewOrder(order, parts);
                 if (gatewayFormUrlResult.Succeeded)
                 {
                     result = new ContentResult
@@ -116,7 +118,7 @@ namespace TheFlightShop.Controllers
                     if (emailsSent)
                     {
                         ViewData["Title"] = "Order Submitted";
-                        var submissionResult = CheckoutSubmissionViewModel.Success(authResult.ConfirmationNumber);
+                        var submissionResult = CheckoutSubmissionViewModel.Success(clientOrder.ConfirmationNumber);
                         actionResult = View("Checkout", submissionResult);
                     }
                     else

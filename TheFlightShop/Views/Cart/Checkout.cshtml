@@ -389,7 +389,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <p style="margin-bottom: 0.75em;"><small>** Taxes and freight charges will be applied at time of sale. Freight charges are typically around $10.</small></p>
+                <p style="margin-bottom: 0.75em;"><small>** Taxes and freight charges will be applied at time of sale.</small></p>
             </div>
         </div>
     </div>
@@ -552,20 +552,21 @@
                 <select id="flightshop-checkout-payment-type" class="form-control" onchange="paymentTypeChanged('@((int)PaymentType.CreditCard)', '@((int)PaymentType.OnAccount)')">
                     <option value="--" disabled selected></option>
                     <option value="@((int)PaymentType.CreditCard)">Credit Card</option> 
-                    <option value="@((int)PaymentType.Cd)">CD</option>
+                    <option value="@((int)PaymentType.Cod)">COD</option>
                     <option value="@((int)PaymentType.OnAccount)">On account (PO number)</option>
                     <option value="@((int)PaymentType.Ach)">ACH</option>
                 </select>
             </div>
             <div id="flightshop-po-number-container" class="form-group" style="display: none;">
-                <label for="flightshop-po-number">PO Number (Optional)</label>
+                <label for="flightshop-po-number">PO Number</label>
                 <input id="flightshop-po-number" type="text" class="form-control" />
+                <span id="billing-po-number-validation-msg" class="cc-validation-msg" style="display: none;">Please fill out this field.</span>
             </div>
         </div>
         <div id="flightshop-credit-card-container" style="display: none;">
             <div style="margin-bottom: 1.25em;">
                 <span id="flightshop-checkout-cc-lock-icon" class="glyphicon glyphicon-lock"></span>
-                <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card authorization</strong></p>
+                <p style="margin-bottom: 3px; font-size: 1.1em;"><strong>Secure credit card pre-authorization</strong></p>
                 <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
             </div>
             <div id="flightshop-cc-auth-disclaimer">
@@ -742,12 +743,14 @@
     }
 
     function submitOrderPressed() {
-        var isCustomerUsingCreditCard = document.getElementById('flightshop-checkout-payment-type').value === '@((int)PaymentType.CreditCard)';
-        if (!isCustomerUsingCreditCard || validateCardInfo()) {
+        var paymentType = document.getElementById('flightshop-checkout-payment-type').value;
+        var isCustomerUsingCreditCard = paymentType === '@((int)PaymentType.CreditCard)';
+        var isPaymentFormValid = (isCustomerUsingCreditCard && validateCardInfo()) || (paymentType === '@((int)PaymentType.OnAccount)' && validatePoNumber()) || !(isCustomerUsingCreditCard || paymentType === '@((int)PaymentType.OnAccount)');
+        if (isPaymentFormValid) {
             var customerInfoUrl = isCustomerUsingCreditCard ? '@Url.Action("SubmitCustomerInfo", "Cart")' : '@Url.Action("SubmitAlternatePaymentOrder", "Cart")';
             var errorRedirectUrl = '@Url.Action("Index", "Home", new { OrderSubmitted = "false".ToString() })';
             submitOrder(customerInfoUrl, errorRedirectUrl, @((int)ShippingType.Other));
-        }        
+        } 
     }
 
     function clearCart() {

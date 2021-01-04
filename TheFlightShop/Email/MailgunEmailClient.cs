@@ -119,12 +119,15 @@ namespace TheFlightShop.Email
                 shipToNames += $"<span><strong>Attention To:</strong> {order.AttentionTo}<span><br />";
             }
 
+            var subtotal = order.OrderLines?.Sum(line => line.Quantity * (line.Price ?? 0)) ?? 0;
+            var subtotalText = subtotal == 0 ? "(quote)" : string.Format("{0:C}", subtotal);
+
             return $@"
 <span><strong>Confirmation Number:&nbsp;</strong>{confirmationNumber}</span><br/>
 <span><strong>Notes:&nbsp;</strong>{order.Notes ?? "(none)"}</span><br/>
 <br/>
 <span style=""font-size: 20px; font-weight: bold;"">Order Summary</span>
-<table style=""margin-top: 0;"">
+<table style=""margin-top: 0; border-bottom: 1px solid #ddd;"">
     <tr>
         <th style=""border: 1px solid #ddd; padding: 0.25em;"">Part #</th>
         <th style=""border: 1px solid #ddd; padding: 0.25em;"">Description</th>
@@ -133,6 +136,13 @@ namespace TheFlightShop.Email
         <th style=""border: 1px solid #ddd; padding: 0.25em;"">Line Amount</th>
     </tr>
 {orderLineItems}
+    <tr>
+        <th>Subtotal</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>{subtotalText}</th>
+    </tr>
 </table>
 <br/>
 <span style=""font-size: 20px; font-weight: bold;"">Shipping Information</span><br/>
