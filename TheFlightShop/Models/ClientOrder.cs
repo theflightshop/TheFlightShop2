@@ -63,7 +63,7 @@ namespace TheFlightShop.Models
                 Email = gatewayResponse.ShippingAddress.EmailAddress,
                 AttentionTo = gatewayResponse.AttentionTo,
                 PurchaseOrderNumber = gatewayResponse.PurchaseOrderNumber,
-                ShippingType = int.Parse(gatewayResponse.ShippingType.Trim()),
+                ShippingType = Models.ShippingType.FromName(gatewayResponse.ShippingType).Value,
                 CustomShippingType  = gatewayResponse.CustomShippingType,
                 PaymentType = PaymentType.CreditCard, // NOTE: as of this writing (Jan 10, 20201), only orders with CreditCard payment type are sent to NMI for validation/pre-auth
                 Notes = gatewayResponse.Notes,

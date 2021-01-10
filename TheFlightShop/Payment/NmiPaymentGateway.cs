@@ -184,7 +184,7 @@ namespace TheFlightShop.Payment
                 RedirectUrl = redirectUrl,
                 ConfirmationNumber = order.ConfirmationNumber,
                 AttentionTo = order.AttentionTo,
-                ShippingType = order.ShippingType.ToString(),
+                ShippingType = ((ShippingType)order.ShippingType).ToString(),
                 CustomShippingType = order.ShippingType == (int)ShippingType.Other ? order.CustomShippingType : null,
                 PurchaseOrderNumber = order.PurchaseOrderNumber,
                 Notes = order.Notes,
