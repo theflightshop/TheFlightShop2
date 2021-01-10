@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TheFlightShop.Models
 {
@@ -32,6 +33,13 @@ namespace TheFlightShop.Models
         {
             Value = value;
             Name = name;
+        }
+
+        public static ShippingType FromName(string name)
+        {
+            var normalizedName = name?.Trim()?.ToLower();
+            var shipType = _shippingTypes.FirstOrDefault(type => type.Value.Name.ToLower() == normalizedName);
+            return shipType.Equals(default(KeyValuePair<int, ShippingType>)) ? null : shipType.Value;
         }
 
         public static explicit operator int(ShippingType shippingType)
