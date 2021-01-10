@@ -19,7 +19,6 @@ namespace TheFlightShop.DAL.Schemas
         public string Zip { get; set; }
         public string CountryCode { get; set; }
         public DateTime DateCreated { get; set; }
-        public string BillingCompanyName { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }
@@ -27,5 +26,6 @@ namespace TheFlightShop.DAL.Schemas
         public string BillingZip { get; set; }
         public string BillingCountryCode { get; set; }
         public string CompanyName { get; set; }
+        public string BillingCompanyName { get; set; }
     }
 }

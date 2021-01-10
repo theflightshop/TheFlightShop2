@@ -144,6 +144,7 @@ namespace TheFlightShop.Payment
             {
                 billingAddress = new NmiAddress
                 {
+                    CompanyName = order.CompanyName,
                     Address1 = order.Address1,
                     Address2 = order.Address2,
                     City = order.City,
@@ -156,6 +157,7 @@ namespace TheFlightShop.Payment
             {
                 billingAddress = new NmiAddress
                 {
+                    CompanyName = order.BillingCompanyName,
                     Address1 = order.BillingAddress1,
                     Address2 = order.BillingAddress2,
                     City = order.BillingCity,

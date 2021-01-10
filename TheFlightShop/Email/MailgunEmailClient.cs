@@ -190,16 +190,20 @@ namespace TheFlightShop.Email
 
         private string GetBillingAddressMarkup(ClientOrder order)
         {
-            return $@"
+            var billingAddressMarkup = $@"
 <span>{order.BillingAddress1}&nbsp;{order.BillingAddress2}</span><br/>
 <span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>
-<span>{order.BillingCountry}</span><br/>";
+<span>{order.BillingCountry}</span><br/>"; 
+            if (!string.IsNullOrEmpty(order.BillingCompanyName))
+            {
+                billingAddressMarkup = $"<span><strong>Company Name:</strong>&nbsp;{order.BillingCompanyName}</span><br/>{billingAddressMarkup}";
+            }
+            return billingAddressMarkup;
         }
 
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)
         {
             var orderInfo = GetOrderInformationMarkup(order, confirmationNumber);
-            var billToName = string.IsNullOrWhiteSpace(order.BillingCompanyName) ? "" : $"<span><strong>Company Name:</strong> {order.BillingCompanyName}<span><br />";
             string billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
             
             return $@"
@@ -212,7 +216,6 @@ namespace TheFlightShop.Email
 <span><strong>PO Number:&nbsp;</strong>{order.PurchaseOrderNumber ?? "(none)"}</span><br/>
 {orderInfo}
 <span style=""font-size: 20px; font-weight: bold;"">Billing Address</span><br/>
-{billToName}
 {billingAddress}
 </div>
 ";

@@ -40,7 +40,7 @@ namespace TheFlightShop.Models
         public string ConfirmationNumber { get; set; }
 
         [JsonIgnore]
-        public bool UseShippingAddressForBilling => BillingAddress1 == null && BillingCity == null && BillingState == null && BillingZip == null;
+        public bool UseShippingAddressForBilling => BillingAddress1 == Address1 && BillingCity == City && BillingState == State && BillingZip == Zip;
 
         private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;
         
@@ -65,6 +65,7 @@ namespace TheFlightShop.Models
                 PurchaseOrderNumber = gatewayResponse.PurchaseOrderNumber,
                 ShippingType = int.Parse(gatewayResponse.ShippingType.Trim()),
                 CustomShippingType  = gatewayResponse.CustomShippingType,
+                PaymentType = PaymentType.CreditCard, // NOTE: as of this writing (Jan 10, 20201), only orders with CreditCard payment type are sent to NMI for validation/pre-auth
                 Notes = gatewayResponse.Notes,
                 CompanyName = gatewayResponse.ShippingAddress.CompanyName,
                 Address1 = gatewayResponse.ShippingAddress.Address1,
@@ -73,6 +74,7 @@ namespace TheFlightShop.Models
                 State = gatewayResponse.ShippingAddress.State,
                 Zip = gatewayResponse.ShippingAddress.PostalCode,
                 CountryCode = gatewayResponse.ShippingAddress.CountryCode,
+                BillingCompanyName = gatewayResponse.BillingAddress.CompanyName,
                 BillingAddress1 = gatewayResponse.BillingAddress.Address1,
                 BillingAddress2 = gatewayResponse.BillingAddress.Address2,
                 BillingCity = gatewayResponse.BillingAddress.City,
