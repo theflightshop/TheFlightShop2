@@ -670,32 +670,6 @@
         var value = window.sessionStorage.getItem(id);
         document.getElementById(id).value = value;
     }
-
-    function clearSessionStorage() {
-        window.sessionStorage.removeItem('flightshop-customer-first-name');
-        window.sessionStorage.removeItem('flightshop-customer-last-name');
-        window.sessionStorage.removeItem('flightshop-customer-phone');
-        window.sessionStorage.removeItem('flightshop-customer-email');
-        window.sessionStorage.removeItem('flightshop-shipping-type');
-        window.sessionStorage.removeItem('flightshop-customer-custom-shipping-type');
-        window.sessionStorage.removeItem('flightshop-po-number');
-        window.sessionStorage.removeItem('flightshop-customer-company-name');
-        window.sessionStorage.removeItem('flightshop-customer-company-name-billing');
-        window.sessionStorage.removeItem('flightshop-customer-attention-to');
-        window.sessionStorage.removeItem('flightshop-customer-addr-1');
-        window.sessionStorage.removeItem('flightshop-customer-addr-2');
-        window.sessionStorage.removeItem('flightshop-customer-city');
-        window.sessionStorage.removeItem('flightshop-customer-state');
-        window.sessionStorage.removeItem('flightshop-customer-zipcode');
-        window.sessionStorage.removeItem('flightshop-customer-country');
-        window.sessionStorage.removeItem('flightshop-customer-addr-1-billing');
-        window.sessionStorage.removeItem('flightshop-customer-addr-2-billing');
-        window.sessionStorage.removeItem('flightshop-customer-city-billing');
-        window.sessionStorage.removeItem('flightshop-customer-state-billing');
-        window.sessionStorage.removeItem('flightshop-customer-zipcode-billing');
-        window.sessionStorage.removeItem('flightshop-customer-country-billing');
-        window.sessionStorage.removeItem('flightshop-cust-notes');
-    }
     
     var checkoutLoadHandler = function () {
         if (getCart().filter(part => !part.Price).length) {

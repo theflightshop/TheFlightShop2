@@ -485,6 +485,7 @@ function clearSessionStorage() {
     window.sessionStorage.removeItem('flightshop-customer-custom-shipping-type');
     window.sessionStorage.removeItem('flightshop-po-number');
     window.sessionStorage.removeItem('flightshop-customer-company-name');
+    window.sessionStorage.removeItem('flightshop-customer-company-name-billing');
     window.sessionStorage.removeItem('flightshop-customer-attention-to');
     window.sessionStorage.removeItem('flightshop-customer-addr-1');
     window.sessionStorage.removeItem('flightshop-customer-addr-2');
