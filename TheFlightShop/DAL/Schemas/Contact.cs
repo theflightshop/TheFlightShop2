@@ -26,5 +26,6 @@ namespace TheFlightShop.DAL.Schemas
         public string BillingZip { get; set; }
         public string BillingCountryCode { get; set; }
         public string CompanyName { get; set; }
+        public string BillingCompanyName { get; set; }
     }
 }

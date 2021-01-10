@@ -22,6 +22,7 @@ namespace TheFlightShop.Models
         public string CountryCode { get; set; }
         [JsonIgnore]
         public string Country => TheFlightShop.Country.CODES.First(kvp => kvp.Value == CountryCode).Key;
+        public string BillingCompanyName { get; set; }
         public string BillingAddress1 { get; set; }
         public string BillingAddress2 { get; set; }
         public string BillingCity { get; set; }
@@ -39,7 +40,7 @@ namespace TheFlightShop.Models
         public string ConfirmationNumber { get; set; }
 
         [JsonIgnore]
-        public bool UseShippingAddressForBilling => BillingAddress1 == null && BillingCity == null && BillingState == null && BillingZip == null;
+        public bool UseShippingAddressForBilling => BillingAddress1 == Address1 && BillingCity == City && BillingState == State && BillingZip == Zip;
 
         private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;
         

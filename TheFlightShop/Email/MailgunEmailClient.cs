@@ -190,16 +190,21 @@ namespace TheFlightShop.Email
 
         private string GetBillingAddressMarkup(ClientOrder order)
         {
-            return $@"
+            var billingAddressMarkup = $@"
 <span>{order.BillingAddress1}&nbsp;{order.BillingAddress2}</span><br/>
 <span>{order.BillingCity}, {order.BillingState} {order.BillingZip}</span><br/>
-<span>{order.BillingCountry}</span><br/>";
+<span>{order.BillingCountry}</span><br/>"; 
+            if (!string.IsNullOrEmpty(order.BillingCompanyName))
+            {
+                billingAddressMarkup = $"<span>{order.BillingCompanyName}</span><br/>{billingAddressMarkup}";
+            }
+            return billingAddressMarkup;
         }
 
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)
         {
             var orderInfo = GetOrderInformationMarkup(order, confirmationNumber);
-            string billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
+            var billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
 
             return $@"
 <div style=""font-family: 'sans-serif';"">
