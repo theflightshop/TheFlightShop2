@@ -198,7 +198,6 @@ function submitCustomerInfo(customerInfoUrl, errorRedirectUrl, customShipType, f
     clientOrder.OrderLines = orderLines;
 
     saveInputValuesToStorage();
-
     $.ajax({
         type: 'POST',
         url: customerInfoUrl,
@@ -319,7 +318,6 @@ function populateReviewFields(customShipType) {
     document.getElementById('flightshop-order-review-lname').innerHTML = document.getElementById('flightshop-customer-last-name').value;
     document.getElementById('flightshop-order-review-phone').innerHTML = document.getElementById('flightshop-customer-phone').value;
     document.getElementById('flightshop-order-review-email').innerHTML = document.getElementById('flightshop-customer-email').value;
-    document.getElementById('flightshop-order-review-po-number').innerHTML = document.getElementById('flightshop-po-number').value || '(none)';
     document.getElementById('flightshop-order-review-company').innerHTML = company;
     document.getElementById('flightshop-order-review-attnto').innerHTML = document.getElementById('flightshop-customer-attention-to').value || '(none)'; 
     document.getElementById('flightshop-order-review-addr1').innerHTML = addr1;

@@ -196,7 +196,7 @@ namespace TheFlightShop.Email
 <span>{order.BillingCountry}</span><br/>"; 
             if (!string.IsNullOrEmpty(order.BillingCompanyName))
             {
-                billingAddressMarkup = $"<span>{order.BillingCompanyName}</span><br/>{billingAddressMarkup}";
+                billingAddressMarkup = $"<span><strong>Company Name:</strong>&nbsp;{order.BillingCompanyName}</span><br/>{billingAddressMarkup}";
             }
             return billingAddressMarkup;
         }
