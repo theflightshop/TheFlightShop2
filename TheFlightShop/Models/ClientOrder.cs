@@ -41,8 +41,6 @@ namespace TheFlightShop.Models
 
         [JsonIgnore]
         public bool UseShippingAddressForBilling => BillingAddress1 == Address1 && BillingCity == City && BillingState == State && BillingZip == Zip;
-
-        private const int CONF_NR_RANDOM_CHARS_LENGTH = 4;
         
         public static ClientOrder FromNmiGatewayResponse(NmiGatewayResponse gatewayResponse)
         {
@@ -87,24 +85,7 @@ namespace TheFlightShop.Models
 
         public void GenerateConfirmationNumber()
         {
-            var possibleCharacters = new char[]
-            {
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'R', 
-                'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9'
-            };
-            var now = DateTime.UtcNow;
-
-            var confirmationNumber = now.Year.ToString() + possibleCharacters[now.Month].ToString() + possibleCharacters[now.Day].ToString() + 
-                possibleCharacters[now.Hour].ToString() + now.Minute.ToString("00") + now.Second.ToString("00");
-
-            var random = new Random();
-            for (var i = 0; i < CONF_NR_RANDOM_CHARS_LENGTH; i++)
-            {
-                var nextRandomChar = possibleCharacters[random.Next(possibleCharacters.Length)];
-                confirmationNumber += nextRandomChar;
-            }
-
-            ConfirmationNumber = confirmationNumber;
+            ConfirmationNumber = new PseudoUniqueId().Next();
         }
     }
 }

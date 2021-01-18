@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TheFlightShop.DAL.Schemas;
+using TheFlightShop.Logging;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
@@ -58,8 +59,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetCategories)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetCategories)}", error);
             }
         }
 
@@ -75,8 +75,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetSubCategories)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetSubCategories)}", error);
             }
         }
 
@@ -111,8 +110,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProducts)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProducts)}", error);
             }
         }
 

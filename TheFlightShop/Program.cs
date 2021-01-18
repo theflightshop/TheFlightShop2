@@ -18,6 +18,7 @@ namespace TheFlightShop
         public static void Main(string[] args)
         {
             Target.Register<AmazonS3LogTarget>("AmazonS3");
+            Target.Register<EmailLogTarget>("Email");
             CreateWebHostBuilder(args).Build().Run();
         }
 

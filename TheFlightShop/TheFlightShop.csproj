@@ -315,6 +315,7 @@
     <None Include="**/*" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Logging\ApiExceptionFilterAttribute.cs" />
     <Compile Remove="TlsEmail.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +340,8 @@
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="IO\AwsS3FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />
+    <None Remove="Logging\EmailLogTarget.cs" />
+    <None Remove="Logging\FlightShopActionException.cs" />
     <None Remove="Models\CheckoutSubmissionGatewayResult.cs" />
     <None Remove="Logging\AmazonS3LogTarget.cs" />
     <None Remove="Models\CheckoutSubmissionViewModel.cs" />
@@ -362,6 +365,7 @@
     <None Remove="Payment\NmiLineItem.cs" />
     <None Remove="Payment\NmiPaymentAuth.cs" />
     <None Remove="Payment\NmiPaymentGateway.cs" />
+    <None Remove="PseudoUniqueId.cs" />
     <None Remove="Weather\DarkSkyCurrentWeather.cs" />
     <None Remove="Weather\DarkSkyWeather.cs" />
     <None Remove="Weather\DarkSkyWeatherClient.cs" />

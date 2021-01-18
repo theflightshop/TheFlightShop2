@@ -121,9 +121,20 @@ namespace TheFlightShop.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { Id = id });
+        }
+
+        public IActionResult TestMe()
+        {
+            throw new TheFlightShop.Logging.FlightShopActionException("this is a test!", new FieldAccessException("something happened during exec."));
+        }
+
+        public IActionResult Unhandled()
+        {
+            var zero = 0;
+            return new JsonResult(20 / zero);
         }
     }
 }

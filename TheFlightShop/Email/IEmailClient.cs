@@ -9,5 +9,6 @@ namespace TheFlightShop.Email
     public interface IEmailClient
     {
         Task<bool> SendOrderConfirmation(ClientOrder order);
+        Task<bool> SendEmail(string toAddress, string subject, string body);
     }
 }
