@@ -68,6 +68,11 @@ namespace TheFlightShop.Email
             return succeeded;
         }
 
+        public async Task<bool> SendEmail(string subject, string body)
+        {
+            return await SendEmail(_adminAddress, subject, body);
+        }
+
         public async Task<bool> SendEmail(string toAddress, string subject, string body)
         {
             RestClient client = new RestClient();

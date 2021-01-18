@@ -315,7 +315,6 @@
     <None Include="**/*" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="Logging\ApiExceptionFilterAttribute.cs" />
     <Compile Remove="TlsEmail.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +346,7 @@
     <None Remove="Models\CheckoutSubmissionViewModel.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
+    <None Remove="Models\ErrorCustomerInfo.cs" />
     <None Remove="Models\HomeViewModel.cs" />
     <None Remove="Models\MaintenanceSearchResult.cs" />
     <None Remove="Models\PartSearchResult.cs" />

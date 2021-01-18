@@ -123,6 +123,7 @@ namespace TheFlightShop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // this should be the first step in the pipeline so most errors are caught and reported 
             app.UseExceptionHandler(error => error.Run(async context =>
             {
                 await Task.Run(() =>
@@ -180,7 +181,6 @@ namespace TheFlightShop
             //    RequestPath = "/products"
             //});
 
-            // this needs to be placed after UseExceptionHandler or it doesn't map correctly, and UseExceptionHandler won't be hit in all circumstances
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
