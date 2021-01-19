@@ -132,15 +132,9 @@ namespace TheFlightShop
                     if (currentException != null)
                     {
                         var errorId = new PseudoUniqueId().Next();
-                        var logger = LogManager.GetCurrentClassLogger();
-                        if (currentException.GetType() == typeof(FlightShopActionException))
-                        {
-                            logger.Error(currentException.InnerException, $"[errorId={errorId}] {currentException.Message}");
-                        }
-                        else
-                        {
-                            logger.Error(currentException);
-                        }
+                        var logger = LogManager.GetLogger("ErrorLog");
+                        var reportedException = currentException.GetType() == typeof(FlightShopActionException) ? currentException.InnerException : currentException;
+                        logger.Error(reportedException, $"[errorId={errorId}] {currentException.Message}");
                         context.Response.Redirect($"/Home/Error/{errorId}");
                     }
                 });
@@ -165,6 +159,7 @@ namespace TheFlightShop
             {
                 // for debugging, if you don't want to use prod error page and email of logs to test address and storage of logs in dev s3 bucket (as of jan 17 2021)
                 //app.UseDeveloperExceptionPage();
+
                 NLogBuilder.ConfigureNLog("nlog.Development.config");
             }
 

@@ -19,15 +19,7 @@ namespace TheFlightShop.Logging
     public sealed class AmazonS3LogTarget : TargetWithLayout
     {
         [RequiredParameter]
-        public string Bucket { get; set; }
-        [RequiredParameter]
         public string Directory { get; set; }
-        [RequiredParameter]
-        public string AccessKeyId { get; set; }
-        [RequiredParameter]
-        public string SecretAccessKey { get; set; }
-        [RequiredParameter]
-        public string Region { get; set; }
 
         protected override void Write(IList<AsyncLogEventInfo> logEvents)
         {
@@ -42,15 +34,20 @@ namespace TheFlightShop.Logging
 
         private async Task WriteToServer(string logMessage)
         {
+            var accessKeyId = Environment.GetEnvironmentVariable("S3_ACCESS_KEY_ID");
+            var secretAccessKey = Environment.GetEnvironmentVariable("S3_SECRET_ACCESS_KEY");
+            var s3BucketName = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_BUCKET_NAME");
+            var awsRegion = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_REGION");
             var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HH:mm:ss:fff");
             var randomKey = new Random().Next(1000).ToString().PadLeft(3, '0');
-            using (var client = new AmazonS3Client(AccessKeyId, SecretAccessKey, RegionEndpoint.GetBySystemName(Region)))
+
+            using (var client = new AmazonS3Client(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(awsRegion)))
             {
                 var messageBytes = Encoding.UTF8.GetBytes(logMessage);
                 var messageStream = new MemoryStream(messageBytes);
                 var request = new PutObjectRequest()
                 {
-                    BucketName = Bucket,
+                    BucketName = s3BucketName,
                     Key = $"{Directory}/{timestamp}_{randomKey}.txt",
                     ContentType = "text/plain",
                     InputStream = messageStream

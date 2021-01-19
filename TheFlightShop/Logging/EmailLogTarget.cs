@@ -19,21 +19,14 @@ namespace TheFlightShop.Logging
     [Target("EmailLogTarget")]
     public sealed class EmailLogTarget : TargetWithLayout
     {
-        [RequiredParameter]
-        public string TargetEmailAddress { get; set; }
-        [RequiredParameter]
-        public string EmailClientDomain { get; set; }
-        [RequiredParameter]
-        public string EmailClientUsername { get; set; }
-        [RequiredParameter]
-        public string EmailClientApiKey { get; set; }
-
         protected override void Write(IList<AsyncLogEventInfo> logEvents)
         {
             if (logEvents != null && logEvents.Any())
             {
-                var logMessages = logEvents.Select(logEvent => RenderLogEvent(Layout, logEvent.LogEvent));
-                var combinedLogMessage = string.Join($"The error messages below reflect errors that occurred recently:{Environment.NewLine}-------------------------------------{Environment.NewLine}{Environment.NewLine}", logMessages);
+                var logMessages = new List<string> { $"The error messages below reflect errors that occurred recently:<br />-------------------------------------" };
+                logMessages.AddRange(logEvents.Select(logEvent => RenderLogEvent(Layout, logEvent.LogEvent)));
+
+                var combinedLogMessage = string.Join($"<br /><br />", logMessages);
                 var writeToServer = WriteToServer(combinedLogMessage);
                 writeToServer.Wait();
             }
@@ -41,8 +34,12 @@ namespace TheFlightShop.Logging
 
         private async Task WriteToServer(string logMessage)
         {
-            var client = new MailgunEmailClient(EmailClientApiKey, EmailClientUsername, "(Automated) FlightShop Web Server", EmailClientDomain);
-            await client.SendEmail(TargetEmailAddress, "ERROR(s) occurred on website.", logMessage);
+            var emailApiKey = Environment.GetEnvironmentVariable("EMAIL_API_KEY");
+            var username = Environment.GetEnvironmentVariable("EMAIL_FROM_USERNAME");
+            var emailDomain = Environment.GetEnvironmentVariable("EMAIL_DOMAIN");
+            var adminAddress = Environment.GetEnvironmentVariable("EMAIL_ADMIN_ADDRESS");
+            var client = new MailgunEmailClient(emailApiKey, username, "(Automated) FlightShop Web Server", emailDomain);
+            await client.SendEmail(adminAddress, "ERROR(s) occurred on website.", logMessage);
         }
     }
 }
