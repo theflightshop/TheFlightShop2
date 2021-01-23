@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TheFlightShop.DAL.Schemas;
+using TheFlightShop.Logging;
 
 namespace TheFlightShop.IO
 {
@@ -71,7 +72,7 @@ namespace TheFlightShop.IO
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"{nameof(AwsS3FileManager)}.{nameof(GetFileStream)}-failed to get stream for key={key}");
+                throw new FlightShopActionException($"{nameof(AwsS3FileManager)}.{nameof(GetFileStream)}- Error retrieving static file from AWS cloud server, for key={key}.", ex);
             }
 
             return stream;

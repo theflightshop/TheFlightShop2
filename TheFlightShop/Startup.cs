@@ -133,9 +133,13 @@ namespace TheFlightShop
                     {
                         var errorId = new PseudoUniqueId().Next();
                         var logger = LogManager.GetLogger("ErrorLog");
-                        var reportedException = currentException.GetType() == typeof(FlightShopActionException) ? currentException.InnerException : currentException;
-                        logger.Error(reportedException, $"[errorId={errorId}] {currentException.Message}");
-                        context.Response.Redirect($"/Home/Error/{errorId}");
+                        var exceptionType = currentException.GetType();
+                        var reportedException = exceptionType == typeof(FlightShopActionException) || exceptionType == typeof(WeatherClientException) ? currentException.InnerException : currentException;
+                        logger.Error(reportedException, $"[{LoggingConstants.ERROR_ID_PREFIX}{errorId}{LoggingConstants.ERROR_ID_SUFFIX} {currentException.Message}");
+                        if (exceptionType != typeof(WeatherClientException))
+                        {
+                            context.Response.Redirect($"/Home/Error/{errorId}");
+                        }
                     }
                 });
             }));

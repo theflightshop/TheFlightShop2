@@ -38,8 +38,6 @@ namespace TheFlightShop.Logging
             var secretAccessKey = Environment.GetEnvironmentVariable("S3_SECRET_ACCESS_KEY");
             var s3BucketName = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_BUCKET_NAME");
             var awsRegion = Environment.GetEnvironmentVariable("S3_PRODUCT_CONTENT_REGION");
-            var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HH:mm:ss:fff");
-            var randomKey = new Random().Next(1000).ToString().PadLeft(3, '0');
 
             using (var client = new AmazonS3Client(accessKeyId, secretAccessKey, RegionEndpoint.GetBySystemName(awsRegion)))
             {
@@ -48,12 +46,29 @@ namespace TheFlightShop.Logging
                 var request = new PutObjectRequest()
                 {
                     BucketName = s3BucketName,
-                    Key = $"{Directory}/{timestamp}_{randomKey}.txt",
+                    Key = $"{Directory}/{GetFilename(logMessage)}.txt",
                     ContentType = "text/plain",
                     InputStream = messageStream
                 };
                 await client.PutObjectAsync(request);
             }
+        }
+
+        private string GetFilename(string logMessage)
+        {
+            var timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HH:mm:ss:fff");
+            var randomKey = new Random().Next(1000).ToString().PadLeft(3, '0');
+            var filename = $"{timestamp}_{randomKey}";
+            var errorIdSplit = logMessage.Split(LoggingConstants.ERROR_ID_PREFIX);
+            if (errorIdSplit.Length > 1)
+            {
+                errorIdSplit = errorIdSplit[1].Split(LoggingConstants.ERROR_ID_SUFFIX);
+                if (errorIdSplit.Length > 1)
+                {
+                    filename = $"{errorIdSplit[0]}_{filename}";
+                }
+            }
+            return filename;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using TheFlightShop.Logging;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.Email
@@ -60,7 +61,7 @@ namespace TheFlightShop.Email
                 var hasApiKey = !string.IsNullOrEmpty(_apiKey);
                 if (LogExceptions)
                 {
-                    _logger.LogError(ex, $"method={nameof(MailgunEmailClient)}.{nameof(SendOrderConfirmation)},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},confirmation#={order.ConfirmationNumber},customerEmail={order.Email}.");
+                    throw new FlightShopActionException($"method={nameof(MailgunEmailClient)}.{nameof(SendOrderConfirmation)} - Error sending email confirmation of order, emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},confirmation#={order.ConfirmationNumber},customerEmail={order.Email}.", ex);
                 }
                 else throw;
             }
