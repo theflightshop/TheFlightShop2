@@ -339,6 +339,9 @@
     <None Remove="Email\IEmailClient.cs" />
     <None Remove="IO\AwsS3FileManager.cs" />
     <None Remove="IO\IFileManager.cs" />
+    <None Remove="Logging\EmailLogTarget.cs" />
+    <None Remove="Logging\FlightShopActionException.cs" />
+    <None Remove="Logging\LoggingConstants.cs" />
     <None Remove="Models\CheckoutSubmissionGatewayResult.cs" />
     <None Remove="Logging\AmazonS3LogTarget.cs" />
     <None Remove="Models\CheckoutSubmissionViewModel.cs" />
@@ -367,6 +370,7 @@
     <None Remove="Weather\DarkSkyWeatherClient.cs" />
     <None Remove="Weather\IWeatherClient.cs" />
     <None Remove="Weather\Weather.cs" />
+    <None Remove="Weather\WeatherClientException.cs" />
     <None Remove="Weather\WeatherMeasurement.cs" />
     <None Remove="wwwroot\js\checkout.js" />
     <None Remove="wwwroot\lib\jquery\jquery-3.4.1.min.js" />
