@@ -371,6 +371,7 @@
     <None Remove="Weather\DarkSkyWeatherClient.cs" />
     <None Remove="Weather\IWeatherClient.cs" />
     <None Remove="Weather\Weather.cs" />
+    <None Remove="Weather\WeatherClientException.cs" />
     <None Remove="Weather\WeatherMeasurement.cs" />
     <None Remove="wwwroot\js\checkout.js" />
     <None Remove="wwwroot\lib\jquery\jquery-3.4.1.min.js" />
