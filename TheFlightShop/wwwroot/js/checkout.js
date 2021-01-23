@@ -81,6 +81,7 @@ function setAddresses(clientOrder, useShippingAddressForBilling) {
     clientOrder.Address1 = document.getElementById('flightshop-customer-addr-1').value;
     clientOrder.Address2 = document.getElementById('flightshop-customer-addr-2').value || null;
     clientOrder.CompanyName = document.getElementById('flightshop-customer-company-name').value || null;
+    clientOrder.BillingCompanyName = document.getElementById('flightshop-customer-company-name-billing').value || null;
     clientOrder.AttentionTo = document.getElementById('flightshop-customer-attention-to').value || null;
     clientOrder.City = document.getElementById('flightshop-customer-city').value;
     clientOrder.CountryCode = document.getElementById('flightshop-customer-country').value;
@@ -127,6 +128,7 @@ function saveInputValuesToStorage() {
     saveInputValueToStorage('flightshop-customer-custom-shipping-type');
     saveInputValueToStorage('flightshop-po-number');
     saveInputValueToStorage('flightshop-customer-company-name');
+    saveInputValueToStorage('flightshop-customer-company-name-billing');
     saveInputValueToStorage('flightshop-customer-attention-to');
     saveInputValueToStorage('flightshop-customer-addr-1');
     saveInputValueToStorage('flightshop-customer-addr-2');
@@ -310,6 +312,7 @@ function populateReviewFields(customShipType) {
     var state = document.getElementById(stateId).value || '(none)';
     var zip = document.getElementById('flightshop-customer-zipcode').value;
     var country = countryElement.options[countryElement.selectedIndex].innerHTML;
+    var company = document.getElementById('flightshop-customer-company-name').value || '(none)';
     var shipTypeValue = shipTypeElement.value;
     var shipTypeText = shipTypeValue === customShipType.toString() ? document.getElementById('flightshop-customer-custom-shipping-type').value : shipTypeElement.options[shipTypeElement.selectedIndex].innerHTML;
     var company = document.getElementById('flightshop-customer-company-name').value || '(none)';
@@ -336,6 +339,7 @@ function populateReviewFields(customShipType) {
         document.getElementById('flightshop-order-review-state-billing').innerHTML = state;
         document.getElementById('flightshop-order-review-zip-billing').innerHTML = zip;
         document.getElementById('flightshop-order-review-country-billing').innerHTML = country;
+        document.getElementById('flightshop-order-review-company-billing').innerHTML = company;
     } else {
         document.getElementById('flightshop-order-review-company-billing').innerHTML = document.getElementById('flightshop-customer-company-name-billing').value || '(none)';
         document.getElementById('flightshop-order-review-addr1-billing').innerHTML = document.getElementById('flightshop-customer-addr-1-billing').value;
@@ -346,6 +350,7 @@ function populateReviewFields(customShipType) {
         document.getElementById('flightshop-order-review-state-billing').innerHTML = document.getElementById(billingStateId).value || '(none)';
         document.getElementById('flightshop-order-review-zip-billing').innerHTML = document.getElementById('flightshop-customer-zipcode-billing').value;
         document.getElementById('flightshop-order-review-country-billing').innerHTML = billingCountryElement.options[billingCountryElement.selectedIndex].innerHTML;
+        document.getElementById('flightshop-order-review-company-billing').innerHTML = document.getElementById('flightshop-customer-company-name-billing').value || '(none)';
     }
 }
 
@@ -480,6 +485,7 @@ function clearSessionStorage() {
     window.sessionStorage.removeItem('flightshop-customer-custom-shipping-type');
     window.sessionStorage.removeItem('flightshop-po-number');
     window.sessionStorage.removeItem('flightshop-customer-company-name');
+    window.sessionStorage.removeItem('flightshop-customer-company-name-billing');
     window.sessionStorage.removeItem('flightshop-customer-attention-to');
     window.sessionStorage.removeItem('flightshop-customer-addr-1');
     window.sessionStorage.removeItem('flightshop-customer-addr-2');

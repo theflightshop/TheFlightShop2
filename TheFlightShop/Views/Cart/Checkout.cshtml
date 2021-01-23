@@ -670,7 +670,7 @@
         var value = window.sessionStorage.getItem(id);
         document.getElementById(id).value = value;
     }
-
+    
     var checkoutLoadHandler = function () {
         if (getCart().filter(part => !part.Price).length) {
             document.getElementById('flightshop-payment-quote-warning').style.display = 'block';
@@ -703,6 +703,7 @@
             }
             getInputValueFromStorage('flightshop-po-number');
             getInputValueFromStorage('flightshop-customer-company-name');
+            getInputValueFromStorage('flightshop-customer-company-name-billing');
             getInputValueFromStorage('flightshop-customer-attention-to');
             getInputValueFromStorage('flightshop-customer-addr-1');
             getInputValueFromStorage('flightshop-customer-addr-2');

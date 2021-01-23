@@ -341,6 +341,7 @@
     <None Remove="IO\IFileManager.cs" />
     <None Remove="Logging\EmailLogTarget.cs" />
     <None Remove="Logging\FlightShopActionException.cs" />
+    <None Remove="Logging\LoggingConstants.cs" />
     <None Remove="Models\CheckoutSubmissionGatewayResult.cs" />
     <None Remove="Logging\AmazonS3LogTarget.cs" />
     <None Remove="Logging\LoggingConstants.cs" />

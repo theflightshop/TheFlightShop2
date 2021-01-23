@@ -232,8 +232,8 @@ namespace TheFlightShop.Email
         private string GetAdminEmailBody(ClientOrder order, string confirmationNumber)
         {
             var orderInfo = GetOrderInformationMarkup(order, confirmationNumber);
-            var billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
-
+            string billingAddress = order.UseShippingAddressForBilling ? "<span>(same as shipping address)</span>" : GetBillingAddressMarkup(order);
+            
             return $@"
 <div style=""font-family: 'sans-serif';"">
 <span style=""font-size: 20px; font-weight: bold;"">Customer Contact Information</span><br/>
