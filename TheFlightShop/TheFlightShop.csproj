@@ -343,6 +343,7 @@
     <None Remove="Logging\FlightShopActionException.cs" />
     <None Remove="Models\CheckoutSubmissionGatewayResult.cs" />
     <None Remove="Logging\AmazonS3LogTarget.cs" />
+    <None Remove="Logging\LoggingConstants.cs" />
     <None Remove="Models\CheckoutSubmissionViewModel.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
