@@ -44,8 +44,7 @@ namespace TheFlightShop.Weather
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, $"{nameof(DarkSkyWeatherClient)}.{nameof(GetWeather)}");
-                    return null;
+                    throw new WeatherClientException($"{nameof(DarkSkyWeatherClient)}.{nameof(GetWeather)} - Error fetching current weather information.", ex);
                 }
             });
         }

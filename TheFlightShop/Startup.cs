@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -14,11 +15,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
+using NLog;
 using NLog.Web;
 using TheFlightShop.Auth;
 using TheFlightShop.DAL;
 using TheFlightShop.Email;
 using TheFlightShop.IO;
+using TheFlightShop.Logging;
 using TheFlightShop.Payment;
 using TheFlightShop.Weather;
 
@@ -120,6 +123,26 @@ namespace TheFlightShop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // this should be the first step in the pipeline so most errors are caught and reported 
+            app.UseExceptionHandler(error => error.Run(async context =>
+            {
+                await Task.Run(() =>
+                {
+                    var currentException = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+                    if (currentException != null)
+                    {
+                        var errorId = new PseudoUniqueId().Next();
+                        var logger = LogManager.GetLogger("ErrorLog");
+                        var exceptionType = currentException.GetType();
+                        var reportedException = exceptionType == typeof(FlightShopActionException) || exceptionType == typeof(WeatherClientException) ? currentException.InnerException : currentException;
+                        logger.Error(reportedException, $"[{LoggingConstants.ERROR_ID_PREFIX}{errorId}{LoggingConstants.ERROR_ID_SUFFIX} {currentException.Message}");
+                        if (exceptionType != typeof(WeatherClientException))
+                        {
+                            context.Response.Redirect($"/Home/Error/{errorId}");
+                        }
+                    }
+                });
+            }));
 
             app.UseForwardedHeaders();
             app.Use(async (context, next) =>
@@ -138,13 +161,10 @@ namespace TheFlightShop
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // for debugging, if you don't want to use prod error page and email of logs to test address and storage of logs in dev s3 bucket (as of jan 17 2021)
+                //app.UseDeveloperExceptionPage();
+
                 NLogBuilder.ConfigureNLog("nlog.Development.config");
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                //app.UseHsts();
             }
 
             app.UseHttpsRedirection();

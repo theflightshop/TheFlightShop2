@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using TheFlightShop.Logging;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.Email
@@ -19,15 +20,26 @@ namespace TheFlightShop.Email
         private readonly string _domain;
         private readonly string _adminAddress;
         private readonly ILogger _logger;
+        private bool LogExceptions => _logger != null;
 
-        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain, string adminAddress, ILogger logger)
+        /// <summary>
+        /// Initialize for sending both confirmation emails and other messages. 
+        /// </summary>
+        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain, string adminAddress, ILogger logger) : this(apiKey, fromUsername, fromName, domain)
+        {
+            _adminAddress = adminAddress;
+            _logger = logger;
+        }
+
+        /// <summary>
+        /// Initialize for sending general messages. 
+        /// </summary>
+        public MailgunEmailClient(string apiKey, string fromUsername, string fromName, string domain)
         {
             _apiKey = apiKey;
             _fromUsername = fromUsername;
             _fromName = fromName;
             _domain = domain;
-            _adminAddress = adminAddress;
-            _logger = logger;
         }
 
         public async Task<bool> SendOrderConfirmation(ClientOrder order)
@@ -47,13 +59,22 @@ namespace TheFlightShop.Email
             catch (Exception ex)
             {
                 var hasApiKey = !string.IsNullOrEmpty(_apiKey);
-                _logger.LogError(ex, $"method={nameof(MailgunEmailClient)}.{nameof(SendOrderConfirmation)},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},confirmation#={order.ConfirmationNumber},customerEmail={order.Email}.");
+                if (LogExceptions)
+                {
+                    throw new FlightShopActionException($"method={nameof(MailgunEmailClient)}.{nameof(SendOrderConfirmation)} - Error sending email confirmation of order, emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},confirmation#={order.ConfirmationNumber},customerEmail={order.Email}.", ex);
+                }
+                else throw;
             }
 
             return succeeded;
         }
 
-        private async Task<bool> SendEmail(string toAddress, string subject, string body)
+        public async Task<bool> SendEmail(string subject, string body)
+        {
+            return await SendEmail(_adminAddress, subject, body);
+        }
+
+        public async Task<bool> SendEmail(string toAddress, string subject, string body)
         {
             RestClient client = new RestClient();
             client.BaseUrl = new Uri("https://api.mailgun.net/v3");
@@ -77,9 +98,16 @@ namespace TheFlightShop.Email
                 }
                 else
                 {
-                    var hasApiKey = !string.IsNullOrEmpty(_apiKey);
-                    _logger.LogWarning($"method={nameof(MailgunEmailClient)}.{nameof(SendEmail)} FAILED,responseStatus={response.StatusCode},responseContent={response.Content},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},toAddress={toAddress}");
-                    emailTaskCompletionSrc.SetResult(false);
+                    if (LogExceptions)
+                    {
+                        var hasApiKey = !string.IsNullOrEmpty(_apiKey);
+                        _logger.LogWarning($"method={nameof(MailgunEmailClient)}.{nameof(SendEmail)} FAILED,responseStatus={response.StatusCode},responseContent={response.Content},emailAdminUsername={_fromUsername},emailAdminAddress={_adminAddress},emailAdminDomain={_domain},hasApiKey={hasApiKey},toAddress={toAddress}");
+                        emailTaskCompletionSrc.SetResult(false);
+                    }
+                    else
+                    {
+                        throw new Exception($"Error sending email to {toAddress} with subject \"{subject}\", and no logger was passed to {nameof(MailgunEmailClient)}. Email responseStatus={response.StatusCode}, responseBody: {response.Content}. {Environment.NewLine}--------{Environment.NewLine}Outgoing email body: {body}");
+                    }
                 }
             });
 

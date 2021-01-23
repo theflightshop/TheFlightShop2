@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TheFlightShop.DAL.Schemas;
+using TheFlightShop.Logging;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
@@ -40,7 +41,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"method={nameof(OrderDAL)}.{nameof(SaveNewOrder)},confirmation#={clientOrder.ConfirmationNumber},customerEmail={clientOrder.Email}.");
+                throw new FlightShopActionException($"Error saving new order! confirmation#={clientOrder.ConfirmationNumber},customerEmail={clientOrder.Email},method={nameof(OrderDAL)}.{nameof(SaveNewOrder)}.", error);
             }
 
             return succeeded;

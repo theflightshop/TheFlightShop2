@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TheFlightShop.DAL;
+using TheFlightShop.Email;
 using TheFlightShop.Models;
 using TheFlightShop.Weather;
 
@@ -14,11 +15,13 @@ namespace TheFlightShop.Controllers
     {
         private readonly IProductDAL _productReadDAL;
         private readonly IWeatherClient _weatherClient;
+        private readonly IEmailClient _emailClient;
 
-        public HomeController(IProductDAL productReadDAL, IWeatherClient weatherClient)
+        public HomeController(IProductDAL productReadDAL, IWeatherClient weatherClient, IEmailClient emailClient)
         {
             _productReadDAL = productReadDAL;
             _weatherClient = weatherClient;
+            _emailClient = emailClient;
         }
 
         public IActionResult Index(bool? orderSubmitted = null)
@@ -121,9 +124,39 @@ namespace TheFlightShop.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string id)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { Id = id });
+        }
+
+        public async Task<IActionResult> SubmitCustomerInfoOnError(ErrorCustomerInfo customerInfo)
+        {
+            if (string.IsNullOrWhiteSpace(customerInfo.Email)) 
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                var emailBody = $@"
+<span><strong>Error ID:</strong> {customerInfo.ErrorId} <em>(This ID should be visible in separate email that lists error messages, and in storage of detailed error descriptions, which should be available to your IT admin)</em></span><br />
+<span><strong>Customer Email:</strong> {customerInfo.Email}</span><br />
+<span><strong>Name:</strong> {customerInfo.Name}</span><br />
+<span><strong>Phone:</strong> {customerInfo.Phone}</span><br />
+";
+                await _emailClient.SendEmail($"ERROR REPORT - customer info submitted (Error ID {customerInfo.ErrorId})", emailBody);
+                return View();
+            }
+        }
+
+        public IActionResult TestMe()
+        {
+            throw new TheFlightShop.Logging.FlightShopActionException("this is a test!", new FieldAccessException("something happened during exec."));
+        }
+
+        public IActionResult Unhandled()
+        {
+            var zero = 0;
+            return new JsonResult(20 / zero);
         }
     }
 }

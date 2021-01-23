@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TheFlightShop.DAL.Schemas;
+using TheFlightShop.Logging;
 using TheFlightShop.Models;
 
 namespace TheFlightShop.DAL
@@ -58,8 +59,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetCategories)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetCategories)} - Error retrieving product categories from database, to display on Products page.", error);
             }
         }
 
@@ -75,8 +75,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetSubCategories)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetSubCategories)} - Error retrieving product sub-categories from database, used to filter items on Product category page.", error);
             }
         }
 
@@ -111,8 +110,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProducts)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProducts)} - Error getting all products from database.", error);
             }
         }
 
@@ -128,8 +126,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProduct)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProduct)} - Error getting product by ID {id}.", error);
             }
         }
 
@@ -145,8 +142,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetParts)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetParts)} - Error retrieving all parts from database during checkout process.", error);
             }
         }
 
@@ -160,8 +156,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProductCategories)}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProductCategories)} - Error retrieving all product categories from database.", error);
             }
         }
 
@@ -212,8 +207,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProductsByCategory)},categoryId={categoryId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProductsByCategory)} - Error getting products from database by categoryId={categoryId}.", error);
             }
         }
 
@@ -270,8 +264,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProductView)},productId={productId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProductView)} - Error getting product detail from database for productId={productId}.", error);
             }
         }
 
@@ -350,8 +343,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(SearchParts)},query={query}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(SearchParts)} - Error searching parts and retrieving from database, query={query}.", error);
             }
         }
 
@@ -442,8 +434,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdateProduct)},productId={product?.Id},categoryId={product?.CategoryId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(CreateOrUpdateProduct)} - Error creating or updating product with code \"{product?.Code}\", productId={product?.Id},categoryId={product?.CategoryId}.", error);
             }
         }
 
@@ -464,8 +455,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(DeleteProduct)},productId={productId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(DeleteProduct)} - Error deleting product with ID={productId}.", error);
             }
         }
 
@@ -528,8 +518,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdateCategory)},categoryId={category?.Id}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(CreateOrUpdateCategory)} - Error creating or updating product category \"{category?.Name}\", categoryId={category?.Id}.", error);
             }
         }
 
@@ -562,8 +551,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(DeleteCategoryAndProducts)},categoryId={categoryId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(DeleteCategoryAndProducts)} - Error deleting category with categoryId={categoryId}.", error);
             }
         }
 
@@ -587,8 +575,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(DeleteSubCategoryAndProducts)},subCategoryId={subCategoryId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(DeleteSubCategoryAndProducts)} - Error deleting sub-category and associated products, subCategoryId={subCategoryId}.", error);
             }
         }
 
@@ -616,8 +603,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(CreateOrUpdatePart)},partId={part?.Id}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(CreateOrUpdatePart)} - Error creating or updating part with part number \"{part?.PartNumber}\",partId={part?.Id}.", error);
             }
         }
 
@@ -638,8 +624,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(DeletePart)},partId={id}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(DeletePart)} - Error deleting part with ID={id}.", error);
             }
         }
 
@@ -659,8 +644,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetProductsByCategoryOrSubCategoryId)},id={categoryOrSubCategoryId}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetProductsByCategoryOrSubCategoryId)} - Error retrieving products from database for category or subcategory, ID={categoryOrSubCategoryId}.", error);
             }
         }
 
@@ -676,8 +660,7 @@ namespace TheFlightShop.DAL
             catch (Exception ex)
             {
                 var error = ex.InnerException ?? ex;
-                _logger.LogError(error, $"{nameof(ProductDAL)}.{nameof(GetCategory)},categoryId={id}");
-                throw;
+                throw new FlightShopActionException($"{nameof(ProductDAL)}.{nameof(GetCategory)} - Error retrieving product category from database, ID={id}.", error);
             }
         }
     }

@@ -347,6 +347,7 @@
     <None Remove="Models\CheckoutSubmissionViewModel.cs" />
     <None Remove="Models\ClientOrder.cs" />
     <None Remove="Models\ClientOrderLine.cs" />
+    <None Remove="Models\ErrorCustomerInfo.cs" />
     <None Remove="Models\HomeViewModel.cs" />
     <None Remove="Models\MaintenanceSearchResult.cs" />
     <None Remove="Models\PartSearchResult.cs" />
@@ -365,6 +366,7 @@
     <None Remove="Payment\NmiLineItem.cs" />
     <None Remove="Payment\NmiPaymentAuth.cs" />
     <None Remove="Payment\NmiPaymentGateway.cs" />
+    <None Remove="PseudoUniqueId.cs" />
     <None Remove="Weather\DarkSkyCurrentWeather.cs" />
     <None Remove="Weather\DarkSkyWeather.cs" />
     <None Remove="Weather\DarkSkyWeatherClient.cs" />
@@ -384,9 +386,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="nlog.Development.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="nlog.config">

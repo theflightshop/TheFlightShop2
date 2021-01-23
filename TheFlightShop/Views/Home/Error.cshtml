@@ -1,0 +1,68 @@
+﻿@model TheFlightShop.Models.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Whoops!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div style="text-align: center;">
+        <img id="flightshop-error-page-image" src="~/images/oops-plane.png" alt="error-image-airplane" />
+        <h2 id="flightshop-error-page-title">Whoops!</h2>
+        <h3 id="flightshop-error-page-subtitle">Something went wrong, and we've been notified.</h3>
+        <p id="flightshop-error-page-paragraph">If you'd like, fill out the form below with your information, and we'll get in touch with you to help you complete your order or answer any questions you have.</p>
+
+        @using (Html.BeginForm("SubmitCustomerInfoOnError", "Home"))
+        {
+            <div class="form-group flightshop-error-page-form-control">
+                <label for="flightshop-error-customer-email">Email (required)</label>
+                <input id="flightshop-error-customer-email" name="Email" class="form-control" type="text" placeholder="ex. glenn-curtiss@@mail.com" required />
+            </div>
+            <div class="form-group flightshop-error-page-form-control">
+                <label for="flightshop-error-customer-name">Name (optional)</label>
+                <input id="flightshop-error-customer-name" name="Name" class="form-control" type="text" placeholder="ex. Glenn Curtiss" />
+            </div>
+            <div class="form-group flightshop-error-page-form-control">
+                <label for="flightshop-error-customer-phone">Phone (optional)</label>
+                <input id="flightshop-error-customer-phone" name="Phone" class="form-control" type="text" placeholder="ex. 4351112222" />
+            </div>
+            <input style="visibility: hidden; height: 0;" type="text" name="ErrorId" value="@Model.Id" />
+            <div class="row">
+                <button class="btn btn-success" type="submit" style="margin-right: 0.5em;">Submit</button>
+                @Html.ActionLink("Home", "Index", "Home", new { }, new { @class = "btn btn-primary" })
+            </div>
+        }
+    </div>
+
+<style>
+    #flightshop-error-page-image {
+        margin-top: 1.25em;
+        width: 25%;
+        min-width: 350px;
+        max-width: 1200px;
+        height: auto;
+        background-color: white;
+    }
+
+    #flightshop-error-page-title {
+        font-weight: bold;
+        font-size: 2.5em;
+        color: #444;
+    }
+
+    #flightshop-error-page-subtitle {
+        font-size: 1.5em;
+        color: #555;
+    }
+
+    #flightshop-error-page-paragraph {
+        margin: 1em auto;
+        width: 80%;
+        min-width: 350px;
+    }
+
+    .flightshop-error-page-form-control {
+        margin: 0.5em auto 0 auto;
+        width: 75%;
+        min-width: 350px;
+    }
+</style>

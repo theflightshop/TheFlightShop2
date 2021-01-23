@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TheFlightShop.Auth;
+using TheFlightShop.Logging;
 
 namespace TheFlightShop.Controllers
 {
@@ -45,8 +46,7 @@ namespace TheFlightShop.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"{nameof(AuthController)}.{nameof(Login)}-username={loginRequest?.Username}");
-                return new StatusCodeResult((int)HttpStatusCode.InternalServerError);
+                throw new FlightShopActionException($"{nameof(AuthController)}.{nameof(Login)}- Error logging in with username={loginRequest?.Username}.", ex);
             }
         }
     }
