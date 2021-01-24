@@ -147,16 +147,5 @@ namespace TheFlightShop.Controllers
                 return View();
             }
         }
-
-        public IActionResult TestMe()
-        {
-            throw new TheFlightShop.Logging.FlightShopActionException("this is a test!", new FieldAccessException("something happened during exec."));
-        }
-
-        public IActionResult Unhandled()
-        {
-            var zero = 0;
-            return new JsonResult(20 / zero);
-        }
     }
 }

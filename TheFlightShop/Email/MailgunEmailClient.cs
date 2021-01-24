@@ -127,8 +127,8 @@ namespace TheFlightShop.Email
                 } 
                 else
                 {
-                    priceText = string.Format("{0:C}", orderLine.Price);
-                    lineCost = string.Format("{0:C}", orderLine.Quantity * orderLine.Price);
+                    priceText = string.Format("{0:C}", orderLine.Price.Value);
+                    lineCost = string.Format("{0:C}", orderLine.Quantity * orderLine.Price.Value);
                 }
                 orderLineItems += $"<tr><td style=\"border: 1px solid #ddd; text-align: center; padding: 0.25em 1em;\">{orderLine.PartNumber}</td>" +
                     $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Description}</td>" +
