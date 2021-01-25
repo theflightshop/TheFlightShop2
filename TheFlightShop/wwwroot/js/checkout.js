@@ -439,7 +439,7 @@ function setPaymentAuthAmountText(cart) {
         authAmount += (cart[i].Price || 0) * (cart[i].Quantity || 0);
     }
     document.getElementById('flightshop-cc-amount-text').innerHTML = 'Your card will be pre-authorized for <strong>$' + authAmount.toFixed(2) +
-        '</strong> when you press "Submit Order" on the following page, and we will be in touch soon to review your order with you if any changes need to be made.';
+        '</strong> when you press "Submit Order" below, and we will be in touch soon to review your order with you if any changes need to be made.';
 }
 
 function setOrderReviewTable(cart) {
