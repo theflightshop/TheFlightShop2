@@ -150,7 +150,7 @@ namespace TheFlightShop.Email
             }
 
             var subtotal = order.OrderLines?.Sum(line => line.Quantity * (line.Price ?? 0)) ?? 0;
-            var subtotalText = subtotal == 0 ? "(quote)" : string.Format("{0:C}", subtotal);
+            var subtotalText = subtotal == 0 ? "(quote)" : GetPrice(subtotal);
 
             return $@"
 <span><strong>Confirmation Number:&nbsp;</strong>{confirmationNumber}</span><br/>
