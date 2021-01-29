@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,18 @@ namespace TheFlightShop.Controllers
                 OrderSubmitted = orderSubmitted.HasValue,
                 OrderSubmissionFailed = orderSubmitted.HasValue && !orderSubmitted.Value
             };
+
+            var homepageMessage = Environment.GetEnvironmentVariable("HOMEPAGE_MESSAGE");
+            if (!string.IsNullOrWhiteSpace(homepageMessage))
+            {
+                var showMessageThruText = Environment.GetEnvironmentVariable("HOMEPAGE_MSG_DISPLAY_THRU_DATE_YYYYMMDD");
+                DateTime showMessageThruDate;
+                if (DateTime.TryParseExact(showMessageThruText, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out showMessageThruDate) && showMessageThruDate >= DateTime.UtcNow.Date)
+                {
+                    result.AlertMessage = homepageMessage;
+                }
+            }
+
             return View(result);
         }
 

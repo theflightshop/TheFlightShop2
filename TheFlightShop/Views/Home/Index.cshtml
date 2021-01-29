@@ -8,10 +8,18 @@
     @* todo: reenable this after implementing center menu -- navSubMenu.style.width = '600px';
     navSubMenu.style.paddingRight = '25em';*@
 
+    var ignoreCurrentModal = function () {
+        window.localStorage.setItem('ignoredModalMessage', '@Model.AlertMessage');
+    };
+
     window.addEventListener('load', function () {
         if ('@Model.OrderSubmitted'.toLowerCase() == 'true') {
             var alertId = '@Model.OrderSubmissionFailed'.toLowerCase() == 'true' ? 'flightshop-order-err-alert' : 'flightshop-order-success-alert';
             $('#' + alertId).show(750);
+        }
+        else if ('@string.IsNullOrEmpty(Model.AlertMessage)'.toLowerCase() == 'false' && window.localStorage.getItem('ignoredModalMessage') != '@Model.AlertMessage') {
+            document.getElementById('flightshop-homepage-message').innerHTML = '@Model.AlertMessage';
+            $('#flightshop-homepage-message-alert').modal();
         }
 
         getCurrentWeatherInfo();
@@ -28,6 +36,18 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
+    </div>
+    <div id="flightshop-homepage-message-alert" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p id="flightshop-homepage-message"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" style="font-size: 1em;" data-dismiss="modal" onclick="ignoreCurrentModal()">Okay</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">

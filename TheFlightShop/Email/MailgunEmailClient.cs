@@ -4,8 +4,10 @@ using RestSharp;
 using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using TheFlightShop.Logging;
 using TheFlightShop.Models;
@@ -127,8 +129,8 @@ namespace TheFlightShop.Email
                 } 
                 else
                 {
-                    priceText = string.Format("{0:C}", orderLine.Price.Value);
-                    lineCost = string.Format("{0:C}", orderLine.Quantity * orderLine.Price.Value);
+                    priceText = GetPrice(orderLine.Price.Value);
+                    lineCost = GetPrice(orderLine.Quantity * orderLine.Price.Value);
                 }
                 orderLineItems += $"<tr><td style=\"border: 1px solid #ddd; text-align: center; padding: 0.25em 1em;\">{orderLine.PartNumber}</td>" +
                     $"<td style=\"border: 1px solid #ddd; text-align: right; padding: 0.25em 1em;\">{orderLine.Description}</td>" +
@@ -179,6 +181,14 @@ namespace TheFlightShop.Email
 <span><strong>Address:</strong></span><br/>
 {GetShippingAddressMarkup(order)}
 <br/>";
+        }
+
+        private string GetPrice(decimal value)
+        {
+            var cultureInfo = Thread.CurrentThread.CurrentCulture;
+            var numberFormatInfo = (NumberFormatInfo)cultureInfo.NumberFormat.Clone();
+            numberFormatInfo.CurrencySymbol = "$";
+            return value.ToString("C", numberFormatInfo);
         }
 
         private string GetClientEmailBody(ClientOrder order, string confirmationNumber)
