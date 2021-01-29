@@ -9,5 +9,6 @@ namespace TheFlightShop.Models
     {
         public bool OrderSubmitted { get; set; }
         public bool OrderSubmissionFailed { get; set; }
+        public string AlertMessage { get; set; }
     }
 }
