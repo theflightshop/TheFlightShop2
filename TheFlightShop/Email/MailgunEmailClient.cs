@@ -199,7 +199,7 @@ namespace TheFlightShop.Email
 <div style=""font-family: 'sans-serif';"">
 <span style=""font-size: 28px; font-weight: bold;"">Thank you for your order!</span><br/>
 <br/>
-<span>We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-APPROVAL only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</span><br/>
+<span>We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-AUTHORIZATION only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</span><br/>
 {orderInfo}
 <br/>
 <span>Sincerely,</span><br/><span>The Flight Shop</span><br/><br/>

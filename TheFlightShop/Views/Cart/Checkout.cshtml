@@ -461,7 +461,7 @@
                 <p id="flightshop-addtl-info-text">
                     <ul>
                         <li>
-                            We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-APPROVAL only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.
+                            We will be in touch soon to review your order with you if any changes need to be made. If you choose to pay with a credit card please note this is a PRE-AUTHORIZATION only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.
                         </li>
                     </ul>
                 </p>
@@ -578,7 +578,7 @@
                 <p style="font-size: 0.9em;">Your payment information is securely encrypted.</p>
             </div>
             <div id="flightshop-cc-auth-disclaimer">
-                <p style="font-size: 1.25em;">Your credit card won't be charged at this time.</p><span id="flightshop-cc-amount-text"></span>
+                <span id="flightshop-cc-amount-text"></span>
             </div>
             <div style="margin-left: 2%;">
                 <div class="form-group flightshop-checkout-cc-field" style="width: 40%">
@@ -599,7 +599,7 @@
                 </div>
             </div>
         </div>
-        <p id="flightshop-payment-quote-warning" style="display: none;"><strong>Note:&nbsp;</strong>You have 1 or more items in your cart with price listed as "quote". Subtotal excludes any items with price listed as "quote" because prices aren't currently available online for these items, and we will contact you to discuss current prices and availability unless you have made other arrangements with us.</p>
+        <p id="flightshop-payment-quote-warning" style="display: none;"><strong>Note:&nbsp;</strong>You have 1 or more items in your cart with price listed as "quote". Subtotal excludes any items with price listed as "quote". We will contact you to discuss current prices and availability.</p>
         <div id="flightshop-checkout-button-section" class="flightshop-checkout-button-section">
             <button type="button" class="btn btn-warning flightshop-checkout-btn" onclick="goBack('payment', 'review')">Back</button>
             <button id="flightshop-checkout-submit-btn" type="button" class="btn btn-success flightshop-checkout-btn" onclick="submitOrderPressed()" style="display: none;">Submit Order</button>
@@ -618,7 +618,7 @@
 <div id="flightshop-alternate-checkout-confirmation" style="display: none;">
     <p style="font-size: 1.25em;">Order submitted.</p>
     <p><strong>Confirmation number:</strong>&nbsp;<span id="flightshop-alternate-confirmation-number"></span>.</p>
-    <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-APPROVAL only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</p>
+    <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-AUTHORIZATION only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</p>
     <div style="padding-top: 0.5em;">
         <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
     </div>
@@ -631,7 +631,7 @@
     {
         <p style="font-size: 1.25em;">Order submitted.</p>
         <p><strong>Confirmation number:</strong>&nbsp;@Model.ConfirmationNumber.</p>
-        <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-APPROVAL only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</p>
+        <p>You will receive a confirmation email shortly at the address you provided. We will be in touch soon to review your order with you if any changes need to be made. If you have chosen to pay with a credit card please note this is a PRE-AUTHORIZATION only, once product availability is confirmed and shipping and handling are added your new total will be charged and the sale completed.</p>
         <div style="padding-top: 0.5em;">
             <a class="btn btn-info" href="@Url.Action("Index", "Home")"><span class="glyphicon glyphicon-home"></span>&nbsp;Home</a>
         </div>
