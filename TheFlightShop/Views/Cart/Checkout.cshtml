@@ -665,6 +665,25 @@
 </div>
 }
 
+<div id="updated-checkout-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="display: inline-block;">Updated checkout</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: relative; top: 0.25em; font-size: 2em;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>The checkout process has been updated to walk through the process more easily, and to include an option to securely pay using credit card.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" style="font-size: 1em;" data-dismiss="modal">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function getInputValueFromStorage(id) {
         var value = window.sessionStorage.getItem(id);
@@ -672,6 +691,13 @@
     }
     
     var checkoutLoadHandler = function () {
+        if (!window.localStorage.getItem('ignoreUpdatedCheckoutModal')) {
+            $('#updated-checkout-modal').modal();
+            $('#updated-checkout-modal').on('hidden.bs.modal', function () {
+                window.localStorage.setItem('ignoreUpdatedCheckoutModal', true);
+            });
+        }
+
         if (getCart().filter(part => !part.Price).length) {
             document.getElementById('flightshop-payment-quote-warning').style.display = 'block';
         }
