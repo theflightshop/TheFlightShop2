@@ -171,7 +171,7 @@ namespace TheFlightShop
             app.UseCookiePolicy();
 
             app.UseStaticFiles(); // wwwroot
-            // don't be a hero. this worked in dev but not heroku.
+            // don't be a hero. this worked in dev but not heroku..
             //app.UseStaticFiles(new StaticFileOptions
             //{
             //    FileProvider = new PhysicalFileProvider(
